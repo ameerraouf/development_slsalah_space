@@ -160,6 +160,46 @@
                                 <input class="form-control" name="cover_photo" type="file" id="cover_photo_file">
                             </div>
                         </div>
+
+                        <div class="align-self-center">
+                            <div class="row">
+                                <div class="col">
+                                    <div>
+                                        <label for="company_logo" class="form-label mt-3">{{__('Company Logo')}}</label>
+                                        <input class="form-control" name="company_logo" type="file" id="company_logo">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <img class="mt-3" style="height:100px" src="{{PUBLIC_DIR}}/uploads/{{$user->company?->company_logo}}" alt="">
+                                </div>
+                            </div>
+                          
+                        </div>
+
+                        <div class="align-self-center">
+                            <div>
+                                <label for="company_name" class="form-label mt-3">{{__('Company Name')}}</label>
+                                <input class="form-control" name="company_name" type="text" value="{{$user->company?->company_name}}" id="company_name">
+                            </div>
+                        </div>
+                        <div class="align-self-center">
+                            <div>
+                                <label for="company_department" class="form-label mt-3">{{__('Company Department')}}</label>
+                                <input class="form-control" name="company_department" type="text" value="{{$user->company?->business_department}}" id="company_department">
+                            </div>
+                        </div>
+                        <div class="align-self-center">
+                            <div>
+                                <label for="company_desc" class="form-label mt-3">{{__('Company Desc')}}</label>
+                                <input class="form-control" name="company_desc" type="text" value="{{$user->company?->company_description}}" id="company_desc">
+                            </div>
+                        </div>
+                        <div class="align-self-center">
+                            <div>
+                                <label for="company_brief" class="form-label mt-3">{{__('Company Brief')}}</label>
+                                <input class="form-control" name="company_brief" type="text" value="{{$user->company?->company_brief}}" id="company_brief">
+                            </div>
+                        </div>
                         @csrf
                         <button type="submit" class="btn btn-info btn-sm float-left mt-4 mb-0">
                             {{__('Update info')}}

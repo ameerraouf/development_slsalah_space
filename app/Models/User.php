@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use ParagonIE\Sodium\Compat;
 
 class User extends Authenticatable
 {
@@ -56,5 +57,16 @@ class User extends Authenticatable
     public function subscribes()
     {
         return $this->hasMany(Subscribe::class);
+    }
+
+
+    public function foundRounds()
+    {
+        return $this->hasMany(FoundRound::class, 'business_pioneer_id')->orderBy('created_at', 'desc');
+    }
+
+    public function company()
+    {
+        return $this->hasOne(Company::class, 'business_pioneer_id');
     }
 }

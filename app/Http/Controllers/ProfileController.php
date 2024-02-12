@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\SubscriptionPlan;
 use App\Models\User;
 use App\Models\Workspace;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -29,10 +31,18 @@ class ProfileController extends BaseController
             "last_name" => "nullable|string|max:100",
             "photo" => "nullable|file|mimes:jpg,png",
             "cover_photo" => "nullable|file|mimes:jpeg,png,jpg,gif,svg",
+            "company_logo"=> "nullable|file|mimes:jpeg,png,jpg",
+            "company_name"=> "nullable|string|max:100",
+            "company_desc"=> "nullable|string|max:500",
+            "company_department"=> "nullable|string|max:200",
+            "company_brief"     => "nullable|string|max:200",
+
+
         ]);
 
-        $user = $this->user;
 
+
+        $user = $this->user;
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->email = $request->email;
@@ -48,6 +58,24 @@ class ProfileController extends BaseController
 
 
         $cover_path = null;
+        $company_logo = null;
+
+
+        if ($request->company_logo)
+        {
+            $company_logo = $request->file("company_logo")->store("media", "uploads");
+        }
+
+        Company::updateOrCreate(
+            ['business_pioneer_id' => Auth::user()->id],
+            [
+                'company_logo'        => $company_logo,
+                'company_name'        => $request->company_name,
+                'business_department' => $request->company_department,
+                'company_brief'       => $request->company_brief,
+                'company_description' => $request->company_desc,
+            ]
+            );
 
         if ($request->cover_photo) {
             $cover_path = $request
