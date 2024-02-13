@@ -29,6 +29,7 @@ use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\EconomicPlanController;
 use App\Http\Controllers\FinancialEvaluationController;
+use App\Http\Controllers\FoundRoundController;
 
 /*
 |--------------------------------------------------------------------------
@@ -473,3 +474,12 @@ Route::get('/pay-online/{package}', [\App\Http\Controllers\PayController::class,
 Route::get('/pay-bank/{package}', [\App\Http\Controllers\PayController::class, 'payWithBank'])->name('user.pay_bank');
 
 Route::view('payment-successfully', 'package.payment_successfully')->name('payment_successfully');
+
+
+// Found Round //
+Route::get('found-round-add', [FoundRoundController::class, 'create'])->name('found-round-add');
+Route::post('found-round-store', [FoundRoundController::class, 'store'])->name('found-round-store');
+Route::get('pioneer-found-rounds', [FoundRoundController::class, 'index'])->name('pioneer-found-rounds');
+Route::get('found-round-edit/{round}', [FoundRoundController::class, 'edit'])->name('found-round-edit')->middleware('pioneer_rounds');
+Route::post('found-round-update/{round}', [FoundRoundController::class, 'update'])->name('found-round-update');
+Route::get('delete-found/{round}', [FoundRoundController::class, 'destroy'])->name('found-round-destroy')->middleware('pioneer_rounds');
