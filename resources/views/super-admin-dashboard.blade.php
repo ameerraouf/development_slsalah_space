@@ -1,4 +1,4 @@
-@extends('layouts.super-admin-portal')
+ @extends('layouts.super-admin-portal')
 @section('content')
     <div class="row">
 
@@ -291,4 +291,4 @@
             </div>
         </div>
     </div>
-@endsection
+@endsection 

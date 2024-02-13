@@ -2,23 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FixedInvestedCapital;
-use App\Models\PlanningCostAssumption;
-use App\Models\PlanningRevenueOperatingAssumption;
-use App\Models\ProjectRevenuePlanning;
 use App\Models\Task;
+use App\Models\User;
+use App\Models\Setting;
 use App\Models\TaskGoal;
-use App\Models\WorkingInvestedCapital;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\View;
 use mikehaertl\wkhtmlto\Pdf;
+use Illuminate\Support\Facades\DB;
+use App\Models\FixedInvestedCapital;
+use Illuminate\Support\Facades\View;
+use App\Models\PlanningCostAssumption;
+use App\Models\ProjectRevenuePlanning;
+use App\Models\WorkingInvestedCapital;
+use App\Models\PlanningRevenueOperatingAssumption;
 
 class MyPlanController extends BaseController
 {
     //
 
     public function index(){
+
+        $user = User::where('super_admin', 1)->first();
+
+        $settings_mod = Setting::where('workspace_id', $user->workspace_id)->get()->keyBy('key');
+        if (isset($settings_mod['currency'])) {
+            $currency = $settings_mod['currency']->value;
+        } else {
+            $currency = config('app.currency');
+        }
+
         $data = [];
         $data['selected_navigation'] = "billing";
         $data['projectRevenues'] = ProjectRevenuePlanning::with(['sources'])
@@ -70,6 +82,18 @@ class MyPlanController extends BaseController
             $value = str_replace('-', '- SAR', $value);
         }
 
+        $planningRevenueOperatingAssumptions =\App\Models\PlanningRevenueOperatingAssumption::query()->where('workspace_id', auth()->user()->workspace_id)->first();
+        $first_year_percentage =  $planningRevenueOperatingAssumptions? $planningRevenueOperatingAssumptions->first_year / 100: .50;
+        $second_year_percentage = $planningRevenueOperatingAssumptions? $planningRevenueOperatingAssumptions->second_year / 100: 1;
+        $third_year_percentage = $planningRevenueOperatingAssumptions? $planningRevenueOperatingAssumptions->third_year / 100: 1;
+
+        $first_year_total_revenues_expectations = (\App\Models\ProjectRevenuePlanning::calcTotalRevenueFirstYear() * $first_year_percentage );
+        $second_year_total_revenues_expectations = (\App\Models\ProjectRevenuePlanning::calcTotalRevenueSecondYear() * $second_year_percentage) ;
+        $third_year_total_revenues_expectations = (\App\Models\ProjectRevenuePlanning::calcTotalRevenueThirdYear()  * $third_year_percentage);
+
+        $data['total_revenues_expectations']['first_year'] = $first_year_total_revenues_expectations;
+        $data['total_revenues_expectations']['second_year'] = $second_year_total_revenues_expectations;
+        $data['total_revenues_expectations']['third_year'] = $third_year_total_revenues_expectations;
         return view('myPlane.index', $data);
     }
 }

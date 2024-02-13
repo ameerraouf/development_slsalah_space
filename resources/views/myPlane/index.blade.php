@@ -456,6 +456,65 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row mt-2">
+                        <h4>مؤشرات ربحية</h4>
+                        <table class="table align-items-center mb-0" id="cloudonex_table">
+                            <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{__('first_year')}}</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{__('second_year')}}</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{__('third_year')}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @if(count($projectRevenues) > 0)
+
+                                <tr>
+                                    <td> هامش الربح التشغيلي</td>
+                                    <td> {{ $calc_total['first_year_profit_before_zakat_as_number'] / $total_revenues_expectations['first_year']}} </td>
+                                    <td> {{ $calc_total['second_year_profit_before_zakat_as_number'] / $total_revenues_expectations['second_year']}} </td>
+                                    <td> {{ $calc_total['third_year_profit_before_zakat_as_number'] / $total_revenues_expectations['third_year']}} </td>
+                                </tr>
+                                <tr>
+                                    <td> هامش صافي الربح</td>
+                                    <td> {{ $calc_total['net_profit_first_year_as_number'] / $total_revenues_expectations['first_year']}} </td>
+                                    <td> {{ $calc_total['net_profit_second_year_as_number'] / $total_revenues_expectations['second_year']}} </td>
+                                    <td> {{ $calc_total['net_profit_third_year_as_number'] / $total_revenues_expectations['third_year']}} </td>
+                                </tr>
+                                <tr>
+                                    <td> هامش التدفق النقدي التشغيلي</td>
+                                    <td> {{ $calc_total['first_year_net_cash_flow_number'] / $total_revenues_expectations['first_year']}} </td>
+                                    <td> {{ $calc_total['second_year_net_cash_flow_number'] / $total_revenues_expectations['second_year']}} </td>
+                                    <td> {{ $calc_total['third_year_net_cash_flow_number'] / $total_revenues_expectations['third_year']}} </td>
+                                </tr>
+                            @endif
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row mt-2">
+                        <h4>توقعات مصادر الدخل</h4>
+                    </div>
+                    <div class="row">
+                        @foreach($projectRevenues as $revenue)
+                            <div class="col-md-6">
+                                <div id="chartContainer_{{ $revenue->id }}_2" style="width: 100%; height: 300px;display: inline-block;" class="position-"></div>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="row">
+                        <h5>مخطط رأس المال الثابت</h5>
+                        <div class="col-md-12">
+                            <div id="fixed_chartContainer2" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <h5>مخطط رأس المال العامل</h5>
+                        <div class="col-md-12">
+                            <div id="working_chartContainer2" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -542,6 +601,173 @@
         });
         chart.render();
             var chart = new CanvasJS.Chart("working_chartContainer", {
+                animationEnabled: true,
+                colorSet: "greenShades",
+                title:{
+                    text: 'رأس المال العامل هو مقدار رأس المال الذى يستخدم بجميع عمليات المشروع ويعد مؤشر قوى لتقييم الاستثمار بالمشروع',
+                    horizontalAlign: "center",
+                    fontSize: 20,
+                },
+                data: [{
+                    type: "doughnut",
+                    startAngle: 60,
+                    //innerRadius: 60,
+                    indexLabelFontSize: 17,
+                    indexLabel: "{label}",
+                    toolTipContent: "<b>{label}</b>",
+                    dataPoints: {!! json_encode($workingChart) !!}
+                }]
+            });
+
+            chart.render();
+
+        function toolTipFormatter(e) {
+
+            var str = "";
+            var total = 0 ;
+            var str3;
+            var str2 ;
+            for (var i = 0; i < e.entries.length; i++){
+                 if(e.entries[i].dataSeries.name =='الوحدة'){
+                   var str1 = "<span style= \"color:#ff8d04;font-weight:bold" + "\">" + e.entries[i].dataSeries.name + "</span>: <strong>"+  e.entries[i].dataPoint.y + "</strong> <br/>" ;
+                 }else{
+                    var str1 = "<span style= \"color:"+e.entries[i].dataSeries.color + "\">" +'<span class="mr-1 text-dark">SAR-</span>'+ e.entries[i].dataSeries.name + "</span>: <strong>"+  e.entries[i].dataPoint.y + "</strong> <br/>" ;
+                 }
+                total = e.entries[i].dataPoint.y + total;
+                str = str.concat(str1);
+            }
+            str2 = "<strong>" + e.entries[0].dataPoint.label + "</strong> <br/>";
+            // str3 = "<span style = \"color:Tomato\">Total: </span><strong>" + total + "ر.س</strong><br/>";
+            return (str2.concat(str));
+        }
+
+        function toggleDataSeries(e) {
+            if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                e.dataSeries.visible = false;
+            }
+            else {
+                e.dataSeries.visible = true;
+            }
+            chart.render();
+        }
+    </script>
+    <script>
+        charts = [];
+        @foreach($projectRevenues as $revenue)
+            chart =new CanvasJS.Chart("chartContainer_{{$revenue->id}}_2", {
+                animationEnabled: true,
+                title:{
+                    text: "{!! $revenue->name !!}"
+                },
+                axisY: {
+                    title: "",
+                    includeZero: true,
+                    suffix:  " SAR"
+                },
+                legend: {
+                    cursor:"pointer",
+                    itemclick : toggleDataSeries
+                },
+                toolTip: {
+                    shared: true,
+                    content: toolTipFormatter
+                },
+                data: [
+                    {
+                        type: "bar",
+                        showInLegend: true,
+                        name: "{!! __('source_unit') !!}",
+                        color: "#ff8d04",
+                        dataPoints: [
+                            @foreach($revenue->sources as $source)
+                                { y: {!! $source->unit !!}, label: '{!! $source->name !!}', indexLabel: '{!! $source->unit !!}', indexLabelPlacement: "outside", indexLabelOrientation: "horizontal" },
+                            @endforeach
+                            ]
+                     },
+                     {
+                        type: "bar",
+                        showInLegend: true,
+                        name: "{!! __('source_unit_price') !!}",
+                        color: "#00ffeb",
+                        dataPoints: [
+                            @foreach($revenue->sources as $source)
+                                { y: {!! $source->unit_price !!}, label: '{!! $source->name !!}', indexLabel: "'{!! $source->unit_price!!}'", indexLabelPlacement: "outside" },
+                            @endforeach
+                            ]
+                        }
+                   ]
+                    });
+                    chart.render();
+        @endforeach
+
+        CanvasJS.addColorSet("greenShades",
+            [//colorSet Array
+                "#90EE90",
+                "#3CB371",
+                "#bbc7de",
+            ]);
+        var chart = new CanvasJS.Chart("fixed_chartContainer", {
+            animationEnabled: true,
+            colorSet: "greenShades",
+            title:{
+                text: 'رأس المال الثابت هو قسم من رأس المال لا يتغير مهما تغير حجم الانتاج ويشمل رأس المال الثابت تكلفة شراء اى عناصر لازمه  لسير المشروع ولا تتغير قيمته بتغير حجم المشروع ',
+                horizontalAlign: "center",
+                fontSize: 20,
+            },
+            data: [{
+                type: "doughnut",
+                startAngle: 60,
+                //innerRadius: 60,
+                indexLabelFontSize: 17,
+                indexLabel: "{label}",
+                toolTipContent: "<p dir='rtl'><b>{label}</b> " + '</p>',
+                dataPoints: {!! json_encode($fixedChart) !!}
+            }]
+        });
+        
+        chart.render();
+        var chart = new CanvasJS.Chart("fixed_chartContainer2", {
+            animationEnabled: true,
+            colorSet: "greenShades",
+            title:{
+                text: 'رأس المال الثابت هو قسم من رأس المال لا يتغير مهما تغير حجم الانتاج ويشمل رأس المال الثابت تكلفة شراء اى عناصر لازمه  لسير المشروع ولا تتغير قيمته بتغير حجم المشروع ',
+                horizontalAlign: "center",
+                fontSize: 20,
+            },
+            data: [{
+                type: "doughnut",
+                startAngle: 60,
+                //innerRadius: 60,
+                indexLabelFontSize: 17,
+                indexLabel: "{label}",
+                toolTipContent: "<p dir='rtl'><b>{label}</b> " + '</p>',
+                dataPoints: {!! json_encode($fixedChart) !!}
+            }]
+        });
+        chart.render();
+        
+            var chart = new CanvasJS.Chart("working_chartContainer", {
+                animationEnabled: true,
+                colorSet: "greenShades",
+                title:{
+                    text: 'رأس المال العامل هو مقدار رأس المال الذى يستخدم بجميع عمليات المشروع ويعد مؤشر قوى لتقييم الاستثمار بالمشروع',
+                    horizontalAlign: "center",
+                    fontSize: 20,
+                },
+                data: [{
+                    type: "doughnut",
+                    startAngle: 60,
+                    //innerRadius: 60,
+                    indexLabelFontSize: 17,
+                    indexLabel: "{label}",
+                    toolTipContent: "<b>{label}</b>",
+                    dataPoints: {!! json_encode($workingChart) !!}
+                }]
+            });
+
+            chart.render();
+
+            var chart = new CanvasJS.Chart("working_chartContainer2", {
                 animationEnabled: true,
                 colorSet: "greenShades",
                 title:{

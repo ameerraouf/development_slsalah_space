@@ -12,6 +12,7 @@
         "ext-curl": "*",
         "ext-json": "*",
         "ext-mysqli": "*",
+        "ext-intl": "*",
         "akaunting/laravel-money": "^1.2",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
@@ -24,7 +25,8 @@
         "rinvex/countries": "^7.3",
         "spatie/laravel-ray": "^1.23",
         "srmklive/paypal": "~3.0",
-        "stripe/stripe-php": "^7.92"
+        "stripe/stripe-php": "^7.92",
+        "symfony/intl": "^5.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
