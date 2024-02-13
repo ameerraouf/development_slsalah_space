@@ -35,11 +35,15 @@
         .nav-link{
             margin: 0px !important;
         }
+        .chat-gpt-btn{
+            position: fixed; left: 10px; bottom: 10px; border-radius:8px; background:#70d5bb;
+        }
     </style>
 
 </head>
 
 <body class="g-sidenav-show  bg-gray-100" id="clx_body">
+   
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0  fixed-left " id="sidenav-main">
     <div class="sidenav-header h-auto">
         <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute right-0 top-0 d-none d-xl-none"
@@ -458,6 +462,19 @@
             <li class="nav-item mt-3 mb-2">
                 <h6 class="ps-4 ms-2 text-uppercase text-muted text-xs opacity-6">خطتى : التقرير النهائى  </h6>
             </li>
+            {{-- <li class="nav-item">
+                <a class="nav-link @if(($selected_navigation ?? '') === 'billing') active @endif  " href="{{ route('myPlan.index') }}">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class="feather feather-shopping-cart">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="nav-link-text ms-3">{{__('My Documents')}}</span>
+                </a>
+            </li> --}}
             <li class="nav-item">
                 <a class="nav-link @if(($selected_navigation ?? '') === 'billing') active @endif  " href="{{ route('myPlan.index') }}">
 
@@ -471,7 +488,7 @@
                     <span class="nav-link-text ms-3">{{__('My Plan')}}</span>
                 </a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link @if(($selected_navigation ?? '') === 'billing') active @endif  " href="{{route('found-round-add')}}">
 
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -483,9 +500,9 @@
                     </svg>
                     <span class="nav-link-text ms-3">{{__('Found Round')}}</span>
                 </a>
-            </li>
+            </li> --}}
             <li class="nav-item">
-                <a class="nav-link @if(($selected_navigation ?? '') === 'billing') active @endif  " href="{{route('pioneer-found-rounds')}}">
+                <a class="nav-link @if(($selected_navigation ?? '') === 'foundRound') active @endif  " href="{{route('pioneer-found-rounds')}}">
 
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -651,11 +668,22 @@
         </div>
     </nav>
 
+
+
     <!-- End Navbar -->
     <div class="container-fluid ">
         @yield('content')
+
     </div>
 </main>
+
+<div class="chat-gpt-btn" style="position: fixed; left: 10px; bottom: 10px; border-radius:8px; background:#70d5bb">
+    <a href="{{route('gpt-chat')}}" style="color:white">
+        {{__("how can i help you")}}
+        <img src="{{PUBLIC_DIR}}/img/chatgpt-icon.png" id="gpt" alt="" style="width:50px">
+    </a>
+</div>
+
 <!--   Core JS Files   -->
 <script src="{{PUBLIC_DIR}}/js/app.js?v=99"></script>
 <script src="{{PUBLIC_DIR}}/lib/tinymce/tinymce.min.js?v=57"></script>
@@ -721,6 +749,7 @@
 </script>
 
 @yield('script')
+
 </body>
 
 </html>
