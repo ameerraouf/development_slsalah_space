@@ -12,6 +12,7 @@
         "ext-curl": "*",
         "ext-json": "*",
         "ext-mysqli": "*",
+        "ext-intl": "*",
         "akaunting/laravel-money": "^1.2",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
