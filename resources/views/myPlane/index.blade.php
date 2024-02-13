@@ -15,7 +15,6 @@
             <div class="col-md-7 mx-auto text-center">
 
                 <h3 class="text-dark">{{__('خطتي : التقرير النهائي')}}</h3>
-{{--                <p class="text-secondary">{{__('Choose the plan that best fit for you.')}}</p>--}}
                 <button type="button" class="btn btn-success" id="generate_pdf"><i class="fas fa-file-pdf ms-2"></i>تصدير PDF</button>
             </div>
         </div>
@@ -30,8 +29,7 @@
             </div>
             <div class="card">
                 <div class="card-body">
-                    <h4>تخطيط إيرادات المشروع</h4>
-                    <div class="row">
+                    {{-- <div class="row">
                         @foreach($projectRevenues as $revenue)
                             <div class="col-md-4">
                                 <table class="table align-items-center m-1" border="1" id="cloudonex_table">
@@ -411,8 +409,6 @@
                                         <td>{{ $calc_total['totalRevenueFirstYear'] }}</td>
                                         <td>{{ $calc_total['totalRevenueSecondYear']}}</td>
                                         <td>{{ $calc_total['totalRevenueThirdYear'] }}</td>
-                                        {{--                                    <td>{{ $totalInvestedCapital }}</td>--}}
-{{--                                        <td></td>--}}
                                     </tr>
                                     <tr>
                                         <td style="text-align: center">اجمالي التكاليف</td>
@@ -420,7 +416,6 @@
                                         <td>{{ $calc_total['first_year_costs'] }}</td>
                                         <td>{{ $calc_total['second_year_costs'] }}</td>
                                         <td>{{ $calc_total['third_year_costs'] }}</td>
-                                        {{--                                    <td>{{ $totalInvestedCapital }}</td>--}}
 
                                     </tr>
                                     <tr>
@@ -429,7 +424,6 @@
                                         <td>{{ $calc_total['first_year_profit_after_zakat'] }}</td>
                                         <td>{{ $calc_total['second_year_profit_after_zakat'] }}</td>
                                         <td>{{ $calc_total['third_year_profit_after_zakat'] }}</td>
-                                        {{--                                    <td>{{ $totalInvestedCapital }}</td>--}}
 
                                     </tr>
                                     <tr>
@@ -438,14 +432,10 @@
                                         <td @if($calc_total['first_year_net_cash_flow_number'] < 0) style="color: red;" @endif>{{ $first_year_net_cash_flow }}</td>
                                         <td @if($calc_total['second_year_net_cash_flow_number'] < 0) style="color: red;" @endif>{{ $second_year_net_cash_flow }}</td>
                                         <td @if($calc_total['third_year_net_cash_flow_number'] < 0) style="color: red;" @endif>{{ $third_year_net_cash_flow }}</td>
-                                        {{--                                    <td>{{ $totalInvestedCapital }}</td>--}}
                                     </tr>
                                     <tr>
                                         <td style="text-align: center">{{ __('Invested_capital') }}</td>
                                         <td>{{ $totalInvestedCapital }}</td>
-                                        {{--                                    <td>{{ $totalInvestedCapital }}</td>--}}
-                                        {{--                                    <td>{{ $totalInvestedCapital }}</td>--}}
-                                        {{--                                    <td>{{ $totalInvestedCapital }}</td>--}}
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -455,7 +445,7 @@
                                 </table>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="row mt-2">
                         <h4>مؤشرات ربحية</h4>
                         <table class="table align-items-center mb-0" id="cloudonex_table">
@@ -524,7 +514,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/printThis/1.15.0/printThis.min.js" integrity="sha512-d5Jr3NflEZmFDdFHZtxeJtBzk0eB+kkRXWFQqEc1EKmolXjHm2IKCA7kTvXBNjIYzjXfD5XzIjaaErpkZHCkBg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ asset('js/canvasjs/canvasjs.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
-{{--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>--}}
 
     <script>
         charts = [];
@@ -706,26 +695,26 @@
                 "#3CB371",
                 "#bbc7de",
             ]);
-        var chart = new CanvasJS.Chart("fixed_chartContainer", {
-            animationEnabled: true,
-            colorSet: "greenShades",
-            title:{
-                text: 'رأس المال الثابت هو قسم من رأس المال لا يتغير مهما تغير حجم الانتاج ويشمل رأس المال الثابت تكلفة شراء اى عناصر لازمه  لسير المشروع ولا تتغير قيمته بتغير حجم المشروع ',
-                horizontalAlign: "center",
-                fontSize: 20,
-            },
-            data: [{
-                type: "doughnut",
-                startAngle: 60,
-                //innerRadius: 60,
-                indexLabelFontSize: 17,
-                indexLabel: "{label}",
-                toolTipContent: "<p dir='rtl'><b>{label}</b> " + '</p>',
-                dataPoints: {!! json_encode($fixedChart) !!}
-            }]
-        });
+        // var chart = new CanvasJS.Chart("fixed_chartContainer", {
+        //     animationEnabled: true,
+        //     colorSet: "greenShades",
+        //     title:{
+        //         text: 'رأس المال الثابت هو قسم من رأس المال لا يتغير مهما تغير حجم الانتاج ويشمل رأس المال الثابت تكلفة شراء اى عناصر لازمه  لسير المشروع ولا تتغير قيمته بتغير حجم المشروع ',
+        //         horizontalAlign: "center",
+        //         fontSize: 20,
+        //     },
+        //     data: [{
+        //         type: "doughnut",
+        //         startAngle: 60,
+        //         //innerRadius: 60,
+        //         indexLabelFontSize: 17,
+        //         indexLabel: "{label}",
+        //         toolTipContent: "<p dir='rtl'><b>{label}</b> " + '</p>',
+        //         dataPoints: {!! json_encode($fixedChart) !!}
+        //     }]
+        // });
         
-        chart.render();
+        // chart.render();
         var chart = new CanvasJS.Chart("fixed_chartContainer2", {
             animationEnabled: true,
             colorSet: "greenShades",
@@ -746,26 +735,26 @@
         });
         chart.render();
         
-            var chart = new CanvasJS.Chart("working_chartContainer", {
-                animationEnabled: true,
-                colorSet: "greenShades",
-                title:{
-                    text: 'رأس المال العامل هو مقدار رأس المال الذى يستخدم بجميع عمليات المشروع ويعد مؤشر قوى لتقييم الاستثمار بالمشروع',
-                    horizontalAlign: "center",
-                    fontSize: 20,
-                },
-                data: [{
-                    type: "doughnut",
-                    startAngle: 60,
-                    //innerRadius: 60,
-                    indexLabelFontSize: 17,
-                    indexLabel: "{label}",
-                    toolTipContent: "<b>{label}</b>",
-                    dataPoints: {!! json_encode($workingChart) !!}
-                }]
-            });
+            // var chart = new CanvasJS.Chart("working_chartContainer", {
+            //     animationEnabled: true,
+            //     colorSet: "greenShades",
+            //     title:{
+            //         text: 'رأس المال العامل هو مقدار رأس المال الذى يستخدم بجميع عمليات المشروع ويعد مؤشر قوى لتقييم الاستثمار بالمشروع',
+            //         horizontalAlign: "center",
+            //         fontSize: 20,
+            //     },
+            //     data: [{
+            //         type: "doughnut",
+            //         startAngle: 60,
+            //         //innerRadius: 60,
+            //         indexLabelFontSize: 17,
+            //         indexLabel: "{label}",
+            //         toolTipContent: "<b>{label}</b>",
+            //         dataPoints: {!! json_encode($workingChart) !!}
+            //     }]
+            // });
 
-            chart.render();
+            // chart.render();
 
             var chart = new CanvasJS.Chart("working_chartContainer2", {
                 animationEnabled: true,
