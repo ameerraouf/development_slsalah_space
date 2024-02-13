@@ -8,20 +8,21 @@
                         <div class="align-self-center">
                             <div>
                                 <label for="company_desc" class="form-label mt-3">{{ __('Company Desc') }}</label>
-                                <textarea  cols="10" rows="5" name="company_desc" class="form-control" wire:model='company_desc'>
+                                <textarea  cols="10" rows="5" name="company_desc" class="form-control" wire:model='company_desc' wire:keyup='firstStepSubmit'>
                                     
                                 </textarea>
+                              
                                 @error('company_desc')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    {{-- <div class="col-md-4">
                         <button type="button" class="btn btn-info btn-sm float-left mt-4 mb-0" wire:click="firstStepSubmit">
                             {{ __('Update info') }}
                         </button>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
