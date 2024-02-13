@@ -412,7 +412,7 @@
                                         <td>{{ $calc_total['totalRevenueSecondYear']}}</td>
                                         <td>{{ $calc_total['totalRevenueThirdYear'] }}</td>
                                         {{--                                    <td>{{ $totalInvestedCapital }}</td>--}}
-{{--                                        <td></td>--}}
+
                                     </tr>
                                     <tr>
                                         <td style="text-align: center">اجمالي التكاليف</td>

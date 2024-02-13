@@ -422,7 +422,9 @@ Route::get("/textReport", [\App\Http\Controllers\FinncialReportController::class
 
 
 Route::get('/myPlan', [\App\Http\Controllers\MyPlanController::class, 'index'])->name('myPlan.index');
-
+Route::get('/investshow', [\App\Http\Controllers\MyPlanController::class, 'investshow'])->name('myPlan.investshow');
+Route::put('/investshow/update', [\App\Http\Controllers\MyPlanController::class,'update'])->name('investshow.update');
+Route::put('/investshow/updateproject/{id}', [\App\Http\Controllers\MyPlanController::class,'updateproject'])->name('investshow.updateproject');
 
 
 Route::get('paypal/{package}', [PayPalController::class, 'createTransaction'])->name('paypal');

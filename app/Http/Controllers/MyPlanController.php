@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\FixedInvestedCapital;
 use App\Models\PlanningCostAssumption;
 use App\Models\PlanningRevenueOperatingAssumption;
 use App\Models\ProjectRevenuePlanning;
+use App\Models\Projects;
 use App\Models\Task;
 use App\Models\TaskGoal;
 use App\Models\WorkingInvestedCapital;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use mikehaertl\wkhtmlto\Pdf;
@@ -71,5 +74,57 @@ class MyPlanController extends BaseController
         }
 
         return view('myPlane.index', $data);
+    }
+
+
+
+    public function investshow(){
+        // $projects = Projects::latest()->get()->take(3);
+        // return view('myPlane.investshow',compact('projects'));
+        return view('myPlane.investshow');
+    }
+    // public function update(Request $request){
+    //     // dd($request->all());
+    //     // dd($request->ids);
+    //     $request->validate([
+    //         "company_desc"=> "nullable|string|max:500",
+    //         "summary"=> "nullable|string|max:500",
+    //     ]);
+    //     Company::updateOrCreate(
+    //         ['business_pioneer_id' => Auth::user()->id],
+    //         [
+    //             'company_description' => $request->company_desc,
+    //         ]
+    //     );
+    //     foreach($request->ids as $id){
+    //         // dd($id);
+    //         $project = Projects::findOrFail($id);
+    //     }
+    //     $project->summary = $request->summary;
+    //     $project->update();
+    //      return redirect()->back();
+    // }
+    public function update(Request $request){
+        $request->validate([
+            "company_desc"=> "nullable|string|max:500",
+        ]);
+        Company::updateOrCreate(
+            ['business_pioneer_id' => Auth::user()->id],
+            [
+                'company_description' => $request->company_desc,
+            ]
+        );
+         return redirect()->back();
+    }
+    public function updateproject(Request $request ,$id){
+        // dd($request->all());
+        $project = Projects::findOrFail($id);
+        $request->validate([
+            "summary"=> "nullable|string|max:500",
+        ]);
+        $project->summary = $request->summary;
+        $project->update();
+         return redirect()->back();
+
     }
 }
