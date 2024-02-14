@@ -13,23 +13,29 @@
         <div class="row">
 
             <div class="col-md-7 mx-auto text-center">
-
+                
                 <h3 class="text-dark">{{__('خطتي : التقرير النهائي')}}</h3>
                 <button type="button" class="btn btn-success" id="print"><i class="fa fa-print ms-2"></i>طباعة</button>
                 <button type="button" class="btn btn-success" id=""><i class="fas fa-file-pdf ms-2"></i>تصدير PDF</button>
             </div>
         </div>
-
+        
         <div class="row mt-4 " id="content" dir="rtl">
             <div class="col-md-3 mb-4">
                 @if(!empty($super_settings['logo']))
-                    <img style="max-height: 80px" src="{{PUBLIC_DIR}}/uploads/{{$super_settings['logo']}}" class="navbar-brand-img h-100" alt="...">
+                <img style="max-height: 80px" src="{{PUBLIC_DIR}}/uploads/{{$super_settings['logo']}}" class="navbar-brand-img h-100" alt="...">
                 @else
-                    <span class="ms-1 font-weight-bold"> {{config('app.name')}}</span>
+                <span class="ms-1 font-weight-bold"> {{config('app.name')}}</span>
                 @endif
             </div>
             <div class="card">
                 <div class="card-body">
+                    <div class="row">
+                        <h4 class="my-4"> تقييم الشركة </h4>
+                        <div class="alert alert-success text-white mt-3" id="success-message-existing">
+                            <div>{{ $FinancialEvaluation ?? '' }}</div>
+                        </div>
+                    </div>
                     {{-- <div class="row">
                         @foreach($projectRevenues as $revenue)
                             <div class="col-md-4">
@@ -215,8 +221,8 @@
                         <div class="col-md-12">
                             <div id="working_chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
                         </div>
-                    </div>--}}
-                    {{-- <div class="row my-4">
+                    </div>
+                    <div class="row my-4">
                         <h4>{{__('افتراضات التكاليف ')}}</h4>
                         <div class="col-md-6">
                             <table class="table align-items-center mb-0" border="1">
@@ -447,7 +453,13 @@
                                 </table>
                             </div>
                         </div>
-                    </div>  --}}
+                    </div> --}}
+                    <div class="row">
+                        <h4 class="my-4">توقعات ايرادات المشروع</h4>
+                        <div class="col-md-6">
+                            <div id="total_annual_reveneus" style="width: 100%; height: 300px;display: inline-block;" class="position-"></div>
+                        </div>
+                    </div>
                     <div class="row mt-2">
                         <h4>مؤشرات ربحية</h4>
                         <table class="table align-items-center mb-0" id="cloudonex_table">
@@ -993,11 +1005,10 @@
         }
     </script>
     <script>
-        @foreach($projectRevenues as $revenue)
-            var chart = new CanvasJS.Chart("costAssumption_chart_{{ $revenue->id }}", {
+            var chart = new CanvasJS.Chart("total_annual_reveneus", {
                 animationEnabled: true,
                 title:{
-                    text: "{!! $revenue->name !!}"
+                    text: "توقعات ايرادات المشروع"
                 },
                 axisY: {
                     title: "",
@@ -1028,40 +1039,16 @@
                         type: "column",
                         name: "SAR {!! __('first_year') !!}",
                         legendText: "SAR {!! __('first_year') !!}",
-                        showInLegend: true,
+                        showInLegend: false,
                         dataPoints:[
-                            @foreach($revenue->sources as $source)
-                                { label:"{!! $source->name  !!}", y: {!! $source->total_revenue * ($planningRevenueOperatingAssumptions->first_year / 100) !!} },
-                            @endforeach
-                        ]
-                    },
-                    {
-                        type: "column",
-                        name: "SAR {!! __('second_year') !!}",
-                        legendText: "{!! __('second_year') !!}",
-                        showInLegend: true,
-                        dataPoints:[
-                            @foreach($revenue->sources as $source)
-                                { label: "{!! $source->name !!}", y: {!! $source->total_second_revenue * ($planningRevenueOperatingAssumptions->second_year / 100) !!} },
-                            @endforeach
-                        ]
-                    },
-                    {
-                        type: "column",
-                        name: "SAR {!! __('third_year') !!}",
-                        legendText: "{!! __('third_year') !!}",
-                        showInLegend: true,
-                        dataPoints:[
-                            @foreach($revenue->sources as $source)
-                                { label: "{!! $source->name !!}", y: {!! $source->total_third_revenue * ($planningRevenueOperatingAssumptions->third_year / 100) !!} },
-                            @endforeach
+                                { label:"السنة الأولى", y: {{ $TotalRevenueFirstYear }} },
+                                { label:"السنة الثانية", y: {{ $TotalRevenueSecondYear }} },
+                                { label:"السنة الثالثة", y: {{ $TotalRevenueThirdYear }} },
                         ]
                     },
                     ]
                 });
             chart.render();
-        @endforeach
-
     </script>
     <script>
         $(document).ready(function(){
