@@ -18,11 +18,11 @@
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="col-md-4">
+                    <div class="col-md-4">
                         <button type="button" class="btn btn-info btn-sm float-left mt-4 mb-0" wire:click="firstStepSubmit">
                             {{ __('Update info') }}
                         </button>
-                    </div> --}}
+                    </div>
                 </div>
             </div>
         </div>

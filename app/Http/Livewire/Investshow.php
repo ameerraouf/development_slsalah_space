@@ -15,19 +15,32 @@ class Investshow extends Component
     public $catchError;
     public $userphoto;
     public $company_desc;
-    public $summary=[];
+    public $summary1,$summary2,$summary3;
+    public $id1,$id2,$id3;
     public $projects,$projectid;
 
     public function mount(){
       $this->userphoto = auth()->user()->photo;
       $this->company_desc = auth()->user()->company?->company_description;
       $this->projects= Projects::latest()->get()->take(3);
-      $this->summary[]=[
-        'project_id'=>'',
-        'summary'=>'',
-      ];
+      $this->summary1 = Projects::latest()->first()->summary;
+      $this->summary2 = Projects::latest()->skip(1)->first()->summary;
+      $this->summary3 = Projects::latest()->skip(2)->first()->summary;
+
+      $this->id1 = Projects::latest()->first()->id;
+      $this->id2 = Projects::latest()->skip(1)->first()->id;
+      $this->id3 = Projects::latest()->skip(2)->first()->id;
+    // $this->summary1 = Projects::latest()->get(0)->summary;
+    // $this->summary2 = Projects::latest()->get(1)->summary;
+    // $this->summary3 = Projects::latest()->get(2)->summary;
+    //   $this->summary[]=[
+    //     'project_id'=>'',
+    //     'summary'=>'',
+    //   ];
     //   foreach($this->projects as $key => $project) {
-    //     $this->summary = $project->summary;
+    //     $this->summary1 = $project->summary[$key];
+    //     $this->summary2 = $project->summary[$key];
+    //     $this->summary3 = $project->summary[$key];
     //   }
     //   $this->summary = Projects::latest()->get()->take(3);
     }
@@ -35,7 +48,9 @@ class Investshow extends Component
     {
         $this->validateOnly($propertyName, [
             "company_desc"=> "nullable|string|max:500",
-            "summary"=> "nullable|string|max:500",
+            "summary1"=> "nullable|string|max:500",
+            "summary2"=> "nullable|string|max:500",
+            "summary3"=> "nullable|string|max:500",
         ]);
     }
    //firstStepSubmit
@@ -55,19 +70,38 @@ class Investshow extends Component
     //secondStepSubmit
     public function secondStepSubmit()
     {
-        $this->validate([
-            "summary"=> "nullable|string|max:500",
-        ]);
+        // $this->validate([
+        //     "summary1"=> "nullable|string|max:500",
+        // ]);
         
         $this->currentStep = 3;
     }
-    public function prrojectSubmit(){
+    public function projectSubmit1(){
         $this->validate([
-            "summary"=> "nullable|string|max:500",
+            "summary1"=> "nullable|string|max:500",
         ]);
-        $project = Projects::findOrFail($this->projectid);
-        $project->summary = $this->summary;
+        $project = Projects::where('id',$this->id1)->first();
+        $project->summary = $this->summary1;
         $project->update();
+        $this->alert('success', 'تم التحديث بنجاح');
+    }
+    public function projectSubmit2(){
+        $this->validate([
+            "summary2"=> "nullable|string|max:500",
+        ]);
+        $project = Projects::where('id',$this->id2)->first();
+        $project->summary = $this->summary2;
+        $project->update();
+        $this->alert('success', 'تم التحديث بنجاح');
+    }
+    public function projectSubmit3(){
+        $this->validate([
+            "summary3"=> "nullable|string|max:500",
+        ]);
+        $project = Projects::where('id',$this->id3)->first();
+        $project->summary = $this->summary3;
+        $project->update();
+        $this->alert('success', 'تم التحديث بنجاح');
     }
      //back
      public function back($step)
