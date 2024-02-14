@@ -321,6 +321,7 @@ class Investshow extends Component
             $market->save();
             $this->alert('success', 'تم الاضافه بنجاح');
             // $this->updateMode = true;
+            $this->marketid = $market->id;
         }
     }
     public function marketSubmit2(){
@@ -343,6 +344,7 @@ class Investshow extends Component
             $market->unit = $this->unit2;
             $market->save();
             $this->alert('success', 'تم الاضافه بنجاح');
+            $this->marketid2 = $market->id;
         }
     }
     public function marketSubmit3(){
@@ -365,6 +367,7 @@ class Investshow extends Component
             $market->unit = $this->unit3;
             $market->save();
             $this->alert('success', 'تم الاضافه بنجاح');
+            $this->marketid3 = $market->id;
         }
     }
     public function marketSubmit4(){
@@ -387,6 +390,7 @@ class Investshow extends Component
             $market->unit = $this->unit4;
             $market->save();
             $this->alert('success', 'تم الاضافه بنجاح');
+            $this->marketid4 = $market->id;
         }
     }
     public function marketSubmit5(){
@@ -409,6 +413,7 @@ class Investshow extends Component
             $market->unit = $this->unit5;
             $market->save();
             $this->alert('success', 'تم الاضافه بنجاح');
+            $this->marketid5 = $market->id;
         }
     }
      //back
