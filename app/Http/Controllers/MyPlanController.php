@@ -131,6 +131,7 @@ class MyPlanController extends BaseController
         }else{
             $data['capital_recovery_period']['second_year']  = ceil(abs($project_cumulative_free_cash_flow_first_year) / $data['calc_total']['second_year_net_cash_flow_number']) / 10;
         }
+        // dd($data);
         
         return view('myPlane.index', $data);
     }

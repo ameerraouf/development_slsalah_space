@@ -409,11 +409,7 @@
                                         <td>{{ $calc_total['totalRevenueFirstYear'] }}</td>
                                         <td>{{ $calc_total['totalRevenueSecondYear']}}</td>
                                         <td>{{ $calc_total['totalRevenueThirdYear'] }}</td>
-<<<<<<< HEAD
-                                        {{--                                    <td>{{ $totalInvestedCapital }}</td>--}}
 
-=======
->>>>>>> 3a15e16d6b406e5be61b1e3b4e573fadad1f8b26
                                     </tr>
                                     <tr>
                                         <td style="text-align: center">اجمالي التكاليف</td>
@@ -612,6 +608,39 @@
                                 </td>
                             </tr>
 
+                            </tbody>
+                        </table>
+                    </div>
+                    <h4>قائمة التدفقات النقدية من الأنشطة التشغيلية</h4>
+                    <div class="col-md-12">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{__('first_year')}}</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{__('second_year')}}</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{__('third_year')}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="text-align: center">صافي الربح</td>
+                                    <td class="first_year">{{ $calc_total['net_profit_first_year_as_string'] }}</td>
+                                    <td class="second_year">{{ $calc_total['net_profit_second_year_as_string'] }}</td>
+                                    <td class="third_year">{{ $calc_total['net_profit_third_year_as_string'] }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center">التغيير في رأس المال العامل</td>
+                                    <td class="first_year">{{ $calc_total['first_year_capital_change'] }}</td>
+                                    <td class="second_year">{{ $calc_total['second_year_capital_change'] }}</td>
+                                    <td class="third_year">{{ $calc_total['third_year_capital_change'] }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center">صافي التدفق النقدي من الأنشطة التشغيلية</td>
+                                    <td class="first_year">{{ $calc_total['first_year_net_cash_flow'] }}</td>
+                                    <td class="second_year">{{ $calc_total['second_year_net_cash_flow'] }}</td>
+                                    <td class="third_year">{{ $calc_total['third_year_net_cash_flow'] }}</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
