@@ -15,7 +15,8 @@
             <div class="col-md-7 mx-auto text-center">
 
                 <h3 class="text-dark">{{__('خطتي : التقرير النهائي')}}</h3>
-                <button type="button" class="btn btn-success" id="generate_pdf"><i class="fas fa-file-pdf ms-2"></i>تصدير PDF</button>
+                <button type="button" class="btn btn-success" id="print"><i class="fa fa-print ms-2"></i>طباعة</button>
+                <button type="button" class="btn btn-success" id=""><i class="fas fa-file-pdf ms-2"></i>تصدير PDF</button>
             </div>
         </div>
 
@@ -522,8 +523,8 @@
                             <tr>
                                 <td style="text-align: center">اجمالي  الايرادات</td>
                                 <td class="first_year">{{ $calc_total['first_year_after_operating_assumption_as_string'] }}</td>
-                                <td class="second_year">{{ formatCurrency((\App\Models\ProjectRevenuePlanning::calcTotalRevenueSecondYear() * $planningCostAssumption->operational_costs / 100) ,getWorkspaceCurrency($settings)) }}</td>
-                                <td class="third_year">{{ formatCurrency((\App\Models\ProjectRevenuePlanning::calcTotalRevenueThirdYear() * $planningCostAssumption->operational_costs / 100) ,getWorkspaceCurrency($settings)) }}</td>
+                                <td class="second_year">{{ $calc_total['second_year_after_operating_assumption_as_string'] }}</td>
+                                <td class="third_year">{{ $calc_total['third_year_after_operating_assumption_as_string'] }}</td>
                             </tr>
                             <tr>
                                 <td style="text-align: center">المصروفات  تشغيلية</td>
@@ -1073,7 +1074,7 @@
         });
     </script>
     <script>
-        $('#generate_pdf').on('click', function () {
+        $('#print').on('click', function () {
             $('#content').printThis({
                 debug: false,               // show the iframe for debugging
                 importCSS: true,            // import parent page css
