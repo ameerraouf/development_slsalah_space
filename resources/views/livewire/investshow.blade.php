@@ -46,4 +46,6 @@
 
     @include('livewire.companydesc')
     @include('livewire.problem')
+    @include('livewire.solve')
+    @include('livewire.market')
 </div>

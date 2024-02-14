@@ -3,46 +3,48 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\Company;
-use App\Models\FixedInvestedCapital;
-use App\Models\PlanningCostAssumption;
-use App\Models\PlanningRevenueOperatingAssumption;
-use App\Models\ProjectRevenuePlanning;
-use App\Models\Projects;
-
 use App\Models\Task;
 use App\Models\User;
+use App\Models\Company;
 use App\Models\Setting;
+use App\Models\Projects;
 use App\Models\TaskGoal;
+
 use Illuminate\Http\Request;
+use mikehaertl\wkhtmlto\Pdf;
+use Illuminate\Support\Facades\DB;
+use App\Models\FinancialEvaluation;
+use App\Models\FixedInvestedCapital;
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
+use App\Models\PlanningCostAssumption;
 
-use mikehaertl\wkhtmlto\Pdf;
+use App\Models\ProjectRevenuePlanning;
 
 
 
 use App\Models\WorkingInvestedCapital;
+use App\Models\PlanningRevenueOperatingAssumption;
 
 
 class MyPlanController extends BaseController
 {
     //
-
+    
     public function index(){
-
+        
         $user = User::where('super_admin', 1)->first();
-
+        
         $settings_mod = Setting::where('workspace_id', $user->workspace_id)->get()->keyBy('key');
         if (isset($settings_mod['currency'])) {
             $currency = $settings_mod['currency']->value;
         } else {
             $currency = config('app.currency');
         }
-
+        
         $data = [];
+        $data['FinancialEvaluation'] = formatCurrency(FinancialEvaluation::where('workspace_id',$user->workspace_id)->select('value')->first()['value'],getWorkspaceCurrency($this->settings));
         $data['selected_navigation'] = "billing";
         $data['projectRevenues'] = ProjectRevenuePlanning::with(['sources'])
             ->where('workspace_id', $this->user->workspace_id)
@@ -131,8 +133,12 @@ class MyPlanController extends BaseController
         }else{
             $data['capital_recovery_period']['second_year']  = ceil(abs($project_cumulative_free_cash_flow_first_year) / $data['calc_total']['second_year_net_cash_flow_number']) / 10;
         }
-        // dd($data);
+
+        $data['TotalRevenueFirstYear']= \App\Models\ProjectRevenuePlanning::calcTotalRevenueFirstYear();
+        $data['TotalRevenueSecondYear'] = \App\Models\ProjectRevenuePlanning::calcTotalRevenueSecondYear();
+        $data['TotalRevenueThirdYear'] = \App\Models\ProjectRevenuePlanning::calcTotalRevenueThirdYear();
         
+
         return view('myPlane.index', $data);
     }
 
