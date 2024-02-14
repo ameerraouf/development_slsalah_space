@@ -30,6 +30,7 @@ use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\EconomicPlanController;
 use App\Http\Controllers\FinancialEvaluationController;
 use App\Http\Controllers\FoundRoundController;
+use App\Http\Controllers\GptChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -422,7 +423,9 @@ Route::get("/textReport", [\App\Http\Controllers\FinncialReportController::class
 
 
 Route::get('/myPlan', [\App\Http\Controllers\MyPlanController::class, 'index'])->name('myPlan.index');
-
+Route::get('/investshow', [\App\Http\Controllers\MyPlanController::class, 'investshow'])->name('myPlan.investshow');
+Route::put('/investshow/update', [\App\Http\Controllers\MyPlanController::class,'update'])->name('investshow.update');
+Route::put('/investshow/updateproject/{id}', [\App\Http\Controllers\MyPlanController::class,'updateproject'])->name('investshow.updateproject');
 
 
 Route::get('paypal/{package}', [PayPalController::class, 'createTransaction'])->name('paypal');
@@ -483,3 +486,8 @@ Route::get('pioneer-found-rounds', [FoundRoundController::class, 'index'])->name
 Route::get('found-round-edit/{round}', [FoundRoundController::class, 'edit'])->name('found-round-edit')->middleware('pioneer_rounds');
 Route::post('found-round-update/{round}', [FoundRoundController::class, 'update'])->name('found-round-update');
 Route::get('delete-found/{round}', [FoundRoundController::class, 'destroy'])->name('found-round-destroy')->middleware('pioneer_rounds');
+
+
+// GPT Chat//
+Route::get('gpt-chat', [GptChatController::class, 'start_chat'])->name('gpt-chat');
+Route::post('gpt-chat-send', [GptChatController::class, 'send_message'])->name('gpt-send-message');

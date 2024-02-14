@@ -18,8 +18,9 @@ class FoundRoundController extends Controller
     {
         $user = Auth::user();
         $found_rounds = $user->foundRounds;
+        $selected_navigation = 'foundRound';
 
-        return view('found-round.index', compact('found_rounds'));
+        return view('found-round.index', compact('found_rounds', 'selected_navigation'));
     }
 
     /**
@@ -29,7 +30,9 @@ class FoundRoundController extends Controller
      */
     public function create()
     {
-        return view('found-round.create');
+        $selected_navigation = 'foundRound';
+
+        return view('found-round.create', compact('selected_navigation'));
     }
 
     /**
