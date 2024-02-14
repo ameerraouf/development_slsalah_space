@@ -167,12 +167,15 @@ class Investshow extends Component
         if ($this->solveid1){
             $solve = Solve::find($this->solveid1);
             $solve->update(['title' => $this->solve1]);
+            $this->alert('success', 'تم التحديث بنجاح');
         }else{
             $solve = new Solve();
             $solve->title = $this->solve1;
             $solve->save();
+            $this->alert('success', 'تم الاضافه بنجاح');
+            $this->solveid1 = $solve->id;
         }
-        $this->alert('success', 'تم التحديث بنجاح');
+
     }
     public function solveSubmit2(){
         $this->validate([
@@ -181,12 +184,15 @@ class Investshow extends Component
         if ($this->solveid2){
             $solve = Solve::find($this->solveid2);
             $solve->update(['title' => $this->solve2]);
+            $this->alert('success', 'تم التحديث بنجاح');
         }else{
             $solve = new Solve();
             $solve->title = $this->solve2;
             $solve->save();
+            $this->alert('success', 'تم الاضافه بنجاح');
+            $this->solveid2 = $solve->id;
         }
-        $this->alert('success', 'تم التحديث بنجاح');
+
     }
     public function solveSubmit3(){
         $this->validate([
@@ -195,12 +201,15 @@ class Investshow extends Component
         if ($this->solveid3){
             $solve = Solve::find($this->solveid3);
             $solve->update(['title' => $this->solve3]);
+            $this->alert('success', 'تم التحديث بنجاح');
         }else{
             $solve = new Solve();
             $solve->title = $this->solve3;
             $solve->save();
+            $this->alert('success', 'تم الاضافه بنجاح');
+            $this->solveid3 = $solve->id;
         }
-        $this->alert('success', 'تم التحديث بنجاح');
+
     }
     public function solveSubmit4(){
         $this->validate([
@@ -209,12 +218,15 @@ class Investshow extends Component
         if ($this->solveid4){
             $solve = Solve::find($this->solveid4);
             $solve->update(['title' => $this->solve4]);
+            $this->alert('success', 'تم التحديث بنجاح');
         }else{
             $solve = new Solve();
             $solve->title = $this->solve4;
             $solve->save();
+            $this->alert('success', 'تم الاضافه بنجاح');
+            $this->solveid4 = $solve->id;
         }
-        $this->alert('success', 'تم التحديث بنجاح');
+
     }
     public function solveSubmit5(){
         $this->validate([
@@ -223,12 +235,15 @@ class Investshow extends Component
         if ($this->solveid5){
             $solve = Solve::find($this->solveid5);
             $solve->update(['title' => $this->solve5]);
+            $this->alert('success', 'تم التحديث بنجاح');
         }else{
             $solve = new Solve();
             $solve->title = $this->solve5;
             $solve->save();
+            $this->alert('success', 'تم الاضافه بنجاح');
+            $this->solveid5 = $solve->id;
         }
-        $this->alert('success', 'تم التحديث بنجاح');
+
     }
     public function solveSubmit6(){
         $this->validate([
@@ -237,12 +252,15 @@ class Investshow extends Component
         if ($this->solveid6){
             $solve = Solve::find($this->solveid6);
             $solve->update(['title' => $this->solve6]);
+            $this->alert('success', 'تم التحديث بنجاح');
         }else{
             $solve = new Solve();
             $solve->title = $this->solve6;
             $solve->save();
+            $this->alert('success', 'تم الاضافه بنجاح');
+            $this->solveid6 = $solve->id;
         }
-        $this->alert('success', 'تم التحديث بنجاح');
+
     }
     public function solveSubmit7(){
         $this->validate([
@@ -251,12 +269,15 @@ class Investshow extends Component
         if ($this->solveid7){
             $solve = Solve::find($this->solveid7);
             $solve->update(['title' => $this->solve7]);
+            $this->alert('success', 'تم التحديث بنجاح');
         }else{
             $solve = new Solve();
             $solve->title = $this->solve7;
             $solve->save();
+            $this->alert('success', 'تم الاضافه بنجاح');
+            $this->solveid7 = $solve->id;
         }
-        $this->alert('success', 'تم التحديث بنجاح');
+
     }
     public function solveSubmit8(){
         $this->validate([
@@ -265,12 +286,15 @@ class Investshow extends Component
         if ($this->solveid8){
             $solve = Solve::find($this->solveid8);
             $solve->update(['title' => $this->solve8]);
+            $this->alert('success', 'تم التحديث بنجاح');
         }else{
             $solve = new Solve();
             $solve->title = $this->solve8;
             $solve->save();
+            $this->alert('success', 'تم الاضافه بنجاح');
+            $this->solveid8 = $solve->id;
         }
-        $this->alert('success', 'تم التحديث بنجاح');
+
     }
     public function solveSubmit9(){
         $this->validate([
@@ -279,27 +303,18 @@ class Investshow extends Component
         if ($this->solveid9){
             $solve = Solve::find($this->solveid9);
             $solve->update(['title' => $this->solve9]);
+            $this->alert('success', 'تم التحديث بنجاح');
         }else{
             $solve = new Solve();
             $solve->title = $this->solve9;
             $solve->save();
+            $this->alert('success', 'تم الاضافه بنجاح');
+            $this->solveid9 = $solve->id;
         }
-        $this->alert('success', 'تم التحديث بنجاح');
+
     }
 
-    // public function marketSubmitedit1(){
-    //     $this->validate([
-    //         "theyear"=> "required|integer",
-    //         "size"=> "required|integer",
-    //         "unit"=> "required|in:million,billion",
-    //     ]);
-    //     $market = Market::find($this->marketid);
-    //     $market->year = $this->theyear;
-    //     $market->size = $this->size;
-    //     $market->unit = $this->unit;
-    //     $market->update();
-    //     $this->alert('success', 'تم التحديث بنجاح');
-    // }
+   
     public function marketSubmit1(){
         $this->validate([
             "theyear"=> "required|integer",
