@@ -1,5 +1,5 @@
 @if ($currentStep != 2)
-    <div style="display: none" class="row setup-content" id="step-1">
+    <div style="display: none" class="row setup-content" id="step-2">
 @endif
         <div class=" card min-height-250" style="background-image: url('{{PUBLIC_DIR}}/img/back.jpeg');">
             <div class="container">
