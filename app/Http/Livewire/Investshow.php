@@ -18,6 +18,7 @@ class Investshow extends Component
     public $summary1,$summary2,$summary3;
     public $id1,$id2,$id3;
     public $projects,$projectid;
+    public $solve1,$solve2,$solve3,$solve4,$solve5,$solve6,$solve7,$solve8,$solve9;
 
     public function mount(){
       $this->userphoto = auth()->user()->photo;

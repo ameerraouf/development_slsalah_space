@@ -8,30 +8,18 @@
                         <h3 class="text-dark">الحل</h3>
                         <p>اوصف حل الى تعمل الشركه على استخدامه فى حل المشكله</p>
                     </div>
-                    <div class="col-md-4  mt-5">
-                        <input type="text" class="form-control" >
-                        @error('solve1')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="col-md-4  mt-5">
-                        <div class="form-group">
-                            <textarea class="form-control" cols="30" rows="10"  wire:model='summary2' wire:change='projectSubmit2'></textarea>
+                    @for($i = 0; $i < 9; $i++) 
+                        <div class="col-md-4  mt-5">
+                            <label for="">solve{{ $i+1 }}</label>
+                            <input type="text" class="form-control" wire:model='solve{{ $i+1 }}' >
+                            @error('solve{{ $i+1 }}')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
-                        @error('summary2')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="col-md-4  mt-5">
-                        <div class="form-group">
-                            <textarea class="form-control" cols="30" rows="10"  wire:model='summary3' wire:change='projectSubmit3'></textarea>
-                        </div>
-                        @error('summary3')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
+                    @endfor
+                 
                 </div>
-                <button class="btn btn-warning mt-3" type="button" wire:click="back(1)">
+                <button class="btn btn-warning mt-3" type="button" wire:click="back(2)">
                     {{ trans('Back') }}
                 </button>
                 <button class="btn btn-success mt-3" type="button" wire:click="secondStepSubmit">
