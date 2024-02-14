@@ -214,8 +214,8 @@
                         <div class="col-md-12">
                             <div id="working_chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
                         </div>
-                    </div>
-                    <div class="row my-4">
+                    </div>--}}
+                    {{-- <div class="row my-4">
                         <h4>{{__('افتراضات التكاليف ')}}</h4>
                         <div class="col-md-6">
                             <table class="table align-items-center mb-0" border="1">
@@ -409,11 +409,7 @@
                                         <td>{{ $calc_total['totalRevenueFirstYear'] }}</td>
                                         <td>{{ $calc_total['totalRevenueSecondYear']}}</td>
                                         <td>{{ $calc_total['totalRevenueThirdYear'] }}</td>
-<<<<<<< HEAD
-                                        {{--                                    <td>{{ $totalInvestedCapital }}</td>--}}
 
-=======
->>>>>>> 3a15e16d6b406e5be61b1e3b4e573fadad1f8b26
                                     </tr>
                                     <tr>
                                         <td style="text-align: center">اجمالي التكاليف</td>
@@ -450,7 +446,7 @@
                                 </table>
                             </div>
                         </div>
-                    </div> --}}
+                    </div>  --}}
                     <div class="row mt-2">
                         <h4>مؤشرات ربحية</h4>
                         <table class="table align-items-center mb-0" id="cloudonex_table">
@@ -509,6 +505,189 @@
                         <div class="col-md-12">
                             <div id="working_chartContainer2" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
                         </div>
+                    </div>
+                    <h4>{{__('قائمة الدخل')}}</h4>
+                    <div class="col-md-12">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{__('costs')}}</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{__('first_year')}}</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{__('second_year')}}</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{__('third_year')}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr>
+                                <td style="text-align: center">اجمالي  الايرادات</td>
+                                <td class="first_year">{{ $calc_total['first_year_after_operating_assumption_as_string'] }}</td>
+                                <td class="second_year">{{ formatCurrency((\App\Models\ProjectRevenuePlanning::calcTotalRevenueSecondYear() * $planningCostAssumption->operational_costs / 100) ,getWorkspaceCurrency($settings)) }}</td>
+                                <td class="third_year">{{ formatCurrency((\App\Models\ProjectRevenuePlanning::calcTotalRevenueThirdYear() * $planningCostAssumption->operational_costs / 100) ,getWorkspaceCurrency($settings)) }}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center">المصروفات  تشغيلية</td>
+                                <td class="first_year">{{ formatCurrency((\App\Models\ProjectRevenuePlanning::calcTotalRevenueFirstYear() * $planningCostAssumption->operational_costs / 100) ,getWorkspaceCurrency($settings)) }}</td>
+                                <td class="second_year">{{ formatCurrency((\App\Models\ProjectRevenuePlanning::calcTotalRevenueSecondYear() * $planningCostAssumption->operational_costs / 100) ,getWorkspaceCurrency($settings)) }}</td>
+                                <td class="third_year">{{ formatCurrency((\App\Models\ProjectRevenuePlanning::calcTotalRevenueThirdYear() * $planningCostAssumption->operational_costs / 100) ,getWorkspaceCurrency($settings)) }}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center">المصروفات الإدارية والعمومية</td>
+                                <td class="first_year">{{ formatCurrency((\App\Models\ProjectRevenuePlanning::calcTotalRevenueFirstYear() * $planningCostAssumption->general_expenses / 100),getWorkspaceCurrency($settings)) }}</td>
+                                <td class="second_year">{{ formatCurrency((\App\Models\ProjectRevenuePlanning::calcTotalRevenueSecondYear() * $planningCostAssumption->general_expenses / 100),getWorkspaceCurrency($settings)) }}</td>
+                                <td class="third_year">{{ formatCurrency((\App\Models\ProjectRevenuePlanning::calcTotalRevenueThirdYear() * $planningCostAssumption->general_expenses / 100),getWorkspaceCurrency($settings)) }}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center">المصروفات  التسويقية </td>
+                                <td class="first_year">{{ formatCurrency((\App\Models\ProjectRevenuePlanning::calcTotalRevenueFirstYear() * $planningCostAssumption->marketing_expenses / 100) ,getWorkspaceCurrency($settings)) }}</td>
+                                <td class="second_year">{{ formatCurrency((\App\Models\ProjectRevenuePlanning::calcTotalRevenueSecondYear() * $planningCostAssumption->marketing_expenses / 100) ,getWorkspaceCurrency($settings)) }}</td>
+                                <td class="third_year">{{ formatCurrency((\App\Models\ProjectRevenuePlanning::calcTotalRevenueThirdYear() * $planningCostAssumption->marketing_expenses / 100) ,getWorkspaceCurrency($settings)) }}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">{{__('total_cost')}}</td>
+                                <td id="first_year_total"></td>
+                                <td id="second_year_total"></td>
+                                <td id="third_year_total"></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">{{__('yearly_profit_before_zakat')}}</td>
+                                <td>
+                                    @if($calc_total['first_year_profit_before_zakat_as_number'] < 0 )
+                                        <span class="text-danger"> {{$calc_total['first_year_profit_before_zakat']}}</span>
+                                    @else
+                                        {{ $calc_total['first_year_profit_before_zakat'] }}
+                                    @endif
+
+                                </td>
+                                <td>
+                                    @if($calc_total['second_year_profit_before_zakat_as_number'] < 0 )
+                                        <span class="text-danger">0 </span>
+                                    @else
+                                        {{ $calc_total['second_year_profit_before_zakat'] }}
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($calc_total['third_year_profit_before_zakat_as_number'] < 0 )
+                                        <span class="text-danger">0 </span>
+                                    @else
+                                        {{ $calc_total['third_year_profit_before_zakat'] }}
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">{{__('net_zakat_value')}}</td>
+                                <td style="text-align: center;" >
+                                    @if($calc_total['first_year_profit_before_zakat_as_number'] < 0 )
+                                        <span class="text-danger"> 0</span>
+                                    @else
+                                        {{ $calc_total['first_year_profit_before_zakat_percent_value'] }}
+                                    @endif
+                                </td>
+                                <td style="text-align: center;" id="second_year_profit_before_zakat_percent_value"></td>
+                                <td style="text-align: center;" id="third_year_profit_before_zakat_percent_value"></td>
+                            </tr>
+
+                            <tr>
+                                <td style="text-align: center;" >{{__('profit_after_zakat')}}</td>
+
+                                    @if($calc_total['net_profit_first_year_as_number'] < 0)
+                                    <td style="text-align: center;" class="bg-danger"  >
+
+                                    </td>
+                                @else
+                                        <td>
+                                            {{$calc_total['net_profit_first_year_as_string']}}
+                                        </td>
+                                    @endif
+
+                                <td style="text-align: center;"  >
+                                    {{$calc_total['net_profit_second_year_as_string']}}
+                                </td>
+                                <td style="text-align: center;"  >
+                                    {{$calc_total['net_profit_third_year_as_string']}}
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <h4>قائمة التدفقات النقدية من الأنشطة التشغيلية</h4>
+                    <div class="col-md-12">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{__('first_year')}}</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{__('second_year')}}</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{__('third_year')}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="text-align: center">صافي الربح</td>
+                                    <td class="first_year">{{ $calc_total['net_profit_first_year_as_string'] }}</td>
+                                    <td class="second_year">{{ $calc_total['net_profit_second_year_as_string'] }}</td>
+                                    <td class="third_year">{{ $calc_total['net_profit_third_year_as_string'] }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center">التغيير في رأس المال العامل</td>
+                                    <td class="first_year">{{ $calc_total['first_year_capital_change'] }}</td>
+                                    <td class="second_year">{{ $calc_total['second_year_capital_change'] }}</td>
+                                    <td class="third_year">{{ $calc_total['third_year_capital_change'] }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center">صافي التدفق النقدي من الأنشطة التشغيلية</td>
+                                    <td class="first_year">{{ $calc_total['first_year_net_cash_flow'] }}</td>
+                                    <td class="second_year">{{ $calc_total['second_year_net_cash_flow'] }}</td>
+                                    <td class="third_year">{{ $calc_total['third_year_net_cash_flow'] }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h4>نموذج الاستثمار الرأسمالي</h4>
+                    <div class="col-md-12">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">سنة التأسيس</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{__('first_year')}}</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{__('second_year')}}</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{__('third_year')}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr>
+                                <td style="text-align: center">اجمالي  الايرادات</td>
+                                <td class="first_year">{{ $totalInvestedCapital }}</td>
+                                <td class="second_year"></td>
+                                <td class="third_year"></td>
+                                <td class="third_year"></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center">التدفق النقدي السنوي</td>
+                                <td style="text-align: center"></td>
+                                <td class="first_year">{{ $calc_total['first_year_net_cash_flow'] }}</td>
+                                <td class="second_year">{{ $calc_total['second_year_net_cash_flow'] }}</td>
+                                <td class="third_year">{{ $calc_total['third_year_net_cash_flow'] }}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center">التدفق النقدي الحر التراكمي للمشروع</td>
+                                <td style="text-align: center">{{ $NegativetotalInvestedCapital }}</td>
+                                <td class="first_year">{{ $project_cumulative_free_cash_flow['first_year'] }}</td>
+                                <td class="second_year">{{ $project_cumulative_free_cash_flow['second_year'] }}</td>
+                                <td class="third_year">{{ $project_cumulative_free_cash_flow['third_year'] }}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center"> فترة استرداد رأس المال </td>
+                                <td class="first_year"></td>
+                                <td class="first_year">{{ $capital_recovery_period['first_year'] }}</td>
+                                <td class="second_year">{{ $capital_recovery_period['second_year'] }}</td>
+                                <td class="third_year"></td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

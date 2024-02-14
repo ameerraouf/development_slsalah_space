@@ -81,6 +81,7 @@ class MyPlanController extends BaseController
         $fixedInvestedTotal = FixedInvestedCapital::select(DB::raw('SUM(investing_price) as investing_price_total'))->where("workspace_id", $this->user->workspace_id)->get()->pluck('investing_price_total');
         $totalInvestedCapital = (!empty($workingInvestedTotal) ? $workingInvestedTotal[0] : 0.0)+(!empty($fixedInvestedTotal) ? $fixedInvestedTotal[0] : 0.0);
         $data['totalInvestedCapital'] = formatCurrency($totalInvestedCapital,getWorkspaceCurrency($this->settings));
+        $data['NegativetotalInvestedCapital'] = formatCurrency($totalInvestedCapital * -1,getWorkspaceCurrency($this->settings));
 
 
         foreach ($data['workingChart'] as $key => $value) {
@@ -105,6 +106,33 @@ class MyPlanController extends BaseController
         $data['total_revenues_expectations']['first_year'] = $first_year_total_revenues_expectations;
         $data['total_revenues_expectations']['second_year'] = $second_year_total_revenues_expectations;
         $data['total_revenues_expectations']['third_year'] = $third_year_total_revenues_expectations;
+
+
+        $project_cumulative_free_cash_flow_first_year = $data['calc_total']['first_year_net_cash_flow_number'] - abs($totalInvestedCapital);
+        if($project_cumulative_free_cash_flow_first_year < 0){
+            $project_cumulative_free_cash_flow_second_year = $data['calc_total']['second_year_net_cash_flow_number'] - abs($project_cumulative_free_cash_flow_first_year);
+        }else{
+            $project_cumulative_free_cash_flow_second_year = '';
+        }
+        if($project_cumulative_free_cash_flow_second_year < 0){
+            $project_cumulative_free_cash_flow_third_year = $data['calc_total']['third_year_net_cash_flow_number'] - abs($project_cumulative_free_cash_flow_second_year);
+        }else{
+            $project_cumulative_free_cash_flow_third_year = '';
+        }
+        $data['project_cumulative_free_cash_flow']['first_year'] = formatCurrency($project_cumulative_free_cash_flow_first_year,getWorkspaceCurrency($this->settings));
+        $data['project_cumulative_free_cash_flow']['second_year'] = $project_cumulative_free_cash_flow_second_year !== '' ? formatCurrency($project_cumulative_free_cash_flow_second_year,getWorkspaceCurrency($this->settings)) : '';
+        $data['project_cumulative_free_cash_flow']['third_year'] = $project_cumulative_free_cash_flow_third_year !== '' ? formatCurrency($project_cumulative_free_cash_flow_third_year,getWorkspaceCurrency($this->settings)) : '';
+
+        if($project_cumulative_free_cash_flow_first_year < 0){
+            $data['capital_recovery_period']['first_year'] = 1;
+        }
+        if($project_cumulative_free_cash_flow_second_year < 0){
+            $data['capital_recovery_period']['second_year'] = 1;
+        }else{
+            $data['capital_recovery_period']['second_year']  = ceil(abs($project_cumulative_free_cash_flow_first_year) / $data['calc_total']['second_year_net_cash_flow_number']) / 10;
+        }
+        // dd($data);
+        
         return view('myPlane.index', $data);
     }
 
