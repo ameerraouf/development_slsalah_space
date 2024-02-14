@@ -168,11 +168,11 @@
                             </button>
                         </div>
 
- {{ var_export($marketid) }} 
+ {{-- {{ var_export($marketid) }} 
  {{ var_export($marketid2) }} 
  {{ var_export($marketid3) }} 
  {{ var_export($marketid4) }} 
- {{ var_export($marketid5) }} 
+ {{ var_export($marketid5) }}  --}}
                 </div>
                 <button class="btn btn-warning mt-3" type="button" wire:click="back(3)">
                     {{ trans('Back') }}
