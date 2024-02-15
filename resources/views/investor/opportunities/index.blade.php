@@ -66,8 +66,7 @@
                                         {{$key +1 }}
                                     </td>
                                     <td>
-                                        <p class="text-xs font-weight-bold mb-0">
-                                            {{ $workspace->photo}}</p>
+                                       <img src="{{PUBLIC_DIR}}/uploads/{{$workspace->pioneer->company?->company_logo}}" alt="" style="width:40px">
                                     </td>
                                     <td>
                                         <p class="text-xs font-weight-bold mb-0">

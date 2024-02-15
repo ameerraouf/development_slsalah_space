@@ -439,10 +439,10 @@
                         @foreach ($rounds as $item)
                         <tr>
                             <td class="text-center">{{$loop->iteration}}</td>
-                            <td class="text-center">{{$item->round_amount}}</td>
-                            <td class="text-center">{{$item->pioneer->company_name}}</td>
-                            <td class="text-center">{{$item->pioneer->company->company_brief}}</td>
-                            <td class="text-center">{{$item->pioneer->company->business_department}}</td>
+                            <td class="text-center"><img src="{{PUBLIC_DIR}}/uploads/{{$item->pioneer->company?->company_logo}}" alt="" style="width:40px"></td>
+                            <td class="text-center">{{$item->pioneer->company?->company_name}}</td>
+                            <td class="text-center">{{$item->pioneer->company?->company_brief}}</td>
+                            <td class="text-center">{{$item->pioneer->company?->business_department}}</td>
                             <td class="text-center">{{$item->round_amount}}</td>
                             <td class="text-center">عرض إستثماري!!</td>
                             <td class="text-center">!!</td>
