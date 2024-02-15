@@ -39,7 +39,7 @@
             position: fixed; left: 10px; bottom: 10px; border-radius:8px; background:#70d5bb;
         }
     </style>
-
+ 
 </head>
 
 <body class="g-sidenav-show  bg-gray-100" id="clx_body">
@@ -749,6 +749,7 @@
 </script>
 
 @yield('script')
+@stack('js')
 
 </body>
 

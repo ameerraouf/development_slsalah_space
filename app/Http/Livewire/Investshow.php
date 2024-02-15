@@ -29,18 +29,24 @@ class Investshow extends Component
     public $year4,$size4,$unit4,$marketid4;
     public $year5,$size5,$unit5,$marketid5;
     public $theyear,$theyear2,$theyear3,$theyear4,$theyear5;
-    protected $listeners = ['refreshComponent'=>'$refresh'];
+
+    // public $projecttitle1,$projectdesc1;
+    public $selectedProducts = [];
+    public $title = [];
+    public $description = [];
+
+    // protected $listeners = ['refreshComponent'=>'$refresh'];
     public function mount(){
       $this->userphoto = auth()->user()->photo;
       $this->company_desc = auth()->user()->company?->company_description;
 
       $this->projects= Projects::latest()->get()->take(3);
-      $this->summary1 = Projects::latest()->first()->summary;
-      $this->summary2 = Projects::latest()->skip(1)->first()->summary;
-      $this->summary3 = Projects::latest()->skip(2)->first()->summary;
-      $this->id1 = Projects::latest()->first()->id;
-      $this->id2 = Projects::latest()->skip(1)->first()->id;
-      $this->id3 = Projects::latest()->skip(2)->first()->id;
+      $this->summary1 = Projects::latest()->first()->summary??'';
+      $this->summary2 = Projects::latest()->skip(1)->first()->summary??'';
+      $this->summary3 = Projects::latest()->skip(2)->first()->summary??'';
+      $this->id1 = Projects::latest()->first()->id??'';
+      $this->id2 = Projects::latest()->skip(1)->first()->id??'';
+      $this->id3 = Projects::latest()->skip(2)->first()->id??'';
 
       $this->solve1   = Solve::latest()->first()->title??'';
       $this->solveid1 = Solve::latest()->first()->id??'';
@@ -90,6 +96,45 @@ class Investshow extends Component
       $this->theyear4 = $this->year4??'';
       $this->theyear5 = $this->year5??'';
 
+
+    //   tap5
+    $this->selectedProducts = Projects::latest()->take(6)->get(); // Fetch 6 products
+    foreach ($this->selectedProducts as $product) {
+        $this->title[] = $product->title;
+        $this->description[] = $product->description;
+    }
+    // $this->title = array_fill(0, 6, 'ddd');
+
+
+    }
+    protected $listeners = ['recordDeleted' => 'fetchRecords'];
+    public function fetchRecords()
+    {
+        $this->selectedProducts = Projects::latest()->take(6)->get(); // Fetch 6 products
+        foreach ($this->selectedProducts as $product) {
+            $this->title[] = $product->title;
+            $this->description[] = $product->description;
+        } 
+    }
+    public function deleteProduct($product_id){
+        $product= Projects::findOrFail($product_id);
+        $product->delete();
+        $this->alert('success', 'تم الحذف بنجاح');
+        
+        $this->emit('recordDeleted');
+        $this->mount();
+        $this->render();
+    }
+    public function updateProducts()
+    {
+        foreach ($this->selectedProducts as $index => $product) {
+            $product->update([
+                'title' => $this->title[$index],
+                'description' => $this->description[$index],
+            ]);
+        }
+        $this->alert('success', 'تم التحديث بنجاح');
+        // $this->reset(['title', 'description']);
     }
     
     public function updated($propertyName)
@@ -117,6 +162,10 @@ class Investshow extends Component
     //forthStepSubmit
     public function forthStepSubmit(){
         $this->currentStep = 5;
+    }
+    //fifthStepSubmit
+    public function fifthStepSubmit(){
+        $this->currentStep = 6;
     }
 
     // submit forms action

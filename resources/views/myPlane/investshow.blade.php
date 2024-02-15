@@ -6,9 +6,10 @@
             /*position: initial !important;*/
         }
     </style>
+    {{-- @livewireStyles --}}
 @endsection
 @section('content')
-    {{-- @if ($errors->any())
+    @if ($errors->any())
         <div class="alert alert-danger">
             <ul class="list-unstyled">
                 @foreach ($errors->all() as $error)
@@ -17,7 +18,7 @@
             </ul>
         </div>
     @endif
-    <div class=" card min-height-250" style="background-image: url('{{PUBLIC_DIR}}/img/back.jpeg');">
+    {{-- <div class=" card min-height-250" style="background-image: url('{{PUBLIC_DIR}}/img/back.jpeg');">
         <div class="container">
             <div class="row">
                 <div class="col-md-7 mx-auto text-center">
@@ -82,4 +83,8 @@
     @livewireScripts
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <x-livewire-alert::scripts />
+
+
+   
+   
 @endsection
