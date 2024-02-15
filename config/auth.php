@@ -48,7 +48,7 @@ return [
         ],
         'investor' => [
             'driver' => 'session',
-            'provider' => 'users', // Assuming your table name is 'users'
+            'provider' => 'investors', // Assuming your table name is 'users'
         ],
 
     ],
@@ -76,6 +76,11 @@ return [
             'model' => App\Models\User::class,
         ],
 
+        'investors' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Investor::class,
+        ],
+
 
         // 'users' => [
         //     'driver' => 'database',
@@ -101,6 +106,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'investors' => [
+            'provider' => 'investors',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

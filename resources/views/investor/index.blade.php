@@ -1,9 +1,5 @@
 @extends('investor.layouts.index')
 @section('content')
-{{--    <?php--}}
-{{--    $auth = auth()->guard('investor')->user();--}}
-{{--    dd($auth);--}}
-{{--    ?>--}}
 
 <div class="row">
     <div class="col-md-12">

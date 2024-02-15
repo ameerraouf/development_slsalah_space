@@ -101,8 +101,8 @@
 
 
             <li class="nav-item">
-                <a class="nav-link @if(($selected_navigation ?? '') === 'dashboard') active @endif" id="abanoub"
-                   href="{{route("opportunities.index")}}">
+                {{-- <a class="nav-link @if(($selected_navigation ?? '') === 'dashboard') active @endif" id="abanoub"
+                   href="{{route("opportunities.index")}}"> --}}
 
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -120,8 +120,8 @@
 
 
             <li class="nav-item">
-                <a class="nav-link @if(($selected_navigation ?? '') === 'dashboard') active @endif" id="abanoub"
-                   href="{{route("favorite_opportunities.index")}}">
+                {{-- <a class="nav-link @if(($selected_navigation ?? '') === 'dashboard') active @endif" id="abanoub"
+                   href="{{route("favorite_opportunities.index")}}"> --}}
 
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -154,7 +154,7 @@
 
 
             <li class="nav-item">
-                <a class="nav-link @if(($selected_navigation ?? '') === 'dashboard') active @endif" id="abanoub"
+                {{-- <a class="nav-link @if(($selected_navigation ?? '') === 'dashboard') active @endif" id="abanoub"
                    href="{{ route('investor.news.index') }}">
 
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -164,7 +164,7 @@
                         <polyline points="9 22 9 12 15 12 15 22"></polyline>
                     </svg>
                     <span class="nav-link-text ms-3">{{ __('Investment_news') }}</span>
-                </a>
+                </a> --}}
 
 
             </li>
@@ -200,7 +200,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link @if(($selected_navigation ?? '') === 'profile') active @endif " href="{{route("investor.profile.index")}}">
+                {{-- <a class="nav-link @if(($selected_navigation ?? '') === 'profile') active @endif " href="{{route("investor.profile.index")}}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                          class="feather feather-user">
@@ -208,7 +208,7 @@
                         <circle cx="12" cy="7" r="4"></circle>
                     </svg>
                     <span class="nav-link-text ms-3">{{__('Profile')}}</span>
-                </a>
+                </a> --}}
             </li>
             <li class="nav-item">
                 <a class="nav-link @if(($selected_navigation ?? '') === 'profile') active @endif " href="/profile">

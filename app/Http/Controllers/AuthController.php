@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Mail\PasswordReset;
 use App\Mail\WelcomeEmail;
+use App\Models\Investor;
 use App\Models\Setting;
 use App\Models\User;
 use App\Models\Workspace;
@@ -41,6 +43,9 @@ class AuthController extends Controller
             View::share("super_settings", $super_settings);
             return $next($request);
         });
+
+        $this->middleware('guest')->except('logout');
+        $this->middleware('guest:investor')->except('logout');
     }
 
     public function login()
@@ -180,7 +185,7 @@ class AuthController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
-
+ 
         //Verify recaptcha v2
         if (!empty($super_settings['config_recaptcha_in_user_login'])) {
             $recaptcha = $request->get('g-recaptcha-response');
@@ -204,6 +209,9 @@ class AuthController extends Controller
             $remember = true;
         }
 
+        if (Auth::guard('investor')->attempt($credentials, $remember)) {
+            return redirect()->intended(route('investor.index')); // Redirect to the intended page
+        }
 
         if (Auth::attempt($credentials, $remember)) {
             $user = User::where('email', $request->email)->first();
@@ -306,19 +314,8 @@ class AuthController extends Controller
         ]);
     }
 
-    public function signupPost(Request $request)
+    public function signupPost(UserRequest $request)
     {
-        $request->validate([
-            "email" => ["required", "email"],
-            "first_name" => ["required"],
-            "last_name" => ["required"],
-            "password" => ["required"],
-            'account_type' => 'required|in:1,2',
-            'company_name' => 'required_if:account_type,1',
-            'count_startup_company' => 'required_if:account_type,2',
-            'from' => 'required_if:account_type,2',
-            'to' => 'required_if:account_type,2',
-        ]);
 
         if (!empty($super_settings['config_recaptcha_in_user_signup'])) {
             $recaptcha = $request->get('g-recaptcha-response');
@@ -333,20 +330,16 @@ class AuthController extends Controller
             }
         }
 
-
-        $check = User::where("email", $request->email)->first();
-
-        if ($check) {
-            return back()->withErrors([
-                "email" => "User already exist",
-            ]);
-        }
-
         $workspace = new Workspace();
         $workspace->name = $request->first_name . "'s workspace";
         $workspace->save();
 
-        $user = new User();
+        if($request->account_type === 'investor')
+        {
+            $user = new Investor();
+        }else{
+            $user = new User();
+        }
 
         $password = Hash::make($request->password);
 
