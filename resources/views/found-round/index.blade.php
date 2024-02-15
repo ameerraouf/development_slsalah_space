@@ -9,7 +9,7 @@
 
         </div>
         <div class="col text-end">
-            <a href="{{route('found-round-add')}}" type="button" class="btn btn-info">
+            <a href="{{route('pioneer.found-round-add')}}" type="button" class="btn btn-info">
                 {{__('Found Round')}}
             </a>
         </div>
@@ -85,11 +85,11 @@
                                         <div class="ms-auto">
 
                                             <a class="btn btn-link text-danger delete-btn text-gradient px-3 mb-0"
-                                               href="{{route('found-round-destroy', $round->id)}}"><i
+                                               href="{{route('pioneer.found-round-destroy', $round->id)}}"><i
                                                     class="far fa-trash-alt me-2"></i>{{__('Delete')}}</a>
 
                                             <a class="btn btn-link text-dark px-3 mb-0"
-                                               href="{{route('found-round-edit', $round->id)}}"><i
+                                               href="{{route('pioneer.found-round-edit', $round->id)}}"><i
                                                     class="fas fa-pencil-alt text-dark me-2"
                                                     aria-hidden="true"></i>{{__('Edit')}}</a>
                                         </div>

@@ -60,6 +60,37 @@
                                         placeholder="{{ __('Password') }}" aria-label="Password"
                                         aria-describedby="password-addon">
                                 </div>
+                                <label for="account_type">{{__('account_type')}} <span class="text-danger">*</span></label>
+                                <div class="mb-3">
+                                    <select class="from-control" name="account_type" id="account_type">
+                                        <option value="business_pioneer">{{__('business_pioneer')}}</option>
+                                        <option value="investor">{{__('investor')}}</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3" id="company_count">
+                                    <label>{{ __('company_count') }} <span class="text-danger">*</span></label>
+                                    <input name="company_count" class="form-control" type="number" min="1"
+                                        placeholder="" value="{{ old('company_count') }}"
+                                        >
+                                </div>
+                                <div class="mb-3" id="investment_range">
+                                    <label>{{ __('investment_range') }} <span class="text-danger">*</span></label>
+                                    <div class="d-flex justify-content-around">
+                                        <div class=" m-2">
+                                            <input name="range_one" class="form-control" type="number" min="1"
+                                            placeholder="{{__('from')}}" value="{{ old('range_noe') }}">
+                                        </div>
+                                        <div class="m-2">
+                                            <input name="range_two" class="form-control" type="number" min="1"
+                                            placeholder="{{__('to')}}" value="{{ old('range_two') }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3" id="company_name">
+                                    <label>{{ __('company_name') }} <span class="text-danger">*</span></label>
+                                    <input name="company_name" class="form-control" type="text"
+                                        placeholder="" value="{{ old('company_name') }}">
+                                </div>
                                 @if (!empty($super_settings['config_recaptcha_in_user_signup']))
                                     <div class="g-recaptcha" data-sitekey="{{ $super_settings['recaptcha_api_key'] }}">
 
@@ -80,7 +111,32 @@
         </div>
     </section>
 
+
+    
     <script>
+        jQuery(document).ready(function($) {
+            // Initially hide the element
+            $('#investment_range').hide();
+            $('#company_count').hide();
+
+            // Bind change event to the select dropdown
+            $('#account_type').change(function() {
+                // Check the selected option value
+                var type = $(this).val();
+                // Show or hide the element based on the selected option
+                if (type === 'investor') {
+                $('#investment_range').show();
+                $('#company_count').show();
+                $('#company_name').hide();
+                } else {
+                $('#company_name').show();
+                $('#investment_range').hide();
+                $('#company_count').hide();
+
+                }
+            });
+        });
+
         (function() {
             "use strict";
             var win = navigator.platform.indexOf('Win') > -1;
