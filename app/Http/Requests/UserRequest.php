@@ -29,9 +29,9 @@ class UserRequest extends FormRequest
             'email'         => 'required|email|unique:users,email|unique:investors,email',
             'password'      => 'required|string|min:8',
             'account_type'  => 'required|in:business_pioneer,investor',
-            'company_count' => 'requiredIf:account_type,investor|numeric',
-            'from'          => 'requiredIf:account_type,investor|numeric',
-            'to'            => 'requiredIf:account_type,investor|numeric',
+            'company_count' => 'requiredIf:account_type,investor',
+            'range_one'          => 'requiredIf:account_type,investor',
+            'range_two'            => 'requiredIf:account_type,investor',
             'company_name'  => 'requiredIf:account_type,business_pioneer|string'
         ];
     }

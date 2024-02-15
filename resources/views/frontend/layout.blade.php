@@ -2829,7 +2829,7 @@
                                         style="margin-top:-9px;margin-right:29px;margin-bottom:20px;margin-left:17px;">
                                         <a class="cz_header_button cz_btn_61645"
                                             style="font-size:12px;color:#137fc0;background-color:#d7ecf9;border-style:solid;border-color:#137fc0;"
-                                            href="/login" target="_blank">
+                                            href="/login">
                                             {{ __('Login') }}
                                         </a>
                                     </div>

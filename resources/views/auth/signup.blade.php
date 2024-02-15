@@ -77,7 +77,7 @@
                                     <label>{{ __('investment_range') }} <span class="text-danger">*</span></label>
                                     <div class="d-flex justify-content-around">
                                         <div class=" m-2">
-                                            <input name="range_noe" class="form-control" type="number" min="1"
+                                            <input name="range_one" class="form-control" type="number" min="1"
                                             placeholder="{{__('from')}}" value="{{ old('range_noe') }}">
                                         </div>
                                         <div class="m-2">

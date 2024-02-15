@@ -34,11 +34,11 @@
                                                 المدى الاستثماري
                                             </p>
 
-                                            <h5 class="font-weight-bolder mt-4" >
+                                            <h5 class="mt-4" >
                                                 <a href="/projects" style="color: #fff">
                                                     @auth('investor')
-                                                        {{Auth::guard('investor')->user()->from ?? ""}} <span>ريال</span>   -
-                                                        {{Auth::guard('investor')->user()->to ?? ""}}<span>ريال</span>
+                                                        {{Auth::guard('investor')->user()->invest_from ?? ""}} <span>ريال</span>   -
+                                                        {{Auth::guard('investor')->user()->invest_to ?? ""}}<span>ريال</span>
                                                     @endauth
                                                 </a>
                                             </h5>
