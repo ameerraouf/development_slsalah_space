@@ -107,7 +107,7 @@
 {{--                                        @endif--}}
 {{--                                            <a class="btn btn-info" href="{{route('admin.subscriptions.details', $workspace->id)}}">عرض التفاصيل</a>--}}
                                             <div class="d-flex">
-                                                <a class="btn btn-info btn-sm btn-pink m-2 p-2" href="{{route('admin.subscriptions.details', $workspace->id)}}"><i class="fa fa-heart" style="font-size: 25px" title="إضافة للمفضلة" aria-hidden="true"></i></a>
+                                                <a class="btn btn-info btn-sm {{in_array($workspace->id, $favorite_rounds)? 'btn-pink':'btn-def'}} m-2 p-2" onclick="roundFollow({{$workspace->id}})" id="{{$workspace->id}}" href="javascript:void(0)"><i class="fa fa-heart" style="font-size: 25px" title="إضافة للمفضلة" aria-hidden="true"></i></a>
                                                 <a class="btn btn-info btn-sm m-2 p-2" href="{{route('admin.subscriptions.details', $workspace->id)}}"><i class="fa fa-comments-o" style="font-size: 25px" title="إضغط للمراسلة الان" aria-hidden="true"></i></a>    
                                             </div>
                                     </td>
@@ -126,6 +126,10 @@
 
 @endsection
 @section('script')
+
+{{-- <script src="https://cdn.jsdelivr.net/combine/npm/snapsvg@0.5.1,npm/frappe-gantt@0.5.0/dist/frappe-gantt.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
+
     <script>
         "use strict";
         $(document).ready(function () {
@@ -150,6 +154,36 @@
           });
         });
 
+        function roundFollow(round_id) {
+            let el = document.getElementById(round_id); 
+
+            $.ajax({
+                type: "get",
+                url: "{{route('investor.round.follow')}}",
+                data: {'round_id':round_id},
+                dataType: "json",
+                success: function (response) {
+                    if (response.value === 2) {
+                        $('#'+round_id).removeClass('btn-pink');
+                        $('#'+round_id).addClass('btn-def');
+                        Toast.fire({
+                            icon: 'success',
+                            title: response.message
+                        });
+                    } else {
+                        $('#'+round_id).removeClass('btn-def');
+                        $('#'+round_id).addClass('btn-pink');
+                        Toast.fire({
+                            icon: 'success',
+                            title: response.message
+                        });
+                    }
+                }
+            });
+        }
+
     </script>
+
+
 
 @endsection

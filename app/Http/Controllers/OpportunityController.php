@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\FoundRound;
 use App\Models\Opportunity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OpportunityController extends Controller
 {
@@ -19,7 +20,9 @@ class OpportunityController extends Controller
             $q->where('round_amount', '<=' ,$request->to);
         })->latest()->get();
         
-        return view('investor.opportunities.index', compact('opportunities'));
+        $favorite_rounds = Auth::guard('investor')->user()->favoriteRounds->pluck('id')->toArray();
+        
+        return view('investor.opportunities.index', compact('opportunities', 'favorite_rounds'));
     }
 
     public function create()
