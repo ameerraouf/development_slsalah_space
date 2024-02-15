@@ -36,7 +36,7 @@
             margin: 0px !important;
         }
     </style>
-
+ 
 </head>
 
 <body class="g-sidenav-show  bg-gray-100" id="clx_body">
@@ -820,6 +820,8 @@
     </script>
 
     @yield('script')
+    
+    @stack('js')
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 @if ($currentStep != 4)
-    <div style="display: none" class="row setup-content" id="step-2">
+    <div style="display: none" class="row setup-content" id="step-4">
 @endif
         <div class=" card min-height-250" style="background-image: url('{{PUBLIC_DIR}}/img/back.jpeg');">
             <div class="container">
@@ -167,12 +167,6 @@
                                 {{ trans('submit') }}
                             </button>
                         </div>
-
- {{-- {{ var_export($marketid) }} 
- {{ var_export($marketid2) }} 
- {{ var_export($marketid3) }} 
- {{ var_export($marketid4) }} 
- {{ var_export($marketid5) }}  --}}
                 </div>
                 <button class="btn btn-warning mt-3" type="button" wire:click="back(3)">
                     {{ trans('Back') }}
@@ -182,4 +176,9 @@
                 </button>
             </div>
         </div>
+
+        
     </div>
+    @push('js')
+  
+    @endpush
