@@ -292,8 +292,13 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        if(Auth::guard('investor')->check())
+        {
+            Auth::guard('investor')->logout();
+            return redirect("/");
+        }
+    
         Auth::logout();
-
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
