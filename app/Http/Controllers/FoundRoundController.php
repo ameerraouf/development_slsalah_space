@@ -51,7 +51,7 @@ class FoundRoundController extends Controller
         $round->business_pioneer_id = Auth::user()->id;
 
         $round->save();
-        return redirect()->route('pioneer-found-rounds')->with('success', 'تم حفظ البيانات بنجاح');
+        return redirect()->route('pioneer.pioneer-found-rounds')->with('success', 'تم حفظ البيانات بنجاح');
     }
 
     /**
@@ -93,7 +93,7 @@ class FoundRoundController extends Controller
         $round->business_pioneer_id = Auth::user()->id;
 
         $round->save();
-        return redirect()->route('pioneer-found-rounds')->with('success', 'تم تعديل الجولة بنجاح');
+        return redirect()->route('pioneer.pioneer-found-rounds')->with('success', 'تم تعديل الجولة بنجاح');
 
     }
 
@@ -106,6 +106,6 @@ class FoundRoundController extends Controller
     public function destroy(FoundRound $round)
     {
         $round->delete();
-        return  redirect()->route('pioneer-found-rounds')->with('success', 'تم حذف الجولة بنجاح');
+        return  redirect()->route('pioneer.pioneer-found-rounds')->with('success', 'تم حذف الجولة بنجاح');
     }
 }
