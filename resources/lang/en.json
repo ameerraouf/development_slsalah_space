@@ -829,5 +829,14 @@
     "yearly" : "سنوي",
     "paypal" : "باي بال",
     "click pay" : "كليك باي",
-    "video_type" : "نوع الفيديو"
+    "video_type" : "نوع الفيديو",
+    "company_name": "إسم الشركة",
+    "to": "إلى",
+    "from": "من",
+    "company_count": "كم عدد الشركات الناشئة في محفظتك",
+    "account_type": "نوع الحساب",
+    "investment_range": "المدى الاستثمارى",
+    "investor": "مستثمر",
+    "business_pioneer": "رائد أعمال"
+    
 }

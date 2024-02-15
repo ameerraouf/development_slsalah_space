@@ -31,7 +31,8 @@ use App\Http\Controllers\EconomicPlanController;
 use App\Http\Controllers\FinancialEvaluationController;
 use App\Http\Controllers\FoundRoundController;
 use App\Http\Controllers\GptChatController;
-
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\InvestorController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,6 +45,10 @@ use App\Http\Controllers\GptChatController;
 */
 
 Route::get('/', [FrontendController::class,'home']);
+
+Route::get('/test', function (){
+    dd(Auth::guard('investor')->user());
+})->name('test');
 
 Route::prefix("super-admin")->group(function () {
     Route::get("/", [AuthController::class, "superAdminLogin"])->name(
@@ -479,15 +484,23 @@ Route::get('/pay-bank/{package}', [\App\Http\Controllers\PayController::class, '
 Route::view('payment-successfully', 'package.payment_successfully')->name('payment_successfully');
 
 
-// Found Round //
-Route::get('found-round-add', [FoundRoundController::class, 'create'])->name('found-round-add');
-Route::post('found-round-store', [FoundRoundController::class, 'store'])->name('found-round-store');
-Route::get('pioneer-found-rounds', [FoundRoundController::class, 'index'])->name('pioneer-found-rounds');
-Route::get('found-round-edit/{round}', [FoundRoundController::class, 'edit'])->name('found-round-edit')->middleware('pioneer_rounds');
-Route::post('found-round-update/{round}', [FoundRoundController::class, 'update'])->name('found-round-update');
-Route::get('delete-found/{round}', [FoundRoundController::class, 'destroy'])->name('found-round-destroy')->middleware('pioneer_rounds');
+Route::prefix('pioneer')->middleware('auth')->as('pioneer.')->group(function(){
+    // Found Round //
+    Route::get('found-round-add', [FoundRoundController::class, 'create'])->name('found-round-add');
+    Route::post('found-round-store', [FoundRoundController::class, 'store'])->name('found-round-store');
+    Route::get('pioneer-found-rounds', [FoundRoundController::class, 'index'])->name('pioneer-found-rounds');
+    Route::get('found-round-edit/{round}', [FoundRoundController::class, 'edit'])->name('found-round-edit')->middleware('pioneer_rounds');
+    Route::post('found-round-update/{round}', [FoundRoundController::class, 'update'])->name('found-round-update');
+    Route::get('delete-found/{round}', [FoundRoundController::class, 'destroy'])->name('found-round-destroy')->middleware('pioneer_rounds');
+
+});
 
 
 // GPT Chat//
 Route::get('gpt-chat', [GptChatController::class, 'start_chat'])->name('gpt-chat');
 Route::post('gpt-chat-send', [GptChatController::class, 'send_message'])->name('gpt-send-message');
+
+
+Route::prefix('investor')->middleware('auth:investor')->as('investor.')->group(function(){
+    Route::get('/', [InvestorController::class, 'index'])->name('index');
+});
