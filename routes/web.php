@@ -33,6 +33,8 @@ use App\Http\Controllers\FoundRoundController;
 use App\Http\Controllers\GptChatController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\InvestorController;
+use App\Http\Controllers\OpportunityController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -503,4 +505,5 @@ Route::post('gpt-chat-send', [GptChatController::class, 'send_message'])->name('
 
 Route::prefix('investor')->middleware('auth:investor')->as('investor.')->group(function(){
     Route::get('/', [InvestorController::class, 'index'])->name('index');
+    Route::get('/investment-opportunities', [OpportunityController::class, 'index'])->name('opportunities.index');
 });

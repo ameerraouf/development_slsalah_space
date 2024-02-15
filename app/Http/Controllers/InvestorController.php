@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FoundRound;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +11,9 @@ class InvestorController extends Controller
 {
     public function index()
     {
-        return view('investor.index');
+        $rounds = FoundRound::latest()->take(5)->get();
+
+        return view('investor.index', compact('rounds'));
     }
     public function news()
     {
