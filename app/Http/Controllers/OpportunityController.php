@@ -3,16 +3,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FoundRound;
 use App\Models\Opportunity;
-use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OpportunityController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $opportunities = User::where("account_type",1)->get();
-        return view('investor.opportunities.index', compact('opportunities'));
+        $opportunities = FoundRound::
+        when($request->from, function ($q) use ($request) {
+            $q->where('round_amount', '>=' ,$request->from);
+        })
+        ->when($request->to, function ($q) use ($request) {
+            $q->where('round_amount', '<=' ,$request->to);
+        })->latest()->get();
+        
+        $favorite_rounds = Auth::guard('investor')->user()->favoriteRounds->pluck('id')->toArray();
+        
+        return view('investor.opportunities.index', compact('opportunities', 'favorite_rounds'));
     }
 
     public function create()
