@@ -14,11 +14,11 @@
                                 <input type="text" wire:model="title.{{ $index }}" id="title{{ $index }}" class="form-control">
                                 <label for="description{{ $index }}">وصف المنتج:</label>
                                 <textarea wire:model="description.{{ $index }}" id="editor  description{{ $index }}" class="form-control"  ></textarea>
-                                {{-- <button class="btn btn-danger btn-sm mt-3" type="button" wire:click="deleteProduct({{ $product->id }})" title="حذف">
+                                <button class="btn btn-danger btn-sm mt-3" type="button" wire:click="deleteProduct({{ $product->id }})" title="حذف">
                                     <i class="fa fa-trash fa-lg"></i>
-                                </button> --}}
-                                {{-- {{ var_export($product->id) }} --}}
-                                {{-- {{ var_export($index) }} --}}
+                                </button>
+                                {{-- {{ var_export($product->id) }}
+                                {{ var_export($index) }} --}}
                             </div>
                         @endforeach
                         <div class="col-md-4  mt-5">
