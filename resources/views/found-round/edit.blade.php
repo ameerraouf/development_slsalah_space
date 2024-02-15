@@ -3,7 +3,7 @@
 
     <div class="container-fluid py-4">
         <div class="row">
-            <form action="{{route('found-round-update', $round->id)}}" method="post">
+            <form action="{{route('pioneer.found-round-update', $round->id)}}" method="post">
                 @csrf
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -46,9 +46,6 @@
                             </div>
                         </div>
                        
-
-                     
-
                         <div class="col -lg-12 text-center  mt-4 ">
 
                             <button type="submit" name="button" class="btn btn-info m-0 ">

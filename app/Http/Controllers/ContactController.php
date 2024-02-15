@@ -6,6 +6,7 @@ use App\Models\Investor;
 use App\Models\Projects;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ContactController extends BaseController
@@ -40,6 +41,7 @@ class ContactController extends BaseController
 
     public function investorList()
     {
+        dd(Auth::guard('investor')->user());
         if ($this->modules && !in_array("investors", $this->modules)) {
             abort(401);
         }
