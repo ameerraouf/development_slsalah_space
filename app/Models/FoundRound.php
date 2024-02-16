@@ -17,4 +17,10 @@ class FoundRound extends Model
     {
         return $this->belongsTo(User::class, 'business_pioneer_id');
     }
+
+    public function investorsThatLiked()
+    {
+         return $this->belongsToMany(Investor::class, 'favorite_rounds', 'investor_id');
+    }
+
 }

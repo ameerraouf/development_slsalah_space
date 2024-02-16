@@ -172,3 +172,11 @@ html[dir="rtl"] table.dataTable thead th, table.dataTable thead td, table.dataTa
     max-width: 100%;
     max-height: initial;
 }
+
+.btn-pink {
+    background-color: rgb(250 19 58 / 72%) !important;
+}
+.btn-def {
+    background-color: rgb(255 255 255) !important;
+    color:#2222
+}
