@@ -290,6 +290,22 @@ public function updatecompats()
     public function eighthStepSubmit(){
         $this->currentStep = 9;
     }
+    //ninthStepSubmit
+    public function ninthStepSubmit(){
+        $this->currentStep = 10;
+    }
+    //tenthStepSubmit
+    public function tenthStepSubmit(){
+        $this->currentStep = 11;
+    }
+    //tenthStepSubmit
+    public function elevenStepSubmit(){
+        $this->currentStep = 12;
+    }
+    //tenthStepSubmit
+    public function twelveStepSubmit(){
+        $this->currentStep = 13;
+    }
 
     // submit forms action
     public function companySubmit(){
