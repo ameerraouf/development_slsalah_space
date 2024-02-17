@@ -49,4 +49,7 @@
     @include('livewire.solve')
     @include('livewire.market')
     @include('livewire.products')
+    @include('livewire.compatitive')
+    @include('livewire.team')
+    @include('livewire.competitors')
 </div>

@@ -4,15 +4,20 @@ namespace App\Http\Livewire;
 
 use Carbon\Carbon;
 use App\Models\Company;
+use App\Models\Compat;
+use App\Models\Compator;
 use App\Models\Market;
 use App\Models\Projects;
 use App\Models\Solve;
+use App\Models\Team;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\WithFileUploads;
+use Illuminate\Validation\Rule;
 class Investshow extends Component
 {
-    use LivewireAlert;
+    use WithFileUploads,LivewireAlert;
     public $currentStep = 1 , $updateMode = false;
     public $successMessage = '';
     public $catchError;
@@ -30,10 +35,16 @@ class Investshow extends Component
     public $year5,$size5,$unit5,$marketid5;
     public $theyear,$theyear2,$theyear3,$theyear4,$theyear5;
 
-    // public $projecttitle1,$projectdesc1;
-    public $selectedProducts = [];
-    public $title = [];
-    public $description = [];
+    // tap5
+    public $selectedProducts = [],$title = [],$description = [];
+    // tap6
+    public $selectedCompat = [] ,$titlecompat = [],$descriptioncompat = [];
+    // tap7 فريق العمل
+    public $selectedteam = [] ,$teamname = [],$teamimage = [],$newteamimage = [],$logo,$logo2,$x;
+    // tap8 المنافسين
+    public $selectedco = [] ,$coname = [],$coquality = [],$coprice = [],$cotech=[];
+
+
 
     // protected $listeners = ['refreshComponent'=>'$refresh'];
     public function mount(){
@@ -104,9 +115,109 @@ class Investshow extends Component
         $this->description[] = $product->description;
     }
     // $this->title = array_fill(0, 6, 'ddd');
+    //   tap6
+        $this->selectedCompat = Compat::latest()->take(6)->get(); // Fetch 6 compats
+        foreach ($this->selectedCompat as $compat) {
+            $this->titlecompat[] = $compat->title;
+            $this->descriptioncompat[] = $compat->description;
+        }
+        // tap7
+        $this->selectedteam = Team::get()->take(4); // Fetch 4 team
+        foreach ($this->selectedteam as $team) {
+            $this->teamname[] = $team->name;
+            $this->teamimage[] = $team->image;
+        }
+        $this->logo2= $this->logo;
+        $this->x='ssss';
 
-
+        //tap8 
+        $this->selectedco = Compator::get()->take(3); // Fetch 4 compator
+        foreach ($this->selectedco as $co) {
+            $this->coname[]    = $co->companyname;
+            $this->coprice[]   = $co->price;
+            $this->coquality[] = $co->quality;
+            $this->cotech[]    = $co->tech;
+        }
     }
+
+    // tap 8
+public function updatecompators()
+{
+    $validateData = $this->validate([
+        'coname.0'   =>'required|string|max:255',
+        'coname.1'   =>'required|string|max:255',
+        'coname.2'   =>'required|string|max:255',
+    ]);
+    foreach ($this->selectedco as $index=>$co) {
+        $co->update([
+            'companyname' => $this->coname[$index],
+            'price'       => $this->coprice[$index],
+            'quality'     => $this->coquality[$index],
+            'tech'        => $this->cotech[$index],
+        ]);
+    }
+    $this->alert('success', 'تم التحديث بنجاح');
+}
+// tap 7
+public function updateteams()
+{
+    $validateData = $this->validate([
+        'teamname.0'   =>'required|string|max:255',
+        'teamname.1'   =>'required|string|max:255',
+        'teamname.2'   =>'required|string|max:255',
+        'teamname.3'   =>'required|string|max:255',
+        // 'teamimage.0'   =>'nullable|image|max:2048',
+        // 'teamimage.1'   =>'nullable|image|max:2048',
+        // 'teamimage.2'   =>'nullable|image|max:2048',
+        // 'teamimage.3'   =>'nullable|image|max:2048',
+    ]);
+    // $this->validate();
+    dd($this->logo);
+    foreach ($this->selectedteam as $index => $team) {
+        // if($this->newteamimage){
+            // $imageName[$index] = Carbon::now()->timestamp. '.' .$this->newteamimage[$index]->extension();
+            // $this->newteamimage[$index]->storeAs('teams',$imageName);
+            // $team->image   = $imageName[$index];
+            // delete_file($this->teamimage[$index]->getRawOriginal('image'));
+            // $this->teamimage[$index] = store_file($this->teamimage,'teams');
+        // }
+        // else{
+        //     $this->teamimage[$index] = $this->teamimage[$index];
+        // }
+        // $team->image->store('images', 'public');
+            $team->name    = $this->teamname[$index];
+            // if($this->teamimage[$index]){
+                
+                // $imageName = Carbon::now()->timestamp. '.' .'jpg';
+                // $team->image->storeAs('teams',$imageName);
+                // $team->image = store_file('d', 'teams');
+                // $team->image      = $this->teamimage[$index];
+                // $team['image']->store($this->teamimage, 'public');
+            // }
+            // $team->image   = $this->teamimage[$index];
+            $team->update();
+        // $team->update([
+        //     'name' => $this->teamname[$index],
+        //     'image' => $this->teamimage[$index],
+        // ]);
+    }
+    $this->alert('success', 'تم التحديث بنجاح');
+}
+
+// tap 6
+public function updatecompats()
+{
+    foreach ($this->selectedCompat as $index => $compat) {
+        $compat->update([
+            'title' => $this->titlecompat[$index],
+            'description' => $this->descriptioncompat[$index],
+        ]);
+    }
+    $this->alert('success', 'تم التحديث بنجاح');
+    // $this->reset(['title', 'description']);
+}
+
+
     protected $listeners = ['recordDeleted' => 'fetchRecords'];
     public function fetchRecords()
     {
@@ -166,6 +277,18 @@ class Investshow extends Component
     //fifthStepSubmit
     public function fifthStepSubmit(){
         $this->currentStep = 6;
+    }
+    //sixthStepSubmit
+    public function sixthStepSubmit(){
+        $this->currentStep = 7;
+    }
+    //seventhStepSubmit
+    public function seventhStepSubmit(){
+        $this->currentStep = 8;
+    }
+    //seventhStepSubmit
+    public function eighthStepSubmit(){
+        $this->currentStep = 9;
     }
 
     // submit forms action
