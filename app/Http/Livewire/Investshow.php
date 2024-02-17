@@ -176,7 +176,7 @@ class Investshow extends Component
             // 'teamimage.3'   =>'nullable|image|max:2048',
         ]);
         // $this->validate();
-        dd($this->logo);
+        // dd($this->logo);
         foreach ($this->selectedteam as $index => $team) {
             // if($this->newteamimage){
                 // $imageName[$index] = Carbon::now()->timestamp. '.' .$this->newteamimage[$index]->extension();
@@ -212,12 +212,12 @@ class Investshow extends Component
     public function updatecompats()
     {
         $validateData = $this->validate([
-            'titlecompat.0'   =>'required|string|max:255',
-            'titlecompat.1'   =>'required|string|max:255',
-            'titlecompat.2'   =>'required|string|max:255',
-            'titlecompat.3'   =>'required|string|max:255',
-            'titlecompat.4'   =>'required|string|max:255',
-            'titlecompat.5'   =>'required|string|max:255',
+            'titlecompat.0'   =>'required|string|max:100',
+            'titlecompat.1'   =>'required|string|max:100',
+            'titlecompat.2'   =>'required|string|max:100',
+            'titlecompat.3'   =>'required|string|max:100',
+            'titlecompat.4'   =>'required|string|max:100',
+            'titlecompat.5'   =>'required|string|max:100',
             'descriptioncompat.0'   =>'required|string|max:255',
             'descriptioncompat.1'   =>'required|string|max:255',
             'descriptioncompat.2'   =>'required|string|max:255',
