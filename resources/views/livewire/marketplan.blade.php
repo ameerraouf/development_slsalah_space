@@ -9,7 +9,7 @@
                             <h3 class="text-dark">خطه دخول السوق</h3>
                         </div>
                         <div class="col-md-12">
-                                <img src="{{ asset('9.png') }}" alt="" style="width: 600px; margin: 200px;">
+                                <img src="{{ asset('9.png') }}" alt="" style="width: 600px;">
                         </div>
 
 
