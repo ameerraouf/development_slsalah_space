@@ -22,19 +22,22 @@ class Investshow extends Component
     public $successMessage = '';
     public $catchError;
     public $userphoto;
+   // tap1
     public $company_desc;
+   //tap2
     public $summary1,$summary2,$summary3;
     public $id1,$id2,$id3;
     public $projects,$projectid;
+    //tap3
     public $solve1,$solve2,$solve3,$solve4,$solve5,$solve6,$solve7,$solve8,$solve9;
     public $solveid1,$solveid2,$solveid3,$solveid4,$solveid5,$solveid6,$solveid7,$solveid8,$solveid9;
+    //tap4
     public $year,$size,$unit,$marketid;
     public $year2,$size2,$unit2,$marketid2;
     public $year3,$size3,$unit3,$marketid3;
     public $year4,$size4,$unit4,$marketid4;
     public $year5,$size5,$unit5,$marketid5;
     public $theyear,$theyear2,$theyear3,$theyear4,$theyear5;
-
     // tap5
     public $selectedProducts = [],$title = [],$description = [];
     // tap6
@@ -49,16 +52,17 @@ class Investshow extends Component
     // protected $listeners = ['refreshComponent'=>'$refresh'];
     public function mount(){
       $this->userphoto = auth()->user()->photo;
+      //tap1
       $this->company_desc = auth()->user()->company?->company_description;
-
-      $this->projects= Projects::latest()->get()->take(3);
+      //tap2
+      $this->projects = Projects::latest()->get()->take(3);
       $this->summary1 = Projects::latest()->first()->summary??'';
       $this->summary2 = Projects::latest()->skip(1)->first()->summary??'';
       $this->summary3 = Projects::latest()->skip(2)->first()->summary??'';
       $this->id1 = Projects::latest()->first()->id??'';
       $this->id2 = Projects::latest()->skip(1)->first()->id??'';
       $this->id3 = Projects::latest()->skip(2)->first()->id??'';
-
+      //tap3
       $this->solve1   = Solve::latest()->first()->title??'';
       $this->solveid1 = Solve::latest()->first()->id??'';
       $this->solve2   = Solve::latest()->skip(1)->first()->title??'';
@@ -77,7 +81,7 @@ class Investshow extends Component
       $this->solveid8 = Solve::latest()->skip(7)->first()->id??'';
       $this->solve9   = Solve::latest()->skip(8)->first()->title??'';
       $this->solveid9 = Solve::latest()->skip(8)->first()->id??'';
-
+      //tap4
       $now = Carbon::now();
       $this->year = $now->year;
       $this->year2 = $now->addYear()->year;
@@ -108,14 +112,13 @@ class Investshow extends Component
       $this->theyear5 = $this->year5??'';
 
 
-    //   tap5
-    $this->selectedProducts = Projects::latest()->take(6)->get(); // Fetch 6 products
-    foreach ($this->selectedProducts as $product) {
-        $this->title[] = $product->title;
-        $this->description[] = $product->description;
-    }
-    // $this->title = array_fill(0, 6, 'ddd');
-    //   tap6
+        //   tap5
+        $this->selectedProducts = Projects::latest()->take(6)->get(); // Fetch 6 products
+        foreach ($this->selectedProducts as $product) {
+            $this->title[] = $product->title;
+            $this->description[] = $product->description;
+        }
+        //   tap6
         $this->selectedCompat = Compat::latest()->take(6)->get(); // Fetch 6 compats
         foreach ($this->selectedCompat as $compat) {
             $this->titlecompat[] = $compat->title;
@@ -259,7 +262,6 @@ class Investshow extends Component
             ]);
         }
         $this->alert('success', 'تم التحديث بنجاح');
-        // $this->reset(['title', 'description']);
     }
     
     // public function updated($propertyName)
