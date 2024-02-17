@@ -11,7 +11,7 @@
                         <div class="col-md-12 mx-auto text-center">
                             <h3 class="text-dark">فريق العمل</h3>
                         </div>
-                        {{-- <form wire:submit.prevent="updateteams" autocomplete="off" enctype="multipart/form-data"> --}}
+                        {{-- <form wire:submit.prevent="updateteams" autocomplete="off" enctype="multipart/form-data" > --}}
                                 {{-- <label for="" class="small-label" class="small-label">شعار الموقع </label>
                                 <input type="text" class="form-control" wire:model.defer="x" name="x">
                                 <input type="file" class="form-control-file" wire:model="logo" name="logo">
@@ -23,15 +23,10 @@
                             @foreach ($selectedteam as $index => $team)
                                 <div class="col-md-3  mt-5" >
                                     <div>
-                                        @if($team->image)
-                                        {{-- <img src="{{ $team->image->temporaryUrl() }}" alt="" width="150"> --}}
-                                        {{-- <img src="{{display_file($team['image'])}}" style="width: 150px"alt="" > --}}
-                                        <img src="{{asset('uploads/teams/'.$team['image'])}}" style="width: 150px"alt="" >
-                                        {{-- <img src="{{ $team['image']->temporaryUrl() }}" alt="" width="200"> --}}
-                                            {{-- <img src="{{ $team['image']->temporaryUrl() }}" width='100' alt=""> --}}
+                                        @if($teamimage[$index])
+                                           <img src="{{ $teamimage[$index]->temporaryUrl() }}" alt="" width="150">
                                         @else
-                                            <img src="{{ asset('no-image.jpg') }}" style="width: 150px;" alt=" ">
-                                            {{-- <img src="{{display_file($team->image)}}" width='100' alt=""> --}}
+                                           <img src="{{display_file($team['image'])}}" width='150' alt="">
                                         @endif
                                     </div>
 
@@ -40,11 +35,12 @@
                                     @error("teamname.{$index}")<span class="text-danger">{{ $message }}</span>@enderror 
                                     <br>
                                     <label for="" >الصوره</label>
-                                    <input type="file"   class="form-control-file" wire:model="teamimage.{{ $index }}"  name="teamimage.{{ $index }}"> 
+                                    <input type="file"   class="form-control-file" wire:model="teamimage.{{ $index }}" > 
                                     @error("teamimage.{$index}")<span class="text-danger">{{ $message }}</span>@enderror                          
                                 </div>
                                 {{-- {{ var_export($teamname) }} --}}
                                 {{-- {{ var_export($teamimage) }} --}}
+                                {{-- {{ var_export($teamimage[$index] ?? null) }} --}}
                                 {{-- {{ var_export($index) }} --}}
                             @endforeach
                             <div class="col-md-4  mt-5">

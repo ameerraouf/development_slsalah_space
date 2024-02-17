@@ -170,42 +170,19 @@ class Investshow extends Component
             'teamname.1'   =>'required|string|max:255',
             'teamname.2'   =>'required|string|max:255',
             'teamname.3'   =>'required|string|max:255',
-            // 'teamimage.0'   =>'nullable|image|max:2048',
-            // 'teamimage.1'   =>'nullable|image|max:2048',
-            // 'teamimage.2'   =>'nullable|image|max:2048',
-            // 'teamimage.3'   =>'nullable|image|max:2048',
+            'teamimage.0'   =>'nullable|max:2048',
+            'teamimage.1'   =>'nullable|max:2048',
+            'teamimage.2'   =>'nullable|max:2048',
+            'teamimage.3'   =>'nullable|max:2048',
         ]);
-        // $this->validate();
-        // dd($this->logo);
         foreach ($this->selectedteam as $index => $team) {
-            // if($this->newteamimage){
-                // $imageName[$index] = Carbon::now()->timestamp. '.' .$this->newteamimage[$index]->extension();
-                // $this->newteamimage[$index]->storeAs('teams',$imageName);
-                // $team->image   = $imageName[$index];
-                // delete_file($this->teamimage[$index]->getRawOriginal('image'));
-                // $this->teamimage[$index] = store_file($this->teamimage,'teams');
-            // }
-            // else{
-            //     $this->teamimage[$index] = $this->teamimage[$index];
-            // }
-            // $team->image->store('images', 'public');
                 $team->name    = $this->teamname[$index];
-                // if($this->teamimage[$index]){
-                    
-                    // $imageName = Carbon::now()->timestamp. '.' .'jpg';
-                    // $team->image->storeAs('teams',$imageName);
-                    // $team->image = store_file('d', 'teams');
-                    // $team->image      = $this->teamimage[$index];
-                    // $team['image']->store($this->teamimage, 'public');
-                // }
-                // $team->image   = $this->teamimage[$index];
+                if($this->teamimage[$index]){
+                    $team->image = store_file($this->teamimage[$index],'teams');
+                }
                 $team->update();
-            // $team->update([
-            //     'name' => $this->teamname[$index],
-            //     'image' => $this->teamimage[$index],
-            // ]);
+                $this->alert('success', 'تم التحديث بنجاح');
         }
-        $this->alert('success', 'تم التحديث بنجاح');
     }
 
     // tap 6
