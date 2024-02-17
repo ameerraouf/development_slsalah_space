@@ -39,4 +39,10 @@ class Investor extends Authenticatable
             ->where(['workspace_id' => $workspace_id])->sum('investing_annual_cost');
         return $fixedSum + $workingSum;
     }
+
+    public function favoriteRounds()
+    {
+         return $this->belongsToMany(FoundRound::class, 'favorite_rounds');
+    }
+    
 }

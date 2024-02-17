@@ -837,6 +837,8 @@
     "account_type": "نوع الحساب",
     "investment_range": "المدى الاستثمارى",
     "investor": "مستثمر",
-    "business_pioneer": "رائد أعمال"
+    "business_pioneer": "رائد أعمال",
+    "remove_from_favorite_successfully": "تم الإزالة من المفضلة بنجاح",
+    "add_to_favorite_successfully": "تمت الإضافة إلى المفضلة بنجاح"
     
 }
