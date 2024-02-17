@@ -141,81 +141,95 @@ class Investshow extends Component
     }
 
     // tap 8
-public function updatecompators()
-{
-    $validateData = $this->validate([
-        'coname.0'   =>'required|string|max:255',
-        'coname.1'   =>'required|string|max:255',
-        'coname.2'   =>'required|string|max:255',
-    ]);
-    foreach ($this->selectedco as $index=>$co) {
-        $co->update([
-            'companyname' => $this->coname[$index],
-            'price'       => $this->coprice[$index],
-            'quality'     => $this->coquality[$index],
-            'tech'        => $this->cotech[$index],
+    public function updatecompators()
+    {
+        $validateData = $this->validate([
+            'coname.0'   =>'required|string|max:255',
+            'coname.1'   =>'required|string|max:255',
+            'coname.2'   =>'required|string|max:255',
         ]);
+        foreach ($this->selectedco as $index=>$co) {
+            $co->update([
+                'companyname' => $this->coname[$index],
+                'price'       => $this->coprice[$index],
+                'quality'     => $this->coquality[$index],
+                'tech'        => $this->cotech[$index],
+            ]);
+        }
+        $this->alert('success', 'تم التحديث بنجاح');
     }
-    $this->alert('success', 'تم التحديث بنجاح');
-}
-// tap 7
-public function updateteams()
-{
-    $validateData = $this->validate([
-        'teamname.0'   =>'required|string|max:255',
-        'teamname.1'   =>'required|string|max:255',
-        'teamname.2'   =>'required|string|max:255',
-        'teamname.3'   =>'required|string|max:255',
-        // 'teamimage.0'   =>'nullable|image|max:2048',
-        // 'teamimage.1'   =>'nullable|image|max:2048',
-        // 'teamimage.2'   =>'nullable|image|max:2048',
-        // 'teamimage.3'   =>'nullable|image|max:2048',
-    ]);
-    // $this->validate();
-    dd($this->logo);
-    foreach ($this->selectedteam as $index => $team) {
-        // if($this->newteamimage){
-            // $imageName[$index] = Carbon::now()->timestamp. '.' .$this->newteamimage[$index]->extension();
-            // $this->newteamimage[$index]->storeAs('teams',$imageName);
-            // $team->image   = $imageName[$index];
-            // delete_file($this->teamimage[$index]->getRawOriginal('image'));
-            // $this->teamimage[$index] = store_file($this->teamimage,'teams');
-        // }
-        // else{
-        //     $this->teamimage[$index] = $this->teamimage[$index];
-        // }
-        // $team->image->store('images', 'public');
-            $team->name    = $this->teamname[$index];
-            // if($this->teamimage[$index]){
-                
-                // $imageName = Carbon::now()->timestamp. '.' .'jpg';
-                // $team->image->storeAs('teams',$imageName);
-                // $team->image = store_file('d', 'teams');
-                // $team->image      = $this->teamimage[$index];
-                // $team['image']->store($this->teamimage, 'public');
-            // }
-            // $team->image   = $this->teamimage[$index];
-            $team->update();
-        // $team->update([
-        //     'name' => $this->teamname[$index],
-        //     'image' => $this->teamimage[$index],
-        // ]);
-    }
-    $this->alert('success', 'تم التحديث بنجاح');
-}
 
-// tap 6
-public function updatecompats()
-{
-    foreach ($this->selectedCompat as $index => $compat) {
-        $compat->update([
-            'title' => $this->titlecompat[$index],
-            'description' => $this->descriptioncompat[$index],
+    // tap 7
+    public function updateteams()
+    {
+        $validateData = $this->validate([
+            'teamname.0'   =>'required|string|max:255',
+            'teamname.1'   =>'required|string|max:255',
+            'teamname.2'   =>'required|string|max:255',
+            'teamname.3'   =>'required|string|max:255',
+            // 'teamimage.0'   =>'nullable|image|max:2048',
+            // 'teamimage.1'   =>'nullable|image|max:2048',
+            // 'teamimage.2'   =>'nullable|image|max:2048',
+            // 'teamimage.3'   =>'nullable|image|max:2048',
         ]);
+        // $this->validate();
+        dd($this->logo);
+        foreach ($this->selectedteam as $index => $team) {
+            // if($this->newteamimage){
+                // $imageName[$index] = Carbon::now()->timestamp. '.' .$this->newteamimage[$index]->extension();
+                // $this->newteamimage[$index]->storeAs('teams',$imageName);
+                // $team->image   = $imageName[$index];
+                // delete_file($this->teamimage[$index]->getRawOriginal('image'));
+                // $this->teamimage[$index] = store_file($this->teamimage,'teams');
+            // }
+            // else{
+            //     $this->teamimage[$index] = $this->teamimage[$index];
+            // }
+            // $team->image->store('images', 'public');
+                $team->name    = $this->teamname[$index];
+                // if($this->teamimage[$index]){
+                    
+                    // $imageName = Carbon::now()->timestamp. '.' .'jpg';
+                    // $team->image->storeAs('teams',$imageName);
+                    // $team->image = store_file('d', 'teams');
+                    // $team->image      = $this->teamimage[$index];
+                    // $team['image']->store($this->teamimage, 'public');
+                // }
+                // $team->image   = $this->teamimage[$index];
+                $team->update();
+            // $team->update([
+            //     'name' => $this->teamname[$index],
+            //     'image' => $this->teamimage[$index],
+            // ]);
+        }
+        $this->alert('success', 'تم التحديث بنجاح');
     }
-    $this->alert('success', 'تم التحديث بنجاح');
-    // $this->reset(['title', 'description']);
-}
+
+    // tap 6
+    public function updatecompats()
+    {
+        $validateData = $this->validate([
+            'titlecompat.0'   =>'required|string|max:255',
+            'titlecompat.1'   =>'required|string|max:255',
+            'titlecompat.2'   =>'required|string|max:255',
+            'titlecompat.3'   =>'required|string|max:255',
+            'titlecompat.4'   =>'required|string|max:255',
+            'titlecompat.5'   =>'required|string|max:255',
+            'descriptioncompat.0'   =>'required|string|max:255',
+            'descriptioncompat.1'   =>'required|string|max:255',
+            'descriptioncompat.2'   =>'required|string|max:255',
+            'descriptioncompat.3'   =>'required|string|max:255',
+            'descriptioncompat.4'   =>'required|string|max:255',
+            'descriptioncompat.5'   =>'required|string|max:255',
+        ]);
+        foreach ($this->selectedCompat as $index => $compat) {
+            $compat->update([
+                'title' => $this->titlecompat[$index],
+                'description' => $this->descriptioncompat[$index],
+            ]);
+        }
+        $this->alert('success', 'تم التحديث بنجاح');
+    }
 
 
     protected $listeners = ['recordDeleted' => 'fetchRecords'];
@@ -248,15 +262,15 @@ public function updatecompats()
         // $this->reset(['title', 'description']);
     }
     
-    public function updated($propertyName)
-    {
-        $this->validateOnly($propertyName, [
-            "company_desc"=> "nullable|string|max:500",
-            "summary1"=> "nullable|string|max:500",
-            "summary2"=> "nullable|string|max:500",
-            "summary3"=> "nullable|string|max:500",
-        ]);
-    }
+    // public function updated($propertyName)
+    // {
+    //     $this->validateOnly($propertyName, [
+    //         "company_desc"=> "nullable|string|max:500",
+    //         "summary1"=> "nullable|string|max:500",
+    //         "summary2"=> "nullable|string|max:500",
+    //         "summary3"=> "nullable|string|max:500",
+    //     ]);
+    // }
    
    //firstStepSubmit
    public function firstStepSubmit(){
@@ -308,9 +322,10 @@ public function updatecompats()
     }
 
     // submit forms action
+    //tap1
     public function companySubmit(){
         $this->validate([
-            "company_desc"=> "nullable|string|max:500",
+            "company_desc"=> "required|string|max:500",
         ]);
         Company::updateOrCreate(
             ['business_pioneer_id' => Auth::user()->id],
@@ -320,6 +335,7 @@ public function updatecompats()
         );
         $this->alert('success', 'تم التحديث بنجاح');
     }
+    //tap2
     public function projectSubmit1(){
         $this->validate([
             "summary1"=> "nullable|string|max:500",
@@ -347,7 +363,7 @@ public function updatecompats()
         $project->update();
         $this->alert('success', 'تم التحديث بنجاح');
     }
-
+    //tap3
     public function solveSubmit1(){
         $this->validate([
             "solve1"=> "nullable|string|max:100",
@@ -502,7 +518,7 @@ public function updatecompats()
 
     }
 
-   
+   //tap4
     public function marketSubmit1(){
         $this->validate([
             "theyear"=> "required|integer",
@@ -619,6 +635,7 @@ public function updatecompats()
             $this->marketid5 = $market->id;
         }
     }
+
      //back
      public function back($step){
          $this->currentStep = $step;

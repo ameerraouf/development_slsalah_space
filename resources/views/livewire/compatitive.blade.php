@@ -12,9 +12,11 @@
                             <div class="col-md-4  mt-5" >
                                 <label for="titlecompat{{ $index }}">الوصف</label>
                                 <input type="text" wire:model="titlecompat.{{ $index }}" id="titlecompat{{ $index }}" class="form-control">
+                                @error("titlecompat.{$index}")<span class="text-danger">{{ $message }}</span>@enderror 
+                                <br>
                                 <label for="descriptioncompat{{ $index }}">توضيح الوصف</label>
                                 <textarea wire:model="descriptioncompat.{{ $index }}" id="editor  descriptioncompat{{ $index }}" class="form-control"  ></textarea>
-                                
+                                @error("descriptioncompat.{$index}")<span class="text-danger">{{ $message }}</span>@enderror 
                             </div>
                             @endforeach
                             {{-- {{ var_export($product->id) }}
