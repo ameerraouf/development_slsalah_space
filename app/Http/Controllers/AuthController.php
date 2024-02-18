@@ -200,9 +200,6 @@ class AuthController extends Controller
             }
         }
 
-
-
-
         $remember = false;
 
         if ($request->remember) {
@@ -210,19 +207,29 @@ class AuthController extends Controller
         }
 
         if (Auth::guard('investor')->attempt($credentials, $remember)) {
+
+
             return redirect()->intended(route('investor.index')); // Redirect to the intended page
+        }else {
+            return redirect()->route('login')->withErrors([
+                "email" => __("Invalid user."),
+            ]);
         }
 
         if (Auth::attempt($credentials, $remember)) {
             $user = User::where('email', $request->email)->first();
 
             if ($user->super_admin) {
-                return back()->withErrors([
+                return redirect()->route('login')->withErrors([
                     "email" => __("Invalid user."),
                 ]);
             }
 
             return redirect()->intended('dashboard')->with('success', 'تم تسجيل الدخول بنجاح.');
+        }else {
+            return redirect()->route('login')->withErrors([
+                "email" => __("Invalid user."),
+            ]);
         }
     }
 

@@ -9,7 +9,6 @@
                     <div class="col-md-5 d-flex flex-column mx-auto pb-5">
                         <div class="card card-info mt-8">
                             <div class="card-header pb-0 text-center ">
-
                                 <h3 class="font-weight-bolder text-purple">
                                     {{ __('Login') }}
 
@@ -25,7 +24,7 @@
                                         {{ session('success') }}
                                     </div>
                                 @endif
-                                <form role="form text-left" method="post" action="/login">
+                                <form role="form text-left" method="post" {{--action="/login"--}}>
 
 
                                     @if ($errors->any())
