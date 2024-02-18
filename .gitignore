@@ -34,3 +34,6 @@ Homestead.json
 
 # Ignore testing SQLite database
 /tests/_data/testing.sqlite
+
+.zip
+development_slsalah_space/
