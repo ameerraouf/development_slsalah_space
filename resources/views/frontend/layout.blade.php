@@ -2820,19 +2820,33 @@
                             </div>
                             <div class="elms_center">
                                 <div class="ms-0">
-                                    <div class="cz_elm button_header_2_center_1 inner_button_header_2_center_0"
-                                        style="margin-top:-7px;margin-bottom:20px;">
-                                        <a href="/signup" class="cz_header_button cz_btn_53789"
-                                            style="font-size:12px;font-weight:700;background-color:#137fc0;border-style:solid;border-radius:0px;">{{ __('Sign Up for free') }}</a>
-                                    </div>
-                                    <div class="cz_elm button_header_2_center_2 inner_button_header_2_center_1"
-                                        style="margin-top:-9px;margin-right:29px;margin-bottom:20px;margin-left:17px;">
-                                        <a class="cz_header_button cz_btn_61645"
-                                            style="font-size:12px;color:#137fc0;background-color:#d7ecf9;border-style:solid;border-color:#137fc0;"
-                                            href="/login">
-                                            {{ __('Login') }}
-                                        </a>
-                                    </div>
+                                    @if(!auth('investor')->user() && !auth('web')->user())
+                                        <div class="cz_elm button_header_2_center_1 inner_button_header_2_center_0"
+                                            style="margin-top:-7px;margin-bottom:20px;">
+                                            <a href="/signup" class="cz_header_button cz_btn_53789"
+                                                style="font-size:12px;font-weight:700;background-color:#137fc0;border-style:solid;border-radius:0px;">{{ __('Sign Up for free') }}</a>
+                                        </div>
+                                        <div class="cz_elm button_header_2_center_2 inner_button_header_2_center_1"
+                                            style="margin-top:-9px;margin-right:29px;margin-bottom:20px;margin-left:17px;">
+                                            <a class="cz_header_button cz_btn_61645"
+                                                style="font-size:12px;color:#137fc0;background-color:#d7ecf9;border-style:solid;border-color:#137fc0;"
+                                                href="/login">
+                                                {{ __('Login') }}
+                                            </a>
+                                        </div>
+                                    @elseif(auth('investor')->user())
+                                        <div class="cz_elm button_header_2_center_1 inner_button_header_2_center_0"
+                                            style="margin-top:-7px;margin-bottom:20px;">
+                                        <a href="{{ route('investor.index') }}" class="cz_header_button cz_btn_53789"
+                                            style="font-size:12px;font-weight:700;background-color:#137fc0;border-style:solid;border-radius:0px;">{{ __('Dashboard') }}</a>
+                                        </div>
+                                    @elseif(auth('web')->user())
+                                        <div class="cz_elm button_header_2_center_1 inner_button_header_2_center_0"
+                                            style="margin-top:-7px;margin-bottom:20px;">
+                                        <a href="{{ route('dashboard') }}" class="cz_header_button cz_btn_53789"
+                                            style="font-size:12px;font-weight:700;background-color:#137fc0;border-style:solid;border-radius:0px;">{{ __('Dashboard') }}</a>
+                                        </div>
+                                    @endif
                                     <div class="cz_elm menu_header_2_center_3 inner_menu_header_2_center_2"
                                         style="margin-top:-3px;margin-right:29px;margin-bottom:-20px;margin-left:100px;">
                                         <i class="fa fa-bars hide icon_mobile_cz_menu_default cz_mi_31115"
