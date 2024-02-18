@@ -48,7 +48,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CompatSeeder::class,
             TeamSeeder::class,
-            CompatorSeeder::class
+            CompatorSeeder::class,
+            MarketPlanSeeder::class,
+            DevelopPlanSeeder::class,
         ]);
     }
 }
