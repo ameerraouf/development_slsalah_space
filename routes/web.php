@@ -35,6 +35,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\InvestorController;
 use App\Http\Controllers\OpportunityController;
 use App\Http\Controllers\FavoriteRoundsController;
+use App\Http\Controllers\InvestorChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -212,7 +213,7 @@ Route::get("/view-project-files", [
 ]);
 Route::get("/user-edit/{id}", [ProfileController::class, "userEdit"]);
 Route::get("/download/{id}", [DownloadController::class, "download"]);
-Route::get("/dashboard", [DashboardController::class, "dashboard"]);
+Route::get("/dashboard", [DashboardController::class, "dashboard"])->name('dashboard');
 Route::get("/new-user", [ProfileController::class, "newUser"]);
 Route::get("/documents", [DocumentController::class, "documents"]);
 Route::get("/profile", [ProfileController::class, "profile"]);
@@ -508,4 +509,5 @@ Route::prefix('investor')->middleware('auth:investor')->as('investor.')->group(f
     Route::get('/', [InvestorController::class, 'index'])->name('index');
     Route::get('/investment-opportunities', [OpportunityController::class, 'index'])->name('opportunities.index');
     Route::get('/round-follow', [FavoriteRoundsController::class, 'round_follow'])->name('round.follow');
+    Route::get('/chat', [InvestorChatController::class, 'index']);
 });

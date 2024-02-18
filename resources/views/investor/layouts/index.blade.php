@@ -50,7 +50,7 @@
         <a class="navbar-brand text-center m-0 id='dash'" href="{{config('app.url')}}/dashboard">
             @if(!empty($super_settings['logo']))
                 <img style="max-height: 80px" src="{{PUBLIC_DIR}}/uploads/{{$super_settings['logo']}}"
-                     class="navbar-brand-img h-100" alt="...">
+                    class="navbar-brand-img h-100" alt="...">
             @else
                 <span class="ms-1 font-weight-bold"> {{config('app.name')}}</span>
             @endif
@@ -183,19 +183,19 @@
 
 
             </li>
-
+            
             <li class="nav-item">
-                <a class="nav-link @if(request()->path() === 'user/chat') active @endif " href="/user/chat">
+                <a class="nav-link @if(request()->path() === 'user/chat') active @endif " href="{{route('user.chat.index')}}">
 
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                         class="feather feather-database">
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-database">
                         <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
                         <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
                         <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
                     </svg>
 
-                    <span class="nav-link-text ms-3">{{ __("message") }}</span>
+                    <span class="nav-link-text ms-3">{{ __("website.messages") }}</span>
                 </a>
             </li>
 
