@@ -6,7 +6,7 @@
             /*position: initial !important;*/
         }
     </style>
-    {{-- @livewireStyles --}}
+    @livewireStyles
 @endsection
 @section('content')
     @if ($errors->any())
