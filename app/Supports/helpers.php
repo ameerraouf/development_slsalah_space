@@ -3,6 +3,7 @@ use Akaunting\Money\Money;
 use App\Models\Subscribe;
 use App\Models\SubscriptionPlan;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 function formatCurrency($amount, $isoCode)
 {
@@ -121,4 +122,23 @@ function checkSubscribeIsExpire($subscribe)
         return true;
     }
     return false;
+}
+
+
+
+
+function store_file($file,$path)
+{
+    $name = time().$file->getClientOriginalName();
+    return $value = $file->storeAs($path, $name, 'uploads');
+}
+function delete_file($file)
+{
+    if($file!='' and !is_null($file) and Storage::disk('uploads')->exists($file)){
+        unlink('uploads/'.$file);
+    }
+}
+function display_file($name)
+{
+    return asset('uploads').'/'.$name;
 }

@@ -4,50 +4,74 @@ namespace App\Http\Livewire;
 
 use Carbon\Carbon;
 use App\Models\Company;
+use App\Models\Compat;
+use App\Models\Compator;
+use App\Models\DevelopPlan;
+use App\Models\MainMarketPlan;
 use App\Models\Market;
 use App\Models\Projects;
 use App\Models\Solve;
+use App\Models\SubMarketPlan;
+use App\Models\Team;
+use App\Models\Thankyou;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\WithFileUploads;
+use Illuminate\Validation\Rule;
 class Investshow extends Component
 {
-    use LivewireAlert;
+    use WithFileUploads,LivewireAlert;
     public $currentStep = 1 , $updateMode = false;
     public $successMessage = '';
     public $catchError;
     public $userphoto;
+   // tap1
     public $company_desc;
+   //tap2
     public $summary1,$summary2,$summary3;
     public $id1,$id2,$id3;
     public $projects,$projectid;
+    //tap3
     public $solve1,$solve2,$solve3,$solve4,$solve5,$solve6,$solve7,$solve8,$solve9;
     public $solveid1,$solveid2,$solveid3,$solveid4,$solveid5,$solveid6,$solveid7,$solveid8,$solveid9;
+    //tap4
     public $year,$size,$unit,$marketid;
     public $year2,$size2,$unit2,$marketid2;
     public $year3,$size3,$unit3,$marketid3;
     public $year4,$size4,$unit4,$marketid4;
     public $year5,$size5,$unit5,$marketid5;
     public $theyear,$theyear2,$theyear3,$theyear4,$theyear5;
+    // tap5
+    public $selectedProducts = [],$title = [],$description = [];
+    // tap6
+    public $selectedCompat = [] ,$titlecompat = [],$descriptioncompat = [];
+    // tap7 فريق العمل
+    public $selectedteam = [] ,$teamname = [],$teamimage = [],$newteamimage = [];
+    // tap8 المنافسين
+    public $selectedco = [] ,$coname = [],$coquality = [],$coprice = [],$cotech=[];
+    // tap9 خطه السوق
+    public $submarketplan1 = [] ,$submarketplan2 = [],$submarketplan3 = [],$submarketplan4 = [];
+    public $submarketname1 = [] ,$submarketname2 = [],$submarketname3 = [],$submarketname4 = [];
+    //tap10
+    public $developplan,$developplanname;
+      // last tap thank u
+    public $website_url,$phone,$email;
 
-    // public $projecttitle1,$projectdesc1;
-    public $selectedProducts = [];
-    public $title = [];
-    public $description = [];
-
-    // protected $listeners = ['refreshComponent'=>'$refresh'];
+    protected $listeners = ['refreshComponent'=>'$refresh'];
     public function mount(){
       $this->userphoto = auth()->user()->photo;
+      //tap1
       $this->company_desc = auth()->user()->company?->company_description;
-
-      $this->projects= Projects::latest()->get()->take(3);
+      //tap2
+      $this->projects = Projects::latest()->get()->take(3);
       $this->summary1 = Projects::latest()->first()->summary??'';
       $this->summary2 = Projects::latest()->skip(1)->first()->summary??'';
       $this->summary3 = Projects::latest()->skip(2)->first()->summary??'';
       $this->id1 = Projects::latest()->first()->id??'';
       $this->id2 = Projects::latest()->skip(1)->first()->id??'';
       $this->id3 = Projects::latest()->skip(2)->first()->id??'';
-
+      //tap3
       $this->solve1   = Solve::latest()->first()->title??'';
       $this->solveid1 = Solve::latest()->first()->id??'';
       $this->solve2   = Solve::latest()->skip(1)->first()->title??'';
@@ -66,7 +90,7 @@ class Investshow extends Component
       $this->solveid8 = Solve::latest()->skip(7)->first()->id??'';
       $this->solve9   = Solve::latest()->skip(8)->first()->title??'';
       $this->solveid9 = Solve::latest()->skip(8)->first()->id??'';
-
+      //tap4
       $now = Carbon::now();
       $this->year = $now->year;
       $this->year2 = $now->addYear()->year;
@@ -97,36 +121,248 @@ class Investshow extends Component
       $this->theyear5 = $this->year5??'';
 
 
-    //   tap5
-    $this->selectedProducts = Projects::latest()->take(6)->get(); // Fetch 6 products
-    foreach ($this->selectedProducts as $product) {
-        $this->title[] = $product->title;
-        $this->description[] = $product->description;
-    }
-    // $this->title = array_fill(0, 6, 'ddd');
-
-
-    }
-    protected $listeners = ['recordDeleted' => 'fetchRecords'];
-    public function fetchRecords()
-    {
-        $this->selectedProducts = Projects::latest()->take(6)->get(); // Fetch 6 products
+        //   tap5
+        $this->selectedProducts = Projects::take(6)->get(); // Fetch 6 products
         foreach ($this->selectedProducts as $product) {
             $this->title[] = $product->title;
             $this->description[] = $product->description;
-        } 
+        }
+        //   tap6
+        $this->selectedCompat = Compat::latest()->take(6)->get(); // Fetch 6 compats
+        foreach ($this->selectedCompat as $compat) {
+            $this->titlecompat[] = $compat->title;
+            $this->descriptioncompat[] = $compat->description;
+        }
+        // tap7
+        $this->selectedteam = Team::get()->take(4); // Fetch 4 team
+        foreach ($this->selectedteam as $team) {
+            $this->teamname[] = $team->name;
+            $this->teamimage[] = $team->image;
+        }
+
+        //tap8 
+        $this->selectedco = Compator::get()->take(3); // Fetch 4 compator
+        foreach ($this->selectedco as $co) {
+            $this->coname[]    = $co->companyname;
+            $this->coprice[]   = $co->price;
+            $this->coquality[] = $co->quality;
+            $this->cotech[]    = $co->tech;
+        }
+
+        // tap9
+        $this->submarketplan1=SubMarketPlan::where('main_market_plan_id',1)->get()->take(3);
+        foreach ($this->submarketplan1 as $plan) {
+            $this->submarketname1[]    = $plan->name;
+        }
+        $this->submarketplan2=SubMarketPlan::where('main_market_plan_id',2)->get()->take(3);
+        foreach ($this->submarketplan2 as $plan) {
+            $this->submarketname2[]    = $plan->name;
+        }
+        $this->submarketplan3=SubMarketPlan::where('main_market_plan_id',3)->get()->take(3);
+        foreach ($this->submarketplan3 as $plan) {
+            $this->submarketname3[]    = $plan->name;
+        }
+        $this->submarketplan4=SubMarketPlan::where('main_market_plan_id',4)->get()->take(3);
+        foreach ($this->submarketplan4 as $plan) {
+            $this->submarketname4[]    = $plan->name;
+        }
+
+        // tap10
+        $this->developplan = DevelopPlan::get()->take(7); // Fetch 7
+        foreach ($this->developplan as $plan) {
+            $this->developplanname[]    = $plan->name;
+        }
     }
+
+    //tap thank u
+    public function thankuSubmit(){
+        $this->validate([
+            'email' => 'required|email',
+            'phone' => 'required',
+            'website_url' => 'nullable|url',
+        ]);
+        $customerData = [
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'website_url' => $this->website_url,
+        ];
+        Thankyou::updateOrCreate(
+            ['customer_id' => Auth::user()->id],
+            [
+                'email' => $this->email,
+                'phone' => $this->phone,
+                'website_url' => $this->website_url,
+            ]
+        );
+        $this->alert('success', 'تم التحديث بنجاح');
+    }
+    // tap 10
+    public function developplan(){
+        $validateData = $this->validate([
+            'developplanname.0'   =>'required|string|max:255',
+            'developplanname.1'   =>'required|string|max:255',
+            'developplanname.2'   =>'required|string|max:255',
+            'developplanname.3'   =>'required|string|max:255',
+            'developplanname.4'   =>'required|string|max:255',
+            'developplanname.5'   =>'required|string|max:255',
+            'developplanname.6'   =>'required|string|max:255',
+        ]);
+        foreach ($this->developplan as $index=>$p) {
+            $p->update([
+                'name' => $this->developplanname[$index],
+            ]);
+        }
+        $this->alert('success', 'تم التحديث بنجاح');
+    }
+
+    // tap 9
+    public function updatemarketplan(){
+        $validateData = $this->validate([
+            'submarketname1.0'   =>'required|string|max:255',
+            'submarketname1.1'   =>'required|string|max:255',
+            'submarketname1.2'   =>'required|string|max:255',
+            'submarketname2.0'   =>'required|string|max:255',
+            'submarketname2.1'   =>'required|string|max:255',
+            'submarketname2.2'   =>'required|string|max:255',
+            'submarketname3.0'   =>'required|string|max:255',
+            'submarketname3.1'   =>'required|string|max:255',
+            'submarketname3.2'   =>'required|string|max:255',
+            'submarketname4.0'   =>'required|string|max:255',
+            'submarketname4.1'   =>'required|string|max:255',
+            'submarketname4.2'   =>'required|string|max:255',
+        ]);
+        foreach ($this->submarketplan1 as $index=>$p) {
+            $p->update([
+                'name' => $this->submarketname1[$index],
+                'main_market_plan_id'       => 1,
+            ]);
+        }
+        foreach ($this->submarketplan2 as $index=>$p) {
+            $p->update([
+                'name' => $this->submarketname2[$index],
+                'main_market_plan_id'       => 2,
+            ]);
+        }
+        foreach ($this->submarketplan3 as $index=>$p) {
+            $p->update([
+                'name' => $this->submarketname3[$index],
+                'main_market_plan_id'       => 3,
+            ]);
+        }
+        foreach ($this->submarketplan4 as $index=>$p) {
+            $p->update([
+                'name' => $this->submarketname4[$index],
+                'main_market_plan_id'       => 4,
+            ]);
+        }
+        $this->alert('success', 'تم التحديث بنجاح');
+
+    }
+
+    // tap 8
+    public function updatecompators()
+    {
+        $validateData = $this->validate([
+            'coname.0'   =>'required|string|max:255',
+            'coname.1'   =>'required|string|max:255',
+            'coname.2'   =>'required|string|max:255',
+        ]);
+        foreach ($this->selectedco as $index=>$co) {
+            $co->update([
+                'companyname' => $this->coname[$index],
+                'price'       => $this->coprice[$index],
+                'quality'     => $this->coquality[$index],
+                'tech'        => $this->cotech[$index],
+            ]);
+        }
+        $this->alert('success', 'تم التحديث بنجاح');
+    }
+
+    // tap 7
+    public function updateteams()
+    {
+        $validateData = $this->validate([
+            'teamname.0'   =>'required|string|max:255',
+            'teamname.1'   =>'required|string|max:255',
+            'teamname.2'   =>'required|string|max:255',
+            'teamname.3'   =>'required|string|max:255',
+            'teamimage.0'   =>'nullable|max:2048',
+            'teamimage.1'   =>'nullable|max:2048',
+            'teamimage.2'   =>'nullable|max:2048',
+            'teamimage.3'   =>'nullable|max:2048',
+        ]);
+        foreach ($this->selectedteam as $index => $team) {
+                $team->name    = $this->teamname[$index];
+                if($this->teamimage[$index]){
+                    $team->image = store_file($this->teamimage[$index],'teams');
+                }
+                $team->update();
+                $this->alert('success', 'تم التحديث بنجاح');
+        }
+    }
+
+    // tap 6
+    public function updatecompats()
+    {
+        $validateData = $this->validate([
+            'titlecompat.0'   =>'required|string|max:100',
+            'titlecompat.1'   =>'required|string|max:100',
+            'titlecompat.2'   =>'required|string|max:100',
+            'titlecompat.3'   =>'required|string|max:100',
+            'titlecompat.4'   =>'required|string|max:100',
+            'titlecompat.5'   =>'required|string|max:100',
+            'descriptioncompat.0'   =>'required|string|max:255',
+            'descriptioncompat.1'   =>'required|string|max:255',
+            'descriptioncompat.2'   =>'required|string|max:255',
+            'descriptioncompat.3'   =>'required|string|max:255',
+            'descriptioncompat.4'   =>'required|string|max:255',
+            'descriptioncompat.5'   =>'required|string|max:255',
+        ]);
+        foreach ($this->selectedCompat as $index => $compat) {
+            $compat->update([
+                'title' => $this->titlecompat[$index],
+                'description' => $this->descriptioncompat[$index],
+            ]);
+        }
+        $this->alert('success', 'تم التحديث بنجاح');
+    }
+
+
+    // protected $listeners = ['recordDeleted' => 'fetchRecords'];
+    // public function fetchRecords()
+    // {
+    //     $this->selectedProducts = Projects::get()->take(6); // Fetch 6 products
+    //     foreach ($this->selectedProducts as $product) {
+    //         $this->title[] = $product->title;
+    //         $this->description[] = $product->description;
+    //     } 
+    // }
     public function deleteProduct($product_id){
         $product= Projects::findOrFail($product_id);
         $product->delete();
         $this->alert('success', 'تم الحذف بنجاح');
-        
-        $this->emit('recordDeleted');
-        $this->mount();
-        $this->render();
+        $this->emit('$refresh');
+        $this->currentStep = 6;
+        // $this->emit('recordDeleted');
+        // $this->mount();
+        // $this->render();
     }
     public function updateProducts()
     {
+        $validateData = $this->validate([
+            'title.0'   =>'required|string|max:255',
+            'title.1'   =>'required|string|max:255',
+            'title.2'   =>'required|string|max:255',
+            'title.3'   =>'required|string|max:255',
+            'title.4'   =>'required|string|max:255',
+            'title.5'   =>'required|string|max:255',
+            'description.0'   =>'required|string|max:255',
+            'description.1'   =>'required|string|max:255',
+            'description.2'   =>'required|string|max:255',
+            'description.3'   =>'required|string|max:255',
+            'description.4'   =>'required|string|max:255',
+            'description.5'   =>'required|string|max:255',
+        ]);
         foreach ($this->selectedProducts as $index => $product) {
             $product->update([
                 'title' => $this->title[$index],
@@ -134,18 +370,17 @@ class Investshow extends Component
             ]);
         }
         $this->alert('success', 'تم التحديث بنجاح');
-        // $this->reset(['title', 'description']);
     }
     
-    public function updated($propertyName)
-    {
-        $this->validateOnly($propertyName, [
-            "company_desc"=> "nullable|string|max:500",
-            "summary1"=> "nullable|string|max:500",
-            "summary2"=> "nullable|string|max:500",
-            "summary3"=> "nullable|string|max:500",
-        ]);
-    }
+    // public function updated($propertyName)
+    // {
+    //     $this->validateOnly($propertyName, [
+    //         "company_desc"=> "nullable|string|max:500",
+    //         "summary1"=> "nullable|string|max:500",
+    //         "summary2"=> "nullable|string|max:500",
+    //         "summary3"=> "nullable|string|max:500",
+    //     ]);
+    // }
    
    //firstStepSubmit
    public function firstStepSubmit(){
@@ -167,11 +402,40 @@ class Investshow extends Component
     public function fifthStepSubmit(){
         $this->currentStep = 6;
     }
+    //sixthStepSubmit
+    public function sixthStepSubmit(){
+        $this->currentStep = 7;
+    }
+    //seventhStepSubmit
+    public function seventhStepSubmit(){
+        $this->currentStep = 8;
+    }
+    //seventhStepSubmit
+    public function eighthStepSubmit(){
+        $this->currentStep = 9;
+    }
+    //ninthStepSubmit
+    public function ninthStepSubmit(){
+        $this->currentStep = 10;
+    }
+    //tenthStepSubmit
+    public function tenthStepSubmit(){
+        $this->currentStep = 11;
+    }
+    //tenthStepSubmit
+    public function elevenStepSubmit(){
+        $this->currentStep = 12;
+    }
+    //tenthStepSubmit
+    public function twelveStepSubmit(){
+        $this->currentStep = 13;
+    }
 
     // submit forms action
+    //tap1
     public function companySubmit(){
         $this->validate([
-            "company_desc"=> "nullable|string|max:500",
+            "company_desc"=> "required|string|max:500",
         ]);
         Company::updateOrCreate(
             ['business_pioneer_id' => Auth::user()->id],
@@ -181,6 +445,7 @@ class Investshow extends Component
         );
         $this->alert('success', 'تم التحديث بنجاح');
     }
+    //tap2
     public function projectSubmit1(){
         $this->validate([
             "summary1"=> "nullable|string|max:500",
@@ -208,7 +473,7 @@ class Investshow extends Component
         $project->update();
         $this->alert('success', 'تم التحديث بنجاح');
     }
-
+    //tap3
     public function solveSubmit1(){
         $this->validate([
             "solve1"=> "nullable|string|max:100",
@@ -363,7 +628,7 @@ class Investshow extends Component
 
     }
 
-   
+   //tap4
     public function marketSubmit1(){
         $this->validate([
             "theyear"=> "required|integer",
@@ -480,6 +745,7 @@ class Investshow extends Component
             $this->marketid5 = $market->id;
         }
     }
+
      //back
      public function back($step){
          $this->currentStep = $step;
@@ -487,6 +753,15 @@ class Investshow extends Component
 
     public function render()
     {
-        return view('livewire.investshow');
+        $mainMarket1 = MainMarketPlan::first();
+        $mainMarket2 = MainMarketPlan::skip(1)->first();
+        $mainMarket3 = MainMarketPlan::skip(2)->first();
+        $mainMarket4 = MainMarketPlan::skip(3)->first();
+        return view('livewire.investshow',compact(
+            'mainMarket1',
+            'mainMarket2',
+            'mainMarket3',
+            'mainMarket4',
+        ));
     }
 }

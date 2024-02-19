@@ -12,9 +12,7 @@
                                     
                                 </textarea>
                               
-                                @error('company_desc')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                @error('company_desc')<div class="alert alert-danger">{{ $message }}</div>@enderror
                             </div>
                         </div>
                     </div>

@@ -41,7 +41,7 @@ class ContactController extends BaseController
 
     public function investorList()
     {
-        dd(Auth::guard('investor')->user());
+        // dd(Auth::guard('investor')->user());
         if ($this->modules && !in_array("investors", $this->modules)) {
             abort(401);
         }

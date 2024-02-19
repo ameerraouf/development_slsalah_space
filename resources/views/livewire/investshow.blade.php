@@ -49,4 +49,13 @@
     @include('livewire.solve')
     @include('livewire.market')
     @include('livewire.products')
+    @include('livewire.compatitive')
+    @include('livewire.team')
+    @include('livewire.competitors') 
+    
+    @include('livewire.marketplan') 
+    @include('livewire.developplan') 
+    @include('livewire.finincalplan') 
+    @include('livewire.requireinvestment') 
+    @include('livewire.thanku') 
 </div>
