@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
     <title>سلسلة &#8211; منصة سلسلة لريادة الأعمال</title>
     <meta name='robots' content='max-image-preview:large' />
-    <link rel="icon" type="image/png" href="{{ PUBLIC_DIR }}/uploads/{{ $super_settings['favicon'] }}">
+    {{--<link rel="icon" type="image/png" href="{{ PUBLIC_DIR }}/uploads/{{ $super_settings['favicon'] }}">--}}
     <link rel='dns-prefetch' href='//fonts.googleapis.com' />
 
     {{-- START app css file --}}
