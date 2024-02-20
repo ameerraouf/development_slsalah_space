@@ -41,7 +41,7 @@ class ContactController extends BaseController
 
     public function investorList()
     {
-        dd(Auth::guard('investor')->user());
+        // dd(Auth::guard('investor')->user());
         if ($this->modules && !in_array("investors", $this->modules)) {
             abort(401);
         }
@@ -200,4 +200,92 @@ class ContactController extends BaseController
 
         ]);
     }
+
+
+
+    public function investorSearch(){
+        if ($this->modules && !in_array("investors", $this->modules)) {
+            abort(401);
+        }
+        $investors = Investor::where("workspace_id", $this->user->workspace_id)->get();
+
+        // $workspace = Workspace::find($this->user->workspace_id);
+
+        // $fixedSum = DB::table('fixed_invested_capitals')
+        //     ->select('investing_price')
+        //     ->where(['workspace_id' => $this->user->workspace_id])->sum('investing_price');
+        // $workingSum = DB::table('working_invested_capitals')
+        //     ->select('investing_annual_cost')
+        //     ->where(['workspace_id' => $this->user->workspace_id])->sum('investing_annual_cost');
+        
+        $amounts = Investor::pluck('amount')->toArray();
+        $cities = Investor::pluck('city')->toArray();
+        return \view("investors.investors-search", [
+            "selected_navigation" => "investorSearch",
+            "investors" =>  $investors,
+            "amounts" =>  $amounts,
+            "cities" =>  $cities,
+
+        ]);
+    }
+
+    public function investorFavorite(){
+            // dd(Auth::guard('investor')->user());
+        if ($this->modules && !in_array("investors", $this->modules)) {
+            abort(401);
+        }
+        $investors = Investor::where("workspace_id", $this->user->workspace_id)->where('favorited',1)->get();
+
+        return \view("investors.investors-favorite", [
+            "selected_navigation" => "investorFavorite",
+            "investors" =>  $investors,
+        ]);
+    } 
+
+    public function investorFilter(Request $request){
+
+        $query = $request->input('query');
+        $amount = $request->input('amount');
+        $city = $request->input('city');
+
+        // Start with base query
+        $queryBuilder = Investor::query();
+
+        // Apply search query
+        if ($query) {
+            $queryBuilder->where('first_name', 'like', '%' . $query . '%');
+        }
+
+        // Apply amount filter
+        if ($amount) {
+            $queryBuilder->where('amount', $amount);
+        }
+
+        // Apply city filter
+        if ($city) {
+            $queryBuilder->where('city', $city);
+        }
+
+        // Get filtered investors
+        $investors = $queryBuilder->where("workspace_id", $this->user->workspace_id)->get();
+
+        // Return JSON response with filtered investors
+        return response()->json([
+            'investors' => $investors
+        ]);
+    }
+
+    public function addToFavorite(Request $request, $investorId)
+    {
+        $investor = Investor::find($investorId);
+        if (!$investor) {
+            return response()->json(['message' => 'Investor not found'], 404);
+        }
+        if($investor->favorited == 1){
+            $investor->update(['favorited' => 0]);
+        }else{
+            $investor->update(['favorited' => 1]);
+        }
+        return response()->json(['investorId' => $investorId,'favorited' => $investor->favorited]);
+    } 
 }
