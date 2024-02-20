@@ -8,7 +8,7 @@
                         <div class="align-self-center">
                             <div>
                                 <label for="company_desc" class="form-label mt-3">{{ __('Company Desc') }}</label>
-                                <textarea  cols="10" rows="5" name="company_desc" class="form-control" wire:model='company_desc' wire:change='companySubmit'>
+                                <textarea cols="10" rows="5" name="company_desc" class="form-control" wire:model='company_desc' wire:change='companySubmit'>
                                     
                                 </textarea>
                               
@@ -17,7 +17,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <button type="button" class="btn btn-info btn-sm float-left mt-4 mb-0" wire:click="firstStepSubmit">
+                        <button type="button" class="btn btn-info btn-sm float-left mt-0 mb-0" wire:click="firstStepSubmit">
                             {{ trans('next') }}
                         </button>
                     </div>
