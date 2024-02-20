@@ -130,15 +130,15 @@ function checkSubscribeIsExpire($subscribe)
 function store_file($file,$path)
 {
     $name = time().$file->getClientOriginalName();
-    return $value = $file->storeAs($path, $name, 'upload');
+    return $value = $file->storeAs($path, $name, 'uploads');
 }
 function delete_file($file)
 {
-    if($file!='' and !is_null($file) and Storage::disk('upload')->exists($file)){
-        unlink('upload/'.$file);
+    if($file!='' and !is_null($file) and Storage::disk('uploads')->exists($file)){
+        unlink('uploads/'.$file);
     }
 }
 function display_file($name)
 {
-    return asset('upload').'/'.$name;
+    return asset('uploads').'/'.$name;
 }

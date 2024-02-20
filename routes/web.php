@@ -126,6 +126,10 @@ Route::get("/delete-workspace/{id}", [
 
 Route::get("/add-investor", [ContactController::class, "addInvestor"]);
 Route::get("/investors", [ContactController::class, "investorList"])->name('investors.index');
+Route::get("/investors/filter", [ContactController::class, "investorFilter"])->name('investors.filter');
+Route::post('/update-favorite/{investorId}',  [ContactController::class, "addToFavorite"])->name('investors.addToFavorite');
+Route::get("/investors-search", [ContactController::class, "investorSearch"])->name('investors.search');
+Route::get("/investors-favorite", [ContactController::class, "investorFavorite"])->name('investors.favorite');
 Route::get("/view-investor", [ContactController::class, "investorView"]);
 Route::post("/save-investor", [ContactController::class, "investorPost"]);
 
@@ -217,6 +221,8 @@ Route::get("/dashboard", [DashboardController::class, "dashboard"])->name('dashb
 Route::get("/new-user", [ProfileController::class, "newUser"]);
 Route::get("/documents", [DocumentController::class, "documents"]);
 Route::get("/profile", [ProfileController::class, "profile"]);
+Route::get("/profile", [InvestorController::class, "profile"]);
+Route::post("/profile/update/{id}", [InvestorController::class, "profileUpdate"]);
 Route::get("/staff", [ProfileController::class, "staff"]);
 Route::get("/settings", [SettingController::class, "settings"]);
 Route::get("/billing", [SettingController::class, "billing"]);
