@@ -1,6 +1,6 @@
 @php use App\Models\Chat; @endphp
 @php use Illuminate\Support\Facades\Session; @endphp
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" dir="rtl">
 
 <head>
@@ -32,6 +32,10 @@
     <link id="pagestyle" href="{{PUBLIC_DIR}}/css/colors.css" rel="stylesheet"/>
     {{-- END css file for change color --}}
 
+    {{-- START css file for fontawsome --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />    
+    {{-- END css file for fontawsome --}}
+
     @yield('head')
 
     <style>
@@ -39,7 +43,7 @@
             margin: 0px !important;
         }
     </style>
-
+    @livewireStyles
 </head>
 
 <body class="g-sidenav-show  bg-gray-100" id="clx_body">
@@ -185,7 +189,7 @@
             </li>
             
             <li class="nav-item">
-                <a class="nav-link @if(request()->path() === 'user/chat') active @endif " href="{{route('user.chat.index')}}">
+                <a class="nav-link @if(request()->path() === 'investor/chat') active @endif " href="{{route('investor.chat')}}">
 
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -368,6 +372,7 @@
         </form>
     </div>
 <!--   Core JS Files   -->
+@livewireScripts
 <script>
         if (document.querySelector(".tog-active")) {
     let togglesShow = document.querySelectorAll(".tog-active");

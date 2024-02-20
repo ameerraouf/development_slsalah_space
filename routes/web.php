@@ -515,5 +515,5 @@ Route::prefix('investor')->middleware('auth:investor')->as('investor.')->group(f
     Route::get('/', [InvestorController::class, 'index'])->name('index');
     Route::get('/investment-opportunities', [OpportunityController::class, 'index'])->name('opportunities.index');
     Route::get('/round-follow', [FavoriteRoundsController::class, 'round_follow'])->name('round.follow');
-    Route::get('/chat', [InvestorChatController::class, 'index']);
+    Route::get('/chat', [InvestorChatController::class, 'index'])->name('chat');
 });

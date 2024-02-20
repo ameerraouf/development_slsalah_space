@@ -39,4 +39,12 @@ class InvestorChat extends Model
         return $this->belongsTo(Investor::class, 'investor_id');
 
     }
+
+    public function usersChats() {
+
+        $data = $this->select('*')->with('user')->where('investor_id', auth('investor')->user()->id)->orderBy('id', 'DESC')->get();
+
+        return $data->unique('user_id');
+
+    }
 }
