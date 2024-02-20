@@ -67,7 +67,7 @@
         </div>
 
         <div class="col-md-8 mt-lg-0 mt-4">
-            <form enctype="multipart/form-data" action="/profile" method="post">
+            <form enctype="multipart/form-data" action="/profile/update/{{ $user->id }}" method="post">
 
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -150,6 +150,26 @@
                             <div>
                                 <label for="company_name" class="form-label mt-3">{{__('company_name')}}</label>
                                 <input class="form-control" name="company_name" type="text" id="company_name" value="{{$user->company_name}}">
+                            </div>
+                        </div>
+
+                        <div class="">
+                            <div class="align-self-center">
+                                <label for="work_field" class="form-label mt-3">المدى الاستثماري</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="form-label">من</label>
+                                <div class="input-group">
+                                    <input type="number" min="1" id="invest_from" name="invest_from" value="{{ $user->invest_from }}" class="form-control" type="email">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label">إلى</label>
+                                <div class="input-group">
+                                    <input type="number" min="1" id="invest_to" name="invest_to" value="{{ $user->invest_to }}" class="form-control" type="email">
+                                </div>
                             </div>
                         </div>
 

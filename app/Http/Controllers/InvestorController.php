@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FoundRound;
 use App\Models\User;
+use App\Models\Investor;
+use App\Models\FoundRound;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,13 +20,17 @@ class InvestorController extends Controller
     {
         return view('investor.news.index');
     }
+
     public function profile()
     {
         $user = Auth::guard('investor')->user();
         $available_languages = User::$available_languages;
+        return view("investor.profile.profile" ,compact('user','available_languages'));
+    }
 
-
-
+    public function profileUpdate($id)
+    {
+        dd($id);
         return view("investor.profile.profile" ,compact('user','available_languages'));
     }
 
