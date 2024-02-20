@@ -32,7 +32,7 @@ class UserRequest extends FormRequest
             'company_count' => 'requiredIf:account_type,investor',
             'range_one'          => 'requiredIf:account_type,investor',
             'range_two'            => 'requiredIf:account_type,investor',
-            'company_name'  => 'requiredIf:account_type,business_pioneer|string'
+            'company_name'  => 'nullable|requiredIf:account_type,business_pioneer|string'
         ];
     }
 
