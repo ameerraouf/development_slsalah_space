@@ -221,6 +221,8 @@ Route::get("/dashboard", [DashboardController::class, "dashboard"])->name('dashb
 Route::get("/new-user", [ProfileController::class, "newUser"]);
 Route::get("/documents", [DocumentController::class, "documents"]);
 Route::get("/profile", [ProfileController::class, "profile"]);
+Route::get("/profile", [InvestorController::class, "profile"]);
+Route::post("/profile/update/{id}", [InvestorController::class, "profileUpdate"]);
 Route::get("/staff", [ProfileController::class, "staff"]);
 Route::get("/settings", [SettingController::class, "settings"]);
 Route::get("/billing", [SettingController::class, "billing"]);
