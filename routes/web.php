@@ -58,7 +58,7 @@ Route::prefix("super-admin")->group(function () {
     Route::get("/", [AuthController::class, "superAdminLogin"])->name(
         "super-admin-login"
     );
-    Route::post("/auth", [AuthController::class, "superAdminAuthenticate"]); 
+    Route::post("/auth", [AuthController::class, "superAdminPostLogin"]); 
 
 }); 
 Route::resource('video',VideoController::class); 

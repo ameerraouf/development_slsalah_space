@@ -1,4 +1,4 @@
-<div>
+<div class="invest-show">
     @if (!empty($successMessage))
         <div class="alert alert-success" id="success-alert">
             <button type="button" class="close" data-dismiss="alert">x</button>

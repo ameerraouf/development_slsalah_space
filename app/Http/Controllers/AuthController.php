@@ -179,6 +179,35 @@ class AuthController extends Controller
         return redirect("/");
     }
 
+    public function superAdminPostLogin(Request $request){
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        $remember = false;
+
+        if ($request->remember) {
+            $remember = true;
+        }
+
+        if (Auth::attempt($credentials, $remember)) {
+            $user = User::where('email', $request->email)->first();
+
+            if ($user->super_admin) {
+                return redirect()->route('login')->withErrors([
+                    "email" => __("Invalid user."),
+                ]);
+            }
+
+            return redirect()->intended('dashboard')->with('success', 'تم تسجيل الدخول بنجاح.');
+        }else {
+            return redirect()->route('login')->withErrors([
+                "email" => __("Invalid user."),
+            ]);
+        }
+    }
+
     public function loginPost(Request $request)
     {
         $credentials = $request->validate([
@@ -210,22 +239,6 @@ class AuthController extends Controller
 
 
             return redirect()->intended(route('investor.index')); // Redirect to the intended page
-        }else {
-            return redirect()->route('login')->withErrors([
-                "email" => __("Invalid user."),
-            ]);
-        }
-
-        if (Auth::attempt($credentials, $remember)) {
-            $user = User::where('email', $request->email)->first();
-
-            if ($user->super_admin) {
-                return redirect()->route('login')->withErrors([
-                    "email" => __("Invalid user."),
-                ]);
-            }
-
-            return redirect()->intended('dashboard')->with('success', 'تم تسجيل الدخول بنجاح.');
         }else {
             return redirect()->route('login')->withErrors([
                 "email" => __("Invalid user."),
