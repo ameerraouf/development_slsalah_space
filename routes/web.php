@@ -466,6 +466,8 @@ Route::get('/admin/subscriptions/{subscription}', [\App\Http\Controllers\Subscri
 Route::post('/transfer-bank', [\App\Http\Controllers\TransferBankController::class, 'store'])->name('user.transfer_bank');
 
 Route::prefix('user/chat')->middleware('auth')->group(function (){
+    Route::post('broadcast', [\App\Http\Controllers\UserChatController::class,'broadcast'])->name('user.chat.broadcast');
+    Route::post('recive', [\App\Http\Controllers\UserChatController::class,'recive'])->name('user.chat.recive');
     Route::get('/', [\App\Http\Controllers\UserChatController::class,'index'])->name('user.chat.index');
     Route::post('/', [\App\Http\Controllers\UserChatController::class, 'send'])->name('user.chat.send');
 });
@@ -520,4 +522,6 @@ Route::prefix('investor')->middleware('auth:investor')->as('investor.')->group(f
     Route::get('/investment-opportunities', [OpportunityController::class, 'index'])->name('opportunities.index');
     Route::get('/round-follow', [FavoriteRoundsController::class, 'round_follow'])->name('round.follow');
     Route::get('/chat', [InvestorChatController::class, 'index'])->name('chat');
+    Route::post('/chat/broadcast', [InvestorChatController::class, 'broadcast'])->name('chat.broadcast');
+    Route::post('/chat/recive', [InvestorChatController::class, 'recive'])->name('chat.recive');
 });

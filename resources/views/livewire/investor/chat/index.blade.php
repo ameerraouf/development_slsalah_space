@@ -17,7 +17,7 @@
                                 {{ $user->first_name . " " . $user->last_name }}
                             </div>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" id = "chat_bar">
 
                             @foreach($messages as $message)
                             <div class="d-flex w-100 @if($message->sended_by == 'investor') justify-content-start  @else justify-content-end  @endif">
@@ -29,8 +29,8 @@
                         </div>
                         <div class="card-footer">
                             <div class="d-flex align-items-center">
-                                <input type="text" wire:model = 'message_text' class="form-control" placeholder  = "{{ __('website.chat.placeholder_message') }}" >
-                                <button class = 'btn btn-primary m-0 ms-3' wire:click = "SendMessage({{ $user->id }})" >
+                                <input type="text" id = "message_text" class="form-control" placeholder  = "{{ __('website.chat.placeholder_message') }}" >
+                                <button onclick = 'send({{ $user->id }})' class = 'btn btn-primary m-0 ms-3' id = 'sendMessage'>
                                     <i class="fa-solid fa-paper-plane"></i>
                                 </button>
                             </div>

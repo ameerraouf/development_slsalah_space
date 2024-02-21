@@ -238,12 +238,9 @@ class AuthController extends Controller
         if (Auth::guard('investor')->attempt($credentials, $remember)) {
 
 
-            return redirect()->intended(route('investor.index')); // Redirect to the intended page
-        }else {
-            return redirect()->route('login')->withErrors([
-                "email" => __("Invalid user."),
-            ]);
+            return redirect()->intended(route('investor')); // Redirect to the intended page
         }
+
     }
 
     public function signupPost(UserRequest $request)

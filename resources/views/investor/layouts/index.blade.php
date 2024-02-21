@@ -43,6 +43,7 @@
             margin: 0px !important;
         }
     </style>
+    @stack('header_scripts')
     @livewireStyles
 </head>
 
@@ -428,6 +429,7 @@
 
 </script>
 
+{{-- 
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 
 <script>
@@ -442,7 +444,7 @@
         $('#user_chat_count').text(data.count)
     });
 
-</script>
+</script> --}}
 
 @yield('script')
 </body>

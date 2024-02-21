@@ -28,7 +28,10 @@
     {{-- START css file for change color --}}
     <link id="pagestyle" href="{{PUBLIC_DIR}}/css/colors.css" rel="stylesheet"/>
     {{-- END css file for change color --}}
-
+    
+    {{-- START css file for fontawsome --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />    
+    {{-- END css file for fontawsome --}}
     @yield('head')
 
     <style>
@@ -39,7 +42,8 @@
             position: fixed; left: 10px; bottom: 10px; border-radius:8px; background:#70d5bb;
         }
     </style>
- 
+    @livewireStyles
+
 </head>
 
 <body class="g-sidenav-show  bg-gray-100" id="clx_body">
@@ -787,6 +791,8 @@
         </form>
     </div>
 <!--   Core JS Files   -->
+@livewireScripts
+
 <script>
         if (document.querySelector(".tog-active")) {
     let togglesShow = document.querySelectorAll(".tog-active");
@@ -847,7 +853,7 @@
 
 </script>
 
-<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+{{-- <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 
 <script>
 
@@ -861,7 +867,7 @@
                 $('#user_chat_count').text(data.count)
          });
 
-</script>
+</script> --}}
 
 @yield('script')
 @stack('js')
