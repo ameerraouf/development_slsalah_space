@@ -51,10 +51,10 @@
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">الشعار</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">اسم الشركة</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">نبذة عن الشركة</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">مجال العمل</th>
+                                {{-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">نبذة عن الشركة</th> --}}
+                                {{-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">مجال العمل</th> --}}
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">حجم  التمويل المطلوب</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">العرض الاستثماري</th>
+                                {{-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">العرض الاستثماري</th> --}}
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">تقيم الشركة</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">تحكم</th>
                             </tr>
@@ -70,22 +70,22 @@
                                     </td>
                                     <td>
                                         <p class="text-xs font-weight-bold mb-0">
-                                            {{ $workspace->pioneer->company->company_name }}</p>                                    </td>
-                                    <td>
+                                            {{ $workspace->pioneer->company_name }}</p>                                    </td>
+                                    {{-- <td>
                                         <p class="text-xs font-weight-bold mb-0">
                                             {{$workspace->pioneer->company->company_brief}}</p>
                                     </td>
                                     <td>
                                         <p class="text-xs font-weight-bold mb-0">{{$workspace->pioneer->company->business_department}}</p>
-                                    </td>
+                                    </td> --}}
 
                                     <td>
                                         <p class="text-xs font-weight-bold mb-0">{{$workspace->round_amount}}</p>
                                     </td>
 
-                                    <td>
+                                    {{-- <td>
                                         <p class="text-xs font-weight-bold mb-0"></p>
-                                    </td>
+                                    </td> --}}
                                     <td>
                                         <p class="text-xs font-weight-bold mb-0">
                                             @if($workspace->is_subscription_end == 0)

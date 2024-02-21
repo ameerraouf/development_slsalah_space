@@ -513,10 +513,13 @@ Route::get('gpt-chat', [GptChatController::class, 'start_chat'])->name('gpt-chat
 Route::post('gpt-chat-send', [GptChatController::class, 'send_message'])->name('gpt-send-message');
 
 
+Route::get('/download-attachment/{id}', [InvestorDocumentController::class, "download"])->name('download-attachment');
 Route::prefix('investor')->middleware('auth:investor')->as('investor.')->group(function(){
-    Route::get("/documents", [InvestorDocumentController::class, "documents"]);
-    Route::post("/document", [InvestorDocumentController::class, "documentPost"])->name('documentPost');
     Route::get('/', [InvestorController::class, 'index'])->name('index');
+    Route::get("/documents", [InvestorDocumentController::class, "documents"])->name('documents');
+    Route::post("/document", [InvestorDocumentController::class, "documentPost"])->name('documentPost');
+    Route::get("/document/share/{id}", [InvestorDocumentController::class, "share"])->name('share');
+    Route::post("/document/share/{id}", [InvestorDocumentController::class, "sharePost"])->name('sharePost');
     Route::get('/investment-opportunities', [OpportunityController::class, 'index'])->name('opportunities.index');
     Route::get('/round-follow', [FavoriteRoundsController::class, 'round_follow'])->name('round.follow');
     Route::get('/chat', [InvestorChatController::class, 'index'])->name('chat');
