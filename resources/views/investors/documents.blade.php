@@ -29,10 +29,9 @@
                                     <h6 class="mb-3 ms-2 text-sm">{{$document->name}}</h6>
                                 </div>
                                 <div class="ms-auto">
-                                    <a href="/download/{{$document->id}}" class="btn btn-sm btn-info text-sm mb-0 "><i
-                                            class="fas fa-download text-sm me-1"></i>{{__('Download')}}
+                                    <a href="document/share/{{$document->id}}" class="btn btn-sm btn-info text-sm mb-0 ">مشاركة
                                     </a>
-                                    <a class="btn btn-sm btn-warning  px-3 mb-0"
+                                    <a class="btn btn-sm btn-danger  px-3 mb-0"
                                        href="/delete/document/{{$document->id}}"><i
                                             class="far fa-trash-alt me-1 text-sm"></i>{{__('Delete')}}
                                     </a>
