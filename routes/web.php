@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EconomicPlan;
 use App\Http\Controllers\AuthController;
@@ -16,26 +17,26 @@ use App\Http\Controllers\PestelController;
 use App\Http\Controllers\PorterController;
 use App\Http\Controllers\ActionsController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\GptChatController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\InvestorController;
 use App\Http\Controllers\MckinseyController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MarketingController;
 use App\Http\Controllers\SubscribeController;
-use App\Http\Controllers\SuperAdminController;
-use App\Http\Controllers\EconomicPlanController;
-use App\Http\Controllers\FinancialEvaluationController;
 use App\Http\Controllers\FoundRoundController;
-use App\Http\Controllers\GptChatController;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\InvestorController;
+use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\OpportunityController;
-use App\Http\Controllers\FavoriteRoundsController;
+use App\Http\Controllers\EconomicPlanController;
 use App\Http\Controllers\InvestorChatController;
+use App\Http\Controllers\FavoriteRoundsController;
+use App\Http\Controllers\InvestorDocumentController;
+use App\Http\Controllers\FinancialEvaluationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -365,51 +366,52 @@ Route::post('/openai-settings' , [SettingController::class, 'openAiSaveSettings'
 
 
 Route::prefix("admin")
-    ->name("admin.")
-    ->group(function () {
-        Route::get("/tasks/{action}", [
-            TaskController::class,
-            "tasksAction",
+->name("admin.")
+->group(function () {
+    Route::get("/tasks/{action}", [
+        TaskController::class,
+        "tasksAction",
         ])->name("tasks");
         Route::post("/tasks/{action}", [
             TaskController::class,
             "tasksSave",
-        ])->name("tasks.save");
-        Route::post("/tasksGoals/save", [
-            TaskController::class,
-            "tasksGoalSave",
-        ])->name("tasksGoals.save");
-        Route::get("/tasks-show", [
-            TaskController::class,
-            "show",
-        ])->name("tasks.show");
-
-        Route::get("/task-list", [TaskController::class, "taskList"]);
-
-        Route::get("/delete/{action}/{id}", [
-            DeleteController::class,
-            "delete",
-        ])->name("delete");
-    });
-
-    //economic plan routes 
-    Route::get('/economic-plan' , [EconomicPlanController::class , 'index'])->name('economiccPlan.index');
-    Route::post('/economic-plan-save' , [EconomicPlanController::class , 'create'])->name('economiccPlan.create');
-
-    //finanical evaluation routes
-    Route::get('/financial-evaluation' , [FinancialEvaluationController::class , 'index'])->name('financial_evaluation.index');
-    Route::post('/financial-evaluation' , [FinancialEvaluationController::class , 'create'])->name('financial_evaluation.create');
-
-
-
-
-Route::get("/kanban", [TaskController::class, "kanban"]);
-Route::get("/gantt", [TaskController::class, "gantt"]);
-Route::post("/todo/set-status", [TaskController::class, "setStatus"]);
-
-Route::get("/update", function (){
-    \App\Supports\UpdateSupport::updateSchema();
+            ])->name("tasks.save");
+            Route::post("/tasksGoals/save", [
+                TaskController::class,
+                "tasksGoalSave",
+                ])->name("tasksGoals.save");
+                Route::get("/tasks-show", [
+                    TaskController::class,
+                    "show",
+                    ])->name("tasks.show");
+                    
+                    Route::get("/task-list", [TaskController::class, "taskList"]);
+                    
+                    Route::get("/delete/{action}/{id}", [
+                        DeleteController::class,
+                        "delete",
+                        ])->name("delete");
+                    });
+                    
+                    //economic plan routes 
+                    Route::get('/economic-plan' , [EconomicPlanController::class , 'index'])->name('economiccPlan.index');
+                    Route::post('/economic-plan-save' , [EconomicPlanController::class , 'create'])->name('economiccPlan.create');
+                    
+                    //finanical evaluation routes
+                    Route::get('/financial-evaluation' , [FinancialEvaluationController::class , 'index'])->name('financial_evaluation.index');
+                    Route::post('/financial-evaluation' , [FinancialEvaluationController::class , 'create'])->name('financial_evaluation.create');
+                    
+                    
+                    
+                    
+                    Route::get("/kanban", [TaskController::class, "kanban"]);
+                    Route::get("/gantt", [TaskController::class, "gantt"]);
+                    Route::post("/todo/set-status", [TaskController::class, "setStatus"]);
+                    
+                    Route::get("/update", function (){
+                        \App\Supports\UpdateSupport::updateSchema();
 });
+
 Route::get("/project-revenue-planning", [\App\Http\Controllers\ProjectRevenuePlanningController::class, "index"])->name('project-revenue-planning.index');
 Route::get("/revenueForecast", [\App\Http\Controllers\ProjectRevenuePlanningController::class, "revenueForecast"])->name('revenueForecast');
 Route::post("/addNewRevenueSource", [\App\Http\Controllers\ProjectRevenuePlanningController::class, "addNewRevenueSource"])->name('addNewRevenueSource');
@@ -502,7 +504,7 @@ Route::prefix('pioneer')->middleware('auth')->as('pioneer.')->group(function(){
     Route::get('found-round-edit/{round}', [FoundRoundController::class, 'edit'])->name('found-round-edit')->middleware('pioneer_rounds');
     Route::post('found-round-update/{round}', [FoundRoundController::class, 'update'])->name('found-round-update');
     Route::get('delete-found/{round}', [FoundRoundController::class, 'destroy'])->name('found-round-destroy')->middleware('pioneer_rounds');
-
+    
 });
 
 
@@ -512,6 +514,8 @@ Route::post('gpt-chat-send', [GptChatController::class, 'send_message'])->name('
 
 
 Route::prefix('investor')->middleware('auth:investor')->as('investor.')->group(function(){
+    Route::get("/documents", [InvestorDocumentController::class, "documents"]);
+    Route::post("/document", [InvestorDocumentController::class, "documentPost"])->name('documentPost');
     Route::get('/', [InvestorController::class, 'index'])->name('index');
     Route::get('/investment-opportunities', [OpportunityController::class, 'index'])->name('opportunities.index');
     Route::get('/round-follow', [FavoriteRoundsController::class, 'round_follow'])->name('round.follow');
