@@ -23,7 +23,7 @@ class CreateInvestorChatsTable extends Migration
             $table->string('audio')->nullable();
             $table->timestamp('user_read_at')->nullable();
             $table->timestamp('investor_read_at')->nullable();
-            $table->boolean('is_open');
+            $table->boolean('is_open')->default(0);
             $table->timestamps();
         });
     }

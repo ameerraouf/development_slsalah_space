@@ -1,6 +1,6 @@
 @php use App\Models\Chat; @endphp
 @php use Illuminate\Support\Facades\Session; @endphp
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" dir="rtl">
 
 <head>
@@ -32,6 +32,10 @@
     <link id="pagestyle" href="{{PUBLIC_DIR}}/css/colors.css" rel="stylesheet"/>
     {{-- END css file for change color --}}
 
+    {{-- START css file for fontawsome --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />    
+    {{-- END css file for fontawsome --}}
+
     @yield('head')
 
     <style>
@@ -39,7 +43,7 @@
             margin: 0px !important;
         }
     </style>
-
+    @livewireStyles
 </head>
 
 <body class="g-sidenav-show  bg-gray-100" id="clx_body">
@@ -185,7 +189,7 @@
             </li>
             
             <li class="nav-item">
-                <a class="nav-link @if(request()->path() === 'user/chat') active @endif " href="{{route('user.chat.index')}}">
+                <a class="nav-link @if(request()->path() === 'investor/chat') active @endif " href="{{route('investor.chat')}}">
 
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -292,7 +296,96 @@
         @yield('content')
     </div>
 </main>
+<button class="btn-chat-live tog-active" data-active=".chat-live">
+        <i class="fas fa-headset icon-btn"></i>
+    </button>
+    <div class="chat-live">
+        <header class="header-chat">
+            <img src="https://placehold.co/400" alt="" class="avatar">
+            <h5 class="name">
+                بوت ألي
+            </h5>
+            <span class="subtitle">
+                يتم الرد خلال 5 دقائق
+            </span>
+        </header>
+        <main class="content">
+            <div class="item">
+                <div class="msgs">
+                    <div class="msg">
+                        مرحبًا 👋! أنا هنا للإجابة على أسئلتك، وفريقنا متاح إذا كنت بحاجة إلى مساعدة إضافية.
+                    </div>
+                    <div class="msg">
+                        كيف يمكنني مساعدتك؟
+                    </div>
+                </div>
+                <img src="https://placehold.co/400" alt="" class="avatar">
+            </div>
+            <div class="item you">
+                <div class="msgs">
+                    <div class="msg">
+                        مرحبا هل يمكنك مساعدتي؟
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                    <div class="msgs">
+                        <div class="msg">
+                            بالطبع كيف تريدني أن أساعدك !
+                        </div>
+                    </div>
+                <img src="https://placehold.co/400" alt="" class="avatar">
+            </div>
+            <div class="item you">
+                <div class="msgs">
+                    <div class="msg">
+                        مرحبا هل يمكنك مساعدتي؟
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                    <div class="msgs">
+                        <div class="msg">
+                        بالطبع كيف تريدني أن أساعدك !
+                        </div>
+                        <div class="msg">
+                            بالطبع كيف تريدني أن أساعدك !
+                        </div>
+                        <div class="msg">
+                            بالطبع كيف تريدني أن أساعدك !
+                        </div>
+                    </div>
+                <img src="https://placehold.co/400" alt="" class="avatar">
+            </div>
+        </main>
+        <form class="send">
+            <input type="text" name="" id="">
+            <div class="btns">
+                <div class="btn-file">
+                <i class="fas fa-paperclip"></i>
+                    <input type="file" name="" id="">
+                </div>
+            <button type="submit" class="btn-submit">
+                <i class="far fa-paper-plane fa-flip-horizontal"></i>
+            </button>
+            </div>
+        </form>
+    </div>
 <!--   Core JS Files   -->
+@livewireScripts
+<script>
+        if (document.querySelector(".tog-active")) {
+    let togglesShow = document.querySelectorAll(".tog-active");
+    togglesShow.forEach((e) => {
+        e.addEventListener("click", (evt) => {
+            let divActive = document.querySelector(
+                e.getAttribute("data-active")
+            );
+            divActive.classList.toggle("active");
+        });
+    });
+  }
+    </script>
 <script src="{{PUBLIC_DIR}}/js/app.js?v=99"></script>
 <script src="{{PUBLIC_DIR}}/lib/tinymce/tinymce.min.js?v=57"></script>
 <script>
