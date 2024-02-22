@@ -36,6 +36,7 @@ use App\Http\Controllers\EconomicPlanController;
 use App\Http\Controllers\InvestorChatController;
 use App\Http\Controllers\FavoriteRoundsController;
 use App\Http\Controllers\InvestorDocumentController;
+use App\Http\Controllers\InvestorAdminChatController;
 use App\Http\Controllers\FinancialEvaluationController;
 
 /*
@@ -525,6 +526,7 @@ Route::prefix('investor')->middleware('auth:investor')->as('investor.')->group(f
     Route::get('/investment-opportunities', [OpportunityController::class, 'index'])->name('opportunities.index');
     Route::get('/round-follow', [FavoriteRoundsController::class, 'round_follow'])->name('round.follow');
     Route::get('/chat', [InvestorChatController::class, 'index'])->name('chat');
+    Route::get('/chatAdmin', [InvestorAdminChatController::class, 'index'])->name('chatAdmin');
     Route::post('/chat/broadcast', [InvestorChatController::class, 'broadcast'])->name('chat.broadcast');
     Route::post('/chat/recive', [InvestorChatController::class, 'recive'])->name('chat.recive');
 });
