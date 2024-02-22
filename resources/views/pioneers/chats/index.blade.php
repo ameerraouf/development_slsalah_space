@@ -1,7 +1,5 @@
-@extends('investor.layouts.index')
-{{--<link rel="stylesheet" href="{{asset('audio/manage-audio.css')}}">--}}
 
-@push('header_scripts')
+@push('js')
 <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script>
@@ -11,9 +9,9 @@
 
     const pusher = new Pusher("{{config('broadcasting.connections.pusher.key')}}", {cluster: 'eu'});
 
-    const channel = pusher.subscribe('chat{{auth("investor")->user()->id}}');
+    const channel = pusher.subscribe('chat{{auth()->user()->id}}');
     channel.bind('sendMessage', function(data) {
-        $.post("{{ route('investor.chat.recive') }}", {
+        $.post("{{ route('user.chat.recive') }}", {
             _token: '{{ csrf_token() }}',
             message: data.message,
 
@@ -22,15 +20,15 @@
         });
     });
 
-    function send(user_id) {
+    function send(investor_id) {
         $.ajax({
     
-            url: "{{ route('investor.chat.broadcast') }}",
+            url: "{{ route('user.chat.broadcast') }}",
             method: "POST", 
             data: {
                 _token: '{{ csrf_token() }}',
                 message: $("#message_text").val(),
-                user_id: user_id
+                investor_id: investor_id
             }
         }).done(function (res) {
             $("#chat_bar").append(res);
@@ -41,7 +39,8 @@
 
 </script>
 @endpush
-
+@extends('layouts.'.($layout ?? 'primary'))
+{{--<link rel="stylesheet" href="{{asset('audio/manage-audio.css')}}">--}}
 @section('content')
-    <livewire:investor.chat />
+    <livewire:pioneer.chat />
 @endsection

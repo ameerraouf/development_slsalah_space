@@ -20,6 +20,7 @@ class InvestorChat extends Model
         'file', 
         'audio',
         'user_read_at',
+        "sended_by",
         'investor_read_at',
         'is_open'
     ];
@@ -45,6 +46,13 @@ class InvestorChat extends Model
         $data = $this->select('*')->with('user')->where('investor_id', auth('investor')->user()->id)->orderBy('id', 'DESC')->get();
 
         return $data->unique('user_id');
+
+    }
+    public function investorsChats() {
+
+        $data = $this->select('*')->with('investor')->where('user_id', auth()->user()->id)->orderBy('id', 'DESC')->get();
+
+        return $data->unique('investor_id');
 
     }
 }

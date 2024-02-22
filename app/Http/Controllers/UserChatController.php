@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ChatSent;
 use App\Models\Chat;
+use App\Models\Investor;
+use App\Models\InvestorChat;
 use App\Models\User;
 use http\Message;
 use Illuminate\Http\Request;
@@ -36,65 +39,30 @@ class UserChatController extends BaseController
 
     public function index()
     {
-        $chats = Chat::query()
-            ->where('is_open', false)
-            ->where('sender_id', auth()->id())
-            ->get()
-            ->unique('chat_id');
-
-        $chatClosed = false;
-
-        $currentChat = Chat::query()
-            ->where('sender_id', auth()->id())
-            ->where('is_open', 1)
-            ->latest()
-            ->first();
-
-        $pusher = new Pusher(
-            config('broadcasting.connections.pusher.key'),
-            config('broadcasting.connections.pusher.secret'),
-            config('broadcasting.connections.pusher.app_id'),
-            config('broadcasting.connections.pusher.options')
-        );
-
-        $unreadMessages = Chat::query()
-            ->where('receiver_id', auth()->id())
-            ->whereNull('user_read_at')
-            ->get();
-
-        foreach ($unreadMessages as $message) {
-            $message->update(['user_read_at' => now()]);
-        }
-
-        $pusher->trigger('user-count-chat', 'user-count-chat', ['count' => 0]);
-
-        if ($currentChat) {
-            if($currentChat->is_open == 1){
-                $messages = Chat::query()
-                    ->where('chat_id', $currentChat->chat_id)
-                    ->get();
-
-                if($messages->first()->is_open == 0){
-                    $chatClosed = true;
-                }
-            }
-        } else {
-            $messages = [];
-        }
-
-        $adminPhoto = $this->adminPhoto;
-
-
-        $user = User::query()->find(\auth()->id());
-
-        if(isset( $user->photo)){
-            $userPhoto = url('uploads/' .  $user->photo);
-        }else{
-            $userPhoto = url('/'. env('DEFAULT_PHOTO')??"");
-        }
-        return view('chat.index', compact('chats','currentChat', 'chatClosed' , 'messages', 'adminPhoto', 'userPhoto', 'user'));
+        return view('pioneers.chats.index');
     }
 
+    public function broadcast(Request $request) {
+
+        $run = InvestorChat::create([
+            "user_id"       => auth()->user()->id,
+            "chat_id"       => 1,
+            "investor_id"   => $request->investor_id,
+            "message"       => $request->message,
+            "sended_by"     => "user"
+        ]);
+
+        broadcast(new ChatSent($request->investor_id, 'user', $request->get('message')))->toOthers();
+
+        return view('investor.chats.components.broadcast', ['message' => $request->get('message')]);
+
+    }
+
+    public function recive(Request $request) {
+
+        return view('investor.chats.components.recive', ['message' => $request->get('message')]);
+
+    }
 
     public function send(Request $request)
     {

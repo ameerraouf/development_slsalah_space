@@ -43,5 +43,5 @@
 @endpush
 
 @section('content')
-    <livewire:investor.chat />
+    <livewire:investor-admin.chat />
 @endsection

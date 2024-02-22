@@ -2,30 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\ChatSent;
-use App\Models\Investor;
-use App\Models\InvestorChat;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Pusher\Pusher;
 
-class InvestorChatController extends Controller
+class InvestorAdminChatController extends Controller
 {
 
 
     public function index() {
 
-        $pioneers = User::all();
+        $admins = User::where('super_admin',1)->get();
 
 
-        return view('investor.chats.index', compact('pioneers'));
+        return view('investor.chats-admin.index', compact('admins'));
 
     }
 
 
     public function broadcast(Request $request) {
 
-        $run = InvestorChat::create([
+        $run = InvestorAdminChat::create([
             "user_id"       => $request->user_id,
             "chat_id"       => 1,
 
