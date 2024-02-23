@@ -27,6 +27,8 @@ class FavoriteCompaniesController extends Controller
         ->get();
         
         $favorite_rounds = Auth::guard('investor')->user()->favoriteRounds->pluck('id')->toArray();
-        return view('investor.favorite-companies.index', compact('opportunities', 'favorite_rounds'));
+        $investment_portfolios = Auth::guard('investor')->user()->investmentPortfolio->pluck('id')->toArray();
+
+        return view('investor.favorite-companies.index', compact('opportunities', 'favorite_rounds','investment_portfolios'));
     }
 }

@@ -23,4 +23,9 @@ class FoundRound extends Model
          return $this->belongsToMany(Investor::class, 'favorite_rounds', 'investor_id');
     }
 
+    public function investorsThatAddedToTheirInvestmentPortofolio()
+    {
+         return $this->belongsToMany(Investor::class, 'investment_portfolios', 'investor_id');
+    }
+
 }
