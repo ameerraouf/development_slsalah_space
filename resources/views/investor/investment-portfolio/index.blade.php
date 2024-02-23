@@ -4,7 +4,7 @@
     <div class=" row">
         <div class="col">
             <h5 class="mb-2 text-secondary fw-bolder">
-                الشركات المفضلة
+                محفظتي الاستثمارية
             </h5>
 
         </div>
@@ -19,7 +19,7 @@
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0" id="cloudonex_table">
                             <div>
-                                <form action="{{route('investor.favorite-companies.index')}}">
+                                <form action="{{route('investor.my-investment.portofolio')}}">
                                     <div class="my-2 d-flex flex-wrap justify-content-between">
                                     <div class="col-2">
                                         <label>مجال العمل  : </label>
@@ -107,8 +107,8 @@
 {{--                                            <a class="btn btn-info" href="{{route('admin.subscriptions.details', $workspace->id)}}">عرض التفاصيل</a>--}}
                                             <div class="d-flex">
                                                 <a class="btn btn-warning btn-sm {{in_array($workspace->id, $investment_portfolios)? 'btn-warning':'btn-light'}} m-2 p-2" onclick="MyInvestmentPortofolio({{$workspace->id}})" id="investment_portfolio_{{$workspace->id}}" href="javascript:void(0)"><i class="fa-solid fa-business-time" style="font-size: 25px" title="إضافة لمحفظتي الاستثمارية" aria-hidden="true"></i></a>
-                                                <a class="btn btn-info btn-sm {{in_array($workspace->id, $favorite_rounds)? 'btn-pink':'btn-def'}} m-2 p-2"  onclick="roundFollow({{$workspace->id}})" id="{{$workspace->id}}" href="javascript:void(0)"><i class="fa fa-heart" style="font-size: 25px" title="إضافة للمفضلة" aria-hidden="true"></i></a>
                                                 <a class="btn btn-info btn-sm m-2 p-2" href="{{route('investor.chat')}}"><i class="fa fa-comments-o" style="font-size: 25px" title="إضغط للمراسلة الان" aria-hidden="true"></i></a>    
+                                                <a class="btn btn-danger btn-sm m-2 p-2" href="{{route('investor.chat')}}"><i class="fa fa-file-pdf-o" style="font-size: 25px" title="عرض تفاصيل خطة رائد الأعمال" aria-hidden="true"></i></a>    
                                             </div>
                                     </td>
 
@@ -153,34 +153,6 @@
             console.log(rowCount);
           });
         });
-
-        function roundFollow(round_id) {
-            let el = document.getElementById(round_id); 
-
-            $.ajax({
-                type: "get",
-                url: "{{route('investor.round.follow')}}",
-                data: {'round_id':round_id},
-                dataType: "json",
-                success: function (response) {
-                    if (response.value === 2) {
-                        $('#'+round_id).removeClass('btn-pink');
-                        $('#'+round_id).addClass('btn-def');
-                        Toast.fire({
-                            icon: 'success',
-                            title: response.message
-                        });
-                    } else {
-                        $('#'+round_id).removeClass('btn-def');
-                        $('#'+round_id).addClass('btn-pink');
-                        Toast.fire({
-                            icon: 'success',
-                            title: response.message
-                        });
-                    }
-                }
-            });
-        }
 
         function MyInvestmentPortofolio(round_id) {
             let el = document.getElementById('investment_portfolio_'+round_id); 
