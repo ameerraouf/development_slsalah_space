@@ -4,7 +4,7 @@
     <div class=" row">
         <div class="col">
             <h5 class="mb-2 text-secondary fw-bolder">
-                الفرص الاستثمارية
+                الشركات المفضلة
             </h5>
 
         </div>
@@ -19,7 +19,7 @@
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0" id="cloudonex_table">
                             <div>
-                                <form action="{{route('investor.opportunities.index')}}">
+                                <form action="{{route('investor.favorite-companies.index')}}">
                                     <div class="my-2 d-flex flex-wrap justify-content-between">
                                     <div class="col-2">
                                         <label>مجال العمل  : </label>
