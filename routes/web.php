@@ -242,7 +242,7 @@ Route::post("/user-change-password", [
     ProfileController::class,
     "userChangePasswordPost",
 ]);
-Route::post("/login", [AuthController::class, "loginPost"]);
+Route::post("/login", [AuthController::class, "loginPost"])->name('loginPost');
 Route::post("/super-admin/login", [
     AuthController::class,
     "superAdminLoginPost",

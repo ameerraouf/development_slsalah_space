@@ -2671,6 +2671,8 @@
             }
         </style>
     </noscript>
+    @livewireStyles
+
 </head>
 
 <body id="intro"
@@ -3132,6 +3134,7 @@
             }
         }(document, 'script', 'rasayel-js'));
     </script>
+    @livewireScripts
 </body>
 
 </html>
