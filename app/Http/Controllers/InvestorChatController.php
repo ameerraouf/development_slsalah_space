@@ -35,9 +35,9 @@ class InvestorChatController extends Controller
         ]);
 
 
-        broadcast(new ChatSent($request->user_id, 'investor' ,$request->get('message')))->toOthers();
+        broadcast(new ChatSent($request->user_id, 'investor' ,$run))->toOthers();
 
-        return view('investor.chats.components.broadcast', ['message' => $request->get('message')]);
+        return view('investor.chats.components.broadcast', ['message' => $run]);
 
     }
 

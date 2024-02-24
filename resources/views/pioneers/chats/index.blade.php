@@ -21,19 +21,22 @@
     });
 
     function send(investor_id) {
-        $.ajax({
-    
-            url: "{{ route('user.chat.broadcast') }}",
-            method: "POST", 
-            data: {
-                _token: '{{ csrf_token() }}',
-                message: $("#message_text").val(),
-                investor_id: investor_id
-            }
-        }).done(function (res) {
-            $("#chat_bar").append(res);
-            $("#message_text").val('');
-        });
+        if ($("#message_text").val() !== '') {
+
+            $.ajax({
+        
+                url: "{{ route('user.chat.broadcast') }}",
+                method: "POST", 
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    message: $("#message_text").val(),
+                    investor_id: investor_id
+                }
+            }).done(function (res) {
+                $("#chat_bar").append(res);
+                $("#message_text").val('');
+            });
+        }
     }
 
 

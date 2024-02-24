@@ -52,9 +52,9 @@ class UserChatController extends BaseController
             "sended_by"     => "user"
         ]);
 
-        broadcast(new ChatSent($request->investor_id, 'user', $request->get('message')))->toOthers();
+        broadcast(new ChatSent($request->investor_id, 'user', $run))->toOthers();
 
-        return view('investor.chats.components.broadcast', ['message' => $request->get('message')]);
+        return view('investor.chats.components.broadcast', ['message' => $run]);
 
     }
 

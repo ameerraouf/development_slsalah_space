@@ -21,11 +21,23 @@
 
                             @foreach($messages as $message)
                             <div class="d-flex w-100 @if($message->sended_by == 'investor') justify-content-start  @else justify-content-end  @endif">
-                                <div class="d-flex w-50 p-3 text-white  mb-2 justify-content-start  @if($message->sended_by == 'investor')  rounded-start bg-primary @else rounded-end  bg-info @endif" >
-                                    @if ( $message->file !== '')
+                                <div class="d-flex w-50 p-1 text-white  mb-2 justify-content-start  @if($message->sended_by == 'investor')  rounded-start bg-primary @else rounded-end  bg-info @endif" >
+                                    @if (!is_null($message->file))
                                         <a href="/download-attachment/{{ $message->file }}" target="_blank">{{ $message->message }}</a>
                                     @else
-                                        {{ $message->message }}
+                                        <div class="w-100">
+
+                                            <p class="lead mb-0">
+    
+                                                {{ $message->message }}
+                                            </p>
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <div></div>
+                                                <div>
+                                                    {{ $message->created_at->format('h:m A') }}
+                                                </div>
+                                            </div>
+                                        </div>
                                     @endif
                                 </div>
                             </div>

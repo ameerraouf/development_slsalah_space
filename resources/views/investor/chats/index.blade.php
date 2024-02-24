@@ -23,19 +23,23 @@
     });
 
     function send(user_id) {
-        $.ajax({
-    
-            url: "{{ route('investor.chat.broadcast') }}",
-            method: "POST", 
-            data: {
-                _token: '{{ csrf_token() }}',
-                message: $("#message_text").val(),
-                user_id: user_id
-            }
-        }).done(function (res) {
-            $("#chat_bar").append(res);
-            $("#message_text").val('');
-        });
+
+        if ($("#message_text").val() !== '') {
+
+            $.ajax({
+        
+                url: "{{ route('investor.chat.broadcast') }}",
+                method: "POST", 
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    message: $("#message_text").val(),
+                    user_id: user_id
+                }
+            }).done(function (res) {
+                $("#chat_bar").append(res);
+                $("#message_text").val('');
+            });
+        }
     }
 
 

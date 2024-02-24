@@ -235,11 +235,27 @@ class AuthController extends Controller
             $remember = true;
         }
 
-        if (Auth::guard('investor')->attempt($credentials, $remember)) {
+        $type = $request->account_type;
 
+        if ($type == 'pioneer') {
+            if (Auth::guard()->attempt($credentials, $remember)) {
+                return redirect()->intended(route('dashboard')); // Redirect to the intended page
+            }else {
+                return redirect()->back()->withErrors([
+                    'credentials' => 'البيانات غير صحيحة',
+                ]);
+            }
 
-            return redirect()->intended(route('investor')); // Redirect to the intended page
+        }else {
+            if (Auth::guard('investor')->attempt($credentials, $remember)) {
+                return redirect()->intended(route('investor.index')); // Redirect to the intended page
+            }else {
+                return redirect()->back()->withErrors([
+                    'credentials' => 'البيانات غير صحيحة',
+                ]);
+            }
         }
+
 
     }
 
