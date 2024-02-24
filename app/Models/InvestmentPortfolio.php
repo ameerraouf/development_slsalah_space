@@ -11,18 +11,6 @@ class InvestmentPortfolio extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'user_id',
-        'opportunity_id',
-    ];
+    protected $fillable = ['found_round_id', 'investor_id'];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function opportunity()
-    {
-        return $this->belongsTo(Opportunity::class);
-    }
 }

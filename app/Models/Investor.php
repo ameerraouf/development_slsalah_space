@@ -44,5 +44,10 @@ class Investor extends Authenticatable
     {
          return $this->belongsToMany(FoundRound::class, 'favorite_rounds');
     }
+
+    public function investmentPortfolio()
+    {
+         return $this->belongsToMany(FoundRound::class, 'investment_portfolios');
+    }
     
 }
