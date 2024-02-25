@@ -60,8 +60,6 @@
                                 class="text-dark">{{__('Account Created:')}}</strong> {{(\App\Supports\DateSupport::parse($user->created_at))->format(config('app.date_time_format'))}}
                         </li>
                     </ul>
-                    <a class="btn btn-info btn-sm mb-0 mt-3" href="/user-edit/{{$user->id}}">{{__('Edit')}}</a>
-
                 </div>
             </div>
         </div>
@@ -127,10 +125,7 @@
                                 <label class="form-label  mt-4">{{__('Language')}}</label>
                                 <select class="form-control select2" name="language" id="choices-language">
 
-                                    @foreach($available_languages as $key => $value)
-                                        <option value="{{$key}}"
-                                                @if($user->language===$key) selected @endif >{{$value}}</option>
-                                    @endforeach
+                                    
                                 </select>
                             </div> -->
                             <div class="col-md-6 align-self-center">

@@ -22,6 +22,7 @@ use Illuminate\Validation\Rule;
 class Investshow extends Component
 {
     use WithFileUploads,LivewireAlert;
+    public $chartData = [];
     public $currentStep = 1 , $updateMode = false;
     public $successMessage = '';
     public $catchError;
@@ -119,7 +120,6 @@ class Investshow extends Component
       $this->theyear3 = $this->year3??'';
       $this->theyear4 = $this->year4??'';
       $this->theyear5 = $this->year5??'';
-
 
         //   tap5
         $this->selectedProducts = Projects::take(6)->get(); // Fetch 6 products

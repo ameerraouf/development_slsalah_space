@@ -168,6 +168,12 @@
                             </button>
                         </div>
                 </div>
+                <div class="row">
+                    <div class="w-full" style="height: 50%;">
+                        <div class="w-full" style="height: 50%;" id="chart"></div>
+                    </div>
+                </div>
+
                 <button class="btn btn-warning mt-3" type="button" wire:click="back(3)">
                     {{ trans('Back') }}
                 </button>
@@ -176,9 +182,40 @@
                 </button>
             </div>
         </div>
-
-        
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+        <script>
+            var options = {
+                chart: {
+                    type: 'bar'
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false
+                    }
+                },
+                series: [{
+                    data: [{
+                            x: '{{ $year }}',
+                            y: {{ $size }}
+                        }, {
+                            x: '{{ $year2 }}',
+                            y: {{ $size2 }}
+                        }, {
+                            x: '{{ $year3 }}',
+                            y: {{ $size3 }}
+                        },{
+                            x: '{{ $year4 }}',
+                            y: {{ $size4 }}
+                        },{
+                            x: '{{ $year5 }}',
+                            y: {{ $size5 }}
+                        }]
+                }]
+            }
+            var chart = new ApexCharts(document.querySelector("#chart"), options);
+            chart.render();
+        </script>
     </div>
     @push('js')
-  
-    @endpush
+
+@endpush
