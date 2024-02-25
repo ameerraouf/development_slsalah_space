@@ -12,7 +12,7 @@
                                 <img src="{{ asset('9.png') }}" alt="" style="width: 600px;">
                         </div>
                         <div class="col-md-6">
-                                <label>{{ $mainMarket1->name }}</label>
+                                <label>{{ $mainMarket1->name ?? '' }}</label>
                                 @foreach ($submarketplan1 as $index => $p)
                                 <ul>
                                     <li>{{ $index +1}}-<input type="text" class="form-control" wire:model="submarketname1.{{ $index }}"></li>
@@ -22,7 +22,7 @@
                                 @endforeach
                         </div>
                         <div class="col-md-6">
-                                <label>{{ $mainMarket2->name }}</label>
+                                <label>{{ $mainMarket2->name ?? '' }}</label>
                                 @foreach ($submarketplan2 as $index => $p)
                                 <ul>
                                     <li>{{ $index +1}}-<input type="text" class="form-control" wire:model="submarketname2.{{ $index }}"></li>
@@ -31,7 +31,7 @@
                                 @endforeach
                         </div>
                         <div class="col-md-6">
-                                <label>{{ $mainMarket3->name }}</label>
+                                <label>{{ $mainMarket3->name ?? '' }}</label>
                                 @foreach ($submarketplan3 as $index => $p)
                                 <ul>
                                     <li>{{ $index +1}}-<input type="text" class="form-control" wire:model="submarketname3.{{ $index }}"></li>
@@ -40,7 +40,7 @@
                                 @endforeach
                         </div>
                         <div class="col-md-6">
-                                <label>{{ $mainMarket4->name }}</label>
+                                <label>{{ $mainMarket4->name ?? '' }}</label>
                                 @foreach ($submarketplan4 as $index => $p)
                                 <ul>
                                     <li>{{ $index +1}}-<input type="text" class="form-control" wire:model="submarketname4.{{ $index }}"></li>
