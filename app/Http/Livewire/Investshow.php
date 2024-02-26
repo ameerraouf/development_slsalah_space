@@ -17,6 +17,8 @@ use App\Models\SubMarketPlan;
 use Livewire\WithFileUploads;
 use App\Models\MainMarketPlan;
 use Illuminate\Validation\Rule;
+use App\Models\RequiredInvestment;
+use App\Models\FinancialEvaluation;
 use Illuminate\Support\Facades\Auth;
 use App\Models\PlanningCostAssumption;
 use App\Models\PlanningFinancialAssumption;
@@ -61,6 +63,8 @@ class Investshow extends Component
     public $submarketname1 = [] ,$submarketname2 = [],$submarketname3 = [],$submarketname4 = [];
     //tap10
     public $developplan,$developplanname;
+    //tap15
+    public $required_investment,$required_investment_size,$investment_technology,$investment_team,$resarch_and_development,$investment_marketing,$required_investment_unit;
       // last tap thank u
     public $website_url,$phone,$email;
 
@@ -177,6 +181,15 @@ class Investshow extends Component
         foreach ($this->developplan as $plan) {
             $this->developplanname[]    = $plan->name;
         }
+
+        //tab15
+        // $required_investment = RequiredInvestment::latest()->first();
+        $this->required_investment_size = RequiredInvestment::latest()->first()->required_investment_size??0;
+        $this->investment_technology = RequiredInvestment::latest()->first()->investment_technology ?? 0;
+        $this->investment_team = RequiredInvestment::latest()->first()->investment_team ?? 0;
+        $this->resarch_and_development = RequiredInvestment::latest()->first()->resarch_and_development ?? 0;
+        $this->investment_marketing = RequiredInvestment::latest()->first()->investment_marketing ?? 0;
+        $this->required_investment_unit = RequiredInvestment::latest()->first()->required_investment_unit ?? 'thousand';
     }
 
     //tap thank u
@@ -200,6 +213,42 @@ class Investshow extends Component
             ]
         );
         $this->alert('success', 'تم التحديث بنجاح');
+    }
+    // tap 15
+    public function requiredInvestmentSubmit(){
+        $this->validate([
+            "required_investment_size"=> "required|integer",
+            "investment_technology"=> "required|integer",
+            "investment_team"=> "required|integer",
+            "resarch_and_development"=> "required|integer",
+            "investment_marketing"=> "required|integer",
+            "required_investment_unit"=> "required|in:million,thousand",
+        ]);
+        if($this->required_investment_size + 0 < $this->investment_technology + $this->investment_team + $this->resarch_and_development + $this->investment_marketing){
+            $this->alert('error', 'خطأ');
+            return;
+        }
+        $required_investment = RequiredInvestment::latest()->first();
+        if ($required_investment ){
+            $required_investment->required_investment_size = $this->required_investment_size;
+            $required_investment->investment_technology = $this->investment_technology;
+            $required_investment->investment_team = $this->investment_team;
+            $required_investment->resarch_and_development = $this->resarch_and_development;
+            $required_investment->investment_marketing = $this->investment_marketing;
+            $required_investment->required_investment_unit = $this->required_investment_unit;
+            $required_investment->update();
+            $this->alert('success', 'تم التحديث بنجاح');
+        }else{
+            $required_investment = new RequiredInvestment;
+            $required_investment->required_investment_size = $this->required_investment_size;
+            $required_investment->investment_technology = $this->investment_technology;
+            $required_investment->investment_team = $this->investment_team;
+            $required_investment->resarch_and_development = $this->resarch_and_development;
+            $required_investment->investment_marketing = $this->investment_marketing;
+            $required_investment->required_investment_unit = $this->required_investment_unit;
+            $required_investment->save();
+            $this->alert('success', 'تم الاضافة بنجاح');
+        }
     }
     // tap 10
     public function developplan(){
@@ -774,7 +823,9 @@ class Investshow extends Component
         $TAM = $this->size5 ?? 0 ;
         $SAM = $TAM * 0.25;
         $SOM = $SAM * 0.07;
+        $financial_evaluation = FinancialEvaluation::where('workspace_id',auth()->user()->workspace_id)->select('value')->first()['value'];
         $unitForChart = $this->unit5 ?? '';
+        $requiredInvestmentForChart = RequiredInvestment::latest()->first();
         if($this->unit5){
             $this->unit5 == 'million' ? $unitForChart = 'مليون' : $unitForChart = 'مليار';
         }
@@ -783,6 +834,8 @@ class Investshow extends Component
             'SAM',
             'SOM',
             'calc_total',
+            'requiredInvestmentForChart',
+            'financial_evaluation',
             'unitForChart',
             'all_revenues_forecasting',
             'mainMarket1',
