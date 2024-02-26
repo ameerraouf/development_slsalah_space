@@ -3,25 +3,30 @@
 namespace App\Http\Livewire;
 
 use Carbon\Carbon;
-use App\Models\Company;
-use App\Models\Compat;
-use App\Models\Compator;
-use App\Models\DevelopPlan;
-use App\Models\MainMarketPlan;
-use App\Models\Market;
-use App\Models\Projects;
-use App\Models\Solve;
-use App\Models\SubMarketPlan;
 use App\Models\Team;
-use App\Models\Thankyou;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Solve;
+use App\Models\Compat;
+use App\Models\Market;
+use App\Models\Company;
 use Livewire\Component;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use App\Models\Compator;
+use App\Models\Projects;
+use App\Models\Thankyou;
+use App\Models\DevelopPlan;
+use App\Models\SubMarketPlan;
 use Livewire\WithFileUploads;
+use App\Models\MainMarketPlan;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
+use App\Models\PlanningCostAssumption;
+use App\Models\PlanningFinancialAssumption;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use App\Models\PlanningRevenueOperatingAssumption;
+
 class Investshow extends Component
 {
     use WithFileUploads,LivewireAlert;
+    
     public $chartData = [];
     public $currentStep = 1 , $updateMode = false;
     public $successMessage = '';
@@ -757,7 +762,29 @@ class Investshow extends Component
         $mainMarket2 = MainMarketPlan::skip(1)->first();
         $mainMarket3 = MainMarketPlan::skip(2)->first();
         $mainMarket4 = MainMarketPlan::skip(3)->first();
+        $planningRevenueOperatingAssumptions = PlanningRevenueOperatingAssumption::where('workspace_id', auth()->user()->workspace_id)->first();
+        $all_revenues_forecasting = $planningRevenueOperatingAssumptions ? $planningRevenueOperatingAssumptions->all_revenues_forecasting : ['first_year' => 0, 'second_year' => 0, 'third_year' => 0];
+        $all_revenues_costs_forecasting = $planningRevenueOperatingAssumptions ? $planningRevenueOperatingAssumptions->all_revenues_costs_forecasting : ['first_year' => 0, 'second_year' => 0, 'third_year' => 0];
+        $planningCostAssumption = PlanningCostAssumption::where(['workspace_id' => auth()->user()->workspace_id])
+            ->first();
+        $planningFinancialAssumption = PlanningFinancialAssumption::where('workspace_id', auth()->user()->workspace_id)
+            ->first();
+        $selected_navigation = 'IncomeList';
+        $calc_total = $planningRevenueOperatingAssumptions->calc_total;
+        $TAM = $this->size5 ?? 0 ;
+        $SAM = $TAM * 0.25;
+        $SOM = $SAM * 0.07;
+        $unitForChart = $this->unit5 ?? '';
+        if($this->unit5){
+            $this->unit5 == 'million' ? $unitForChart = 'مليون' : $unitForChart = 'مليار';
+        }
         return view('livewire.investshow',compact(
+            'TAM',
+            'SAM',
+            'SOM',
+            'calc_total',
+            'unitForChart',
+            'all_revenues_forecasting',
             'mainMarket1',
             'mainMarket2',
             'mainMarket3',
