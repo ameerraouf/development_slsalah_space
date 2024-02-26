@@ -33006,3 +33006,50 @@ table.table tbody td{
     font-size: 35px;
     color: white;
 }
+
+.box-chat {
+border: 1px solid #ddd;
+border-radius: 10px;
+}
+.box-chat .chats {
+display: flex;
+height: calc(100vh - 75px);
+flex-direction: column;
+border-inline-start: 1px  solid #ddd;
+}
+.box-chat .chats .card-body {
+    background-color: white;
+    flex: 1;
+overflow-y: auto;
+}
+.box-chat .preview {
+display: flex;
+height: calc(100vh - 75px);
+flex-direction: column;
+}
+.box-chat .preview .card-body{
+background-color: white;
+flex: 1;
+overflow-y: auto;
+}
+.inp-file {
+    position: relative;
+}
+.inp-file .inp{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    inset-inline-end: 10px;
+    cursor:pointer;
+}
+.inp-file i,.inp-file svg{
+    font-size: 14px;
+    color: black;
+    cursor:pointer;
+}
+.inp-file .inp input{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
