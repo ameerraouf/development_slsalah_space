@@ -1,11 +1,9 @@
-<div>
-    <div class="row">
+<div class="box-chat">
+    <div class="row g-0">
         <div class="col-md-8">
             <div class="preview">
                 @if(!is_null($user))
-                <div>
-                    <div class="card rounded-0">
-                        <div class="card-header d-flex align-items-center">
+                        <div class="card-header bg-primary rounded-0  p-1 d-flex align-items-center" style="height:45.19px;">
                             <div class="img">
                                 @if($user->photo && file_exists(url('uploads/' .  $user->photo)))
                                     <img src="{{ url('uploads/' .  $user->photo) }}" alt="logo" width="50" height="50">
@@ -13,9 +11,10 @@
                                     <img src="{{ url('/'. env('DEFAULT_PHOTO')?? "") }}" alt="logo" width="50" height="50">
                                 @endif
                             </div>
-                            <div class="name ms-3">
-                                {{ $user->first_name . " " . $user->last_name }}
-                            </div>
+                            <h6 class="mb-0 text-white ms-3">
+                            {{ $user->first_name . " " . $user->last_name }}
+                            </h6>
+
                         </div>
                         <div class="card-body" id = "chat_bar">
 
@@ -45,22 +44,25 @@
                         </div>
                         <div class="card-footer">
                             <div class="d-flex align-items-center">
+                                <div class="inp-file flex-fill">
                                 <input type="text" id = "message_text" class="form-control" placeholder  = "{{ __('website.chat.placeholder_message') }}" >
-                                <button onclick = 'send({{ $user->id }})' class = 'btn btn-primary m-0 ms-3' id = 'sendMessage'>
-                                    <i class="fa-solid fa-paper-plane"></i>
+                                <div class="inp">
+                                <input type="file" name="" id="">
+                                <i class="fa-solid fa-paperclip"></i>
+                                </div>
+                                </div>
+                                <button onclick = 'send({{ $user->id }})' class = 'btn btn-primary m-0  px-3' style="    margin-inline-start: 5px !important;" id = 'sendMessage'>
+                                    <i class="fa-solid fa-paper-plane" style="font-size:14px !important;"></i>
                                 </button>
                             </div>
                         </div>
-                    </div>
-                </div>
                 @endif           
             </div>
         </div>
         <div class="col-md-4">
             <div class="chats">
-                <div class="card rounded-0">
                     <div class="card-header bg-primary rounded-0  p-1 d-flex align-items-center justify-content-between">
-                        <h4 class="text-white">{{__('website.messages')}}</h4>
+                        <h6 class="mb-0 text-white">{{__('website.messages')}}</h6>
                         <div class="badge " data-bs-toggle="modal" data-bs-target="#pioneers">
                             <i class="fa-solid fa-plus fa-2x text-white"></i>                        
                         </div>
@@ -89,7 +91,6 @@
                         </button>
                         @endforeach                    
                     </div>
-                </div>
             </div>
         </div>
     </div>    
