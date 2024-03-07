@@ -70,7 +70,7 @@ Route::get('video/{id}/destroy',[VideoController::class,'destroy'])->name('video
 Route::get("/super-admin/dashboard", [
     SuperAdminController::class,
     "dashboard",
-]);
+])->name('super-admin.dashboard');
 
 Route::get("/super-admin/update-schema", [
     SuperAdminController::class,
