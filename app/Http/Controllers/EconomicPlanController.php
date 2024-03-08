@@ -120,39 +120,44 @@ class EconomicPlanController extends Controller
             $factors[$factorKey] = $descriptions;
         }
         $final_factors = [];
-        foreach ($factors as $key => $value) {
-            if (str_contains($key, 'Political')) {
-                $final_factors['Political Factors'] = $value;
-            }
-            if (str_contains($key, 'Economic')) {
-                $final_factors['Economic Factors'] = $value;
-            }
-            if (str_contains($key, 'Social')) {
-                $final_factors['Social Factors'] = $value;
-            }
-            if (str_contains($key, 'Technological')) {
-                $final_factors['Technological Factors'] = $value;
-            }
-            if (str_contains($key, 'Environmental')) {
-                $final_factors['Environmental Factors'] = $value;
-            }
-            if (str_contains($key, 'Legal')) {
-                $final_factors['Legal Factors'] = $value;
+        if($factors){
+            dd($factors);
+            foreach ($factors as $key => $value) {
+                if (str_contains($key, 'Political')) {
+                    $final_factors['Political Factors'] = $value;
+                }
+                if (str_contains($key, 'Economic')) {
+                    $final_factors['Economic Factors'] = $value;
+                }
+                if (str_contains($key, 'Social')) {
+                    $final_factors['Social Factors'] = $value;
+                }
+                if (str_contains($key, 'Technological')) {
+                    $final_factors['Technological Factors'] = $value;
+                }
+                if (str_contains($key, 'Environmental')) {
+                    $final_factors['Environmental Factors'] = $value;
+                }
+                if (str_contains($key, 'Legal')) {
+                    $final_factors['Legal Factors'] = $value;
+                }
             }
         }
         // write the swot analysis 
-        $pestel_analysis = PestelAnalysis::create([
-            "uuid" => Str::uuid(),
-            "workspace_id" => auth()->user()->workspace_id,
-            "admin_id" => 0,
-            "company_name" => $settings['company_name'],
-            "political" => json_encode($final_factors['Political Factors']) ?? [],
-            "economic" => json_encode($final_factors['Economic Factors']) ?? [],
-            "social" => json_encode($final_factors['Social Factors']) ?? [],
-            "technological" => json_encode($final_factors['Technological Factors']) ?? [],
-            "environmental" => json_encode($final_factors['Environmental Factors']) ?? [],
-            "legal" => json_encode($final_factors['Legal Factors']) ?? [],
-        ]);
+        if($final_factors){
+            $pestel_analysis = PestelAnalysis::create([
+                "uuid" => Str::uuid(),
+                "workspace_id" => auth()->user()->workspace_id,
+                "admin_id" => 0,
+                "company_name" => $settings['company_name'],
+                "political" => json_encode($final_factors['Political Factors']) ?? [],
+                "economic" => json_encode($final_factors['Economic Factors']) ?? [],
+                "social" => json_encode($final_factors['Social Factors']) ?? [],
+                "technological" => json_encode($final_factors['Technological Factors']) ?? [],
+                "environmental" => json_encode($final_factors['Environmental Factors']) ?? [],
+                "legal" => json_encode($final_factors['Legal Factors']) ?? [],
+            ]);
+        }
     }
     private function swotAnalysis($request)
     {
