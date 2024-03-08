@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Throwable;
 use App\Models\Setting;
+use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Throwable;
 
 class GptChatController extends Controller
 {
@@ -22,13 +23,22 @@ class GptChatController extends Controller
      */
     public function send_message(Request $request): string
     {
+        $workspace = Workspace::find(1);
+        $settings_data = Setting::where('workspace_id', $workspace->id)->get();
+        $settings = [];
+        foreach ($settings_data as $setting) {
+            $settings[$setting->key] = $setting->value;
+        }
+        if (array_key_exists('api_keys', $settings)) {
+            $api_keys = $settings['api_keys'];
+        }
         try {
             /** @var array $response */
             $response = Http::withHeaders([
                 "Content-Type" => "application/json",
-                "Authorization" => "Bearer " . env('CHAT_GPT_KEY')
+                "Authorization" => "Bearer " . json_decode($api_keys)[1]
             ])->post('https://api.openai.com/v1/chat/completions', [
-                "model" => $request->post('model'),
+                "model" => 'gpt-3.5-turbo',
                 "messages" => [
                     [
                         "role" => "user",
@@ -38,9 +48,14 @@ class GptChatController extends Controller
                 "temperature" => 0,
                 "max_tokens" => 2048
             ]);
-            return $response['choices'][0]['message']['content'];
+            
+            $responseData = json_decode($response, true);
+            $message = $responseData['choices'][0]['message']['content'];
+            $text = trim($message);
+            return $message;
         } catch (Throwable $e) {
-            return "Chat GPT Limit Reached. This means too many people have used this demo this month and hit the FREE limit available. You will need to wait, sorry about that.";
+            $response = "Chat GPT Limit Reached. This means too many people have used this demo this month and hit the FREE limit available. You will need to wait, sorry about that.";
+            return response()->json(json_decode($response));
         }
     }
 }

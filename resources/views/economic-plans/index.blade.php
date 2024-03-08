@@ -343,6 +343,7 @@
                     $('.submit-btn').prop('disabled', false)
                 },
                 error: function(response) {
+                    $('#error-alert').text(response.error);
                     $('#error-alert').removeClass('d-none');
                     $('.submit-btn').prop('disabled', false)
                     $('.submit-btn').css({"opacity": "1"})
