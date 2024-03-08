@@ -72,7 +72,7 @@
                                     </td>
                                     <td>
                                         <h6 class="mb-0  ">
-                                            @if($round->profile)
+                                            @if($round->share_profile)
                                             <span class="badge bg-success-light mb-0  text-success">{{__('Share')}} </span>
                                             @else
                                                 <span class="badge bg-pink-light text-danger mb-0 ms-3">{{__('Hide')}}</span>
