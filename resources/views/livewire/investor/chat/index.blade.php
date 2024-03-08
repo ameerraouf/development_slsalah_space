@@ -1,8 +1,8 @@
 <div class="box-chat">
     <div class="row g-0">
         <div class="col-md-8">
+            @if(!is_null($user))
             <div class="preview">
-                @if(!is_null($user))
                         <div class="card-header bg-primary rounded-0  p-1 d-flex align-items-center" style="height:45.19px;">
                             <div class="img">
                                 @if($user->photo && file_exists(url('uploads/' .  $user->photo)))
@@ -54,8 +54,8 @@
                                 </button>
                             </div>
                         </div>
-                @endif           
-            </div>
+                    </div>
+                    @endif           
         </div>
         <div class="col-md-4">
             <div class="chats">
@@ -105,7 +105,7 @@
                     <div class="box p-2">
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="user d-flex align-items-center ">
-
+    
                                 <div class="img">
                                     @if($pioneer->photo && file_exists(url('uploads/' .  $pioneer->photo)))
                                         <img src="{{ url('uploads/' .  $pioneer->photo) }}" alt="logo" width="50" height="50">

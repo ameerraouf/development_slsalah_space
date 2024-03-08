@@ -23,7 +23,8 @@ class InvestorController extends Controller
 
     public function profile()
     {
-        $user = Auth::guard('investor')->user();
+        // $user = Auth::guard('investor')->user();
+        $user = Auth::user();
         $available_languages = User::$available_languages;
         return view("investor.profile.profile" ,compact('user','available_languages'));
     }

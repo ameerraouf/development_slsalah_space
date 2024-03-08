@@ -18,4 +18,12 @@ class SwotAnalysis extends Model
         "admin_id",
         "workspace_id"
     ];
+
+    protected $casts = [
+        // 'strengths' => 'json',
+        // 'weaknesses' => 'json',
+        // 'threats' => 'json',
+        // 'opportunities' => 'json',
+        
+    ];
 }

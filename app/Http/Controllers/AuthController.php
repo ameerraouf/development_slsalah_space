@@ -239,7 +239,8 @@ class AuthController extends Controller
 
         if ($type == 'pioneer') {
             if (Auth::guard()->attempt($credentials, $remember)) {
-                return redirect()->intended(route('dashboard')); // Redirect to the intended page
+                return redirect()->intended(route('super-admin.dashboard')); // Redirect to the intended page
+                // return redirect()->intended(route('dashboard')); // Redirect to the intended page
             }else {
                 return redirect()->back()->withErrors([
                     'credentials' => 'البيانات غير صحيحة',

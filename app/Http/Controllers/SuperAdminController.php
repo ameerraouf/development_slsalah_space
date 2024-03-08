@@ -120,8 +120,10 @@ class SuperAdminController extends SuperAdminBaseController
     {
         $users = User::all();
         $admin = User::where('super_admin', 1)->first();
+        // dd($admin->id);
         $admin_workspace = Workspace::where('owner_id', $admin->id)->first();
-        $workspaces = Workspace::WhereNotIn('id', [$admin_workspace->id])->orderBy('created_at', 'desc')->get();
+        // $workspaces = Workspace::WhereNotIn('id', [$admin_workspace->id])->orderBy('created_at', 'desc')->get();
+        $workspaces = Workspace::latest()->get();
         if ($admin_workspace) {
             $workspaces->prepend($admin_workspace);
         }

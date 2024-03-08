@@ -225,7 +225,8 @@ class Investshow extends Component
             "required_investment_unit"=> "required|in:million,thousand",
         ]);
         if($this->required_investment_size + 0 < $this->investment_technology + $this->investment_team + $this->resarch_and_development + $this->investment_marketing){
-            $this->alert('error', 'خطأ');
+            $this->alert('error', 'يجب ألا يكون مجموع (التقنيات + فريق العمل + البحث والتطوير + التسويق) أكبر من حجم الاستثمار
+            ');
             return;
         }
         $required_investment = RequiredInvestment::latest()->first();
@@ -820,9 +821,12 @@ class Investshow extends Component
             ->first();
         $selected_navigation = 'IncomeList';
         $calc_total = $planningRevenueOperatingAssumptions->calc_total;
+        $TAM = 0; $SAM = 0; $SOM = 0;
         $TAM = $this->size5 ?? 0 ;
-        $SAM = $TAM * 0.25;
-        $SOM = $SAM * 0.07;
+        if($TAM){
+            $SAM = $TAM * 0.25;
+            $SOM = $SAM * 0.07;
+        }
         $financial_evaluation = FinancialEvaluation::where('workspace_id',auth()->user()->workspace_id)->select('value')->first()['value'];
         $unitForChart = $this->unit5 ?? '';
         $requiredInvestmentForChart = RequiredInvestment::latest()->first();

@@ -20,7 +20,7 @@
                             <div class="card multisteps-form__panel p-3 border-radius-xl bg-white js-active"
                                 data-animation="FadeIn">
                                 <h5 class="font-weight-bolder mb-0">
-                                    @if ($selected_user)
+                                    @if ($focus_user)
                                         {{ __('Edit User') }}
                                     @else
                                         {{ __('Add New User') }}
@@ -34,20 +34,20 @@
                                             <label>{{ __('First Name') }}</label><label class="text-danger">*</label>
                                             <input name="first_name" class="multisteps-form__input form-control"
                                                 type="text"
-                                                @if (!empty($selected_user)) value="{{ $selected_user->first_name }}" @endif />
+                                                @if (!empty($focus_user)) value="{{ $focus_user->first_name }}" @endif />
                                         </div>
                                         <div class="col-12 col-sm-6 mt-3 mt-sm-0">
                                             <label>{{ __('Last Name') }}</label><label class="text-danger">*</label>
                                             <input name="last_name" class="multisteps-form__input form-control"
                                                 type="text"
-                                                @if (!empty($selected_user)) value="{{ $selected_user->last_name }}" @endif />
+                                                @if (!empty($focus_user)) value="{{ $focus_user->last_name }}" @endif />
                                         </div>
                                     </div>
                                     <div class="row mt-3">
                                         <div class="col-md-12">
                                             <label>{{ __('Email-Username') }}</label><label class="text-danger">*</label>
                                             <input name="email" class="multisteps-form__input form-control" type="email"
-                                                @if ($selected_user) value="{{ $selected_user->email }}" @endif />
+                                                @if ($focus_user) value="{{ $focus_user->email }}" @endif />
                                         </div>
 
                                     </div>
@@ -57,7 +57,7 @@
 
                                             <input name="password" type="password"
                                                 class="multisteps-form__input form-control"
-                                                @if (!empty($selected_user)) value="" @endif value="" />
+                                                @if (!empty($focus_user)) value="" @endif value="" />
                                             <p class="text-xs">
                                                 {{ __('Keep blank if you do not want to change Password') }}
                                             </p>
@@ -69,12 +69,12 @@
                                         <div class="col-12 col-sm-6 mt-3 mt-sm-0">
                                             <label>{{ __('Mobile Phone') }}</label>
                                             <input name="mobile_number" class="multisteps-form__input form-control"
-                                                @if ($selected_user) value="{{ $selected_user->mobile_number }}" @endif>
+                                                @if ($focus_user) value="{{ $focus_user->mobile_number }}" @endif>
                                         </div>
                                         <div class="col-12 col-sm-6 mt-3 mt-sm-0">
                                             <label>{{ __('Telephone') }}</label>
                                             <input name="phone_number" class="multisteps-form__input form-control"
-                                                @if (!empty($selected_user)) value="{{ $selected_user->phone_number }}" @endif />
+                                                @if (!empty($focus_user)) value="{{ $focus_user->phone_number }}" @endif />
                                         </div>
 
 
@@ -93,18 +93,18 @@
                                         <div class="col-12">
                                             <label>{{ __('Twitter Handle') }}</label>
                                             <input name="twitter" class="multisteps-form__input form-control" type="text"
-                                                @if (!empty($selected_user)) value="{{ $selected_user->twitter }}" @endif />
+                                                @if (!empty($focus_user)) value="{{ $focus_user->twitter }}" @endif />
                                         </div>
                                         <div class="col-12 mt-3">
                                             <label>{{ __('Facebook Account') }}</label>
                                             <input name="facebook" class="multisteps-form__input form-control"
                                                 type="text"
-                                                @if (!empty($selected_user)) value="{{ $selected_user->facebook }}" @endif />
+                                                @if (!empty($focus_user)) value="{{ $focus_user->facebook }}" @endif />
                                         </div>
                                         <div class="col-12 mt-3">
                                             <label>{{ __('Linkedin Account') }}</label>
                                             <input name="linkedin" class="multisteps-form__input form-control"
-                                                @if (!empty($selected_user)) value="{{ $selected_user->linkedin }}" @endif />
+                                                @if (!empty($focus_user)) value="{{ $focus_user->linkedin }}" @endif />
                                         </div>
                                     </div>
 
@@ -114,8 +114,8 @@
                             <!--single form panel-->
                             @csrf
 
-                            @if (!empty($selected_user))
-                                <input type="hidden" name="id" value="{{ $selected_user->id }}">
+                            @if (!empty($focus_user))
+                                <input type="hidden" name="id" value="{{ $focus_user->id }}">
                             @endif
                             <div class="button-row text-left mt-4">
                                 <button class="btn bg-gradient-dark ms-auto mb-0 js-btn-next" type="submit"
