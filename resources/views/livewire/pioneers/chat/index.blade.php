@@ -1,49 +1,48 @@
 <div class="box-chat">
-
     <div class="row">
-        <div class="col-md-8">
-            <div class="preview">
-                @if(!is_null($investor))
+        <div class="preview col-md-8">
+            @if (!is_null($investor))
                 <div class="card-header bg-primary rounded-0  p-1 d-flex align-items-center" style="height:45.19px;">
                     <div class="img">
-                        @if($investor->photo && file_exists(url('uploads/' . $investor->photo)))
-                        <img src="{{ url('uploads/' .  $investor->photo) }}" alt="logo" width="50" height="50">
+                        @if ($investor->photo && file_exists(url('uploads/' . $investor->photo)))
+                            <img src="{{ url('uploads/' . $investor->photo) }}" alt="logo" width="50"
+                                height="50">
                         @else
-                        <img src="{{ url('/'. env('DEFAULT_PHOTO')?? "") }}" alt="logo" width="50" height="50">
+                            <img src="{{ url('/' . env('DEFAULT_PHOTO') ?? '') }}" alt="logo" width="50"
+                                height="50">
                         @endif
                     </div>
                     <h6 class="mb-0 text-white ms-3">
-                        {{ $investor->first_name . " " . $investor->last_name }}
+                        {{ $investor->first_name . ' ' . $investor->last_name }}
                     </h6>
                 </div>
                 <div class="card-body" id="chat_bar">
+                    @foreach ($messages as $message)
+                        <div
+                            class="d-flex w-100 @if ($message->sended_by == 'user') justify-content-start  @else justify-content-end @endif">
+                            <div class="d-flex p-2 mb-3 justify-content-start @if ($message->sended_by == 'user') bg-primary @else bg-light text-dark @endif"
+                                style="max-width:75%; width:fit-content; border-radius: 10px;">
+                                @if (!is_null($message->file))
+                                    <a href="/download-attachment/{{ $message->file }}"
+                                        target="_blank">{{ $message->message }}</a>
+                                @else
+                                    <div class="w-100">
 
-                    @foreach($messages as $message)
-                    <div
-                        class="d-flex w-100 @if($message->sended_by == 'user') justify-content-start  @else justify-content-end  @endif">
-                        <div class="d-flex p-2 mb-3 justify-content-start @if($message->sended_by == 'user') bg-primary @else bg-light text-dark @endif"
-                            style="max-width:75%; width:fit-content; border-radius: 10px;">
-                            @if (!is_null($message->file))
-                            <a href="/download-attachment/{{ $message->file }}"
-                                target="_blank">{{ $message->message }}</a>
-                            @else
-                            <div class="w-100">
+                                        <p class="lead mb-0" style="font-size:15px;">
 
-                                <p class="lead mb-0" style="font-size:15px;">
-
-                                    {{ $message->message }}
-                                </p>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div></div>
-                                    <span
-                                        style=" @if($message->sended_by == 'user') color:#ffffff99;  @else color: #78787899; @endif">
-                                        {{ $message->created_at->format('h:m A') }}
-                                    </span>
-                                </div>
+                                            {{ $message->message }}
+                                        </p>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div></div>
+                                            <span
+                                                style=" @if ($message->sended_by == 'user') color:#ffffff99;  @else color: #78787899; @endif">
+                                                {{ $message->created_at->format('h:m A') }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
-                            @endif
                         </div>
-                    </div>
                     @endforeach
                     <div class="card-footer">
                         <div class="d-flex align-items-center">
@@ -61,45 +60,43 @@
                             </button>
                         </div>
                     </div>
-                    @endif
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="chats">
-                        <div class="card-header bg-primary rounded-0  p-1 d-flex align-items-center justify-content-between">
-                        <h6 class="mb-0 text-white">{{__('website.messages')}}</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="search">
-                                <input wire:model='search' type="search" class='form-control' name='search_chat'
-                                    placeholder="{{ __('website.chat.search') }}">
-                            </div>
-                            @foreach($chats as $chat)
-                            <button class="btn btn-defualt w-100 d-block rounded-0"
-                                wire:click="openChat({{ $chat->investor->id }})">
-                                <div class="box p-2">
-                                    <div class="d-flex align-items-center">
+            @endif
+        </div>
+        <div class="col-md-4">
+            <div class="chats">
+                <div class="card-header bg-primary rounded-0  p-1 d-flex align-items-center justify-content-between">
+                    <h6 class="mb-0 text-white">{{ __('website.messages') }}</h6>
+                </div>
+                <div class="card-body">
+                    <div class="search">
+                        <input wire:model='search' type="search" class='form-control' name='search_chat'
+                            placeholder="{{ __('website.chat.search') }}">
+                    </div>
+                    @foreach ($chats as $chat)
+                        <button class="btn btn-defualt w-100 d-block rounded-0"
+                            wire:click="openChat({{ $chat->investor->id }})">
+                            <div class="box p-2">
+                                <div class="d-flex align-items-center">
 
-                                        <div class="img">
-                                            @if($chat->investor->photo && file_exists(url('uploads/' .
-                                            $chat->investor->photo)))
-                                            <img src="{{ url('uploads/' .  $chat->investor->photo) }}" alt="logo"
+                                    <div class="img">
+                                        @if ($chat->investor->photo && file_exists(url('uploads/' . $chat->investor->photo)))
+                                            <img src="{{ url('uploads/' . $chat->investor->photo) }}" alt="logo"
                                                 width="50" height="50">
-                                            @else
-                                            <img src="{{ url('/'. env('DEFAULT_PHOTO')?? "") }}" alt="logo" width="50"
-                                                height="50">
-                                            @endif
-                                        </div>
-                                        <div class="name ms-3">
-                                            {{ $chat->investor->first_name . " " . $chat->investor->last_name }}
-                                        </div>
+                                        @else
+                                            <img src="{{ url('/' . env('DEFAULT_PHOTO') ?? '') }}" alt="logo"
+                                                width="50" height="50">
+                                        @endif
+                                    </div>
+                                    <div class="name ms-3">
+                                        {{ $chat->investor->first_name . ' ' . $chat->investor->last_name }}
                                     </div>
                                 </div>
-                            </button>
-                            @endforeach
-                        </div>
+                            </div>
+                        </button>
+                    @endforeach
                 </div>
             </div>
         </div>
-
     </div>
+</div>
