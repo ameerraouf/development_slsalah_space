@@ -151,6 +151,9 @@ class ContactController extends BaseController
 
         $investor->facebook = $request->facebook;
         $investor->linkedin = $request->linkedin;
+        $investor->companies_count = $request->companies_count?? 0;
+        $investor->invest_from = $request->invest_from?? 0;
+        $investor->invest_to = $request->invest_to?? 0;
 //        $user->address_1 = $request->address_1;
 //        $user->address_2 = $request->address_2;
 //        $user->city = $request->city;

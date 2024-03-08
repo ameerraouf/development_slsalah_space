@@ -40,7 +40,9 @@
                         <p>
                             @if (!empty($model))
                             {{-- {!! clean(json_decode($model->strengths)[0]) !!} --}}
-                            {!! clean(json_decode($model->strengths , true))[0] !!}
+                            {{-- {!! clean(json_decode($model->strengths , true))[0]  !!} --}}
+                            {!! $model->strengths?? ''  !!}
+                            {{-- {!! json_encode($model->strengths ?? '', JSON_PRETTY_PRINT) !!} --}}
                             @endif
 
                         </p>
@@ -55,7 +57,8 @@
                         <p class="card-text">
                             @if (!empty($model))
                                 {{-- {!! clean(json_decode($model->weaknesses)[0]) !!} --}}
-                                {!! clean(json_decode($model->weaknesses , true))[0] !!}
+                                {{-- {!! clean(json_decode($model->weaknesses , true))[0] !!} --}}
+                                {!! $model->weaknesses?? '' !!}
                             @endif
 
                         </p>
@@ -70,7 +73,8 @@
                         <p class="card-text">
                             @if (!empty($model))
                                 {{-- {!! clean(json_decode($model->opportunities)[0]) !!} --}}
-                                {!! clean(json_decode($model->opportunities , true))[0] !!}
+                                {{-- {!! clean(json_decode($model->opportunities , true))[0] !!} --}}
+                                {!! $model->opportunities?? '' !!}
                             @endif
 
                         </p>
@@ -84,7 +88,8 @@
                     <div class="card-body">
                         <p class="card-text">
                             @if (!empty($model))
-                                {!! clean(json_decode($model->threats , true))[0] !!}
+                                {{-- {!! clean(json_decode($model->threats , true))[0] !!} --}}
+                                {!! $model->threats?? '' !!}
                             @endif
 
                         </p>
