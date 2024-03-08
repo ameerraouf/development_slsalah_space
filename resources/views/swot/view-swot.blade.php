@@ -39,7 +39,8 @@
                     <div class="card-body">
                         <p>
                             @if (!empty($model))
-                            {!! clean(json_decode($model->strengths)[0]) !!}
+                            {{-- {!! clean(json_decode($model->strengths)[0]) !!} --}}
+                            {!! clean(json_decode($model->strengths , true))[0] !!}
                             @endif
 
                         </p>
@@ -53,7 +54,8 @@
                     <div class="card-body">
                         <p class="card-text">
                             @if (!empty($model))
-                                {!! clean(json_decode($model->weaknesses)[0]) !!}
+                                {{-- {!! clean(json_decode($model->weaknesses)[0]) !!} --}}
+                                {!! clean(json_decode($model->weaknesses , true))[0] !!}
                             @endif
 
                         </p>
@@ -67,7 +69,8 @@
                     <div class="card-body">
                         <p class="card-text">
                             @if (!empty($model))
-                                {!! clean(json_decode($model->opportunities)[0]) !!}
+                                {{-- {!! clean(json_decode($model->opportunities)[0]) !!} --}}
+                                {!! clean(json_decode($model->opportunities , true))[0] !!}
                             @endif
 
                         </p>

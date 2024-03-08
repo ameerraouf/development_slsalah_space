@@ -94,14 +94,11 @@ class SwotController extends BaseController
         $model = false;
 
         if ($request->id) {
-            $model = SwotAnalysis::where(
-                "workspace_id",
-                $this->user->workspace_id
-            )
-                ->where("id", $request->id)
-                ->first();
+            $model = SwotAnalysis::where("workspace_id",$this->user->workspace_id)
+                                ->where("id", $request->id)
+                                ->first();
         }
-
+// dd($model);
         return \view("swot.view-swot", [
             "selected_navigation" => "swot",
             "model" => $model,
