@@ -724,16 +724,16 @@
     </div>
 </main>
 
-<div class="chat-gpt-btn" style="position: fixed; left: 10px; bottom: 10px; border-radius:8px; background:#70d5bb">
+{{-- <div class="chat-gpt-btn" style="position: fixed; left: 10px; bottom: 10px; border-radius:8px; background:#70d5bb">
     <a href="{{route('gpt-chat')}}" style="color:white">
         {{__("how can i help you")}}
         <img src="{{PUBLIC_DIR}}/img/chatgpt-icon.png" id="gpt" alt="" style="width:50px">
     </a>
-</div>
+</div> --}}
 <button class="btn-chat-live tog-active" data-active=".chat-live">
         <i class="fas fa-headset icon-btn"></i>
 </button>
-<div class="chat-live">
+<div class="chat-live ">
     <header class="header-chat">
         <img src="https://placehold.co/400" alt="" class="avatar">
         <h5 class="name">
@@ -743,7 +743,7 @@
             يتم الرد خلال 5 دقائق
         </span>
     </header>
-    <main class="messages content">
+    <main class="messages content scrolling">
         <div class="item">
             <div class="msgs">
                 <div class="msg">
@@ -888,6 +888,8 @@
             `);
 
             $('.send #message').val('');
+            $('.scrolling').scrollTop($('.scrolling').height());
+            
             $('.send #message').prop('disabled',false);
             $('.send button').prop('disabled',false);
         });
