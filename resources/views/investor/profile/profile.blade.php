@@ -65,7 +65,7 @@
         </div>
 
         <div class="col-md-8 mt-lg-0 mt-4">
-            <form enctype="multipart/form-data" action="/profile/update/{{ $user->id }}" method="post">
+            <form enctype="multipart/form-data" action="/investor/profile/update/{{ $user->id }}" method="post">
 
                 @if ($errors->any())
                     <div class="alert alert-danger">
