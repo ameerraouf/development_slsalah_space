@@ -89,8 +89,8 @@
 
         <ul class="navbar-nav px-0">
             <li class="nav-item">
-                <a class="nav-link @if(($selected_navigation ?? '') === 'dashboard') active @endif" id="abanoub"
-                   href="/investor/index">
+                <a class="nav-link @if(request()->path() === 'investor') active @endif" id="abanoub"
+                   href="/investor">
 
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -106,7 +106,7 @@
 
 
             <li class="nav-item">
-                <a class="nav-link @if(($selected_navigation ?? '') === 'dashboard') active @endif" id="abanoub"
+                <a class="nav-link @if(request()->path() === 'investor/investment-opportunities') active @endif" id="abanoub"
                    href="{{ route("investor.opportunities.index") }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -120,7 +120,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link @if(($selected_navigation ?? '') === 'dashboard') active @endif" id="abanoub"
+                <a class="nav-link @if(request()->path() === 'investor/favorite-companies') active @endif" id="abanoub"
                    href="{{ route('investor.favorite-companies.index') }}">
 
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -137,7 +137,7 @@
 
 
             <li class="nav-item">
-                <a class="nav-link @if(($selected_navigation ?? '') === 'dashboard') active @endif" id="abanoub"
+                <a class="nav-link @if(request()->path() === 'investor/my-investment-portofolio') active @endif" id="abanoub"
                    href="{{ route('investor.my-investment.portofolio') }}">
 
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -169,7 +169,7 @@
 
             </li>
             <li class="nav-item">
-                <a class="nav-link @if(($selected_navigation ?? '') === 'dashboard') active @endif" id="abanoub"
+                <a class="nav-link @if(request()->path() === 'investor/documents') active @endif" id="abanoub"
                    href="/investor/documents">
 
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -195,23 +195,12 @@
                         <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
                     </svg>
 
-                    <span class="nav-link-text ms-3">{{ __("website.messages") }}</span>
+                    <span class="nav-link-text ms-3">الرسائل</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                {{-- <a class="nav-link @if(($selected_navigation ?? '') === 'profile') active @endif " href="{{route("investor.profile.index")}}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                         class="feather feather-user">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                    <span class="nav-link-text ms-3">{{__('Profile')}}</span>
-                </a> --}}
-            </li>
-            <li class="nav-item">
-                <a class="nav-link @if(($selected_navigation ?? '') === 'profile') active @endif " href="{{ route('investor.chatAdmin') }}">
+                <a class="nav-link @if(request()->path() === 'investor/chatAdmin') active @endif " href="{{ route('investor.chatAdmin') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                          class="feather feather-user">
@@ -221,6 +210,18 @@
                     <span class="nav-link-text ms-3">تواصل مع الادراة</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link @if(request()->path() === 'investor/profile') === 'userEdit') active @endif " href="/investor/profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class="feather feather-user">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span class="nav-link-text ms-3">{{__('Profile')}}</span>
+                </a>
+            </li>
+            <br />
             <li class="mb-4 ms-5">
                 <a class="btn btn-info" type="button" href="/logout">
                     <span class="">{{__('Logout')}}</span>
