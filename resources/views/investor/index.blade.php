@@ -33,7 +33,7 @@
                                             </p>
 
                                             <h5 class="mt-4" >
-                                                <a href="/projects" style="color: #fff">
+                                                <a href="#" style="color: #fff">
                                                     @auth('investor')
                                                         {{Auth::guard('investor')->user()->invest_from ?? ""}} <span>ريال</span>   -
                                                         {{Auth::guard('investor')->user()->invest_to ?? ""}}<span>ريال</span>
@@ -78,7 +78,7 @@
                                                 حجم الاستثمار الحالي
                                             </p>
                                             <h5 class="mt-4">
-                                                <a href="/notes" class="text-white">
+                                                <a href="#" class="text-white">
                                                     50000,00
                                                 </a>
                                             </h5>
@@ -169,7 +169,7 @@
                 <div class="col-md-4 mb-4">
                     <div class="card bg-info">
                         <div class="card-body p-3">
-                            <a href="">
+                            <a href="{{ route("investor.opportunities.index") }}">
                                 <div class="row">
                                     <div class="col-8">
                                         <div class="numbers">
@@ -207,7 +207,7 @@
                 <div class="col-md-4 mb-4">
                     <div class="card bg-info">
                         <div class="card-body p-3">
-                            <a href="">
+                            <a href="{{ route('investor.favorite-companies.index') }}">
                                 <div class="row">
                                     <div class="col-8">
                                         <div class="numbers">
@@ -245,7 +245,7 @@
                 <div class="col-md-4 mb-4">
                     <div class="card bg-info">
                         <div class="card-body p-3">
-                            <a href="">
+                            <a href="{{ route('investor.my-investment.portofolio') }}">
                                 <div class="row">
                                     <div class="col-8">
                                         <div class="numbers">
@@ -283,7 +283,7 @@
                 <div class="col-md-4 mb-4">
                     <div class="card bg-info">
                         <div class="card-body p-3">
-                            <a href="">
+                            <a href="/investor/documents">
                                 <div class="row">
                                     <div class="col-8">
                                         <div class="numbers">
@@ -321,7 +321,7 @@
                 <div class="col-md-4 mb-4">
                     <div class="card bg-info">
                         <div class="card-body p-3">
-                            <a href="">
+                            <a href="/investor/chat">
                                 <div class="row">
                                     <div class="col-8">
                                         <div class="numbers">
@@ -359,7 +359,7 @@
                 <div class="col-md-4 mb-4">
                     <div class="card bg-info">
                         <div class="card-body p-3">
-                            <a href="">
+                            <a href="/investor/chatAdmin">
                                 <div class="row">
                                     <div class="col-8">
                                         <div class="numbers">

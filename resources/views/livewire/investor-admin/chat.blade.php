@@ -66,14 +66,14 @@
         <div class="col-md-4">
             <div class="chats">
                     <div class="card-header bg-primary rounded-0  p-1 d-flex align-items-center justify-content-between">
-                        <h6 class="mb-0 text-white">{{__('website.messages')}}</h6>
+                        <h6 class="mb-0 text-white">الرسائل</h6>
                         <div class="badge " data-bs-toggle="modal" data-bs-target="#admins">
                             <i class="fa-solid fa-plus fa-2x text-white"></i>                        
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="search">
-                            <input wire:model = 'search' type="search" class = 'form-control' name = 'search_chat' placeholder="{{ __('website.chat.search') }}">
+                            <input wire:model = 'search' type="search" class = 'form-control' name = 'search_chat' placeholder="بحث عن رسالة">
                         </div>
                         @foreach($chats as $chat)
                         <button class="btn btn-defualt w-100 d-block rounded-0" wire:click = "openChat({{ $chat->user->id }})">

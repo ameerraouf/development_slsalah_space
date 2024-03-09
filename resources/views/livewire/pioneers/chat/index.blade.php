@@ -66,12 +66,12 @@
         <div class="col-md-4">
             <div class="chats">
                 <div class="card-header bg-primary rounded-0  p-1 d-flex align-items-center justify-content-between">
-                    <h6 class="mb-0 text-white">{{ __('website.messages') }}</h6>
+                    <h6 class="mb-0 text-white">الرسائل</h6>
                 </div>
                 <div class="card-body">
                     <div class="search">
                         <input wire:model='search' type="search" class='form-control' name='search_chat'
-                            placeholder="{{ __('website.chat.search') }}">
+                            placeholder="بحث عن رسالة">
                     </div>
                     @foreach ($chats as $chat)
                         <button class="btn btn-defualt w-100 d-block rounded-0"
