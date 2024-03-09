@@ -41,8 +41,8 @@ class EconomicPlanController extends Controller
             "location.required'" => 'حقل المناطق الجغرافية مطلوب',
         ]);
 
-        // $this->porterAnalysis($request);
-        // $this->swotAnalysis($request);
+        $this->porterAnalysis($request);
+        $this->swotAnalysis($request);
         $this->pestelAnalysis($request);
     }
 
