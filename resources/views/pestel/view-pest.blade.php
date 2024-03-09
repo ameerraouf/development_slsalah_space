@@ -40,7 +40,7 @@
                     <div class="card-body">
                         <div style="color: black;"> <p class="card-text">
                             @if (!empty($model))
-                            {!!clean(json_decode($model->political))[0]!!}
+                            {{ $model->political }}
                             @endif
 
                         </p></div>
@@ -55,7 +55,7 @@
                     <div class="card-body">
                         <div style="color: black;"><p class="card-text">
                             @if (!empty($model))
-                                {!!clean(json_decode($model->economic))[0]!!}
+                                {{ $model->economic }}
                             @endif
 
                         </p></div>
@@ -70,7 +70,7 @@
                     <div class="card-body">
                         <div style="color: black;"> <p class="card-text">
                             @if (!empty($model))
-                                {!!clean(json_decode($model->social))[0]!!}
+                                {{ $model->social }}
                             @endif
 
                         </p></div>
@@ -84,7 +84,7 @@
                     </div>
                     <div class="card-body">
                         <div style="color: black;">  <p>  @if (!empty($model))
-                            {!!clean(json_decode($model->technological))[0]!!}
+                            {{ $model->technological }}
                         @endif
 
                     </p></div>
@@ -99,7 +99,7 @@
                     <div class="card-body">
                         <div style="color: black;"><p class="card-text">
                             @if (!empty($model))
-                            {!!clean(json_decode($model->environmental))[0]!!}                            
+                            {{ $model->environmental }}                            
                             @endif
                         </p></div>
                         
@@ -113,12 +113,12 @@
                     <div class="card-body">
                         <div style="color: black;"><p class="card-text">
                             @if (!empty($model))
-                            {!!clean(json_decode($model->legal))[0]!!}
+                            {{ $model->legal }}
                             @endif
                         </p></div>
                         
                     </div>
-                </div>
+                </div> 
             </div>
 
         </div>

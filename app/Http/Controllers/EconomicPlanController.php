@@ -41,8 +41,8 @@ class EconomicPlanController extends Controller
             "location.required'" => 'حقل المناطق الجغرافية مطلوب',
         ]);
 
-        $this->porterAnalysis($request);
-        $this->swotAnalysis($request);
+        // $this->porterAnalysis($request);
+        // $this->swotAnalysis($request);
         $this->pestelAnalysis($request);
     }
 
@@ -63,10 +63,13 @@ class EconomicPlanController extends Controller
                 answer for question 6 : {$request->market_position} <br/>
                 question 7 : Choose the geographical regions in which your project/business operates. <br/>
                 answer for question 7 : {$request->location} <br/>
-
-                 <br />
-                The answer must have each factor of the following on a new line but with same representation and style<br />
-                political factors , economic factors , social factors , technological factors . and enviromental factors and legal factors
+                I want the answer be  as follows<br />
+                Political:<br />
+                Economic:<br />
+                Social:<br />
+                Technological:<br />
+                Environmental:<br />
+                Legal:<br />
         ";
         $workspace = Workspace::find(1);
         $settings_data = Setting::where('workspace_id', $workspace->id)->get();
@@ -102,62 +105,204 @@ class EconomicPlanController extends Controller
         ])->post('https://api.openai.com/v1/chat/completions', $payload);
         $responseData = json_decode($response, true);
         $message = $responseData['choices'][0]['message']['content'];
-        $pestelText = trim($message);
-
-        // Initialize an empty array to store the factors and their descriptions
-        $factors = array();
-
-        // Extract factors using regular expressions
-        $pattern = '/([A-Za-z ]+ factors):\s*\n((?:- .+\n)+)/';
-        preg_match_all($pattern, $pestelText, $matches, PREG_SET_ORDER);
-
-        // Iterate through the matched factors and their descriptions
-        foreach ($matches as $match) {
-            $factorKey = trim($match[1]); // Remove leading/trailing whitespace
-            $factorText = trim($match[2]); // Remove leading/trailing whitespace
-            $descriptions = explode("\n- ", $factorText);
-            array_shift($descriptions); // Remove empty first element
-            $factors[$factorKey] = $descriptions;
+        /*******************************************  Start Of Political *********************************************/
+        $political=[];
+        if (preg_match('/Political:(.*?)(?=Economic:|Social:|Technological:|Environmental:|Legal:|$)/s', $message, $matches)) {
+            $politicalLines = explode(PHP_EOL, $matches[1]);
+            $politicalLines = array_map('trim', $politicalLines);
+            $politicalLines = array_filter($politicalLines);
+            $political = array_values($politicalLines);
         }
-        $final_factors = [];
-        if($factors){
-            foreach ($factors as $key => $value) {
-                if (str_contains($key, 'Political')) {
-                    $final_factors['Political Factors'] = $value;
-                }
-                if (str_contains($key, 'Economic')) {
-                    $final_factors['Economic Factors'] = $value;
-                }
-                if (str_contains($key, 'Social')) {
-                    $final_factors['Social Factors'] = $value;
-                }
-                if (str_contains($key, 'Technological')) {
-                    $final_factors['Technological Factors'] = $value;
-                }
-                if (str_contains($key, 'Environmental')) {
-                    $final_factors['Environmental Factors'] = $value;
-                }
-                if (str_contains($key, 'Legal')) {
-                    $final_factors['Legal Factors'] = $value;
-                }
-            }
+        // $political = $political[0];
+        $payloadPolitical = [
+            'messages' => [
+                [
+                    'role' => 'system',
+                    'content' => 'You can start the conversation.',
+                ],
+                [
+                    'role' => 'user',
+                    'content' => json_encode($political).'translate into arabic',
+                ],
+            ],
+            "model" => 'gpt-3.5-turbo'
+        ];
+
+        $political_in_arabic = Http::withHeaders([
+            'Authorization' => "Bearer " .  json_decode($api_keys)[0],
+            'Content-Type' => 'application/json',
+        ])->post('https://api.openai.com/v1/chat/completions', $payloadPolitical);
+        $PoliticalData = json_decode($political_in_arabic, true);
+        $PoliticalMessage = $PoliticalData['choices'][0]['message']['content'];
+        /*******************************************  End Of Political *********************************************/
+        /*******************************************  Start Of Economic *********************************************/
+        $economic=[];
+        if (preg_match('/Economic:(.*?)(?=Political:|Social:|Technological:|Environmental:|Legal:|$)/s', $message, $matches)) {
+            $economicLines = explode(PHP_EOL, $matches[1]);
+            $economicLines = array_map('trim', $economicLines);
+            $economicLines = array_filter($economicLines);
+            $economic = array_values($economicLines);
         }
-        // write the swot analysis 
-        if($final_factors){
-            $pestel_analysis = PestelAnalysis::create([
-                "uuid" => Str::uuid(),
-                "workspace_id" => auth()->user()->workspace_id,
-                "admin_id" => 0,
-                "company_name" => $settings['company_name'],
-                "political" => json_encode($final_factors['Political Factors']) ?? [],
-                "economic" => json_encode($final_factors['Economic Factors']) ?? [],
-                "social" => json_encode($final_factors['Social Factors']) ?? [],
-                "technological" => json_encode($final_factors['Technological Factors']) ?? [],
-                "environmental" => json_encode($final_factors['Environmental Factors']) ?? [],
-                "legal" => json_encode($final_factors['Legal Factors']) ?? [],
-            ]);
+        // $economic = $economic[0];
+        $payloadEconomic = [
+            'messages' => [
+                [
+                    'role' => 'system',
+                    'content' => 'You can start the conversation.',
+                ],
+                [
+                    'role' => 'user',
+                    'content' => json_encode($economic).'translate into arabic',
+                ],
+            ],
+            "model" => 'gpt-3.5-turbo'
+        ];
+
+        $economic_in_arabic = Http::withHeaders([
+            'Authorization' => "Bearer " .  json_decode($api_keys)[0],
+            'Content-Type' => 'application/json',
+        ])->post('https://api.openai.com/v1/chat/completions', $payloadEconomic);
+        $EconomicData = json_decode($economic_in_arabic, true);
+        $EconomicMessage = $EconomicData['choices'][0]['message']['content'];
+        /*******************************************  End Of Economic *********************************************/
+        /*******************************************  Start Of Social *********************************************/
+        $social=[];
+        if (preg_match('/Social:(.*?)(?=Political:|Economic:|Technological:|Environmental:|Legal:|$)/s', $message, $matches)) {
+            $socialLines = explode(PHP_EOL, $matches[1]);
+            $socialLines = array_map('trim', $socialLines);
+            $socialLines = array_filter($socialLines);
+            $social = array_values($socialLines);
         }
+        // $social = $social[0];
+        $payloadSocial = [
+            'messages' => [
+                [
+                    'role' => 'system',
+                    'content' => 'You can start the conversation.',
+                ],
+                [
+                    'role' => 'user',
+                    'content' => json_encode($social).'translate into arabic',
+                ],
+            ],
+            "model" => 'gpt-3.5-turbo'
+        ];
+
+        $social_in_arabic = Http::withHeaders([
+            'Authorization' => "Bearer " .  json_decode($api_keys)[0],
+            'Content-Type' => 'application/json',
+        ])->post('https://api.openai.com/v1/chat/completions', $payloadSocial);
+        $SocialData = json_decode($social_in_arabic, true);
+        $SocialMessage = $SocialData['choices'][0]['message']['content'];
+        /*******************************************  End Of Social *********************************************/
+        /*******************************************  Start Of Technological *********************************************/
+        $techonlogical=[];
+        if (preg_match('/Technological:(.*?)(?=Political:|Economic:|Social:|Environmental:|Legal:|$)/s', $message, $matches)) {
+            $techonlogicalLines = explode(PHP_EOL, $matches[1]);
+            $techonlogicalLines = array_map('trim', $techonlogicalLines);
+            $techonlogicalLines = array_filter($techonlogicalLines);
+            $techonlogical = array_values($techonlogicalLines);
+        }
+        // $techonlogical = $techonlogical[0];
+        $payloadTechnological = [
+            'messages' => [
+                [
+                    'role' => 'system',
+                    'content' => 'You can start the conversation.',
+                ],
+                [
+                    'role' => 'user',
+                    'content' => json_encode($techonlogical).'translate into arabic',
+                ],
+            ],
+            "model" => 'gpt-3.5-turbo'
+        ];
+
+        $techonlogical_in_arabic = Http::withHeaders([
+            'Authorization' => "Bearer " .  json_decode($api_keys)[0],
+            'Content-Type' => 'application/json',
+        ])->post('https://api.openai.com/v1/chat/completions', $payloadTechnological);
+        $TechnologicalData = json_decode($techonlogical_in_arabic, true);
+        $TechnologicalMessage = $TechnologicalData['choices'][0]['message']['content'];
+        /*******************************************  End Of Technological *********************************************/
+        /*******************************************  Start Of Environmental *********************************************/
+        $enviromental=[];
+        if (preg_match('/Environmental:(.*?)(?=Political:|Economic:|Social:|Technological:|Legal:|$)/s', $message, $matches)) {
+            $enviromentalLines = explode(PHP_EOL, $matches[1]);
+            $enviromentalLines = array_map('trim', $enviromentalLines);
+            $enviromentalLines = array_filter($enviromentalLines);
+            $enviromental = array_values($enviromentalLines);
+        }
+        // $enviromental = $enviromental[0];
+        $payloadEnvironmental = [
+            'messages' => [
+                [
+                    'role' => 'system',
+                    'content' => 'You can start the conversation.',
+                ],
+                [
+                    'role' => 'user',
+                    'content' => 'translate this into arabic'.json_encode($enviromental),
+                ],
+            ],
+            "model" => 'gpt-3.5-turbo'
+        ];
+
+        $enviromental_in_arabic = Http::withHeaders([
+            'Authorization' => "Bearer " .  json_decode($api_keys)[0],
+            'Content-Type' => 'application/json',
+        ])->post('https://api.openai.com/v1/chat/completions', $payloadEnvironmental);
+        $EnvironmentalData = json_decode($enviromental_in_arabic, true);
+        $EnvironmentalMessage = $EnvironmentalData['choices'][0]['message']['content'];
+        /*******************************************  End Of Environmental *********************************************/
+        /*******************************************  Start Of Legal *********************************************/
+        $legal=[];
+        if (preg_match('/Legal:(.*?)(?=Political:|Economic:|Social:|Technological:|Environmental:|$)/s', $message, $matches)) {
+            $legalLines = explode(PHP_EOL, $matches[1]);
+            $legalLines = array_map('trim', $legalLines);
+            $legalLines = array_filter($legalLines);
+            $legal = array_values($legalLines);
+        }
+        // $legal = $legal[0];
+        $payloadLegal = [
+            'messages' => [
+                [
+                    'role' => 'system',
+                    'content' => 'You can start the conversation.',
+                ],
+                [
+                    'role' => 'user',
+                    'content' => 'translate this into arabic'.json_encode($legal),
+                ],
+            ],
+            "model" => 'gpt-3.5-turbo'
+        ];
+
+        $legal_in_arabic = Http::withHeaders([
+            'Authorization' => "Bearer " .  json_decode($api_keys)[0],
+            'Content-Type' => 'application/json',
+        ])->post('https://api.openai.com/v1/chat/completions', $payloadLegal);
+        $LegalData = json_decode($legal_in_arabic, true);
+        $LegalMessage = $LegalData['choices'][0]['message']['content'];
+        /*******************************************  End Of Legal *********************************************/
+                
+        
+
+        // write the pestal analysis 
+        $pestel_analysis = PestelAnalysis::create([
+            "uuid" => Str::uuid(),
+            "workspace_id" => auth()->user()->workspace_id,
+            "admin_id" => 0,
+            "company_name" => $settings['company_name'],
+            "political" => ($PoliticalMessage) ?? [],
+            "economic" => ($EconomicMessage) ?? [],
+            "social" => ($SocialMessage) ?? [],
+            "technological" => ($TechnologicalMessage) ?? [],
+            "environmental" => ($EnvironmentalMessage) ?? [],
+            "legal" => ($LegalMessage) ?? [],
+        ]);
     }
+
     private function swotAnalysis($request)
     {
         $swot_message = "I want to write a swot analysis based on the answers of the following questions . <br />
@@ -270,7 +415,6 @@ class EconomicPlanController extends Controller
         $ThreateData = json_decode($threats_in_arabic, true);
         $ThreateMessage = $ThreateData['choices'][0]['message']['content'];
 
-        // dd($ThreateMessage);
 
         $opportunities=[];
         // Regular expression pattern to extract opportunities
@@ -405,7 +549,6 @@ class EconomicPlanController extends Controller
             "threats" => $ThreateMessage,
         ]);
     }
-    // $swot_data['threats'] = $ThreateMessage;
 
     private function porterAnalysis($request)
     {
@@ -424,9 +567,12 @@ class EconomicPlanController extends Controller
                 answer for question 6 : {$request->market_position} <br/>
                 question 7 : Choose the geographical regions in which your project/business operates. <br/>
                 answer for question 7 : {$request->location} <br/>
-
-                include the following words as the forces in the answer and please make sure that they are present in the text in the same style and syntax and make sure each force is on a new line <br />
-                entrants , rivals , suppliers , customers , substitute <br />
+                I want the answer be  as follows<br />
+                Rivals:<br />
+                Suppliers:<br />
+                Substitutes:<br />
+                Entrants:<br />
+                Customers:<br />
         ";
         $workspace = Workspace::find(1);
         $settings_data = Setting::where('workspace_id', $workspace->id)->get();
@@ -460,59 +606,176 @@ class EconomicPlanController extends Controller
             'Authorization' => "Bearer " .  json_decode($api_keys)[1],
             'Content-Type' => 'application/json',
         ])->post('https://api.openai.com/v1/chat/completions', $payload);
+
+        
         $responseData = json_decode($response, true);
         $message = $responseData['choices'][0]['message']['content'];
-        // return $message;
-        $text = trim($message);
 
-        // Initialize an empty array to store the Porter's Five Forces analysis
-        $forces = array();
-
-        // Extract forces using regular expressions
-        // Extract force names using regular expressions
-        $pattern = "/(\d+\.[^\n:]+):\n((?:.+\n)+)/";
-        preg_match_all($pattern, $text, $matches);
-
-        // Remove leading numbers and whitespace from force names
-        $forces = array_map(function ($match) {
-            return trim(preg_replace("/^\d+\.\s*/", '', $match));
-        }, $matches[1]);
-
-        // Extract force descriptions
-        $descriptions = $matches[2];
-
-        // Create an array with force names as keys and descriptions as values
-        $forcesArray = array_combine($forces, $descriptions);
-        // return $forcesArray;
-        foreach ($forcesArray as $key => $value) {
-            if (str_contains($key, 'Rivals') || str_contains($key, 'Rivalary') || str_contains($key, 'Rivalry')) {
-                $final_forces['Rivals'] = $value;
-            }
-            if (str_contains($key, 'Entrants')) {
-                $final_forces['Entrants'] = $value;
-            }
-            if (str_contains($key, 'Suppliers')) {
-                $final_forces['Suppliers'] = $value;
-            }
-            if (str_contains($key, 'Customers')) {
-                $final_forces['Customers'] = $value;
-            }
-            if (str_contains($key, 'Substitute')) {
-                $final_forces['Substitute'] = $value;
-            }
+        /*******************************************  Start Of Rivals *********************************************/
+        $rivals=[];
+        if (preg_match('/Rivals:(.*?)(?=Suppliers:|Substitutes:|Entrants:|Customers:|$)/s', $message, $matches)) {
+            $rivalLines = explode(PHP_EOL, $matches[1]);
+            $rivalLines = array_map('trim', $rivalLines);
+            $rivalLines = array_filter($rivalLines);
+            $rivals = array_values($rivalLines);
         }
-        // return $final_forces;
-        // write the swot analysis 
+        $rivals = $rivals[0];
+        $payloadRivals = [
+            'messages' => [
+                [
+                    'role' => 'system',
+                    'content' => 'You can start the conversation.',
+                ],
+                [
+                    'role' => 'user',
+                    'content' => json_encode($rivals).'translate into arabic',
+                ],
+            ],
+            "model" => 'gpt-3.5-turbo'
+        ];
+
+        $rivals_in_arabic = Http::withHeaders([
+            'Authorization' => "Bearer " .  json_decode($api_keys)[0],
+            'Content-Type' => 'application/json',
+        ])->post('https://api.openai.com/v1/chat/completions', $payloadRivals);
+        $RivalsData = json_decode($rivals_in_arabic, true);
+        $RivalsMessage = $RivalsData['choices'][0]['message']['content'];
+
+        /*******************************************  End Of Rivals *********************************************/
+        /*******************************************  Start Of Suppliers *********************************************/
+        $suppliers=[];
+        if (preg_match('/Suppliers:(.*?)(?=Rivals:|Substitutes:|Entrants:|Customers:|$)/s', $message, $matches)) {
+            $supplierLines = explode(PHP_EOL, $matches[1]);
+            $supplierLines = array_map('trim', $supplierLines);
+            $supplierLines = array_filter($supplierLines);
+            $suppliers = array_values($supplierLines);
+        }
+        $suppliers = $suppliers[0];
+        $payloadSupplier = [
+            'messages' => [
+                [
+                    'role' => 'system',
+                    'content' => 'You can start the conversation.',
+                ],
+                [
+                    'role' => 'user',
+                    'content' => json_encode($suppliers).'translate into arabic',
+                ],
+            ],
+            "model" => 'gpt-3.5-turbo'
+        ];
+
+        $suppliers_in_arabic = Http::withHeaders([
+            'Authorization' => "Bearer " .  json_decode($api_keys)[0],
+            'Content-Type' => 'application/json',
+        ])->post('https://api.openai.com/v1/chat/completions', $payloadSupplier);
+        $SupplierData = json_decode($suppliers_in_arabic, true);
+        $SupplierMessage = $SupplierData['choices'][0]['message']['content'];
+
+        /*******************************************  End Of Suppliers *********************************************/
+        /*******************************************  Start Of Substitutes *********************************************/
+        $substitutes=[];
+        if (preg_match('/Substitutes:(.*?)(?=Rivals:|Suppliers:|Entrants:|Customers:|$)/s', $message, $matches)) {
+            $substituteLines = explode(PHP_EOL, $matches[1]);
+            $substituteLines = array_map('trim', $substituteLines);
+            $substituteLines = array_filter($substituteLines);
+            $substitutes = array_values($substituteLines);
+        }
+        $substitutes = $substitutes[0];
+        $payloadSubstitute = [
+            'messages' => [
+                [
+                    'role' => 'system',
+                    'content' => 'You can start the conversation.',
+                ],
+                [
+                    'role' => 'user',
+                    'content' => json_encode($substitutes).'translate into arabic',
+                ],
+            ],
+            "model" => 'gpt-3.5-turbo'
+        ];
+
+        $substitutes_in_arabic = Http::withHeaders([
+            'Authorization' => "Bearer " .  json_decode($api_keys)[0],
+            'Content-Type' => 'application/json',
+        ])->post('https://api.openai.com/v1/chat/completions', $payloadSubstitute);
+        $SubstituteData = json_decode($substitutes_in_arabic, true);
+        $SubstituteMessage = $SubstituteData['choices'][0]['message']['content'];
+
+        /*******************************************  End Of Substitutes *********************************************/
+        /*******************************************  Start Of Entrants *********************************************/
+        $entrants=[];
+        if (preg_match('/Entrants:(.*?)(?=Rivals:|Suppliers:|Substitutes:|Customers:|$)/s', $message, $matches)) {
+            $entrantLines = explode(PHP_EOL, $matches[1]);
+            $entrantLines = array_map('trim', $entrantLines);
+            $entrantLines = array_filter($entrantLines);
+            $entrants = array_values($entrantLines);
+        }
+        $entrants = $entrants[0];
+        $payloadEntrant = [
+            'messages' => [
+                [
+                    'role' => 'system',
+                    'content' => 'You can start the conversation.',
+                ],
+                [
+                    'role' => 'user',
+                    'content' => json_encode($entrants).'translate into arabic',
+                ],
+            ],
+            "model" => 'gpt-3.5-turbo'
+        ];
+
+        $entrants_in_arabic = Http::withHeaders([
+            'Authorization' => "Bearer " .  json_decode($api_keys)[0],
+            'Content-Type' => 'application/json',
+        ])->post('https://api.openai.com/v1/chat/completions', $payloadEntrant);
+        $EntrantData = json_decode($entrants_in_arabic, true);
+        $EntrantMessage = $EntrantData['choices'][0]['message']['content'];
+
+        /*******************************************  End Of Customers *********************************************/
+        /*******************************************  Start Of Substitutes *********************************************/
+        $customers=[];
+        if (preg_match('/Customers:(.*?)(?=Rivals:|Suppliers:|Entrants:|Substitutes:|$)/s', $message, $matches)) {
+            $customerLines = explode(PHP_EOL, $matches[1]);
+            $customerLines = array_map('trim', $customerLines);
+            $customerLines = array_filter($customerLines);
+            $customers = array_values($customerLines);
+        }
+        $customers = $customers[0];
+        $payloadCustomer = [
+            'messages' => [
+                [
+                    'role' => 'system',
+                    'content' => 'You can start the conversation.',
+                ],
+                [
+                    'role' => 'user',
+                    'content' => json_encode($customers).'translate into arabic',
+                ],
+            ],
+            "model" => 'gpt-3.5-turbo'
+        ];
+
+        $customers_in_arabic = Http::withHeaders([
+            'Authorization' => "Bearer " .  json_decode($api_keys)[0],
+            'Content-Type' => 'application/json',
+        ])->post('https://api.openai.com/v1/chat/completions', $payloadCustomer);
+        $CustomerData = json_decode($customers_in_arabic, true);
+        $CustomerMessage = $CustomerData['choices'][0]['message']['content'];
+
+        /*******************************************  End Of Customers *********************************************/
         $porter_analysis = PorterModel::create([
             "uuid" => Str::uuid(),
             "workspace_id" => auth()->user()->workspace_id,
             "admin_id" => 0,
             "company_name" => $settings['company_name'],
-            "rivals" => ($final_forces['Rivals']) ?? null,
-            "entrants" => ($final_forces['Entrants']) ?? null,
-            "suppliers" => ($final_forces['Suppliers']) ?? null,
-            "customers" => ($final_forces['Customers']) ?? null,
-            "substitute" => ($final_forces['Substitute']) ?? null,
+            "rivals" => $RivalsMessage ?? null,
+            "entrants" => $EntrantMessage ?? null,
+            "suppliers" => $SupplierMessage ?? null,
+            "customers" => $CustomerMessage ?? null,
+            "substitute" => $SubstituteMessage ?? null,
         ]);
         return $message;
     }
