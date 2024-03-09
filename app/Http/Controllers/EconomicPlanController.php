@@ -121,7 +121,6 @@ class EconomicPlanController extends Controller
         }
         $final_factors = [];
         if($factors){
-            dd($factors);
             foreach ($factors as $key => $value) {
                 if (str_contains($key, 'Political')) {
                     $final_factors['Political Factors'] = $value;
@@ -177,6 +176,22 @@ class EconomicPlanController extends Controller
                 question 7 : Choose the geographical regions in which your project/business operates. <br/>
                 answer for question 7 : {$request->location} <br/>
         ";
+        // $swot_message = "أريد كتابة تحليل SWOT استنادًا إلى إجابات الأسئلة التالية: 
+        //     السؤال ١: اختر صناعة لمشروعك أو عملك. 
+        //     الإجابة على السؤال ١: {$request->industry}        
+        //     السؤال ٢: حدد حجم عملك/مشروعك. 
+        //     الإجابة على السؤال ٢: {$request->business_size}        
+        //     السؤال ٣: حدد الجمهور المستهدف الأساسي لمشروعك/عملك.        
+        //     الإجابة على السؤال ٣: {$request->audience}        
+        //     السؤال ٤: حدد طبيعة المنتج/الخدمة الخاص بك.        
+        //     الإجابة على السؤال ٤: {$request->product_nature}        
+        //     السؤال ٥: اختر التركيز التكنولوجي الأساسي لمشروعك/عملك.
+        //     الإجابة على السؤال ٥: {$request->tech_focus}        
+        //     السؤال ٦: حدد الموقع الرئيسي للسوق لمشروعك/عملك.        
+        //     الإجابة على السؤال ٦: {$request->market_position}        
+        //     السؤال ٧: اختر المناطق الجغرافية التي يعمل فيها مشروعك/عملك.        
+        //     الإجابة على السؤال ٧: {$request->location}        
+        // ";
 
         $workspace = Workspace::find(1);
         $settings_data = Setting::where('workspace_id', $workspace->id)->get();
@@ -206,6 +221,7 @@ class EconomicPlanController extends Controller
             ],
             "model" => 'gpt-3.5-turbo'
         ];
+
         $response = Http::withHeaders([
             'Authorization' => "Bearer " .  json_decode($api_keys)[0],
             'Content-Type' => 'application/json',
@@ -213,8 +229,8 @@ class EconomicPlanController extends Controller
         $responseData = json_decode($response, true);
         $message = $responseData['choices'][0]['message']['content'];
 
-
         // Regular expression pattern to extract threats
+        $threats=[];
         if (preg_match('/Threats:(.*?)(?=Strengths:|Weaknesses:|Opportunities:|$)/s', $message, $matches)) {
             $threatLines = explode(PHP_EOL, $matches[1]);
             $threatLines = array_map('trim', $threatLines);
@@ -227,12 +243,36 @@ class EconomicPlanController extends Controller
             $threats = array_merge($threats, preg_split('/\R/', $threat));
         }
         $threats = array_map('trim', $threats);
-
+        
         // Remove any empty elements
         $threats = array_filter($threats);
-
+        
         $swot_data['threats'] = $threats;
 
+        $payloadThreat = [
+            'messages' => [
+                [
+                    'role' => 'system',
+                    'content' => 'You can start the conversation.',
+                ],
+                [
+                    'role' => 'user',
+                    'content' => json_encode($swot_data['threats']).'translate into arabic',
+                ],
+            ],
+            "model" => 'gpt-3.5-turbo'
+        ];
+
+        $threats_in_arabic = Http::withHeaders([
+            'Authorization' => "Bearer " .  json_decode($api_keys)[0],
+            'Content-Type' => 'application/json',
+        ])->post('https://api.openai.com/v1/chat/completions', $payloadThreat);
+        $ThreateData = json_decode($threats_in_arabic, true);
+        $ThreateMessage = $ThreateData['choices'][0]['message']['content'];
+
+        // dd($ThreateMessage);
+
+        $opportunities=[];
         // Regular expression pattern to extract opportunities
         if (preg_match('/Opportunities:(.*?)(?=Strengths:|Weaknesses:|Threats:|$)/s', $message, $matches)) {
             $opportunitLines = explode(PHP_EOL, $matches[1]);
@@ -250,7 +290,29 @@ class EconomicPlanController extends Controller
         $opportunities = array_filter($opportunities);
         $swot_data['opportunities'] = $opportunities;
 
+        $payloadOpportunities = [
+            'messages' => [
+                [
+                    'role' => 'system',
+                    'content' => 'You can start the conversation.',
+                ],
+                [
+                    'role' => 'user',
+                    'content' => json_encode($swot_data['opportunities']).'translate into arabic',
+                ],
+            ],
+            "model" => 'gpt-3.5-turbo'
+        ];
 
+        $opportunities_in_arabic = Http::withHeaders([
+            'Authorization' => "Bearer " .  json_decode($api_keys)[0],
+            'Content-Type' => 'application/json',
+        ])->post('https://api.openai.com/v1/chat/completions', $payloadOpportunities);
+        $opportunitiesData = json_decode($opportunities_in_arabic, true);
+        $opportunitiesMessage = $opportunitiesData['choices'][0]['message']['content'];
+
+
+        $strengths=[];
         // Regular expression pattern to extract strengths
         if (preg_match('/Strengths:(.*?)(?=Opportunities:|Weaknesses:|Threats:|$)/s', $message, $matches)) {
             $StrengthsLines = explode(PHP_EOL, $matches[1]);
@@ -269,8 +331,29 @@ class EconomicPlanController extends Controller
         $strengths = array_filter($strengths);
         $swot_data['strengths'] = $strengths;
 
+        $payloadStrengths = [
+            'messages' => [
+                [
+                    'role' => 'system',
+                    'content' => 'You can start the conversation.',
+                ],
+                [
+                    'role' => 'user',
+                    'content' => json_encode($swot_data['strengths']).'translate into arabic',
+                ],
+            ],
+            "model" => 'gpt-3.5-turbo'
+        ];
+
+        $Strengths_in_arabic = Http::withHeaders([
+            'Authorization' => "Bearer " .  json_decode($api_keys)[0],
+            'Content-Type' => 'application/json',
+        ])->post('https://api.openai.com/v1/chat/completions', $payloadStrengths);
+        $StrengthsData = json_decode($Strengths_in_arabic, true);
+        $StrengthsMessage = $StrengthsData['choices'][0]['message']['content'];
 
 
+        $weaknesses=[];
         // Regular expression pattern to extract weaknesses
         if (preg_match('/Weaknesses:(.*?)(?=Opportunities:|Strengths:|Threats:|$)/s', $message, $matches)) {
             $WeaknessesLines = explode(PHP_EOL, $matches[1]);
@@ -288,6 +371,26 @@ class EconomicPlanController extends Controller
         // Remove any empty elements
         $weaknesses = array_filter($weaknesses);
         $swot_data['weaknesses'] = $weaknesses;
+        $payloadWeaknesses = [
+            'messages' => [
+                [
+                    'role' => 'system',
+                    'content' => 'You can start the conversation.',
+                ],
+                [
+                    'role' => 'user',
+                    'content' => json_encode($swot_data['weaknesses']).'translate into arabic',
+                ],
+            ],
+            "model" => 'gpt-3.5-turbo'
+        ];
+
+        $weaknesses_in_arabic = Http::withHeaders([
+            'Authorization' => "Bearer " .  json_decode($api_keys)[0],
+            'Content-Type' => 'application/json',
+        ])->post('https://api.openai.com/v1/chat/completions', $payloadWeaknesses);
+        $weaknessesData = json_decode($weaknesses_in_arabic, true);
+        $weaknessesMessage = $weaknessesData['choices'][0]['message']['content'];
 
 
         // write the swot analysis 
@@ -296,12 +399,13 @@ class EconomicPlanController extends Controller
             "workspace_id" => auth()->user()->workspace_id,
             "admin_id" => 0,
             "company_name" => $settings['company_name'],
-            "strengths" => json_encode($swot_data['strengths']),
-            "weaknesses" => json_encode($swot_data['weaknesses']),
-            "opportunities" => json_encode($swot_data['opportunities']),
-            "threats" => json_encode($swot_data['threats']),
+            "strengths" => $StrengthsMessage,
+            "weaknesses" => $weaknessesMessage,
+            "opportunities" => $opportunitiesMessage,
+            "threats" => $ThreateMessage,
         ]);
     }
+    // $swot_data['threats'] = $ThreateMessage;
 
     private function porterAnalysis($request)
     {
