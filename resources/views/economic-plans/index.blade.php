@@ -79,19 +79,19 @@
             <div class="tab mb-3">
                 {{ __('industry') }}
                 <div class="">
-                    <input type="radio"name="industry" value="technology" style="width: auto;">
+                    <input type="radio"name="industry" value="تكنولوجيا" style="width: auto;">
                     <label>{{ __('technology') }}</label><br>
                 </div>
                 <div class="">
-                    <input type="radio"name="industry" value="health care" style="width: auto;">
+                    <input type="radio"name="industry" value="الرعاية الصحية" style="width: auto;">
                     <label>{{ __('health') }}</label><br>
                 </div>
                 <div class="">
-                    <input type="radio"name="industry" value="retail" style="width: auto;">
+                    <input type="radio"name="industry" value="البيع بالتجزئة" style="width: auto;">
                     <label>{{ __('retail') }}</label><br>
                 </div>
                 <div class="">
-                    <input type="radio"name="industry" value="finance" style="width: auto;">
+                    <input type="radio"name="industry" value="المالية" style="width: auto;">
                     <label>{{ __('finance') }}</label><br>
                 </div>
             </div>
@@ -99,19 +99,19 @@
             <div class="tab mb-3">
                 {{ __('business_size') }}
                 <div class="">
-                    <input type="radio"name="business_size" value="micro" style="width: auto;">
+                    <input type="radio"name="business_size" value="متناهي الصفر" style="width: auto;">
                     <label>{{ __('micro') }}</label><br>
                 </div>
                 <div class="">
-                    <input type="radio"name="business_size" value="small" style="width: auto;">
+                    <input type="radio"name="business_size" value="صغير" style="width: auto;">
                     <label>{{ __('small') }}</label><br>
                 </div>
                 <div class="">
-                    <input type="radio"name="business_size" value="medium" style="width: auto;">
+                    <input type="radio"name="business_size" value="متوسط" style="width: auto;">
                     <label>{{ __('medium') }}</label><br>
                 </div>
                 <div class="">
-                    <input type="radio"name="business_size" value="large" style="width: auto;">
+                    <input type="radio"name="business_size" value="كبير" style="width: auto;">
                     <label>{{ __('large') }}</label><br>
                 </div>
             </div>
@@ -119,18 +119,19 @@
             <div class="tab mb-3">
                 {{ __('audience') }}
                 <div class="">
-                    <input type="radio" name="audience" value="b2c" style="width: auto;">
+                    <input type="radio" name="audience" value="المستهلكون" style="width: auto;">
                     <label>{{ __('b2c') }}</label><br>
                 </div>
                 <div class="">
-                    <input type="radio" name="audience" value="b2b" style="width: auto;">
+                    <input type="radio" name="audience" value="الأعمال التجارية الأخرى" style="width: auto;">
                     <label>{{ __('b2b') }}</label><br>
                 </div>
                 <div class="">
-                    <input type="radio" name="audience" value="Government agencies and institutions" style="width: auto;">
+                    <input type="radio" name="audience" value="الحكومة والمؤسسات" style="width: auto;">
                     <label>{{ __('governate') }}</label><br>
                 </div>
                 <div class="">
+                    {{-- Note: --}}
                     <input type="radio" name="audience" value="b2b b2c and Government agencies " style="width: auto;">
                     <label>{{ __('all') }}</label><br>
                 </div>
@@ -139,15 +140,15 @@
             <div class="tab mb-3">
                 {{ __('product_nature') }}
                 <div class="">
-                    <input type="radio" name="product_nature" value="phyiscal products" style="width: auto;">
+                    <input type="radio" name="product_nature" value="منتجات مادية" style="width: auto;">
                     <label>{{ __('Physical products') }}</label><br>
                 </div>
                 <div class="">
-                    <input type="radio" name="product_nature" value="digital products" style="width: auto;">
+                    <input type="radio" name="product_nature" value="منتجات رقمية" style="width: auto;">
                     <label>{{ __('Digital Products') }}</label><br>
                 </div>
                 <div class="">
-                    <input type="radio" name="product_nature" value="services" style="width: auto;">
+                    <input type="radio" name="product_nature" value="حدمات" style="width: auto;">
                     <label>{{ __('Services') }}</label><br>
                 </div>
                 <div class="">
@@ -160,19 +161,19 @@
             <div class="tab mb-3">
                 {{ __('Technology Focus') }}
                 <div class="">
-                    <input type="radio" name="tech_focus" value="Artifical Intelligence" style="width: auto;">
+                    <input type="radio" name="tech_focus" value="الذكاء الاصطناعي" style="width: auto;">
                     <label>{{ __('Ai') }}</label><br>
                 </div>
                 <div class="">
-                    <input type="radio" name="tech_focus" value="Renewable Energy" style="width: auto;">
+                    <input type="radio" name="tech_focus" value="الطاقة المتجددة" style="width: auto;">
                     <label>{{ __('Renewable Energy') }}</label><br>
                 </div>
                 <div class="">
-                    <input type="radio" name="tech_focus" value="Online Trading" style="width: auto;">
+                    <input type="radio" name="tech_focus" value="التجارة الإلكترونية" style="width: auto;">
                     <label>{{ __('Online Trading') }}</label><br>
                 </div>
                 <div class="">
-                    <input type="radio" name="tech_focus" value="FinTech" style="width: auto;">
+                    <input type="radio" name="tech_focus" value="التكنولوجيا المالية" style="width: auto;">
                     <label>{{ __('FinTech') }}</label><br>
                 </div>
             </div>
@@ -181,15 +182,15 @@
             <div class="tab mb-3">
                 {{ __('Market Position') }}
                 <div class="">
-                    <input type="radio" name="market_position" value="lowers the cost" style="width: auto;">
+                    <input type="radio" name="market_position" value="قيادة التكاليف (توفير أقل تكلفة)" style="width: auto;">
                     <label>{{ __('Lowering The Cost') }}</label><br>
                 </div>
                 <div class="">
-                    <input type="radio" name="market_position" value="special" style="width: auto;">
+                    <input type="radio" name="market_position" value="التمايز (تقديم ميزات فريدة)" style="width: auto;">
                     <label>{{ __('Special') }}</label><br>
                 </div>
                 <div class="">
-                    <input type="radio" name="market_position" value="spcialized markers" style="width: auto;">
+                    <input type="radio" name="market_position" value="السوق المتخصصة (متخصصة في قطاع معين)" style="width: auto;">
                     <label>{{ __('Special Market') }}</label><br>
                 </div>
                 <div class="">
@@ -201,19 +202,19 @@
             <div class="tab mb-3">
                 {{ __('Geo Location') }}
                 <div class="">
-                    <input type="radio" name="location" value="Modern Citites" style="width: auto;">
+                    <input type="radio" name="location" value="المناطق الحضرية" style="width: auto;">
                     <label>{{ __('Modern') }}</label><br>
                 </div>
                 <div class="">
-                    <input type="radio" name="location" value="Suburbs" style="width: auto;">
+                    <input type="radio" name="location" value="الضواحي" style="width: auto;">
                     <label>{{ __('Suberns') }}</label><br>
                 </div>
                 <div class="">
-                    <input type="radio" name="location" value="country side" style="width: auto;">
+                    <input type="radio" name="location" value="الريف" style="width: auto;">
                     <label>{{ __('Country Side') }}</label><br>
                 </div>
                 <div class="">
-                    <input type="radio" name="location" value="global" style="width: auto;">
+                    <input type="radio" name="location" value="العالمية" style="width: auto;">
                     <label>{{ __('Global') }}</label><br>
                 </div>
             </div>
