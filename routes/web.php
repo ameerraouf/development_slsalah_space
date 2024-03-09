@@ -533,7 +533,7 @@ Route::prefix('investor')->middleware('auth:investor')->as('investor.')->group(f
     Route::get('/chatAdmin', [InvestorAdminChatController::class, 'index'])->name('chatAdmin');
     Route::post('/chat/broadcast', [InvestorChatController::class, 'broadcast'])->name('chat.broadcast');
     Route::post('/chat/recive', [InvestorChatController::class, 'recive'])->name('chat.recive');
-    Route::get("/profile", [InvestorController::class, "profile"]);
+    Route::get("/profile", [InvestorController::class, "profile"])->name('investor.profile');
     Route::post("/profile/update/{id}", [InvestorController::class, "profileUpdate"]);
     Route::post("/user-change-password", [
         InvestorController::class,
