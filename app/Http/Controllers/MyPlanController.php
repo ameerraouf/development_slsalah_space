@@ -35,7 +35,8 @@ class MyPlanController extends BaseController
     public function index(){
        
         
-        $user = User::where('super_admin', 1)->first();
+        // $user = User::where('super_admin', 1)->first();
+        $user = Auth::user();
         
         $settings_mod = Setting::where('workspace_id', $user->workspace_id)->get()->keyBy('key');
         if (isset($settings_mod['currency'])) {
@@ -43,9 +44,12 @@ class MyPlanController extends BaseController
         } else {
             $currency = config('app.currency');
         }
-        
         $data = [];
-        $data['FinancialEvaluation'] = formatCurrency(FinancialEvaluation::where('workspace_id',$user->workspace_id)->select('value')->first()['value'],getWorkspaceCurrency($this->settings));
+        if(FinancialEvaluation::where('workspace_id',$user->workspace_id)->select('value')->first()){
+            $data['FinancialEvaluation'] = formatCurrency(FinancialEvaluation::where('workspace_id',$user->workspace_id)->select('value')->first()['value'],getWorkspaceCurrency($this->settings));
+        }else{
+            $data['FinancialEvaluation'] = 0;
+        };
         $data['selected_navigation'] = "billing";
         $data['projectRevenues'] = ProjectRevenuePlanning::with(['sources'])
             ->where('workspace_id', $this->user->workspace_id)
@@ -73,14 +77,11 @@ class MyPlanController extends BaseController
         $data['planningCostAssumption'] = PlanningCostAssumption::where(['workspace_id' =>$this->user->workspace_id])->first();
         $data['planningRevenueOperatingAssumptions'] = PlanningRevenueOperatingAssumption::where('workspace_id', $this->user?->workspace_id)->first();
         // dd($data['planningRevenueOperatingAssumptions']->calc_total);
-
         if($data['planningRevenueOperatingAssumptions']){
             $data['calc_total'] = $data['planningRevenueOperatingAssumptions']->calc_total;
         }else{
             $data['calc_total'] = [];
         }
-        // dd($data['calc_total']);
-
         $workingInvestedTotal = WorkingInvestedCapital::select(DB::raw('SUM(investing_annual_cost) as investing_annual_cost_total'))->where("workspace_id", $this->user->workspace_id)->get()->pluck('investing_annual_cost_total');
         $fixedInvestedTotal = FixedInvestedCapital::select(DB::raw('SUM(investing_price) as investing_price_total'))->where("workspace_id", $this->user->workspace_id)->get()->pluck('investing_price_total');
         $totalInvestedCapital = (!empty($workingInvestedTotal) ? $workingInvestedTotal[0] : 0.0)+(!empty($fixedInvestedTotal) ? $fixedInvestedTotal[0] : 0.0);
@@ -110,18 +111,23 @@ class MyPlanController extends BaseController
         $data['total_revenues_expectations']['second_year'] = $second_year_total_revenues_expectations;
         $data['total_revenues_expectations']['third_year'] = $third_year_total_revenues_expectations;
 
-
-        $project_cumulative_free_cash_flow_first_year = $data['calc_total']['first_year_net_cash_flow_number'] - abs($totalInvestedCapital);
-        if($project_cumulative_free_cash_flow_first_year < 0){
-            $project_cumulative_free_cash_flow_second_year = $data['calc_total']['second_year_net_cash_flow_number'] - abs($project_cumulative_free_cash_flow_first_year);
-        }else{
-            $project_cumulative_free_cash_flow_second_year = '';
+        $project_cumulative_free_cash_flow_first_year = 0;
+        $project_cumulative_free_cash_flow_second_year = 0;
+        $project_cumulative_free_cash_flow_third_year = 0;
+        if($data['calc_total']){
+            $project_cumulative_free_cash_flow_first_year = $data['calc_total']['first_year_net_cash_flow_number'] - abs($totalInvestedCapital);
+            if($project_cumulative_free_cash_flow_first_year < 0){
+                $project_cumulative_free_cash_flow_second_year = $data['calc_total']['second_year_net_cash_flow_number'] - abs($project_cumulative_free_cash_flow_first_year);
+            }else{
+                $project_cumulative_free_cash_flow_second_year = '';
+            }
+            if($project_cumulative_free_cash_flow_second_year < 0){
+                $project_cumulative_free_cash_flow_third_year = $data['calc_total']['third_year_net_cash_flow_number'] - abs($project_cumulative_free_cash_flow_second_year);
+            }else{
+                $project_cumulative_free_cash_flow_third_year = '';
+            }
         }
-        if($project_cumulative_free_cash_flow_second_year < 0){
-            $project_cumulative_free_cash_flow_third_year = $data['calc_total']['third_year_net_cash_flow_number'] - abs($project_cumulative_free_cash_flow_second_year);
-        }else{
-            $project_cumulative_free_cash_flow_third_year = '';
-        }
+    
         $data['project_cumulative_free_cash_flow']['first_year'] = formatCurrency($project_cumulative_free_cash_flow_first_year,getWorkspaceCurrency($this->settings));
         $data['project_cumulative_free_cash_flow']['second_year'] = $project_cumulative_free_cash_flow_second_year !== '' ? formatCurrency($project_cumulative_free_cash_flow_second_year,getWorkspaceCurrency($this->settings)) : '';
         $data['project_cumulative_free_cash_flow']['third_year'] = $project_cumulative_free_cash_flow_third_year !== '' ? formatCurrency($project_cumulative_free_cash_flow_third_year,getWorkspaceCurrency($this->settings)) : '';
@@ -132,7 +138,9 @@ class MyPlanController extends BaseController
         if($project_cumulative_free_cash_flow_second_year < 0){
             $data['capital_recovery_period']['second_year'] = 1;
         }else{
-            $data['capital_recovery_period']['second_year']  = ceil(abs($project_cumulative_free_cash_flow_first_year) / $data['calc_total']['second_year_net_cash_flow_number']) / 10;
+            if($data['calc_total']){
+                $data['capital_recovery_period']['second_year']  = ceil(abs($project_cumulative_free_cash_flow_first_year) / $data['calc_total']['second_year_net_cash_flow_number']) / 10;
+            }
         }
 
         $data['TotalRevenueFirstYear']= \App\Models\ProjectRevenuePlanning::calcTotalRevenueFirstYear();
