@@ -66,18 +66,28 @@ class ProfileController extends BaseController
         if ($request->company_logo)
         {
             $company_logo = $request->file("company_logo")->store("media", "uploads");
-            Company::updateOrCreate(['company_logo' => $company_logo,'business_pioneer_id' => Auth::user()->id]);
+            Company::updateOrCreate(
+                ['business_pioneer_id' => Auth::user()->id],
+                [
+                    'company_logo'        => $company_logo,
+                    'company_name'        => $request->company_name,
+                    'business_department' => $request->company_department,
+                    'company_brief'       => $request->company_brief,
+                    'company_description' => $request->company_desc,
+                ]
+                );
         }
-
-        Company::updateOrCreate(
-            ['business_pioneer_id' => Auth::user()->id],
-            [
-                'company_name'        => $request->company_name,
-                'business_department' => $request->company_department,
-                'company_brief'       => $request->company_brief,
-                'company_description' => $request->company_desc,
-            ]
-            );
+        else {
+            Company::updateOrCreate(
+                ['business_pioneer_id' => Auth::user()->id],
+                [
+                    'company_name'        => $request->company_name,
+                    'business_department' => $request->company_department,
+                    'company_brief'       => $request->company_brief,
+                    'company_description' => $request->company_desc,
+                ]
+                );
+        }
 
         if ($request->cover_photo) {
             $cover_path .= $request
