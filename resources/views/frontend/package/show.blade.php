@@ -2,6 +2,7 @@
 @extends('frontend.layout')
 @section('title','Pricing')
 @section('content')
+{{-- تم  نقلها --}}
     <section class="">
         <div class="bg-pink-light position-relative">
             <img src="" class="position-absolute start-0 top-md-0 w-100 opacity-6">

@@ -306,7 +306,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     
     <script>
-        let test = "{{ $api_keys_test }}"
+        let test = "{{ $api_keys_test??'' }}"
         if (test !== null && test !== '') {
             test = test.split(",");
         }
@@ -316,7 +316,7 @@
 
 
         // api module 
-        let apiModule = "{{ $api_module }}"
+        let apiModule = "{{ $api_module ??'' }}"
         if (apiModule) {
             $('#api_module').val(apiModule)
         }
