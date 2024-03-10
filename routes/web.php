@@ -472,6 +472,7 @@ Route::prefix('user/chat')->middleware('auth')->group(function (){
     Route::post('recive', [\App\Http\Controllers\UserChatController::class,'recive'])->name('user.chat.recive');
     Route::get('/', [\App\Http\Controllers\UserChatController::class,'index'])->name('user.chat.index');
     Route::post('/', [\App\Http\Controllers\UserChatController::class, 'send'])->name('user.chat.send');
+    Route::post('getCountPioneer', [\App\Http\Controllers\UserChatController::class, 'getCountPioneer'])->name('user.chat.getCountPioneer');
 });
 
 Route::prefix('admin/chat')->middleware('auth')->group(function (){
@@ -533,6 +534,7 @@ Route::prefix('investor')->middleware('auth:investor')->as('investor.')->group(f
     Route::get('/chatAdmin', [InvestorAdminChatController::class, 'index'])->name('chatAdmin');
     Route::post('/chat/broadcast', [InvestorChatController::class, 'broadcast'])->name('chat.broadcast');
     Route::post('/chat/recive', [InvestorChatController::class, 'recive'])->name('chat.recive');
+    Route::post('/chat/getCount', [InvestorChatController::class, 'getCount'])->name('chat.getCount');
     Route::get("/profile", [InvestorController::class, "profile"])->name('investor.profile');
     Route::post("/profile/update/{id}", [InvestorController::class, "profileUpdate"]);
     Route::post("/user-change-password", [

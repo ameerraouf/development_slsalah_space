@@ -17,6 +17,7 @@ class ChatSent implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $reciver;
+    public $reciver_id;
 
     public $message;
 
@@ -25,10 +26,11 @@ class ChatSent implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct($reciver, $type, $message)
+    public function __construct($reciver, $type, $message, $reciver_id = null)
     {
-        $this->reciver   = $reciver;
-        $this->message   = $message;
+        $this->reciver      = $reciver;
+        $this->message      = $message;
+        $this->reciver_id   = $reciver_id;
     }
 
     /**

@@ -53,6 +53,7 @@ class Chat extends Component
             $this->messages = $messages;
         }
         
+        
 
         $this->emit('$refresh');
 

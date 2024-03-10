@@ -52,7 +52,7 @@ class UserChatController extends BaseController
             "sended_by"     => "user"
         ]);
 
-        broadcast(new ChatSent($request->investor_id, 'user', $run))->toOthers();
+        broadcast(new ChatSent($request->investor_id, 'user', $run, auth()->user()->id))->toOthers();
 
         return view('investor.chats.components.broadcast', ['message' => $run]);
 
@@ -63,7 +63,11 @@ class UserChatController extends BaseController
         return view('investor.chats.components.recive', ['message' => $request->get('message')]);
 
     }
-
+    public function getCountPioneer(Request $request) {
+        $investor_id = $request->investor_id;
+        $count = InvestorChat::where('sended_by', 'investor')->where('investor_id', $investor_id)->where('is_open', '0')->count();
+        return $count;
+    }
     public function send(Request $request)
     {
         $date = Carbon::now();

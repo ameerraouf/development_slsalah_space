@@ -52,6 +52,8 @@ class Chat extends Component
         $this->messages = $messages;
         
 
+        InvestorChat::where('sended_by', 'investor')->where('investor_id', $investor_id)->where('is_open', '0')->update(['is_open' => 1]);
+
         $this->emit('$refresh');
 
         
