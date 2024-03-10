@@ -225,8 +225,7 @@ Route::get("/dashboard", [DashboardController::class, "dashboard"])->name('dashb
 Route::get("/new-user", [ProfileController::class, "newUser"]);
 Route::get("/documents", [DocumentController::class, "documents"]);
 Route::get("/profile", [ProfileController::class, "profile"]);
-Route::get("/profile", [InvestorController::class, "profile"]);
-Route::post("/profile/update/{id}", [InvestorController::class, "profileUpdate"]);
+
 Route::get("/staff", [ProfileController::class, "staff"]);
 Route::get("/settings", [SettingController::class, "settings"]);
 Route::get("/billing", [SettingController::class, "billing"]);
@@ -536,4 +535,10 @@ Route::prefix('investor')->middleware('auth:investor')->as('investor.')->group(f
     Route::post('/chat/broadcast', [InvestorChatController::class, 'broadcast'])->name('chat.broadcast');
     Route::post('/chat/recive', [InvestorChatController::class, 'recive'])->name('chat.recive');
     Route::post('/chat/getCount', [InvestorChatController::class, 'getCount'])->name('chat.getCount');
+    Route::get("/profile", [InvestorController::class, "profile"])->name('investor.profile');
+    Route::post("/profile/update/{id}", [InvestorController::class, "profileUpdate"]);
+    Route::post("/user-change-password", [
+        InvestorController::class,
+        "userChangePasswordPost",
+    ]);
 });

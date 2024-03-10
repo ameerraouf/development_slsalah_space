@@ -59,6 +59,20 @@
         .step.finish {
             background-color: #077ebf;
         }
+
+        /* HTML: <div class="loader"></div> */
+        .loader {
+        width: 120px;
+        height: 20px;
+        -webkit-mask: linear-gradient(90deg,#09008d 70%,#0000 0) left/20% 100%;
+        background:
+        linear-gradient(#0400ff 0 0) left -25% top 0 /20% 100% no-repeat
+        #000000;
+        animation: l7 1s infinite steps(6);
+        }
+        @keyframes l7 {
+            100% {background-position: right -25% top 0}
+        }
     </style>
 @endsection
 @section('content')
@@ -75,7 +89,8 @@
             <div class="alert alert-danger text-white d-none" id="error-alert">{{ __('All Fields Are Required') }}</div>
             <div class="alert alert-success text-white d-none" id="success-alert">تم إنشاء تحليل عن طريق الذكاء الاصطناعي و
                 يمكنك مشاهدة كل تحليل بالمكان المخصص له</div>
-            <!-- One "tab" for each step in the form: -->
+            <div class="loader-text d-none" style="font-weight: bolder; color:#000000">جاري معالجة البيانات الرجاء الانتظار قليلا. لا تقم بعمل تحديث للصفحه</div>
+            <div class="loader d-none"></div>
             <div class="tab mb-3">
                 {{ __('industry') }}
                 <div class="">
@@ -324,6 +339,8 @@
         $('body').on('click', '.submit-btn', function(e) {
             $('#error-alert').addClass('d-none');
             $('#success-alert').addClass('d-none');
+            $('.loader').removeClass('d-none');
+            $('.loader-text').removeClass('d-none');
             $(this).prop('disabled', true)
             $(this).css({
                 "opacity": "0.5"
@@ -340,12 +357,16 @@
                 },
                 success: function(response) {
                     $('#success-alert').removeClass('d-none');
+                    $('.loader').addClass('d-none');
+                    $('.loader-text').addClass('d-none');
                     $('.submit-btn').css({"opacity": "1"})
                     $('.submit-btn').prop('disabled', false)
                 },
                 error: function(response) {
                     $('#error-alert').text(response.error);
                     $('#error-alert').removeClass('d-none');
+                    $('.loader').addClass('d-none');
+                    $('.loader-text').addClass('d-none');
                     $('.submit-btn').prop('disabled', false)
                     $('.submit-btn').css({"opacity": "1"})
                 }
