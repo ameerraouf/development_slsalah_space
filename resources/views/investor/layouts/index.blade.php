@@ -294,80 +294,41 @@
     </div>
 </main>
 <button class="btn-chat-live tog-active" data-active=".chat-live">
-        <i class="fas fa-headset icon-btn"></i>
-    </button>
-    <div class="chat-live">
-        <header class="header-chat">
-            <img src="https://placehold.co/400" alt="" class="avatar">
-            <h5 class="name">
-                بوت ألي
-            </h5>
-            <span class="subtitle">
-                يتم الرد خلال 5 دقائق
-            </span>
-        </header>
-        <main class="content">
-            <div class="item">
-                <div class="msgs">
-                    <div class="msg">
-                        مرحبًا 👋! أنا هنا للإجابة على أسئلتك، وفريقنا متاح إذا كنت بحاجة إلى مساعدة إضافية.
-                    </div>
-                    <div class="msg">
-                        كيف يمكنني مساعدتك؟
-                    </div>
-                </div>
-                <img src="https://placehold.co/400" alt="" class="avatar">
+    <i class="fas fa-headset icon-btn"></i>
+</button>
+<div class="chat-live ">
+<header class="header-chat">
+    <img src="https://placehold.co/400" alt="" class="avatar">
+    <h5 class="name">
+        بوت ألي
+    </h5>
+    <span class="subtitle">
+        يتم الرد خلال 5 دقائق
+    </span>
+</header>
+<main class="messages content scrolling">
+    <div class="item">
+        <div class="msgs">
+            <div class="msg">
+                مرحبًا 👋! أنا هنا للإجابة على أسئلتك، وفريقنا متاح إذا كنت بحاجة إلى مساعدة إضافية.
             </div>
-            <div class="item you">
-                <div class="msgs">
-                    <div class="msg">
-                        مرحبا هل يمكنك مساعدتي؟
-                    </div>
-                </div>
+            <div class="msg">
+                كيف يمكنني مساعدتك؟
             </div>
-            <div class="item">
-                    <div class="msgs">
-                        <div class="msg">
-                            بالطبع كيف تريدني أن أساعدك !
-                        </div>
-                    </div>
-                <img src="https://placehold.co/400" alt="" class="avatar">
-            </div>
-            <div class="item you">
-                <div class="msgs">
-                    <div class="msg">
-                        مرحبا هل يمكنك مساعدتي؟
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                    <div class="msgs">
-                        <div class="msg">
-                        بالطبع كيف تريدني أن أساعدك !
-                        </div>
-                        <div class="msg">
-                            بالطبع كيف تريدني أن أساعدك !
-                        </div>
-                        <div class="msg">
-                            بالطبع كيف تريدني أن أساعدك !
-                        </div>
-                    </div>
-                <img src="https://placehold.co/400" alt="" class="avatar">
-            </div>
-        </main>
-        <form class="send">
-            <input type="text" name="" id="">
-            <div class="btns">
-                <div class="btn-file">
-                <i class="fas fa-paperclip"></i>
-                    <input type="file" name="" id="">
-                </div>
-            <button type="submit" class="btn-submit">
-                <i class="far fa-paper-plane fa-flip-horizontal"></i>
-            </button>
-            </div>
-        </form>
+        </div>
+        <img src="https://placehold.co/400" alt="" class="avatar">
     </div>
+
+</main>
+<form class="send">
+    <input type="text" name="" id="message" name="message" placeholder="اكتب رسالتك..." autocomplete="off">
+    <div class="btns">
+        <button type="submit" class="btn-submit">
+            <i class="far fa-paper-plane fa-flip-horizontal"></i>
+        </button>
+    </div>
+</form>
+</div>
 <!--   Core JS Files   -->
 @livewireScripts
 <script>
@@ -449,6 +410,50 @@
 
 @yield('script')
 </body>
+<script>
+    $('.send').submit(function (event) {
+        event.preventDefault();
+        $('.send #message').prop('disabled',true);
+        $('.send button').prop('disabled',true);
 
+        $.ajax({
+            url:'/gpt-chat-send',
+            method:'POST',
+            headers:{
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+            data:{
+                'content':$(".send #message").val()
+            }
+        }).done(function (res) {
+            $(".messages .item").last().after(`
+                <div class="item you">
+                    <div class="msgs">
+                        <div class="msg">
+                            `+$('.send #message').val()+`
+                        </div>
+                    </div>
+                </div>
+            `);
+                console.log(res);
+                console.log(typeof responseObject);
+            $(".messages .item").last().after(`
+                <div class="item">
+                    <div class="msgs">
+                        <div class="msg">
+                            `+res+`
+                        </div>
+                    </div>
+                </div>
+            `);
+
+            $('.send #message').val('');
+            $('.scrolling').scrollTop($('.scrolling').height());
+            
+            $('.send #message').prop('disabled',false);
+            $('.send button').prop('disabled',false);
+        });
+    });
+</script>
 </html>
 
