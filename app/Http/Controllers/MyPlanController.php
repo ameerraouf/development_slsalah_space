@@ -33,6 +33,7 @@ class MyPlanController extends BaseController
     //
     
     public function index(){
+       
         
         $user = User::where('super_admin', 1)->first();
         
@@ -69,22 +70,22 @@ class MyPlanController extends BaseController
         }
         $data['fixedChart'] = $fixedChart;
         $data['workingChart'] = $workingChart;
-        $data['planningCostAssumption'] = PlanningCostAssumption::where(['workspace_id' =>$this->user->workspace_id])
-            ->first();
-        $data['planningRevenueOperatingAssumptions'] = PlanningRevenueOperatingAssumption::where('workspace_id', $this->user->workspace_id)
-            ->first();
+        $data['planningCostAssumption'] = PlanningCostAssumption::where(['workspace_id' =>$this->user->workspace_id])->first();
+        $data['planningRevenueOperatingAssumptions'] = PlanningRevenueOperatingAssumption::where('workspace_id', $this->user?->workspace_id)->first();
+        // dd($data['planningRevenueOperatingAssumptions']->calc_total);
+
         if($data['planningRevenueOperatingAssumptions']){
             $data['calc_total'] = $data['planningRevenueOperatingAssumptions']->calc_total;
         }else{
             $data['calc_total'] = [];
         }
+        // dd($data['calc_total']);
 
         $workingInvestedTotal = WorkingInvestedCapital::select(DB::raw('SUM(investing_annual_cost) as investing_annual_cost_total'))->where("workspace_id", $this->user->workspace_id)->get()->pluck('investing_annual_cost_total');
         $fixedInvestedTotal = FixedInvestedCapital::select(DB::raw('SUM(investing_price) as investing_price_total'))->where("workspace_id", $this->user->workspace_id)->get()->pluck('investing_price_total');
         $totalInvestedCapital = (!empty($workingInvestedTotal) ? $workingInvestedTotal[0] : 0.0)+(!empty($fixedInvestedTotal) ? $fixedInvestedTotal[0] : 0.0);
         $data['totalInvestedCapital'] = formatCurrency($totalInvestedCapital,getWorkspaceCurrency($this->settings));
         $data['NegativetotalInvestedCapital'] = formatCurrency($totalInvestedCapital * -1,getWorkspaceCurrency($this->settings));
-
 
         foreach ($data['workingChart'] as $key => $value) {
             $data['workingChart'][$key]['label'] = ($key + 1) . '- SAR ' . str_replace('ريال سعودي', '', $value['label']);

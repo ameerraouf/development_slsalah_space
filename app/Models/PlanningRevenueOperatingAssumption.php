@@ -75,11 +75,11 @@ class PlanningRevenueOperatingAssumption extends Model
     {
         $user = User::where('super_admin', 1)->first();
         $settings_mod = Setting::where('workspace_id', $user->workspace_id)->get()->keyBy('key');
-        if (isset($settings_mod['currency'])) {
-            $currency = $settings_mod['currency']->value;
-        } else {
+        // if (isset($settings_mod['currency'])) {
+            // $currency = $settings_mod['currency']->value;
+        // } else {
             $currency = config('app.currency');
-        }
+        // }
         $settings_data = Setting::where(
             "workspace_id",
             Auth::user()->workspace_id
