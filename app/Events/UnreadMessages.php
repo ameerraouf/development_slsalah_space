@@ -12,25 +12,22 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class ChatSent implements ShouldBroadcast
+class UnreadedMessages implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $reciver;
-    public $reciver_id;
-
-    public $message;
+    public $count;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($reciver, $type, $message, $reciver_id = null)
+    public function __construct($reciver, $count)
     {
-        $this->reciver      = $reciver;
-        $this->message      = $message;
-        $this->reciver_id   = $reciver_id;
+        $this->reciver   = $reciver;
+        $this->count     = $count;
     }
 
     /**
@@ -40,10 +37,10 @@ class ChatSent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('chat'.$this->reciver);
+        return new Channel('unreaded'.$this->reciver);
     }
     public function broadcastAs()
     {
-        return 'sendMessage';
+        return 'unreaded';
     }
 }

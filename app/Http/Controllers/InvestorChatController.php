@@ -35,7 +35,7 @@ class InvestorChatController extends Controller
         ]);
 
 
-        broadcast(new ChatSent($request->user_id, 'investor' ,$run))->toOthers();
+        broadcast(new ChatSent($request->user_id, 'investor' ,$run, auth('investor')->user()->id))->toOthers();
 
         return view('investor.chats.components.broadcast', ['message' => $run]);
 
@@ -46,5 +46,13 @@ class InvestorChatController extends Controller
         return view('investor.chats.components.recive', ['message' => $request->get('message')]);
 
     }
+
+    public function getCount(Request $request) {
+        $user_id = $request->user_id;
+        $count = InvestorChat::where('sended_by', 'user')->where('user_id', $user_id)->where('is_open', '0')->count();
+        return $count;
+    }
+
+
 
 }

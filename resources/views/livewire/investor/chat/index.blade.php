@@ -18,21 +18,27 @@
                         </div>
                         <div class="card-body" id = "chat_bar">
 
-                            @foreach($messages as $message)
-                            <div class="d-flex w-100 @if($message->sended_by == 'investor') justify-content-start  @else justify-content-end  @endif">
-                                <div class="d-flex p-2 mb-3 justify-content-start  @if($message->sended_by == 'investor') bg-primary @else bg-light text-dark @endif" style="max-width:75%; width:fit-content; border-radius: 10px;" 
+                            @foreach ($messages as $message)
+                            <div
+                                class="d-flex w-100 @if ($message->sended_by == 'user') justify-content-start  @else justify-content-end @endif">
+                                <div class="d-flex p-2 mb-3 justify-content-start @if ($message->sended_by == 'user') bg-primary @else bg-light text-dark @endif"
+                                    style="max-width:75%; width:fit-content; border-radius: 10px;">
                                     @if (!is_null($message->file))
-                                        <a href="/download-attachment/{{ $message->file }}" target="_blank">{{ $message->message }}</a>
+                                        <a href="/download-attachment/{{ $message->file }}"
+                                            target="_blank">{{ $message->message }}</a>
                                     @else
                                         <div class="w-100">
-                                            <p class="lead mb-0"  style="font-size:15px;">
+    
+                                            <p class="lead mb-0" style="font-size:15px;@if ($message->sended_by == 'user') color:#ffffff99;  @else color: #78787899; @endif">
+    
                                                 {{ $message->message }}
                                             </p>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <div></div>
-                                                <small style=" @if($message->sended_by == 'investor') color:#ffffff99;  @else color: #78787899; @endif">
+                                                <span
+                                                    style=" @if ($message->sended_by == 'user') color:#ffffff99;  @else color: #78787899; @endif">
                                                     {{ $message->created_at->format('h:m A') }}
-                                                </small>
+                                                </span>
                                             </div>
                                         </div>
                                     @endif
@@ -42,12 +48,12 @@
                         </div>
                         <div class="card-footer">
                             <div class="d-flex align-items-center">
-                                <div class="inp-file flex-fill">
-                                <input type="text" id = "message_text" class="form-control" placeholder  = "{{ __('website.chat.placeholder_message') }}" >
-                                <div class="inp">
-                                <input type="file" name="" id="">
-                                <i class="fa-solid fa-paperclip"></i>
-                                </div>
+                                    <div class="inp-file flex-fill">
+                                    <input type="text" id = "message_text" class="form-control" placeholder  = "{{ __('website.chat.placeholder_message') }}" >
+                                    <div class="inp">
+                                        <input type="file" name="" id="">
+                                        <i class="fa-solid fa-paperclip"></i>
+                                    </div>
                                 </div>
                                 <button onclick = 'send({{ $user->id }})' class = 'btn btn-primary m-0  px-3' style="    margin-inline-start: 5px !important;" id = 'sendMessage'>
                                     <i class="fa-solid fa-paper-plane" style="font-size:14px !important;"></i>
@@ -84,6 +90,9 @@
                                     <div class="name ms-3">
                                         {{ $chat->user->first_name . " " . $chat->user->last_name }}
                                     </div>
+                                    <div class="unreaded" @if($chat->investorUnreadMessages($chat->user->id) <= 0) style = 'display:none' @endif id = 'user_{{ $chat->user->id }}'>
+                                        <span class="badge bg-success">{{ $chat->investorUnreadMessages($chat->user->id) }}</span>
+                                    </div>                                
                                 </div>
                             </div>
                         </button>

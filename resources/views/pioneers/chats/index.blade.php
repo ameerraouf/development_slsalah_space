@@ -10,6 +10,7 @@
     const pusher = new Pusher("{{config('broadcasting.connections.pusher.key')}}", {cluster: 'eu'});
 
     const channel = pusher.subscribe('chat{{auth()->user()->id}}');
+    
     channel.bind('sendMessage', function(data) {
         $.post("{{ route('user.chat.recive') }}", {
             _token: '{{ csrf_token() }}',
@@ -18,6 +19,15 @@
         }).done(function (res) {
             $("#chat_bar").append(res);
         });
+        $.post("{{ route('user.chat.getCountPioneer') }}", {
+            _token: '{{ csrf_token() }}',
+            investor_id: data.reciver_id,
+
+        }).done(function (res) {
+            $("#user_" + data.reciver_id).fadeIn();
+            $("#user_" + data.reciver_id + " span").text(res);
+        });
+
     });
 
     function send(investor_id) {

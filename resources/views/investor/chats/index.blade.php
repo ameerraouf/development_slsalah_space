@@ -20,6 +20,14 @@
         }).done(function (res) {
             $("#chat_bar").append(res);
         });
+        $.post("{{ route('investor.chat.getCount') }}", {
+            _token: '{{ csrf_token() }}',
+            user_id: data.reciver_id,
+
+        }).done(function (res) {
+            $("#user_" + data.reciver_id).fadeIn();
+            $("#user_" + data.reciver_id + " span").text(res);
+        });
     });
 
     function send(user_id) {

@@ -28,7 +28,7 @@
                                 @else
                                     <div class="w-100">
 
-                                        <p class="lead mb-0" style="font-size:15px;">
+                                        <p class="lead mb-0" style="font-size:15px;@if ($message->sended_by == 'user') color:#ffffff99;  @else color: #78787899; @endif">
 
                                             {{ $message->message }}
                                         </p>
@@ -44,21 +44,21 @@
                             </div>
                         </div>
                     @endforeach
-                    <div class="card-footer">
-                        <div class="d-flex align-items-center">
-                            <div class="inp-file flex-fill">
-                                <input type="text" id="message_text" class="form-control"
-                                    placeholder="{{ __('website.chat.placeholder_message') }}">
-                                <div class="inp">
-                                    <input type="file" name="" id="">
-                                    <i class="fa-solid fa-paperclip"></i>
-                                </div>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex align-items-center">
+                        <div class="inp-file flex-fill">
+                            <input type="text" id="message_text" class="form-control"
+                                placeholder="{{ __('website.chat.placeholder_message') }}">
+                            <div class="inp">
+                                <input type="file" name="" id="">
+                                <i class="fa-solid fa-paperclip"></i>
                             </div>
-                            <button onclick='send({{ $investor->id }})' class='btn btn-primary m-0  px-3'
-                                style="    margin-inline-start: 5px !important;" id='sendMessage'>
-                                <i class="fa-solid fa-paper-plane" style="font-size:14px !important;"></i>
-                            </button>
                         </div>
+                        <button onclick='send({{ $investor->id }})' class='btn btn-primary m-0  px-3'
+                            style="    margin-inline-start: 5px !important;" id='sendMessage'>
+                            <i class="fa-solid fa-paper-plane" style="font-size:14px !important;"></i>
+                        </button>
                     </div>
                 </div>
             @endif
@@ -90,6 +90,10 @@
                                     </div>
                                     <div class="name ms-3">
                                         {{ $chat->investor->first_name . ' ' . $chat->investor->last_name }}
+                                    </div>
+                                    
+                                    <div class="unreaded" @if($chat->pioneerUnreadMessages($chat->investor->id) <= 0) style = 'display:none' @endif id = 'user_{{ $chat->investor->id }}'>
+                                        <span class="badge bg-success">{{ $chat->pioneerUnreadMessages($chat->investor->id) }}</span>
                                     </div>
                                 </div>
                             </div>

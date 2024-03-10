@@ -55,4 +55,15 @@ class InvestorChat extends Model
         return $data->unique('investor_id');
 
     }
+
+    public function pioneerUnreadMessages($id) {
+
+        return $this->where('sended_by', 'investor')->where('investor_id', $id)->where('is_open', '0')->count();
+
+    }
+    public function investorUnreadMessages($id) {
+
+        return $this->where('sended_by', 'user')->where('user_id', $id)->where('is_open', '0')->count();
+
+    }
 }
