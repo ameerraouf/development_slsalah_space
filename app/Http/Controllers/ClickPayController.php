@@ -45,7 +45,8 @@ class ClickPayController extends Controller
         }
 
 
-        session()->flash('error_message', 'يوجد مشكله في الدفع جرب مره اخري ف وقت لاحق');
+        // session()->flash('error_message', 'يوجد مشكله في الدفع جرب مره اخري ف وقت لاحق');
+        session()->flash('error_message', 'لم يتم تعيين click pay key');
 
         return redirect()
             ->route('packages.details', $plan)
