@@ -13,6 +13,7 @@ class ClickPayController extends Controller
 {
     public function pay(Request $request)
     {
+        // dd($request->all());
         $plan = $request->input('package');
         $package = SubscriptionPlan::query()->find($plan);
         $price = $request->query('type') == 'monthly' ? $package->price_monthly : $package->price_yearly;
@@ -31,18 +32,18 @@ class ClickPayController extends Controller
             "return" => route('click_pay.success',  ['plan' => $plan, 'type' => $type, 'price' => $price,'u'=> $user]),
         ];
 
-        $response = Http::withHeaders([
-            'Authorization' => env('CLICK_PAY_SERVER_KEY'),
-            'Content-Type' => 'application/json',
-        ])->post(env('CLICK_PAY_ENDPOINT'), $data);
-
-        $response = json_decode($response->body());
-
-
-        if(!is_null($response->redirect_url))
-        {
-            return redirect()->away($response->redirect_url);
+        if(env('CLICK_PAY_ENDPOINT')){
+            $response = Http::withHeaders([
+                'Authorization' => env('CLICK_PAY_SERVER_KEY'),
+                'Content-Type' => 'application/json',
+            ])->post(env('CLICK_PAY_ENDPOINT'), $data);
+            $response = json_decode($response->body());
+            if(!is_null($response->redirect_url))
+            {
+                return redirect()->away($response->redirect_url);
+            }
         }
+
 
         session()->flash('error_message', 'يوجد مشكله في الدفع جرب مره اخري ف وقت لاحق');
 

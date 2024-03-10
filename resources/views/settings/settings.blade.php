@@ -308,8 +308,8 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     
     <script>
-        // $(document).ready(function() {
-            console.log($('#openai_api_keys').val());
+        $(document).ready(function() {
+            // console.log($('#openai_api_keys').val());
 
             let test = "{{ $api_keys_test??'' }}"
             if (test !== null && test !== '') {
@@ -334,7 +334,7 @@
                 e.preventDefault()
                 
                 let apiKeys = JSON.parse($('#openai_api_keys').val());
-                console.log($('#openai_api_keys').val());
+                // console.log($('#openai_api_keys').val());
 
                 apiKeys.forEach(key => {
                     let apiKey = key.value;
@@ -390,6 +390,6 @@
                     });
                 });
             })
-        // });
+        });
     </script>
 @endsection
