@@ -11,24 +11,19 @@ class PackageController extends BaseController
 {
     public function show($package)
     {
-        $package = SubscriptionPlan::query()->find($package);
+        // dd($package);
+        $packageuser = SubscriptionPlan::query()->find($package);
         $super_settings = Setting::query()->first();
-
-        return view('frontend.package.show', compact('package', 'super_settings'));
+        return view('package.show', compact('packageuser', 'super_settings'));
     }
 
     public function showUserPackage()
     {
-
         $subscribes = Subscribe::query()
             ->where('user_id', auth()->id())
             ->pluck('subscription_plan_id')->toArray();
-
-
         $plans = SubscriptionPlan::withCount(['workspace'])->whereNotIn('id', $subscribes)->get();
         $settings = Setting::query()->first();
-
-
         return view('package.show', compact('plans', 'settings'));
     }
 }
