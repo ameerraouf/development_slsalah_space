@@ -1,21 +1,11 @@
 @extends('investor.layouts.index')
 {{--<link rel="stylesheet" href="{{asset('audio/manage-audio.css')}}">--}}
+<audio src="{{ asset('tones/notification.mp3') }}" id = 'notify' allow="autoplay"></audio>
 
 @push('header_scripts')
 <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script>
-
-
-    // ScrollBottomChat
-
-    function scrollToBottomChat() {
-
-        let dom = document.querySelector('#chat_bar');
-
-        dom.scrollIntoView(false);
-    }
-
 
     // Enable pusher logging - don't include this in production
     Pusher.logToConsole = false;
@@ -29,6 +19,7 @@
             message: data.message,
 
         }).done(function (res) {
+            document.querySelector('#notify').play();
             $("#chat_bar").append(res);
         });
         $.post("{{ route('investor.chat.getCount') }}", {
