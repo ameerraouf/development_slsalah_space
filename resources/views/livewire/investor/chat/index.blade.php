@@ -76,7 +76,7 @@
                             <input wire:model = 'search' type="search" class = 'form-control' name = 'search_chat' placeholder="بحث عن رسالة">
                         </div>
                         @foreach($chats as $chat)
-                        <button class="btn btn-defualt w-100 d-block rounded-0" wire:click = "openChat({{ $chat->user->id }})">
+                        <button onclick = 'scrollToBottomChat()' class="btn btn-defualt w-100 d-block rounded-0" wire:click = "openChat({{ $chat->user->id }})" id = 'chat_btn'>
                             <div class="box p-2">
                                 <div class="d-flex align-items-center">
                     
