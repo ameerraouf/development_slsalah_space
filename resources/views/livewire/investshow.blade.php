@@ -11,18 +11,22 @@
             {{ $catchError }}
         </div>
     @endif
-    <div class=" card min-height-250" style="background-image: url('{{PUBLIC_DIR}}/img/back.jpeg');">
+    {{-- <div class=" card min-height-250" style="background-image: url('{{PUBLIC_DIR}}/img/back.jpeg');"> --}}
+    <div class="card min-height-250 " >
         <div class="container">
             <div class="row">
-                <div class="col-md-7 mx-auto text-center">
-                    @if (!empty($userphoto))
-                        <img src="{{ PUBLIC_DIR }}/uploads/{{ $userphoto }}" class="w-20 border-radius-lg shadow-sm">
+                <div class="col-md-7 mx-auto " style="position:relative ;">
+                    @php $user = Auth::user(); @endphp
+                    @if ($user->company->company_logo)
+                        <img src="{{ PUBLIC_DIR }}/uploads/{{ $user->company->company_logo }}" 
+                        class="w-20 border-radius-lg shadow-sm" style="position: absolute; right: 1045px;">
                     @endif
-                    <h3 class="text-dark">العرض الاستثمارى </h3>
+                    {{-- <h3 class="text-dark">العرض الاستثمارى </h3> --}}
                 </div>
             </div> 
         </div>
     </div>
+    <br>
     {{-- <div class="stepwizard">
         <div class="stepwizard-row setup-panel">
             <div class="stepwizard-step">

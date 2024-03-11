@@ -42,7 +42,7 @@ class Chat extends Component
     public function openChat(string $user_id) {
 
         $user = User::find($user_id);
-
+        
         if($user->super_admin === 1){
             $messages = $this->model->where('user_id', $user_id)->where('investor_id', auth('investor')->user()->id)->orderBy('id', 'asc')->get();
             
