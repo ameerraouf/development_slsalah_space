@@ -1,8 +1,6 @@
 @if ($currentStep != 13)
     <div style="display: none" class="row setup-content" id="step-5">
 @endif
-        
-
         <div class="row">
             <div class="col-md-4">
                 <div class="">
@@ -60,6 +58,5 @@
                     </div>
                 </div>
             </div>
-           
         </div>
     </div>
