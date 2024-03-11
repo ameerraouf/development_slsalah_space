@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InvestorChat;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -11,10 +12,11 @@ class InvestorAdminChatController extends Controller
 
     public function index() {
 
-        $admins = User::where('super_admin',1)->get();
+        $user = User::where('super_admin',1)->first();
+        $messages = InvestorChat::where('user_id', $user->id)->where('investor_id', auth('investor')->user()->id)->orderBy('id', 'asc')->get();
 
 
-        return view('investor.chats-admin.index', compact('admins'));
+        return view('investor.chats-admin.index', compact('user','messages'));
 
     }
 

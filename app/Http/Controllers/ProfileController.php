@@ -48,9 +48,11 @@ class ProfileController extends BaseController
         $user->email = $request->email;
         $user->language = $request->language;
         $path = null;
+        
         if ($request->photo) {
             $path = $request->file("photo")->store("media", "uploads");
         }
+
         if (!empty($path)) {
             $user->photo = $path;
         }
@@ -64,21 +66,31 @@ class ProfileController extends BaseController
         if ($request->company_logo)
         {
             $company_logo = $request->file("company_logo")->store("media", "uploads");
+            Company::updateOrCreate(
+                ['business_pioneer_id' => Auth::user()->id],
+                [
+                    'company_logo'        => $company_logo,
+                    'company_name'        => $request->company_name,
+                    'business_department' => $request->company_department,
+                    'company_brief'       => $request->company_brief,
+                    'company_description' => $request->company_desc,
+                ]
+                );
+        }
+        else {
+            Company::updateOrCreate(
+                ['business_pioneer_id' => Auth::user()->id],
+                [
+                    'company_name'        => $request->company_name,
+                    'business_department' => $request->company_department,
+                    'company_brief'       => $request->company_brief,
+                    'company_description' => $request->company_desc,
+                ]
+                );
         }
 
-        Company::updateOrCreate(
-            ['business_pioneer_id' => Auth::user()->id],
-            [
-                'company_logo'        => $company_logo,
-                'company_name'        => $request->company_name,
-                'business_department' => $request->company_department,
-                'company_brief'       => $request->company_brief,
-                'company_description' => $request->company_desc,
-            ]
-            );
-
         if ($request->cover_photo) {
-            $cover_path = $request
+            $cover_path .= $request
                 ->file("cover_photo")
                 ->store("media", "uploads");
         }

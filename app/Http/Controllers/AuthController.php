@@ -200,7 +200,7 @@ class AuthController extends Controller
                 ]);
             }
 
-            return redirect()->intended('dashboard')->with('success', 'تم تسجيل الدخول بنجاح.');
+            return redirect()->route('super-admin.dashboard')->with('success', 'تم تسجيل الدخول بنجاح.');
         }else {
             return redirect()->route('login')->withErrors([
                 "email" => __("Invalid user."),
