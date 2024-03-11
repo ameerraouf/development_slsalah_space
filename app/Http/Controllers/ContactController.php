@@ -264,7 +264,7 @@ class ContactController extends BaseController
                 $investors = $investors->first();
                 DB::beginTransaction();
                 foreach ($investors as $investor) {
-                    if ($investor[0] == 'Name') {
+                    if ($investor[0] == 'Name' || $investor[0] =='') {
                         continue;
                     }
 
