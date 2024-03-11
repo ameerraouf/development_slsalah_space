@@ -843,6 +843,21 @@
     "investor": "مستثمر",
     "business_pioneer": "رائد أعمال",
     "remove_from_favorite_successfully": "تم الإزالة من المفضلة بنجاح",
-    "add_to_favorite_successfully": "تمت الإضافة إلى المفضلة بنجاح"
+    "add_to_favorite_successfully": "تمت الإضافة إلى المفضلة بنجاح",
+    "problem1": "المشكله الاولى",
+    "problem2": "المشكله الثانيه",
+    "problem3": "المشكله الثالثه",
+    "solve1": "الحل الاول",
+    "solve2": "الحل الثانى",
+    "solve3": "الحل الثالث",
+    "solve4": "الحل الرابع",
+    "solve5": "الحل الخامس",
+    "solve6": "الحل السادس",
+    "solve7": "الحل السابع",
+    "solve8": "الحل الثامن",
+    "solve9": "الحل التاسع",
+
+    "million": "مليون",
+    "billion": "مليار"
     
 }
