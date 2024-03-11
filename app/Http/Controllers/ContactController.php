@@ -6,8 +6,11 @@ use App\Models\Investor;
 use App\Models\Projects;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Imports\InvestorsImport;
+use App\Models\ImportedInvestor;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ContactController extends BaseController
 {
@@ -210,7 +213,7 @@ class ContactController extends BaseController
         if ($this->modules && !in_array("investors", $this->modules)) {
             abort(401);
         }
-        $investors = Investor::where("workspace_id", $this->user->workspace_id)->get();
+        $investors = ImportedInvestor::all();
 
         // $workspace = Workspace::find($this->user->workspace_id);
 
@@ -221,10 +224,16 @@ class ContactController extends BaseController
         //     ->select('investing_annual_cost')
         //     ->where(['workspace_id' => $this->user->workspace_id])->sum('investing_annual_cost');
         
-        $amounts = Investor::pluck('amount')->toArray();
-        $cities = Investor::pluck('city')->toArray();
+        $amounts = ImportedInvestor::distinct()->pluck('number_of_investment')->toArray();
+        $number_of_exits = ImportedInvestor::distinct()->pluck('number_of_exits')->toArray();
+        $investor_types = ImportedInvestor::distinct()->pluck('investor_type')->toArray();
+        $investor_stages = ImportedInvestor::distinct()->pluck('investor_stage')->toArray();
+        $cities = ImportedInvestor::distinct()->pluck('location')->toArray();
         return \view("investors.investors-search", [
             "selected_navigation" => "investorSearch",
+            "number_of_exits" =>  $number_of_exits,
+            "investor_types" =>  $investor_types,
+            "investor_stages" =>  $investor_stages,
             "investors" =>  $investors,
             "amounts" =>  $amounts,
             "cities" =>  $cities,
@@ -232,12 +241,67 @@ class ContactController extends BaseController
         ]);
     }
 
+    public function investorImport(){
+        if ($this->modules && !in_array("investors", $this->modules)) {
+            abort(401);
+        }
+        
+        return \view("investors.investors-import", [
+            "selected_navigation" => "investorImoprt",
+        ]);
+    }
+
+    public function import(Request $request){
+        $request->validate([
+            'file' => 'required|mimes:xls,xlsx',
+        ]);
+
+        // try {
+            $filePath = $request->file('file')->getRealPath();
+
+            $investors = Excel::toCollection(new InvestorsImport, $filePath);
+            if ($investors && $investors->count()) {
+                $investors = $investors->first();
+                DB::beginTransaction();
+                foreach ($investors as $investor) {
+                    if ($investor[0] == 'Name') {
+                        continue;
+                    }
+
+                    $existingInvestor = ImportedInvestor::where('name', $investor[0])->first();
+                    if ($existingInvestor) {
+                        continue;
+                    }
+                    ImportedInvestor::create([
+                        'name' => $investor[0],
+                        'number_of_investment' => $investor[1] ?? '',
+                        'number_of_exits' => $investor[2] ?? '',
+                        'location' => $investor[3] ?? '',
+                        'monthly_visits' => $investor[4] ?? '',
+                        'investor_type' => $investor[5] ?? '',
+                        'investor_stage' => $investor[6] ?? '',
+                    ]);
+                }
+
+                DB::commit();
+
+                return redirect()->route('investors.search')->with('success', 'Data imported successfully');
+            }
+
+            return redirect()->back()->with('error', 'No data found in the file');
+
+        // } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Error importing data: ' . $e->getMessage());
+        // }
+    }
+
     public function investorFavorite(){
             // dd(Auth::guard('investor')->user());
         if ($this->modules && !in_array("investors", $this->modules)) {
             abort(401);
         }
-        $investors = Investor::where("workspace_id", $this->user->workspace_id)->where('favorited',1)->get();
+        $investors = ImportedInvestor::where('favorited',1)->get();
 
         return \view("investors.investors-favorite", [
             "selected_navigation" => "investorFavorite",
@@ -247,30 +311,49 @@ class ContactController extends BaseController
 
     public function investorFilter(Request $request){
 
+        // dd($request);
         $query = $request->input('query');
         $amount = $request->input('amount');
+        $ExitNumber = $request->input('ExitNumber');
+        $InvestorType = $request->input('InvestorType');
+        $InvestPhase = $request->input('InvestPhase');
         $city = $request->input('city');
 
         // Start with base query
-        $queryBuilder = Investor::query();
+        $queryBuilder = ImportedInvestor::query();
 
         // Apply search query
         if ($query) {
-            $queryBuilder->where('first_name', 'like', '%' . $query . '%');
+            $queryBuilder->where('name', 'like', '%' . $query . '%');
         }
 
         // Apply amount filter
         if ($amount) {
-            $queryBuilder->where('amount', $amount);
+            $queryBuilder->where('number_of_investment', $amount);
         }
 
         // Apply city filter
         if ($city) {
-            $queryBuilder->where('city', $city);
+            $queryBuilder->where('location', $city);
+        }
+
+        // Apply city filter
+        if ($ExitNumber) {
+            $queryBuilder->where('number_of_exits', $ExitNumber);
+        }
+
+        // Apply city filter
+        if ($InvestorType) {
+            $queryBuilder->where('investor_type', $InvestorType);
+        }
+
+        // Apply city filter
+        if ($InvestPhase) {
+            $queryBuilder->where('investor_stage', $InvestPhase);
         }
 
         // Get filtered investors
-        $investors = $queryBuilder->where("workspace_id", $this->user->workspace_id)->get();
+        $investors = $queryBuilder->get();
 
         // Return JSON response with filtered investors
         return response()->json([
@@ -280,14 +363,16 @@ class ContactController extends BaseController
 
     public function addToFavorite(Request $request, $investorId)
     {
-        $investor = Investor::find($investorId);
+        $investor = ImportedInvestor::find($investorId);
         if (!$investor) {
             return response()->json(['message' => 'Investor not found'], 404);
         }
         if($investor->favorited == 1){
-            $investor->update(['favorited' => 0]);
+            $investor->favorited=0;
+            $investor->save();
         }else{
-            $investor->update(['favorited' => 1]);
+            $investor->favorited=1;
+            $investor->save();
         }
         return response()->json(['investorId' => $investorId,'favorited' => $investor->favorited]);
     } 

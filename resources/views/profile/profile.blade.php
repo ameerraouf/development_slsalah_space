@@ -170,7 +170,7 @@
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <img class="mt-3" style="height:100px" src="{{PUBLIC_DIR}}/uploads/{{$user->company->company_logo}}" alt="">
+                                    <img class="mt-3" style="height:100px" src="{{PUBLIC_DIR}}/uploads/{{$user->company->company_logo ?? ''}}" alt="">
                                 </div>
                             </div>
                           

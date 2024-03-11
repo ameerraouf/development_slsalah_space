@@ -133,6 +133,8 @@ Route::get("/investors", [ContactController::class, "investorList"])->name('inve
 Route::get("/investors/filter", [ContactController::class, "investorFilter"])->name('investors.filter');
 Route::post('/update-favorite/{investorId}',  [ContactController::class, "addToFavorite"])->name('investors.addToFavorite');
 Route::get("/investors-search", [ContactController::class, "investorSearch"])->name('investors.search');
+Route::get("/investors-import", [ContactController::class, "investorImport"])->name('investors.import');
+Route::post("/investors-import", [ContactController::class, "import"])->name('investors.import.Post');
 Route::get("/investors-favorite", [ContactController::class, "investorFavorite"])->name('investors.favorite');
 Route::get("/view-investor", [ContactController::class, "investorView"]);
 Route::post("/save-investor", [ContactController::class, "investorPost"]);
