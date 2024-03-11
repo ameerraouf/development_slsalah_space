@@ -123,10 +123,30 @@ class Investshow extends Component
             'teamimage.2'   =>__('teamimage'),
             'teamname.3'   =>__('teamname'),
             'teamimage.3'   =>__('teamimage'),
-            
+
             'coname.0'   =>__('coname'),
             'coname.1'   =>__('coname'),
             'coname.2'   =>__('coname'),
+
+            'submarketname1.0'   =>__('submarketname'),
+            'submarketname1.1'   =>__('submarketname'),
+            'submarketname1.2'   =>__('submarketname'),
+            'submarketname2.0'   =>__('submarketname'),
+            'submarketname2.1'   =>__('submarketname'),
+            'submarketname2.2'   =>__('submarketname'),
+            'submarketname3.0'   =>__('submarketname'),
+            'submarketname3.1'   =>__('submarketname'),
+            'submarketname3.2'   =>__('submarketname'),
+            'submarketname4.0'   =>__('submarketname'),
+            'submarketname4.1'   =>__('submarketname'),
+            'submarketname4.2'   =>__('submarketname'),
+            'developplanname.0'   =>__('submarketname'),
+            'developplanname.1'   =>__('submarketname'),
+            'developplanname.2'   =>__('submarketname'),
+            'developplanname.3'   =>__('submarketname'),
+            'developplanname.4'   =>__('submarketname'),
+            'developplanname.5'   =>__('submarketname'),
+            'developplanname.6'   =>__('submarketname'),
         ];
     }
     public function mount(){
