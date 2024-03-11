@@ -6,8 +6,19 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script>
 
+
+    // ScrollBottomChat
+
+    function scrollToBottomChat() {
+
+        let dom = document.querySelector('#chat_bar');
+
+        dom.scrollIntoView(false);
+    }
+
+
     // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
+    Pusher.logToConsole = false;
 
     const pusher = new Pusher("{{config('broadcasting.connections.pusher.key')}}", {cluster: 'eu'});
 
