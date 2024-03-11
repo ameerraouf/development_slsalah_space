@@ -4,7 +4,15 @@
     @endif
             <div class=" card min-height-250" style="background-image: url('{{PUBLIC_DIR}}/img/back.jpeg');" >
                 <div class="container">
+                    {{-- @include('livewire.logo') --}}
                     <div class="row">
+                        <div class="col-md-12 mt-4" style="margin-right: 1330px;">
+                            @php $user = Auth::user(); @endphp
+                            @if ($user->company->company_logo)
+                                <img src="{{ PUBLIC_DIR }}/uploads/{{ $user->company->company_logo }}" 
+                                class="w-20 border-radius-lg shadow-sm " style="width: 100px !important;">
+                            @endif
+                        </div>
                         <div class="col-md-12 mx-auto text-center">
                             <h3 class="text-dark">الخطه الماليه</h3>
                         </div>

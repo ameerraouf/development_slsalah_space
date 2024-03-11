@@ -174,7 +174,8 @@
             <div class="col-md-8">
                 <div class=" card min-height-250" style="background-image: url('{{PUBLIC_DIR}}/img/back.jpeg');">
                     <div class="container">
-                        <div class="row">
+                        @include('livewire.logo')
+                        {{-- <div class="row">
                                 <div class="col-md-12 mx-auto text-center">
                                     <h3 class="text-dark">حجم السوق</h3>
                                 </div>
@@ -228,7 +229,7 @@
                                 <div class="col-md-4  mt-5">
                                     <label for="">الوحده {{ __($unit) }}</label>
                                 </div>                       
-                        </div>
+                        </div> --}}
                         <div class="row">
                             <div class="w-full" style="height: 50%;">
                                 <div class="w-full" style="height: 50%;" id="chart"></div>
