@@ -14,12 +14,12 @@
                             <option value="{{ $year4 }}">{{ $year4 }}</option>
                             <option value="{{ $year5 }}">{{ $year5 }}</option>
                         </select>
-                        @error('theyear')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                        @error('theyear')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                     <div class="col-md-3  mt-5">
                             <label for="" > حجم السوق</label>
                             <input type="text" class="form-control" wire:model='size' >
-                            @error('size')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                            @error('size')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                     <div class="col-md-3  mt-5">
                         <label for="">الوحده </label>
@@ -28,7 +28,7 @@
                             <option value="million">مليون</option>
                             <option value="billion">مليار</option>
                         </select>
-                        @error('unit')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                        @error('unit')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                     <div class="col-md-3  mt-5">
                         <button class="btn btn-success mt-3" type="button" wire:click="marketSubmit1">
@@ -46,12 +46,12 @@
                             <option value="{{ $year4 }}">{{ $year4 }}</option>
                             <option value="{{ $year5 }}">{{ $year5 }}</option>
                         </select>
-                        @error('theyear2')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                        @error('theyear2')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                     <div class="col-md-3  mt-5">
                             <label for="" > حجم السوق</label>
                             <input type="text" class="form-control" wire:model='size2'>
-                            @error('size2')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                            @error('size2')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                     <div class="col-md-3  mt-5">
                         <label for="">الوحده </label>
@@ -60,7 +60,7 @@
                             <option value="million">مليون</option>
                             <option value="billion">مليار</option>
                         </select>
-                        @error('unit2')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                        @error('unit2')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                     <div class="col-md-3  mt-5">
                         <button class="btn btn-success mt-3" type="button" wire:click="marketSubmit2">
@@ -78,12 +78,12 @@
                                 <option value="{{ $year4 }}">{{ $year4 }}</option>
                                 <option value="{{ $year5 }}">{{ $year5 }}</option>
                             </select>
-                            @error('theyear3')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                            @error('theyear3')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                     <div class="col-md-3  mt-5">
                             <label for="" > حجم السوق</label>
                             <input type="text" class="form-control" wire:model='size3'>
-                            @error('size3')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                            @error('size3')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                     <div class="col-md-3  mt-5">
                         <label for="">الوحده </label>
@@ -92,7 +92,7 @@
                             <option value="million">مليون</option>
                             <option value="billion">مليار</option>
                         </select>
-                        @error('unit3')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                        @error('unit3')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                     <div class="col-md-3  mt-5">
                         <button class="btn btn-success mt-3" type="button" wire:click="marketSubmit3">
@@ -110,12 +110,12 @@
                                 <option value="{{ $year4 }}">{{ $year4 }}</option>
                                 <option value="{{ $year5 }}">{{ $year5 }}</option>
                             </select>
-                            @error('theyear4')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                            @error('theyear4')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                     <div class="col-md-3  mt-5">
                             <label for="" > حجم السوق</label>
                             <input type="text" class="form-control" wire:model='size4'>
-                            @error('size4')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                            @error('size4')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                     <div class="col-md-3  mt-5">
                         <label for="">الوحده </label>
@@ -124,7 +124,7 @@
                             <option value="million">مليون</option>
                             <option value="billion">مليار</option>
                         </select>
-                        @error('unit4')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                        @error('unit4')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                     <div class="col-md-3  mt-5">
                         <button class="btn btn-success mt-3" type="button" wire:click="marketSubmit4">
@@ -142,12 +142,12 @@
                                 <option value="{{ $year4 }}">{{ $year4 }}</option>
                                 <option value="{{ $year5 }}">{{ $year5 }}</option>
                             </select>
-                            @error('theyear5')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                            @error('theyear5')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                     <div class="col-md-3  mt-5">
                             <label for="" > حجم السوق</label>
                             <input type="text" class="form-control" wire:model='size5'>
-                            @error('size5')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                            @error('size5')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                     <div class="col-md-3  mt-5">
                         <label for="">الوحده </label>
@@ -156,7 +156,7 @@
                             <option value="million">مليون</option>
                             <option value="billion">مليار</option>
                         </select>
-                        @error('unit5')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                        @error('unit5')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                     <div class="col-md-3  mt-5">
                         <button class="btn btn-success mt-3" type="button" wire:click="marketSubmit5">
@@ -226,7 +226,7 @@
                                     <label for="" > حجم السوق {{ $size5 }}</label>
                                 </div>
                                 <div class="col-md-4  mt-5">
-                                    <label for="">الوحده {{ __($unit5) }}</label>
+                                    <label for="">الوحده {{ __($unit) }}</label>
                                 </div>                       
                         </div>
                         <div class="row">

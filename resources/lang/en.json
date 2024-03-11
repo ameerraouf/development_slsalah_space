@@ -858,6 +858,18 @@
     "solve9": "الحل التاسع",
 
     "million": "مليون",
-    "billion": "مليار"
+    "billion": "مليار",
+
+    "productname": "اسم المنتج",
+    "productdescription": "وصف المنتج",
+    "theyear": "السنه",
+    "size": "حجم السوق",
+    "unit": "الوحده",
+    "company_desc": "وصف الشركه",
+    "titlecompat": "الوصف",
+    "descriptioncompat": "توضيح الوصف",
+    "teamname": "المسمى الوظيفى",
+    "teamimage": "الصوره",
+    "coname": "اسم المنافس"
     
 }

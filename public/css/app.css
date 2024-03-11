@@ -32844,8 +32844,8 @@ table.table tbody td{
     text-align: center !important;
 }
 .invest-show :where(textarea,input[type="text"],input[type="tel"],input[type="email"],select){
-    background-color: transparent !important;
-    border: 0 !important;
+    /* background-color: transparent !important; */
+    /* border: 0 !important; */
     resize: none !important;
 }
 .chat-live {

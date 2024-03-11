@@ -6,7 +6,7 @@
                 <div>
                     <label for="company_desc" class="form-label mt-3">{{ __('Company Desc') }}</label>
                     <textarea  cols="10" rows="5" class="form-control " wire:model='company_desc' wire:change='companySubmit' style="border: 2px solid  !important;"></textarea>                            
-                    @error('company_desc')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                    @error('company_desc')<span class="text-danger">{{ $message }}</span>@enderror
                 </div>
                 <button type="button" class="btn btn-info btn-sm float-left mt-3 mb-0" wire:click="firstStepSubmit">
                     {{ trans('next') }}
@@ -19,10 +19,7 @@
                             <div class="col-md-12 mt-4">
                                 <div class="align-self-center">
                                     <div>
-                                        {{-- <label for="company_desc" class="form-label mt-3">{{ __('Company Desc') }}</label> --}}
-                                        {{-- <textarea cols="10" rows="5" name="company_desc" class="form-control" wire:model='company_desc' wire:change='companySubmit'></textarea>                                --}}
-                                        {{-- @error('company_desc')<div class="alert alert-danger">{{ $message }}</div>@enderror --}}
-                                        {{ $company_desc }}
+                                        <p> {{ $company_desc }}</p>
                                     </div>
                                 </div>
                             </div>
