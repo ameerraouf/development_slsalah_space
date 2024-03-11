@@ -63,7 +63,7 @@
                 @endif
             </div>
         </div>
-        <div class="col-md-4">
+        {{-- <div class="col-md-4">
             <div class="chats">
                     <div class="card-header bg-primary rounded-0  p-1 d-flex align-items-center justify-content-between">
                         <h6 class="mb-0 text-white">الرسائل</h6>
@@ -96,10 +96,10 @@
                         @endforeach                    
                     </div>
             </div>
-        </div>
+        </div> --}}
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="admins" tabindex="-1" aria-labelledby="admins" aria-hidden="true">
+    {{-- <div class="modal fade" id="admins" tabindex="-1" aria-labelledby="admins" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
@@ -134,5 +134,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>
