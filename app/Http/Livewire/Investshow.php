@@ -69,6 +69,86 @@ class Investshow extends Component
     public $website_url,$phone,$email;
 
     protected $listeners = ['refreshComponent'=>'$refresh'];
+    public function ValidationAttributes(){
+        return [
+            "company_desc"=> __('company_desc'),
+            "theyear"=> __('theyear'),
+            "size"=> __('size'),
+            "unit"=> __('unit'),
+            "theyear1"=> __('theyear'),
+            "size1"=> __('size'),
+            "unit1"=> __('unit'),
+            "theyear2"=> __('theyear'),
+            "size2"=> __('size'),
+            "unit2"=> __('unit'),
+            "theyear3"=> __('theyear'),
+            "size3"=> __('size'),
+            "unit3"=> __('unit'),
+            "theyear4"=> __('theyear'),
+            "size4"=> __('size'),
+            "unit4"=> __('unit'),
+            "theyear5"=> __('theyear'),
+            "size5"=> __('size'),
+            "unit5"=> __('unit'),
+            'title.0' => __('productname'),
+            'title.1' => __('productname'),
+            'title.2' => __('productname'),
+            'title.3' => __('productname'),
+            'title.4' => __('productname'),
+            'title.5' => __('productname'),
+            'description.0'   =>__('productdescription'),
+            'description.1'   =>__('productdescription'),
+            'description.2'   =>__('productdescription'),
+            'description.3'   =>__('productdescription'),
+            'description.4'   =>__('productdescription'),
+            'description.5'   =>__('productdescription'),
+
+            'titlecompat.0'         =>__('titlecompat'),
+            'titlecompat.1'         =>__('titlecompat'),
+            'titlecompat.2'         =>__('titlecompat'),
+            'titlecompat.3'         =>__('titlecompat'),
+            'titlecompat.4'         =>__('titlecompat'),
+            'titlecompat.5'         =>__('titlecompat'),
+            'descriptioncompat.0'   =>__('descriptioncompat'),
+            'descriptioncompat.1'   =>__('descriptioncompat'),
+            'descriptioncompat.2'   =>__('descriptioncompat'),
+            'descriptioncompat.3'   =>__('descriptioncompat'),
+            'descriptioncompat.4'   =>__('descriptioncompat'),
+            'descriptioncompat.5'   =>__('descriptioncompat'),
+            'teamname.0'   =>__('teamname'),
+            'teamimage.0'   =>__('teamimage'),
+            'teamname.1'   =>__('teamname'),
+            'teamimage.1'   =>__('teamimage'),
+            'teamname.2'   =>__('teamname'),
+            'teamimage.2'   =>__('teamimage'),
+            'teamname.3'   =>__('teamname'),
+            'teamimage.3'   =>__('teamimage'),
+
+            'coname.0'   =>__('coname'),
+            'coname.1'   =>__('coname'),
+            'coname.2'   =>__('coname'),
+
+            'submarketname1.0'   =>__('submarketname'),
+            'submarketname1.1'   =>__('submarketname'),
+            'submarketname1.2'   =>__('submarketname'),
+            'submarketname2.0'   =>__('submarketname'),
+            'submarketname2.1'   =>__('submarketname'),
+            'submarketname2.2'   =>__('submarketname'),
+            'submarketname3.0'   =>__('submarketname'),
+            'submarketname3.1'   =>__('submarketname'),
+            'submarketname3.2'   =>__('submarketname'),
+            'submarketname4.0'   =>__('submarketname'),
+            'submarketname4.1'   =>__('submarketname'),
+            'submarketname4.2'   =>__('submarketname'),
+            'developplanname.0'   =>__('submarketname'),
+            'developplanname.1'   =>__('submarketname'),
+            'developplanname.2'   =>__('submarketname'),
+            'developplanname.3'   =>__('submarketname'),
+            'developplanname.4'   =>__('submarketname'),
+            'developplanname.5'   =>__('submarketname'),
+            'developplanname.6'   =>__('submarketname'),
+        ];
+    }
     public function mount(){
       $this->userphoto = auth()->user()->photo;
       //tap1
@@ -347,12 +427,12 @@ class Investshow extends Component
             'teamimage.3'   =>'nullable|max:2048',
         ]);
         foreach ($this->selectedteam as $index => $team) {
-                $team->name    = $this->teamname[$index];
-                if($this->teamimage[$index]){
-                    $team->image = store_file($this->teamimage[$index],'teams');
-                }
-                $team->update();
-                $this->alert('success', 'تم التحديث بنجاح');
+            $team->name    = $this->teamname[$index];
+            if($this->teamimage[$index]){
+                $team->image = store_file($this->teamimage[$index],'teams');
+            }
+            $team->update();
+            $this->alert('success', 'تم التحديث بنجاح');
         }
     }
 
@@ -382,16 +462,6 @@ class Investshow extends Component
         $this->alert('success', 'تم التحديث بنجاح');
     }
 
-
-    // protected $listeners = ['recordDeleted' => 'fetchRecords'];
-    // public function fetchRecords()
-    // {
-    //     $this->selectedProducts = Projects::get()->take(6); // Fetch 6 products
-    //     foreach ($this->selectedProducts as $product) {
-    //         $this->title[] = $product->title;
-    //         $this->description[] = $product->description;
-    //     } 
-    // }
     public function deleteProduct($product_id){
         $product= Projects::findOrFail($product_id);
         $product->delete();
@@ -402,6 +472,7 @@ class Investshow extends Component
         // $this->mount();
         // $this->render();
     }
+    
     public function updateProducts()
     {
         $validateData = $this->validate([
@@ -427,15 +498,6 @@ class Investshow extends Component
         $this->alert('success', 'تم التحديث بنجاح');
     }
     
-    // public function updated($propertyName)
-    // {
-    //     $this->validateOnly($propertyName, [
-    //         "company_desc"=> "nullable|string|max:500",
-    //         "summary1"=> "nullable|string|max:500",
-    //         "summary2"=> "nullable|string|max:500",
-    //         "summary3"=> "nullable|string|max:500",
-    //     ]);
-    // }
    
    //firstStepSubmit
    public function firstStepSubmit(){
