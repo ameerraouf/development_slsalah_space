@@ -16,12 +16,9 @@
                 <div class=" card min-height-250" style="background-image: url('{{PUBLIC_DIR}}/img/back.jpeg');">
                     <div class="container">
                         <div class="row">
+                            @include('livewire.logo')
                             <div class="col-md-12 mt-4">
-                                <div class="align-self-center">
-                                    <div>
-                                        <p> {{ $company_desc }}</p>
-                                    </div>
-                                </div>
+                                <p> {{ $company_desc }}</p>
                             </div>
                         </div>
                     </div>

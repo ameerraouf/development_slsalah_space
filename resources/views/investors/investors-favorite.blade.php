@@ -28,13 +28,13 @@
                             <tbody>
                                 @foreach($investors as $investor)
                                     <tr>
-                                        <td class="text-center font-weight-bold opacity">{{$investor->id}}</td>
-                                        <td class="text-center font-weight-bold opacity">{{$investor->first_name}} {{$investor->last_name}}</td>
-                                        <td class="text-center font-weight-bold opacity">{{$investor->amount}}</td>
-                                        <td class="text-center font-weight-bold opacity">-</td>
-                                        <td class="text-center font-weight-bold opacity">{{$investor->city ?? '-'}}</td>
-                                        <td class="text-center font-weight-bold opacity">{{$investor->type ?? '-'}}</td>
-                                        <td class="text-center font-weight-bold opacity">{{$investor->phase ?? '-'}}</td>
+                                        <td class="text-center font-weight-bold opacity">{{$loop->index+1}}</td>
+                                    <td class="text-center font-weight-bold opacity">{{$investor->name}}</td>
+                                    <td class="text-center font-weight-bold opacity">{{$investor->number_of_investment ?? '-'}}</td>
+                                    <td class="text-center font-weight-bold opacity">{{$investor->number_of_exits ?? '-'}}</td>
+                                    <td class="text-center font-weight-bold opacity">{{$investor->location ?? '-'}}</td>
+                                    <td class="text-center font-weight-bold opacity">{{$investor->investor_type ?? '-'}}</td>
+                                    <td class="text-center font-weight-bold opacity">{{$investor->investor_stage ?? '-'}}</td>
                                         @if($investor->favorited == 1)
                                             <td class="text-center font-weight-bold opacity"><button class="remove-from-favorite-btn" data-investor-id="{{ $investor->id }}" style="background-color: #1e91bd; color: rgb(255, 255, 255); border: 2px solid rgb(255, 255, 255); border-radius: 5px; cursor: pointer;">حذف من المفضلة</button></td>
                                         @else

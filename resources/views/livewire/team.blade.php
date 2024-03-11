@@ -30,6 +30,7 @@
             <div class=" card min-height-250" style="background-image: url('{{PUBLIC_DIR}}/img/back.jpeg');" >
                 <div class="container">
                     <div class="row">
+                        @include('livewire.logo')
                         <div class="col-md-12 mx-auto text-center">
                             <h3 class="text-dark">فريق العمل</h3>
                         </div>

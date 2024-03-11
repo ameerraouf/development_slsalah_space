@@ -7,6 +7,15 @@
                     ابحث الآن
                 </h5>
             </div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col">
+                @if (auth()->user()->super_admin == 1)
+                    <a href="{{ route('investors.import') }}" class="" style="background-color: #1e91bd; color: white; border: 2px solid white; border-radius: 5px; cursor: pointer;">استيراد من excel</a>
+                @endif
+            </div>
         </div>
         <div class="col-12">
             <div class="card card-body mb-4">
@@ -17,31 +26,50 @@
                                 <select class="form-select filter-select" name="invest-amount" id="InvestAmount" aria-label="">
                                     <option value="">حجم الاستثمار</option>
                                     @foreach ($amounts as $amount)
-                                        <option value="{{ $amount }}">{{ $amount }}</option>
+                                        @if ($amount !== '')
+                                            <option value="{{ $amount }}">{{ $amount }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-md-2">
-                                <select class="form-select " name="exist-number" id="ExistNumber" aria-label="">
+                                <select class="form-select filter-select" name="exist-number" id="ExitNumber" aria-label="">
                                     <option value="">عدد عمليات التخارج</option>
+                                    @foreach ($number_of_exits as $number_of_exit)
+                                        @if ($number_of_exit !== '')
+                                            <option value="{{ $number_of_exit }}">{{ $number_of_exit }}</option>
+                                        @endif
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-2">
                                 <select class="form-select filter-select" name="city" id="City" aria-label="">
                                     <option value="">المنطقة</option>
                                     @foreach ($cities as $city)
-                                        <option value="{{ $city }}">{{ $city }}</option>
+                                        @if ($city !== '')
+                                            <option value="{{ $city }}">{{ $city }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-md-2">
-                                <select class="form-select" name="investor-type" id="InvestorType" aria-label="">
+                                <select class="form-select filter-select" name="investor-type" id="InvestorType" aria-label="">
                                     <option value="">نوع المستثمر</option>
+                                    @foreach ($investor_types as $investor_type)
+                                        @if ($investor_type !== '' && $investor_type !== '—')
+                                            <option value="{{ $investor_type }}">{{ $investor_type }}</option>
+                                        @endif
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-2">
-                                <select class="form-select" name="invest-phase" id="InvestPhase" aria-label="">
+                                <select class="form-select filter-select" name="invest-phase" id="InvestPhase" aria-label="">
                                     <option value="">مرحلة الاستثمار</option>
+                                    @foreach ($investor_stages as $investor_stage)
+                                        @if ($investor_stage !== '' && $investor_stage !== '—')
+                                            <option value="{{ $investor_stage }}">{{ $investor_stage }}</option>
+                                        @endif
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-2">        
@@ -78,13 +106,13 @@
                             <tbody>
                                 @foreach($investors as $investor)
                                 <tr>
-                                    <td class="text-center font-weight-bold opacity">{{$investor->id}}</td>
-                                    <td class="text-center font-weight-bold opacity">{{$investor->first_name}} {{$investor->last_name}}</td>
-                                    <td class="text-center font-weight-bold opacity">{{$investor->amount}}</td>
-                                    <td class="text-center font-weight-bold opacity">-</td>
-                                    <td class="text-center font-weight-bold opacity">{{$investor->city ?? '-'}}</td>
-                                    <td class="text-center font-weight-bold opacity">{{$investor->type ?? '-'}}</td>
-                                    <td class="text-center font-weight-bold opacity">{{$investor->phase ?? '-'}}</td>
+                                    <td class="text-center font-weight-bold opacity">{{$loop->index+1}}</td>
+                                    <td class="text-center font-weight-bold opacity">{{$investor->name}}</td>
+                                    <td class="text-center font-weight-bold opacity">{{$investor->number_of_investment ?? '-'}}</td>
+                                    <td class="text-center font-weight-bold opacity">{{$investor->number_of_exits ?? '-'}}</td>
+                                    <td class="text-center font-weight-bold opacity">{{$investor->location ?? '-'}}</td>
+                                    <td class="text-center font-weight-bold opacity">{{$investor->investor_type ?? '-'}}</td>
+                                    <td class="text-center font-weight-bold opacity">{{$investor->investor_stage ?? '-'}}</td>
                                     @if($investor->favorited == 1)
                                         <td class="text-center font-weight-bold opacity"><button class="remove-from-favorite-btn" data-investor-id="{{ $investor->id }}" style="background-color: #1e91bd; color: rgb(255, 255, 255); border: 2px solid rgb(255, 255, 255); border-radius: 5px; cursor: pointer;">حذف من المفضلة</button></td>
                                     @else
@@ -106,6 +134,9 @@
             $('.filter-select').change(function() {
                 console.log('changed');
                 var amount = $('#InvestAmount').val();
+                var ExitNumber = $('#ExitNumber').val();
+                var InvestorType = $('#InvestorType').val();
+                var InvestPhase = $('#InvestPhase').val();
                 var city = $('#City').val();
 
                 $.ajax({
@@ -113,7 +144,10 @@
                     type: 'GET',
                     data: {
                         amount: amount,
-                        city: city
+                        city: city,
+                        ExitNumber: ExitNumber,
+                        InvestorType: InvestorType,
+                        InvestPhase: InvestPhase,
                     },
                     success: function(response) {
                         $('#investors-table tbody').empty();
@@ -123,13 +157,13 @@
                             // Append a new row to the table body for each investor
                             $('#investors-table tbody').append(
                                 '<tr>' +
-                                    '<td class="text-center font-weight-bold opacity">' + investor.id + '</td>' +
-                                    '<td class="text-center font-weight-bold opacity">' + investor.first_name + ' ' + investor.last_name + '</td>' +
-                                    '<td class="text-center font-weight-bold opacity">' + investor.amount + '</td>' +
-                                    '<td class="text-center font-weight-bold opacity">-</td>' +
-                                    '<td class="text-center font-weight-bold opacity">' + (investor.city ?? '-') + '</td>' +
-                                    '<td class="text-center font-weight-bold opacity">' + (investor.type ?? '-') + '</td>' +
-                                    '<td class="text-center font-weight-bold opacity">' + (investor.phase ?? '-') + '</td>' +
+                                    '<td class="text-center font-weight-bold opacity">' + (index+1) + '</td>' +
+                                    '<td class="text-center font-weight-bold opacity">' + investor.name+'</td>' +
+                                    '<td class="text-center font-weight-bold opacity">' + (investor.number_of_investment ?? '-')+'</td>' +
+                                    '<td class="text-center font-weight-bold opacity">' + (investor.number_of_exits ?? '-')+'</td>' +
+                                    '<td class="text-center font-weight-bold opacity">' + (investor.location ?? '-') + '</td>' +
+                                    '<td class="text-center font-weight-bold opacity">' + (investor.investor_type ?? '-') + '</td>' +
+                                    '<td class="text-center font-weight-bold opacity">' + (investor.investor_stage ?? '-') + '</td>' +
                                     '<td class="text-center font-weight-bold opacity">' + 
                                         (investor.favorited == 1 ? 
                                             '<button class="remove-from-favorite-btn" data-investor-id="' + (investor.id) + '" style="background-color: #1e91bd; color: rgb(255, 255, 255); border: 2px solid rgb(255, 255, 255); border-radius: 5px; cursor: pointer;">حذف من المفضلة</button>' : 
@@ -214,6 +248,9 @@
 
             $('#searchJobCareers').on('keyup', function() {
                 var amount = $('#InvestAmount').val();
+                var ExitNumber = $('#ExitNumber').val();
+                var InvestorType = $('#InvestorType').val();
+                var InvestPhase = $('#InvestPhase').val();
                 var city = $('#City').val();
                 var query = $(this).val();
                 $.ajax({
@@ -222,6 +259,9 @@
                     data: {
                         amount: amount,
                         city: city,
+                        ExitNumber: ExitNumber,
+                        InvestorType: InvestorType,
+                        InvestPhase: InvestPhase,
                         query: query
                     },
                     success: function(response) {
@@ -232,13 +272,13 @@
                             // Append a new row to the table body for each investor
                             $('#investors-table tbody').append(
                                 '<tr>' +
-                                    '<td class="text-center font-weight-bold opacity">' + investor.id + '</td>' +
-                                    '<td class="text-center font-weight-bold opacity">' + investor.first_name + ' ' + investor.last_name + '</td>' +
-                                    '<td class="text-center font-weight-bold opacity">' + investor.amount + '</td>' +
-                                    '<td class="text-center font-weight-bold opacity">-</td>' +
-                                    '<td class="text-center font-weight-bold opacity">' + (investor.city ?? '-') + '</td>' +
-                                    '<td class="text-center font-weight-bold opacity">' + (investor.type ?? '-') + '</td>' +
-                                    '<td class="text-center font-weight-bold opacity">' + (investor.phase ?? '-') + '</td>' +
+                                    '<td class="text-center font-weight-bold opacity">' + (index+1) + '</td>' +
+                                    '<td class="text-center font-weight-bold opacity">' + investor.name+'</td>' +
+                                    '<td class="text-center font-weight-bold opacity">' + (investor.number_of_investment ?? '-')+'</td>' +
+                                    '<td class="text-center font-weight-bold opacity">' + (investor.number_of_exits ?? '-')+'</td>' +
+                                    '<td class="text-center font-weight-bold opacity">' + (investor.location ?? '-') + '</td>' +
+                                    '<td class="text-center font-weight-bold opacity">' + (investor.investor_type ?? '-') + '</td>' +
+                                    '<td class="text-center font-weight-bold opacity">' + (investor.investor_stage ?? '-') + '</td>' +
                                     '<td class="text-center font-weight-bold opacity">' + 
                                         (investor.favorited == 1 ? 
                                             '<button class="remove-from-favorite-btn" data-investor-id="' + (investor.id) + '" style="background-color: #1e91bd; color: rgb(255, 255, 255); border: 2px solid rgb(255, 255, 255); border-radius: 5px; cursor: pointer;">حذف من المفضلة</button>' : 
