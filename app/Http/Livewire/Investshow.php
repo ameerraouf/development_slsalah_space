@@ -882,14 +882,17 @@ class Investshow extends Component
         $planningFinancialAssumption = PlanningFinancialAssumption::where('workspace_id', auth()->user()->workspace_id)
             ->first();
         $selected_navigation = 'IncomeList';
-        $calc_total = $planningRevenueOperatingAssumptions->calc_total;
+        $calc_total = $planningRevenueOperatingAssumptions ? $planningRevenueOperatingAssumptions->calc_total : [];
         $TAM = 0; $SAM = 0; $SOM = 0;
         $TAM = $this->size5 ?? 0 ;
         if($TAM){
             $SAM = $TAM * 0.25;
             $SOM = $SAM * 0.07;
         }
-        $financial_evaluation = FinancialEvaluation::where('workspace_id',auth()->user()->workspace_id)->select('value')->first()['value'];
+        $financial_evaluation = 0 ;
+        if(FinancialEvaluation::where('workspace_id',auth()->user()->workspace_id)){
+            $financial_evaluation = FinancialEvaluation::where('workspace_id',auth()->user()->workspace_id)->select('value')->first()['value'];
+        }
         $unitForChart = $this->unit5 ?? '';
         $requiredInvestmentForChart = RequiredInvestment::latest()->first();
         if($this->unit5){

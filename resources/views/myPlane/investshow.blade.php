@@ -75,8 +75,14 @@
             </div>
         </div> 
     </div>  --}}
-@livewire('investshow')
-
+    @if ($planningRevenueOperatingAssumptions)
+        @livewire('investshow')
+    @else
+    <div class="row">
+        <p>العرض الاستثماري</p>
+    </div>
+        لا توجد بيانات
+    @endif
 
 @endsection
 @section('script')

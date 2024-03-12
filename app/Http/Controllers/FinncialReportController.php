@@ -49,8 +49,7 @@ class FinncialReportController extends BaseController
             ->first();
         $selected_navigation = 'IncomeList';
 
-        $calc_total = $planningRevenueOperatingAssumptions->calc_total;
-
+        $calc_total = $planningRevenueOperatingAssumptions ? $planningRevenueOperatingAssumptions->calc_total : [];
         return view(
             'planning_revenue_operating_assumptions.getIncomeList',
             compact('calc_total', 'planningRevenueOperatingAssumptions', 'planningFinancialAssumption', 'planningCostAssumption', 'all_revenues_forecasting', 'all_revenues_costs_forecasting', 'selected_navigation')
@@ -68,7 +67,7 @@ class FinncialReportController extends BaseController
         $planningFinancialAssumption = PlanningFinancialAssumption::where('workspace_id', $this->user->workspace_id)
             ->first();
         $selected_navigation = 'statement_of_cash_flows';
-        $calc_total = $planningRevenueOperatingAssumptions->calc_total;
+        $calc_total = $planningRevenueOperatingAssumptions ? $planningRevenueOperatingAssumptions->calc_total : [];
         foreach ($calc_total as &$value) {
             $value = str_replace('$', ' SAR ', $value);
             $value = str_replace('-', ' <strong>&ndash;</strong>', $value);
@@ -101,7 +100,7 @@ class FinncialReportController extends BaseController
         $totalInvestedCapital = (!empty($workingInvestedTotal) ? $workingInvestedTotal[0] : 0.0) + (!empty($fixedInvestedTotal) ? $fixedInvestedTotal[0] : 0.0);
         $totalInvestedCapital = formatCurrency($totalInvestedCapital, $currency);
         $selected_navigation = 'capital_investment_model';
-        $calc_total = $planningRevenueOperatingAssumptions->calc_total;
+        $calc_total = $planningRevenueOperatingAssumptions ? $planningRevenueOperatingAssumptions->calc_total : [];
 
 
         return view(

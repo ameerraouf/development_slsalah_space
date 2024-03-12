@@ -1,6 +1,11 @@
 @extends('layouts.primary')
 @section('content')
     <h5 class="text-secondary fw-bolder mb-3">{{__('Documents')}}</h5>
+    <div  class="alert alert-danger d-none">
+        <ul class="list-unstyled">
+            <li id="errorMessage"></li>
+        </ul>
+    </div>
     <form action="/document" class="form-control dropzone" id="dropzone">
         <div class="fallback">
             <input name="file" type="file" multiple/>
@@ -60,6 +65,11 @@
                     $("#dropzone").dropzone({
                         url: "/document",
                         success: function (file, response) {
+                            if(response.message){
+                                $('#errorMessage').text(response.message);
+                                $('.alert-danger').removeClass('d-none');
+                                return
+                            }
                             location.reload();
 
                         },
