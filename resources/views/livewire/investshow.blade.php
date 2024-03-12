@@ -1,3 +1,4 @@
+    
 <div class="invest-show">
     @if (!empty($successMessage))
         <div class="alert alert-success" id="success-alert">

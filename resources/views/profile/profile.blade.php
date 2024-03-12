@@ -169,9 +169,11 @@
                                         <input class="form-control" name="company_logo" type="file" id="company_logo">
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <img class="mt-3" style="height:100px" src="{{PUBLIC_DIR}}/uploads/{{$user->company->company_logo ?? ''}}" alt="">
-                                </div>
+                                @if ($user->company && $user->company->company_logo)
+                                    <div class="col">
+                                        <img class="mt-3" style="height:100px" src="{{PUBLIC_DIR}}/uploads/{{$user->company->company_logo ?? ''}}" alt="">
+                                    </div>
+                                @endif
                             </div>
                           
                         </div>

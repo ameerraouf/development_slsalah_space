@@ -156,8 +156,9 @@ class MyPlanController extends BaseController
     public function investshow(){
         // $projects = Projects::latest()->get()->take(3);
         // return view('myPlane.investshow',compact('projects'));
+        $planningRevenueOperatingAssumptions = PlanningRevenueOperatingAssumption::where('workspace_id', auth()->user()->workspace_id)->first();
         $selected_navigation = 'investshow';
-        return view('myPlane.investshow',compact('selected_navigation'));
+        return view('myPlane.investshow',compact('planningRevenueOperatingAssumptions','selected_navigation'));
     }
     // public function update(Request $request){
     //     $request->validate([

@@ -41,7 +41,10 @@ class DocumentController extends BaseController
         if(!$this->user->super_admin){
             if(!$this->plan)
             {
-                return \redirect()->back()->with("error", __('You need to choose a plan to upload documents.'));
+                $message = 'You need to choose a plan to upload documents.';
+                return response()->json([
+                    'message' => $message,
+                ]);
             }
 
             $max_file_upload_size = $this->plan->max_file_upload_size ?? 2000;
@@ -55,7 +58,10 @@ class DocumentController extends BaseController
 
             if($total_space_consumed + $request->file("file")->getSize() > $file_space_limit)
             {
-                return \redirect()->back()->with("error", __('You have exceeded the file space limit.'));
+                $message =  __('You have exceeded the file space limit.');
+                return response()->json([
+                    'message' => $message,
+                ]);
             }
         }
 
