@@ -102,7 +102,7 @@
                                 </div>
                                 <div class="col-md-3  mt-5">
                                     <label for="">الوحده </label>
-                                    <p>{{ $required_investment_unit }}</p>
+                                    <p>{{ __($required_investment_unit)}}</p>
                                 </div>
                                
                                 
