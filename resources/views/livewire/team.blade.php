@@ -10,7 +10,7 @@
                     @error("teamname.{$index}")<span class="text-danger">{{ $message }}</span>@enderror 
                     <br>
                     <label for="" >الصوره</label>
-                    <input type="file"   class="form-control-file" wire:model="teamimage.{{ $index }}" > 
+                    <input type="file"   class="form-control-file" wire:model="teamimage.{{ $index }}" accept="image/*"> 
                     @error("teamimage.{$index}")<span class="text-danger">{{ $message }}</span>@enderror   
                     <br>                       
                 </div>
