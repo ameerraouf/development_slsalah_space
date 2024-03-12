@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use App\Models\Team;
 use App\Models\Solve;
@@ -24,11 +25,14 @@ use App\Models\PlanningCostAssumption;
 use App\Models\PlanningFinancialAssumption;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use App\Models\PlanningRevenueOperatingAssumption;
+use Illuminate\Http\UploadedFile;
 
 class Investshow extends Component
 {
     use WithFileUploads,LivewireAlert;
     
+    public $markets=[],$msize=[],$myear=[],$munit=[];
+
     public $chartData = [];
     public $currentStep = 1 , $updateMode = false;
     public $successMessage = '';
@@ -147,9 +151,61 @@ class Investshow extends Component
             'developplanname.4'   =>__('submarketname'),
             'developplanname.5'   =>__('submarketname'),
             'developplanname.6'   =>__('submarketname'),
+
+            "myear.0"=> __('myear'),
+            "msize.0"=> __('msize'),
+            "munit.0"=> __('munit'),
+            "myear.1"=> __('myear'),
+            "msize.1"=> __('msize'),
+            "munit.1"=> __('munit'),
+            "myear.2"=> __('myear'),
+            "msize.2"=> __('msize'),
+            "munit.2"=> __('munit'),
+            "myear.3"=> __('myear'),
+            "msize.3"=> __('msize'),
+            "munit.3"=> __('munit'),
+            "myear.4"=> __('myear'),
+            "msize.4"=> __('msize'),
+            "munit.4"=> __('munit'),
         ];
     }
+    public function updateMarkets()
+    {
+        $this->validate([
+            "myear.0"=> "required|integer",
+            "msize.0"=> "required|integer",
+            "munit.0"=> "required|in:million,billion",
+            "myear.1"=> "required|integer",
+            "msize.1"=> "required|integer",
+            "munit.1"=> "required|in:million,billion",
+            "myear.2"=> "required|integer",
+            "msize.2"=> "required|integer",
+            "munit.2"=> "required|in:million,billion",
+            "myear.3"=> "required|integer",
+            "msize.3"=> "required|integer",
+            "munit.3"=> "required|in:million,billion",
+            "myear.4"=> "required|integer",
+            "msize.4"=> "required|integer",
+            "munit.4"=> "required|in:million,billion",
+        ]);
+        foreach ($this->markets as $index => $market) {
+            $market->update([
+                'year' => $this->myear[$index],
+                'size' => $this->msize[$index],
+                'unit' => $this->munit[$index],
+            ]);
+        }
+        $this->alert('success', 'تم التحديث بنجاح');
+    }
     public function mount(){
+        $this->markets = Market::take(5)->get();
+        foreach ($this->markets as $market) {
+            $this->myear[] = $market->year;
+            $this->msize[] = $market->size;
+            $this->munit[] = $market->unit;
+        }
+
+
       $this->userphoto = auth()->user()->photo;
       //tap1
       $this->company_desc = auth()->user()->company?->company_description;
@@ -414,23 +470,39 @@ class Investshow extends Component
     }
 
     // tap 7
+    protected function getTeamImage($index)
+    {
+        $oldImage = null;
+        if (isset($this->teamimage[$index])) {
+            $oldImage = $this->teamimage[$index];
+            if (is_string($oldImage)) {
+                $oldImage = pathinfo($oldImage, PATHINFO_BASENAME);
+            }
+        }
+        return $oldImage;
+    }
     public function updateteams()
     {
-        $validateData = $this->validate([
-            'teamname.0'   =>'required|string|max:255',
-            'teamname.1'   =>'required|string|max:255',
-            'teamname.2'   =>'required|string|max:255',
-            'teamname.3'   =>'required|string|max:255',
-            'teamimage.0'   =>'nullable|max:2048',
-            'teamimage.1'   =>'nullable|max:2048',
-            'teamimage.2'   =>'nullable|max:2048',
-            'teamimage.3'   =>'nullable|max:2048',
-        ]);
+        $rules = [];
         foreach ($this->selectedteam as $index => $team) {
-            $team->name    = $this->teamname[$index];
-            if($this->teamimage[$index]){
-                $team->image = store_file($this->teamimage[$index],'teams');
+            $rules["teamname.{$index}"] = 'required';
+            $rules["teamimage.{$index}"] = 'image|max:2048';
+        }
+        $this->validate($rules);
+        foreach ($this->selectedteam as $index => $team) {
+            $team->name  = $this->teamname[$index];
+            $image  = $this->teamimage[$index];
+            if ($image instanceof UploadedFile) {
+                $oldImage = $this->getTeamImage($index);
+                if ($oldImage) {
+                    if($oldImage !='' and !is_null($oldImage) and Storage::disk('uploads')->exists($oldImage)){
+                        unlink('uploads/'.$oldImage);
+                        // Storage::disk('uploads')->delete($oldImage);
+                    }
+                }
+                $team->image = store_file($image,'teams');
             }
+           
             $team->update();
             $this->alert('success', 'تم التحديث بنجاح');
         }

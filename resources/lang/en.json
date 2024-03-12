@@ -872,6 +872,9 @@
     "teamname": "المسمى الوظيفى",
     "teamimage": "الصوره",
     "coname": "اسم المنافس",
-    "submarketname": "المحتوى"
+    "submarketname": "المحتوى",
+    "myear": "السنه",
+    "msize": "حجم السوق",
+    "munit": "الوحده"
     
 }
