@@ -167,6 +167,8 @@ class Investshow extends Component
             "myear.4"=> __('myear'),
             "msize.4"=> __('msize'),
             "munit.4"=> __('munit'),
+
+            "website_url"=> __('website_url'),
         ];
     }
     public function updateMarkets()
