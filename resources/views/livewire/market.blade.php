@@ -4,6 +4,40 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="row">
+                    <div class="">
+                        @foreach ($markets as $index => $market)
+                            <h6>Market #{{ $index + 1 }}</h6>
+                            <div class="">
+                                <label for="" > السنه </label>
+                                <select wire:model="myear.{{ $index }}"  class="form-control">
+                                    @php $currentYear = date('Y'); @endphp
+                                    @for ($i = $currentYear; $i <= $currentYear + 4; $i++)
+                                        <option value="{{ $i }}">{{ $i }}</option>
+                                    @endfor
+                                </select>
+                                @error("myear.{$index}")<span class="text-danger">{{ $message }}</span>@enderror
+                            </div>
+                            <div class="">
+                                <label for="" > حجم السوق</label>
+                                <input type="text" class="form-control" wire:model='msize.{{ $index }}' >
+                                @error("msize.{$index}")<span class="text-danger">{{ $message }}</span>@enderror
+                            </div>
+                            <div class="">
+                                <label for="">الوحده </label>
+                                <select wire:model="munit.{{ $index }}"  class="form-control">
+                                    <option value="million">{{ __('million') }}</option>
+                                    <option value="billion">{{ __('billion') }}</option>
+                                </select>
+                                @error("munit.{$index}")<span class="text-danger">{{ $message }}</span>@enderror
+                            </div>
+                            <hr>
+                        @endforeach
+                    </div>
+                    <button class="btn btn-success mt-3" type="button" wire:click="updateMarkets">
+                        {{ trans('submit') }}
+                    </button>
+                </div>
+                {{-- <div class="row">
                     <div class="col-md-3  mt-5">
                         <label for="" > السنه {{ $theyear  }}</label>
                         <select  class="form-control" wire:model='theyear'  >
@@ -163,7 +197,7 @@
                             {{ trans('submit') }}
                         </button>
                     </div>
-                </div>
+                </div> --}}
                 <button class="btn btn-warning mt-3" type="button" wire:click="back(3)">
                     {{ trans('Back') }}
                 </button>
@@ -230,84 +264,15 @@
                                     <label for="">الوحده {{ __($unit) }}</label>
                                 </div>                       
                         </div> --}}
-                        <div class="row">
-                            <div class="w-full" style="height: 50%;">
-                                <div class="w-full" style="height: 50%;" id="chart"></div>
-                            </div>
-                        </div>
+                        {{-- <livewire:marketchart /> --}}
+                        @include('livewire.marketchart')
+                        
                     </div>
                 </div>
             </div>
         </div>
         
-        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-        @if ($size && $size2 && $size3 && $size4 && $size5)
-            <script>
-                var options = {
-                    chart: {
-                        type: 'bar'
-                    },
-                    plotOptions: {
-                        bar: {
-                            horizontal: false
-                        }
-                    },
-                    series: [{
-                        data: [{
-                                x: '{{ $year }}',
-                                y: {{ $size }}
-                            }, {
-                                x: '{{ $year2 }}',
-                                y: {{ $size2 }}
-                            }, {
-                                x: '{{ $year3 }}',
-                                y: {{ $size3 }}
-                            },{
-                                x: '{{ $year4 }}',
-                                y: {{ $size4 }}
-                            },{
-                                x: '{{ $year5 }}',
-                                y: {{ $size5 }}
-                            }]
-                    }]
-                }
-                var chart = new ApexCharts(document.querySelector("#chart"), options);
-                chart.render();
-            </script>
-        @else
-            <script>
-                var options = {
-                    chart: {
-                        type: 'bar'
-                    },
-                    plotOptions: {
-                        bar: {
-                            horizontal: false
-                        }
-                    },
-                    series: [{
-                        data: [{
-                                x: '2024',
-                                y: 0
-                            }, {
-                                x: '2025',
-                                y: 0
-                            }, {
-                                x: '2026',
-                                y: 0
-                            },{
-                                x: '2027',
-                                y: 0
-                            },{
-                                x: '2028',
-                                y: 0
-                            }]
-                    }]
-                }
-                var chart = new ApexCharts(document.querySelector("#chart"), options);
-                chart.render();
-            </script>
-        @endif
+        
     </div>
 @push('js')
 

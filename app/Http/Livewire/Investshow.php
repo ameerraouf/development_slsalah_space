@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use App\Models\Team;
 use App\Models\Solve;
@@ -24,11 +25,14 @@ use App\Models\PlanningCostAssumption;
 use App\Models\PlanningFinancialAssumption;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use App\Models\PlanningRevenueOperatingAssumption;
+use Illuminate\Http\UploadedFile;
 
 class Investshow extends Component
 {
     use WithFileUploads,LivewireAlert;
     
+    public $markets=[],$msize=[],$myear=[],$munit=[];
+
     public $chartData = [];
     public $currentStep = 1 , $updateMode = false;
     public $successMessage = '';
@@ -44,12 +48,12 @@ class Investshow extends Component
     public $solve1,$solve2,$solve3,$solve4,$solve5,$solve6,$solve7,$solve8,$solve9;
     public $solveid1,$solveid2,$solveid3,$solveid4,$solveid5,$solveid6,$solveid7,$solveid8,$solveid9;
     //tap4
-    public $year,$size,$unit,$marketid;
-    public $year2,$size2,$unit2,$marketid2;
-    public $year3,$size3,$unit3,$marketid3;
-    public $year4,$size4,$unit4,$marketid4;
-    public $year5,$size5,$unit5,$marketid5;
-    public $theyear,$theyear2,$theyear3,$theyear4,$theyear5;
+    // public $year,$size,$unit,$marketid;
+    // public $year2,$size2,$unit2,$marketid2;
+    // public $year3,$size3,$unit3,$marketid3;
+    // public $year4,$size4,$unit4,$marketid4;
+    // public $year5,$size5,$unit5,$marketid5;
+    // public $theyear,$theyear2,$theyear3,$theyear4,$theyear5;
     // tap5
     public $selectedProducts = [],$title = [],$description = [];
     // tap6
@@ -68,7 +72,7 @@ class Investshow extends Component
       // last tap thank u
     public $website_url,$phone,$email;
 
-    protected $listeners = ['refreshComponent'=>'$refresh'];
+    // protected $listeners = ['refreshComponent'=>'$refresh'];
     public function ValidationAttributes(){
         return [
             "company_desc"=> __('company_desc'),
@@ -147,9 +151,64 @@ class Investshow extends Component
             'developplanname.4'   =>__('submarketname'),
             'developplanname.5'   =>__('submarketname'),
             'developplanname.6'   =>__('submarketname'),
+
+            "myear.0"=> __('myear'),
+            "msize.0"=> __('msize'),
+            "munit.0"=> __('munit'),
+            "myear.1"=> __('myear'),
+            "msize.1"=> __('msize'),
+            "munit.1"=> __('munit'),
+            "myear.2"=> __('myear'),
+            "msize.2"=> __('msize'),
+            "munit.2"=> __('munit'),
+            "myear.3"=> __('myear'),
+            "msize.3"=> __('msize'),
+            "munit.3"=> __('munit'),
+            "myear.4"=> __('myear'),
+            "msize.4"=> __('msize'),
+            "munit.4"=> __('munit'),
+
+            "website_url"=> __('website_url'),
         ];
     }
+    public function updateMarkets()
+    {
+        $this->validate([
+            "myear.0"=> "required|integer",
+            "msize.0"=> "required|integer",
+            "munit.0"=> "required|in:million,billion",
+            "myear.1"=> "required|integer",
+            "msize.1"=> "required|integer",
+            "munit.1"=> "required|in:million,billion",
+            "myear.2"=> "required|integer",
+            "msize.2"=> "required|integer",
+            "munit.2"=> "required|in:million,billion",
+            "myear.3"=> "required|integer",
+            "msize.3"=> "required|integer",
+            "munit.3"=> "required|in:million,billion",
+            "myear.4"=> "required|integer",
+            "msize.4"=> "required|integer",
+            "munit.4"=> "required|in:million,billion",
+        ]);
+        foreach ($this->markets as $index => $market) {
+            $market->update([
+                'year' => $this->myear[$index],
+                'size' => $this->msize[$index],
+                'unit' => $this->munit[$index],
+            ]);
+        }
+        $this->emitTo('marketchart','refreshComponent');
+        $this->alert('success', 'تم التحديث بنجاح');
+    }
     public function mount(){
+        $this->markets = Market::take(5)->get();
+        foreach ($this->markets as $market) {
+            $this->myear[] = $market->year;
+            $this->msize[] = $market->size;
+            $this->munit[] = $market->unit;
+        }
+
+
       $this->userphoto = auth()->user()->photo;
       //tap1
       $this->company_desc = auth()->user()->company?->company_description;
@@ -181,34 +240,34 @@ class Investshow extends Component
       $this->solve9   = Solve::latest()->skip(8)->first()->title??'';
       $this->solveid9 = Solve::latest()->skip(8)->first()->id??'';
       //tap4
-      $now = Carbon::now();
-      $this->year = $now->year;
-      $this->year2 = $now->addYear()->year;
-      $this->year3 = $now->year+1;
-      $this->year4 = $now->year+2;
-      $this->year5 = $now->year+3;
-      $this->size = Market::latest()->first()->size??'';
-      $this->unit = Market::latest()->first()->unit??'';
-      $this->size2 = Market::latest()->skip(1)->first()->size??'';
-      $this->unit2 = Market::latest()->skip(1)->first()->unit??'';
-      $this->size3 = Market::latest()->skip(2)->first()->size??'';
-      $this->unit3 = Market::latest()->skip(2)->first()->unit??'';
-      $this->size4 = Market::latest()->skip(3)->first()->size??'';
-      $this->unit4 = Market::latest()->skip(3)->first()->unit??'';
-      $this->size5 = Market::latest()->skip(4)->first()->size??'';
+    //   $now = Carbon::now();
+    //   $this->year = $now->year;
+    //   $this->year2 = $now->addYear()->year;
+    //   $this->year3 = $now->year+1;
+    //   $this->year4 = $now->year+2;
+    //   $this->year5 = $now->year+3;
+    //   $this->size = Market::latest()->first()->size??'';
+    //   $this->unit = Market::latest()->first()->unit??'';
+    //   $this->size2 = Market::latest()->skip(1)->first()->size??'';
+    //   $this->unit2 = Market::latest()->skip(1)->first()->unit??'';
+    //   $this->size3 = Market::latest()->skip(2)->first()->size??'';
+    //   $this->unit3 = Market::latest()->skip(2)->first()->unit??'';
+    //   $this->size4 = Market::latest()->skip(3)->first()->size??'';
+    //   $this->unit4 = Market::latest()->skip(3)->first()->unit??'';
+    //   $this->size5 = Market::latest()->skip(4)->first()->size??'';
       $this->unit5 = Market::latest()->skip(4)->first()->unit??'';
 
-      $this->marketid  = Market::latest()->first()->id??'';
-      $this->marketid2 = Market::latest()->skip(1)->first()->id??'';
-      $this->marketid3 = Market::latest()->skip(2)->first()->id??'';
-      $this->marketid4 = Market::latest()->skip(3)->first()->id??'';
-      $this->marketid5 = Market::latest()->skip(4)->first()->id??'';
+    //   $this->marketid  = Market::latest()->first()->id??'';
+    //   $this->marketid2 = Market::latest()->skip(1)->first()->id??'';
+    //   $this->marketid3 = Market::latest()->skip(2)->first()->id??'';
+    //   $this->marketid4 = Market::latest()->skip(3)->first()->id??'';
+    //   $this->marketid5 = Market::latest()->skip(4)->first()->id??'';
 
-      $this->theyear = $this->year??'';
-      $this->theyear2 = $this->year2??'';
-      $this->theyear3 = $this->year3??'';
-      $this->theyear4 = $this->year4??'';
-      $this->theyear5 = $this->year5??'';
+    //   $this->theyear = $this->year??'';
+    //   $this->theyear2 = $this->year2??'';
+    //   $this->theyear3 = $this->year3??'';
+    //   $this->theyear4 = $this->year4??'';
+    //   $this->theyear5 = $this->year5??'';
 
         //   tap5
         $this->selectedProducts = Projects::take(6)->get(); // Fetch 6 products
@@ -414,23 +473,42 @@ class Investshow extends Component
     }
 
     // tap 7
+    protected function getTeamImage($index)
+    {
+        $oldImage = null;
+        if (isset($this->teamimage[$index])) {
+            $oldImage = $this->teamimage[$index];
+            if (is_string($oldImage)) {
+                $oldImage = pathinfo($oldImage, PATHINFO_BASENAME);
+            }
+        }
+        return $oldImage;
+    }
     public function updateteams()
     {
-        $validateData = $this->validate([
-            'teamname.0'   =>'required|string|max:255',
-            'teamname.1'   =>'required|string|max:255',
-            'teamname.2'   =>'required|string|max:255',
-            'teamname.3'   =>'required|string|max:255',
-            'teamimage.0'   =>'nullable|max:2048',
-            'teamimage.1'   =>'nullable|max:2048',
-            'teamimage.2'   =>'nullable|max:2048',
-            'teamimage.3'   =>'nullable|max:2048',
-        ]);
+        $rules = [];
         foreach ($this->selectedteam as $index => $team) {
-            $team->name    = $this->teamname[$index];
-            if($this->teamimage[$index]){
-                $team->image = store_file($this->teamimage[$index],'teams');
+            $rules["teamname.{$index}"] = 'required';
+            $rules["teamimage.{$index}"] = 'nullable|max:2048';
+        }
+        $this->validate($rules);
+        foreach ($this->selectedteam as $index => $team) {
+            $team->name  = $this->teamname[$index];
+            $image  = $this->teamimage[$index];
+            $oldImage = $this->getTeamImage($index);
+            if ($oldImage) {
+                Storage::disk('uploads')->delete($oldImage);
             }
+            if ($image instanceof UploadedFile) {
+                // if ($image) {
+                //     if($image !='' and !is_null($image) and Storage::disk('uploads')->exists($image)){
+                //         unlink('uploads/'.$image);
+                //         // Storage::disk('uploads')->delete($oldImage);
+                //     }
+                // }
+                $team->image = store_file($image,'teams');
+            }
+           
             $team->update();
             $this->alert('success', 'تم التحديث بنجاح');
         }
@@ -746,122 +824,122 @@ class Investshow extends Component
     }
 
    //tap4
-    public function marketSubmit1(){
-        $this->validate([
-            "theyear"=> "required|integer",
-            "size"=> "required|integer",
-            "unit"=> "required|in:million,billion",
-        ]);
-        if ($this->marketid ){
-            $market = Market::find($this->marketid);
-            $market->year = $this->theyear;
-            $market->size = $this->size;
-            $market->unit = $this->unit;
-            $market->update();
-            $this->alert('success', 'تم التحديث بنجاح');
-        }else{
-            $market = new Market();
-            $market->year = $this->theyear;
-            $market->size = $this->size;
-            $market->unit = $this->unit;
-            $market->save();
-            $this->alert('success', 'تم الاضافه بنجاح');
-            // $this->updateMode = true;
-            $this->marketid = $market->id;
-        }
-    }
-    public function marketSubmit2(){
-        $this->validate([
-            "theyear2"=> "required|integer",
-            "size2"=> "required|integer",
-            "unit2"=> "required|in:million,billion",
-        ]);
-        if ($this->marketid2){
-            $market = Market::find($this->marketid2);
-            $market->year = $this->year2;
-            $market->size = $this->size2;
-            $market->unit = $this->unit2;
-            $market->update();
-            $this->alert('success', 'تم التحديث بنجاح');
-        }else{
-            $market = new Market();
-            $market->year = $this->year2;
-            $market->size = $this->size2;
-            $market->unit = $this->unit2;
-            $market->save();
-            $this->alert('success', 'تم الاضافه بنجاح');
-            $this->marketid2 = $market->id;
-        }
-    }
-    public function marketSubmit3(){
-        $this->validate([
-            "theyear3"=> "required|integer",
-            "size3"=> "required|integer",
-            "unit3"=> "required|in:million,billion",
-        ]);
-        if ($this->marketid3){
-            $market = Market::find($this->marketid3);
-            $market->year = $this->year3;
-            $market->size = $this->size3;
-            $market->unit = $this->unit3;
-            $market->update();
-            $this->alert('success', 'تم التحديث بنجاح');
-        }else{
-            $market = new Market();
-            $market->year = $this->year3;
-            $market->size = $this->size3;
-            $market->unit = $this->unit3;
-            $market->save();
-            $this->alert('success', 'تم الاضافه بنجاح');
-            $this->marketid3 = $market->id;
-        }
-    }
-    public function marketSubmit4(){
-        $this->validate([
-            "theyear4"=> "required|integer",
-            "size4"=> "required|integer",
-            "unit4"=> "required|in:million,billion",
-        ]);
-        if ($this->marketid4){
-            $market = Market::find($this->marketid4);
-            $market->year = $this->year4;
-            $market->size = $this->size4;
-            $market->unit = $this->unit4;
-            $market->update();
-            $this->alert('success', 'تم التحديث بنجاح');
-        }else{
-            $market = new Market();
-            $market->year = $this->year4;
-            $market->size = $this->size4;
-            $market->unit = $this->unit4;
-            $market->save();
-            $this->alert('success', 'تم الاضافه بنجاح');
-            $this->marketid4 = $market->id;
-        }
-    }
-    public function marketSubmit5(){
-        $this->validate([
-            "theyear5"=> "required|integer",
-            "size5"=> "required|integer",
-            "unit5"=> "required|in:million,billion",
-        ]);
-        if ($this->marketid5){
-            $market = Market::find($this->marketid5);
-            $market->year = $this->year5;
-            $market->size = $this->size5;
-            $market->unit = $this->unit5;
-            $market->update();
-            $this->alert('success', 'تم التحديث بنجاح');
-        }else{
-            $market = new Market();
-            $market->year = $this->year5;
-            $market->size = $this->size5;
-            $market->unit = $this->unit5;
-            $market->save();
-            $this->alert('success', 'تم الاضافه بنجاح');
-            $this->marketid5 = $market->id;
-        }
-    }
+    // public function marketSubmit1(){
+    //     $this->validate([
+    //         "theyear"=> "required|integer",
+    //         "size"=> "required|integer",
+    //         "unit"=> "required|in:million,billion",
+    //     ]);
+    //     if ($this->marketid ){
+    //         $market = Market::find($this->marketid);
+    //         $market->year = $this->theyear;
+    //         $market->size = $this->size;
+    //         $market->unit = $this->unit;
+    //         $market->update();
+    //         $this->alert('success', 'تم التحديث بنجاح');
+    //     }else{
+    //         $market = new Market();
+    //         $market->year = $this->theyear;
+    //         $market->size = $this->size;
+    //         $market->unit = $this->unit;
+    //         $market->save();
+    //         $this->alert('success', 'تم الاضافه بنجاح');
+    //         // $this->updateMode = true;
+    //         $this->marketid = $market->id;
+    //     }
+    // }
+    // public function marketSubmit2(){
+    //     $this->validate([
+    //         "theyear2"=> "required|integer",
+    //         "size2"=> "required|integer",
+    //         "unit2"=> "required|in:million,billion",
+    //     ]);
+    //     if ($this->marketid2){
+    //         $market = Market::find($this->marketid2);
+    //         $market->year = $this->year2;
+    //         $market->size = $this->size2;
+    //         $market->unit = $this->unit2;
+    //         $market->update();
+    //         $this->alert('success', 'تم التحديث بنجاح');
+    //     }else{
+    //         $market = new Market();
+    //         $market->year = $this->year2;
+    //         $market->size = $this->size2;
+    //         $market->unit = $this->unit2;
+    //         $market->save();
+    //         $this->alert('success', 'تم الاضافه بنجاح');
+    //         $this->marketid2 = $market->id;
+    //     }
+    // }
+    // public function marketSubmit3(){
+    //     $this->validate([
+    //         "theyear3"=> "required|integer",
+    //         "size3"=> "required|integer",
+    //         "unit3"=> "required|in:million,billion",
+    //     ]);
+    //     if ($this->marketid3){
+    //         $market = Market::find($this->marketid3);
+    //         $market->year = $this->year3;
+    //         $market->size = $this->size3;
+    //         $market->unit = $this->unit3;
+    //         $market->update();
+    //         $this->alert('success', 'تم التحديث بنجاح');
+    //     }else{
+    //         $market = new Market();
+    //         $market->year = $this->year3;
+    //         $market->size = $this->size3;
+    //         $market->unit = $this->unit3;
+    //         $market->save();
+    //         $this->alert('success', 'تم الاضافه بنجاح');
+    //         $this->marketid3 = $market->id;
+    //     }
+    // }
+    // public function marketSubmit4(){
+    //     $this->validate([
+    //         "theyear4"=> "required|integer",
+    //         "size4"=> "required|integer",
+    //         "unit4"=> "required|in:million,billion",
+    //     ]);
+    //     if ($this->marketid4){
+    //         $market = Market::find($this->marketid4);
+    //         $market->year = $this->year4;
+    //         $market->size = $this->size4;
+    //         $market->unit = $this->unit4;
+    //         $market->update();
+    //         $this->alert('success', 'تم التحديث بنجاح');
+    //     }else{
+    //         $market = new Market();
+    //         $market->year = $this->year4;
+    //         $market->size = $this->size4;
+    //         $market->unit = $this->unit4;
+    //         $market->save();
+    //         $this->alert('success', 'تم الاضافه بنجاح');
+    //         $this->marketid4 = $market->id;
+    //     }
+    // }
+    // public function marketSubmit5(){
+    //     $this->validate([
+    //         "theyear5"=> "required|integer",
+    //         "size5"=> "required|integer",
+    //         "unit5"=> "required|in:million,billion",
+    //     ]);
+    //     if ($this->marketid5){
+    //         $market = Market::find($this->marketid5);
+    //         $market->year = $this->year5;
+    //         $market->size = $this->size5;
+    //         $market->unit = $this->unit5;
+    //         $market->update();
+    //         $this->alert('success', 'تم التحديث بنجاح');
+    //     }else{
+    //         $market = new Market();
+    //         $market->year = $this->year5;
+    //         $market->size = $this->size5;
+    //         $market->unit = $this->unit5;
+    //         $market->save();
+    //         $this->alert('success', 'تم الاضافه بنجاح');
+    //         $this->marketid5 = $market->id;
+    //     }
+    // }
 
      //back
      public function back($step){
