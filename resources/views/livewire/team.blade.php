@@ -37,7 +37,7 @@
                             @foreach ($selectedteam as $index => $team)
                                 <div class="col-md-3  mt-5" >
                                     <div>
-                                        @if($teamimage[$index])
+                                        @if($team[$index])
                                             <img src="{{ $teamimage[$index]->temporaryUrl() }}" alt="" width="150">
                                         @else
                                             <img src="{{display_file($team['image'])}}" width='150' alt="">

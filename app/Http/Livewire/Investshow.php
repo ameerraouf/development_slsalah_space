@@ -488,7 +488,7 @@ class Investshow extends Component
         $rules = [];
         foreach ($this->selectedteam as $index => $team) {
             $rules["teamname.{$index}"] = 'required';
-            $rules["teamimage.{$index}"] = 'image|max:2048';
+            $rules["teamimage.{$index}"] = 'nullable|max:2048';
         }
         $this->validate($rules);
         foreach ($this->selectedteam as $index => $team) {
