@@ -198,7 +198,7 @@
                         </div>
                         <div class="align-self-center">
                             <div>
-                                <label for="company_brief" class="form-label mt-3">{{__('Company Brief')}}</label>
+                                <label for="company_brief" class="form-label mt-3">الشعار اللفظي - السلوجان</label>
                                 <input class="form-control" name="company_brief" type="text" value="{{$user->company?->company_brief}}" id="company_brief">
                             </div>
                         </div>
