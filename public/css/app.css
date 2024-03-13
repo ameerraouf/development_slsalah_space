@@ -19706,6 +19706,17 @@ fieldset:disabled .btn {
     color: inherit !important;
 }
 
+.text-red{
+    color: #D7272A !important;
+}
+.text-green{
+    color: #29A600 !important;
+}
+
+.text-grey{
+    color: #bbbb !important;
+}
+
 .bg-primary {
     background-color: #077EBF !important;
 }

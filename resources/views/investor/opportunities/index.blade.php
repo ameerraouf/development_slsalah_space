@@ -105,9 +105,9 @@
 {{--                                            </form>--}}
 {{--                                        @endif--}}
 {{--                                            <a class="btn btn-info" href="{{route('admin.subscriptions.details', $workspace->id)}}">عرض التفاصيل</a>--}}
-                                            <div class="d-flex">
-                                                <a class="btn btn-info btn-sm {{in_array($workspace->id, $favorite_rounds)? 'btn-pink':'btn-def'}} m-2 p-2" onclick="roundFollow({{$workspace->id}})" id="{{$workspace->id}}" href="javascript:void(0)"><i class="fa fa-heart" style="font-size: 25px" title="إضافة للمفضلة" aria-hidden="true"></i></a>
-                                                <a class="btn btn-info btn-sm m-2 p-2" href="{{route('investor.chat')}}"><i class="fa fa-comments-o" style="font-size: 25px" title="إضغط للمراسلة الان" aria-hidden="true"></i></a>    
+                                            <div class="d-flex align-items-center gap-3">
+                                                <a class="fs-5 {{in_array($workspace->id, $favorite_rounds)? 'text-red':'text-grey'}}" onclick="roundFollow({{$workspace->id}})" id="{{$workspace->id}}" href="javascript:void(0)"><i class="fa fa-heart"  title="إضافة للمفضلة" aria-hidden="true"></i></a>
+                                                <a class="fs-5 text-info" href="{{route('investor.chat')}}"><i class="fa fa-comments-o" title="إضغط للمراسلة الان" aria-hidden="true"></i></a>    
                                             </div>
                                     </td>
 
@@ -163,15 +163,15 @@
                 dataType: "json",
                 success: function (response) {
                     if (response.value === 2) {
-                        $('#'+round_id).removeClass('btn-pink');
-                        $('#'+round_id).addClass('btn-def');
+                        $('#'+round_id).removeClass('text-pink');
+                        $('#'+round_id).addClass('text-grey');
                         Toast.fire({
                             icon: 'success',
                             title: response.message
                         });
                     } else {
-                        $('#'+round_id).removeClass('btn-def');
-                        $('#'+round_id).addClass('btn-pink');
+                        $('#'+round_id).removeClass('text-grey');
+                        $('#'+round_id).addClass('text-pink');
                         Toast.fire({
                             icon: 'success',
                             title: response.message
