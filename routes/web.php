@@ -40,6 +40,7 @@ use App\Http\Controllers\FavoriteCompaniesController;
 use App\Http\Controllers\InvestorAdminChatController;
 use App\Http\Controllers\FinancialEvaluationController;
 use App\Http\Controllers\MyInvestmentPortfolioController;
+use App\Http\Controllers\SuperAdminThemeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -120,6 +121,8 @@ Route::get("/super-admin-setting", [
     SuperAdminController::class,
     "adminSetting",
 ]);
+Route::resource('super-admin-themes',SuperAdminThemeController::class);
+
 Route::get("/workspaces", [SuperAdminController::class, "workspaces"]);
 Route::get("/add-user", [SuperAdminController::class, "addUser"]);
 Route::get("/delete-workspace/{id}", [

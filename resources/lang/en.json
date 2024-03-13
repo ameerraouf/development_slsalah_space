@@ -876,6 +876,32 @@
     "myear": "السنه",
     "msize": "حجم السوق",
     "munit": "الوحده",
-    "website_url": "رابط الموقع"
+    "website_url": "رابط الموقع",
+    
+    "ThemeSettings": "اعدادت الثيم",
+    "themename": "اسم الثيم",
+    "themeimage": "صور الثيم",
+    "create": "اضف",
+    "save": "حفظ",
+
+    "welcome": "اهلا بكم",
+    "companydesc": "عن الشركة",
+    "problem": "المشكلة",
+    "solve": "الحل",
+    "market": "حجم السوق",
+    "target": "السوق المستهدف",
+    "products": "منتجاتنا/ خدماتنا",
+    "compatitive": "الميزة التنافسية",
+    "team": "فريق العمل",
+    "competitors": "المنافسين",
+    "marketplan": "خطة دخول السوق",
+    "developplan": "خطة التطوير",
+    "finincalplan": "الخطة المالية",
+    "requireinvestment": "الاستثمار المطلوب",
+    "restpage": "باقى الصفحات",
+    "thanku": "شكرا لكم",
+    "hinterror": "يجب ان يكون عرض الصوره 960 *الطول 540 بكسل",
+    "hint": "   مقاس الصوره عرض 960 * طول 540 بكسل"
+
     
 }
