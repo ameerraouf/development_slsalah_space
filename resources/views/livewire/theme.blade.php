@@ -20,19 +20,13 @@
                         <div class="">
                             <label for="">{{ __('name') }}</label>
                             <select   class="form-control" wire:model="theme_id"  >
-                                <option value="">select theme</option>
+                                <option value=""  > -- اختر ثيم--</option>
                                 @foreach ($themes as $index => $theme)
                                     <option value="{{ $theme->id }} "> {{ $theme->name }}</option>
                                 @endforeach
                             </select>
                             </div>
                             <hr>
-                            {{-- {{ var_export($theme_id) }} --}}
-                            @php
-                                $themex = App\Models\Theme::find($theme_id);
-                            @endphp
-                                {{-- {{ var_export($themex->name??'') }} --}}
-                               
                     </div>
                     <button type="button" class="btn btn-info btn-sm float-left mt-3 mb-0" wire:click="firstStepSubmit">
                         {{ trans('next') }}

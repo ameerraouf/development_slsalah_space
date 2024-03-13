@@ -214,7 +214,7 @@ class Investshow extends Component
     }
     public function mount(){
 
-       
+        
 
         $this->markets = Market::take(5)->get();
         foreach ($this->markets as $market) {
@@ -1009,6 +1009,7 @@ class Investshow extends Component
         }
 
         $themes = Theme::all();
+        $themex=Theme::find($this->theme_id)??'';
         return view('livewire.investshow',compact(
             'TAM',
             'SAM',
@@ -1023,6 +1024,7 @@ class Investshow extends Component
             'mainMarket3',
             'mainMarket4',
             'themes',
+            'themex',
         ));
     }
 }
