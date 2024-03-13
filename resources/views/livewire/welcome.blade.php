@@ -27,9 +27,9 @@
                         <div class="container">
                             <div class="row">
                                 @include('livewire.logo')
-                                <label for="company_desc" class="form-label mt-3">{{ __('CompanyDesc') }}</label>
+                                <label for="company_desc" class="form-label mt-3">{{ __('welcome') }}</label>
                                 <div class="col-md-12 mt-4">
-                                   
+                                   <h1>العرض الاستثمارى</h1>
                                 </div>
                             </div>
                         </div>
