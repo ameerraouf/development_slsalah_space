@@ -1738,7 +1738,7 @@
                                             </div>
                                         </div> --}}
                                         <div class="container px-0 mx-auto mb-4">
-                                            <div class="row" data-masonry='{"percentPosition": true }'>
+                                            <div class="row" >
                                                 @foreach($blogs as $blog)
                                                     <div class="col-lg-4 mb-3">
                                                         <div class="card card-plain border">
@@ -2378,5 +2378,12 @@
     </div>
 </div>
 
-
+<script>
+const navTab = document.querySelectorAll(".elementor-toggle-item");
+navTab.forEach(item => {
+    item.addEventListener("click",()=>{
+        item.querySelector(".elementor-tab-content").classList.toggle("d-block")
+    })
+});
+</script>
 @endsection
