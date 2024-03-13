@@ -26,13 +26,14 @@ use App\Models\PlanningFinancialAssumption;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use App\Models\PlanningRevenueOperatingAssumption;
 use App\Models\Theme;
+use App\Models\ThemeUser;
 use Illuminate\Http\UploadedFile;
 
 class Investshow extends Component
 {
     use WithFileUploads,LivewireAlert;
     
-    public $themeid,$theme,$theme_id=0;
+    public $theme_id=0;
     public $markets=[],$msize=[],$myear=[],$munit=[];
 
     public $chartData = [];
@@ -77,6 +78,7 @@ class Investshow extends Component
     // protected $listeners = ['refreshComponent'=>'$refresh'];
     public function ValidationAttributes(){
         return [
+            "theme_id" => __('theme_id'),
             "company_desc"=> __('company_desc'),
             "theyear"=> __('theyear'),
             "size"=> __('size'),
@@ -202,16 +204,7 @@ class Investshow extends Component
         $this->emitTo('marketchart','refreshComponent');
         $this->alert('success', 'تم التحديث بنجاح');
     }
-    public function getThemeImage()
-    {
-        // $this->theme = Theme::find($this->theme_id);
-
-        // if ($selectedTheme) {
-        //     $this->selected_theme_image = $selectedTheme->image;
-        // } else {
-        //     $this->selected_theme_image = null;
-        // }
-    }
+    
     public function mount(){
 
         
@@ -227,6 +220,7 @@ class Investshow extends Component
       $this->userphoto = auth()->user()->photo;
       //tap1
       $this->company_desc = auth()->user()->company?->company_description;
+      $this->theme_id = auth()->user()->themeuser?->theme_id ?? 0;
       //tap2
       $this->projects = Projects::latest()->get()->take(3);
       $this->summary1 = Projects::latest()->first()->summary??'';
@@ -658,6 +652,22 @@ class Investshow extends Component
     }
 
     // submit forms action
+    public function themeSubmit(){
+        $this->validate([
+            "theme_id"=> "required|numeric",
+        ]);
+       $theme_id = $this->theme_id;
+       $user_id = auth()->user()->id;
+       if ($theme_id) {
+        ThemeUser::updateOrCreate(
+                ['user_id'  => $user_id],
+                ['theme_id' => $theme_id,]
+            );
+            $this->alert('success', 'تم التحديث بنجاح');
+        }else{
+            $this->alert('warning', 'من فضلك اختر ثيم.');
+        }
+    }
     //tap1
     public function companySubmit(){
         $this->validate([

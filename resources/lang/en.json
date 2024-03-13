@@ -886,7 +886,9 @@
     "create": "اضف",
     "save": "حفظ",
 
+    "theme_id": "الثيم",
     "welcome": "اهلا بكم",
+    "company_desc": "عن الشركه",
     "companydesc": "عن الشركة",
     "problem": "المشكلة",
     "solve": "الحل",
