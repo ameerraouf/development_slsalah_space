@@ -49,12 +49,17 @@
         </div>
     </div> --}}
 
+    @include('livewire.theme')
+    @include('livewire.welcome')
     @include('livewire.companydesc')
     @include('livewire.problem')
     @include('livewire.solve')
     @include('livewire.market')
     @include('livewire.products')
+
+    @include('livewire.target')
     @include('livewire.compatitive')
+    
     @include('livewire.team')
     @include('livewire.competitors') 
     

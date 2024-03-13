@@ -866,7 +866,8 @@
     "theyear": "السنه",
     "size": "حجم السوق",
     "unit": "الوحده",
-    "company_desc": "وصف الشركه",
+    "CompanyDescr": "اوصف شركتك من جمله الى 3 جمل بطريقه جذابه",
+    "CompanyDesc": "عن الشركه",
     "titlecompat": "الوصف",
     "descriptioncompat": "توضيح الوصف",
     "teamname": "المسمى الوظيفى",
@@ -878,6 +879,7 @@
     "munit": "الوحده",
     "website_url": "رابط الموقع",
     
+    "Themes": "الثيمات",
     "ThemeSettings": "اعدادت الثيم",
     "themename": "اسم الثيم",
     "themeimage": "صور الثيم",

@@ -1,6 +1,16 @@
-@if ($currentStep != 7)
+@if ($currentStep != 10)
     <div style="display: none" class="row setup-content" id="step-5">
 @endif
+    <div class="card min-height-250 " >
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 mx-auto " style="position:relative ;">
+                    
+                    <h3 class="text-dark">{{ __('team') }}</h3>
+                </div>
+            </div> 
+        </div>
+    </div>
       <div class="row">
         <div class="col-md-4">
             @foreach ($selectedteam as $index => $team)
@@ -19,10 +29,10 @@
             <div class="col-md-4  mt-5">
                 <button class="btn btn-primary btn-sm mt-3" type="button" wire:click="updateteams">Update</button>
             </div>
-            <button class="btn btn-warning mt-3" type="button" wire:click="back(6)">
+            <button class="btn btn-warning mt-3" type="button" wire:click="back(9)">
                 {{ trans('Back') }}
             </button>
-            <button class="btn btn-success mt-3" type="button" wire:click="seventhStepSubmit">
+            <button class="btn btn-success mt-3" type="button" wire:click="tenthStepSubmit">
                 {{ trans('next') }}
             </button>
         </div>

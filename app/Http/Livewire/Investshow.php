@@ -625,6 +625,22 @@ class Investshow extends Component
     public function twelveStepSubmit(){
         $this->currentStep = 13;
     }
+    //thirteenStepSubmit
+    public function thirteenStepSubmit(){
+        $this->currentStep = 14;
+    }
+    //fourteenStepSubmit
+    public function fourteenStepSubmit(){
+        $this->currentStep = 15;
+    }
+    //fifteenStepSubmit
+    public function fifteenStepSubmit(){
+        $this->currentStep = 16;
+    }
+    //sixteenStepSubmit
+    public function sixteenStepSubmit(){
+        $this->currentStep = 17;
+    }
 
     // submit forms action
     //tap1

@@ -1,7 +1,17 @@
 <div>
-    @if ($currentStep != 11)
+    @if ($currentStep != 14)
         <div style="display: none" class="row setup-content" id="step-5">
     @endif
+    <div class="card min-height-250 " >
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 mx-auto " style="position:relative ;">
+                    
+                    <h3 class="text-dark">{{ __('finincalplan') }}</h3>
+                </div>
+            </div> 
+        </div>
+    </div>
             <div class=" card min-height-250" style="background-image: url('{{PUBLIC_DIR}}/img/back.jpeg');" >
                 <div class="container">
                     {{-- @include('livewire.logo') --}}
@@ -32,10 +42,10 @@
                             <div class="w-full" style="height: 50%;" id="chart2"></div>
                         </div>
                     </div>
-                    <button class="btn btn-warning mt-3" type="button" wire:click="back(10)">
+                    <button class="btn btn-warning mt-3" type="button" wire:click="back(13)">
                         {{ trans('Back') }}
                     </button>
-                    <button class="btn btn-success mt-3" type="button" wire:click="elevenStepSubmit">
+                    <button class="btn btn-success mt-3" type="button" wire:click="fourteenStepSubmit">
                         {{ trans('next') }}
                     </button>
                 </div>

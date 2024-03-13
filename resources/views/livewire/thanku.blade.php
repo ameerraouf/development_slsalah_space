@@ -1,6 +1,16 @@
-@if ($currentStep != 13)
+@if ($currentStep != 16)
     <div style="display: none" class="row setup-content" id="step-5">
 @endif
+<div class="card min-height-250 " >
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 mx-auto " style="position:relative ;">
+                
+                <h3 class="text-dark">{{ __('thanku') }}</h3>
+            </div>
+        </div> 
+    </div>
+</div>
         <div class="row">
             <div class="col-md-4">
                 <div class="">
@@ -26,7 +36,7 @@
                         <button class="btn btn-primary btn-sm mt-3" type="button" wire:click="thankuSubmit">Save</button>
                     </div>
                 </div>
-                <button class="btn btn-warning mt-3" type="button" wire:click="back(12)">
+                <button class="btn btn-warning mt-3" type="button" wire:click="back(15)">
                     {{ trans('Back') }}
                 </button>
             </div>

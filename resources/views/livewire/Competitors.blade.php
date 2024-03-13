@@ -1,6 +1,16 @@
-@if ($currentStep != 8)
+@if ($currentStep != 11)
     <div style="display: none" class="row setup-content" id="step-5">
 @endif
+<div class="card min-height-250 " >
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 mx-auto " style="position:relative ;">
+                
+                <h3 class="text-dark">{{ __('competitors') }}</h3>
+            </div>
+        </div> 
+    </div>
+</div>
         <div class="row">
             <div class="col-md-4">
                 <div class="">
@@ -60,10 +70,10 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-warning mt-3" type="button" wire:click="back(7)">
+                <button class="btn btn-warning mt-3" type="button" wire:click="back(10)">
                     {{ trans('Back') }}
                 </button>
-                <button class="btn btn-success mt-3" type="button" wire:click="eighthStepSubmit">
+                <button class="btn btn-success mt-3" type="button" wire:click="elevenStepSubmit">
                     {{ trans('next') }}
                 </button>
             </div>
@@ -73,7 +83,7 @@
                         <div class="row">
                             @include('livewire.logo')
                             <div class="col-md-12 mx-auto text-center">
-                                <h3 class="text-dark">المنافسين</h3>
+                                <h3 class="text-dark">{{ __('competitors') }}</h3>
                             </div>
                             <div class="col-md-12">
                                     <div class="card card-body mb-4">
