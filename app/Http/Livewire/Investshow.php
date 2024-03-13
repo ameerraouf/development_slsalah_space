@@ -25,12 +25,14 @@ use App\Models\PlanningCostAssumption;
 use App\Models\PlanningFinancialAssumption;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use App\Models\PlanningRevenueOperatingAssumption;
+use App\Models\Theme;
 use Illuminate\Http\UploadedFile;
 
 class Investshow extends Component
 {
     use WithFileUploads,LivewireAlert;
     
+    public $themeid,$theme,$theme_id=0;
     public $markets=[],$msize=[],$myear=[],$munit=[];
 
     public $chartData = [];
@@ -200,7 +202,20 @@ class Investshow extends Component
         $this->emitTo('marketchart','refreshComponent');
         $this->alert('success', 'تم التحديث بنجاح');
     }
+    public function getThemeImage()
+    {
+        // $this->theme = Theme::find($this->theme_id);
+
+        // if ($selectedTheme) {
+        //     $this->selected_theme_image = $selectedTheme->image;
+        // } else {
+        //     $this->selected_theme_image = null;
+        // }
+    }
     public function mount(){
+
+       
+
         $this->markets = Market::take(5)->get();
         foreach ($this->markets as $market) {
             $this->myear[] = $market->year;
@@ -992,6 +1007,8 @@ class Investshow extends Component
         if($this->unit5){
             $this->unit5 == 'million' ? $unitForChart = 'مليون' : $unitForChart = 'مليار';
         }
+
+        $themes = Theme::all();
         return view('livewire.investshow',compact(
             'TAM',
             'SAM',
@@ -1005,6 +1022,7 @@ class Investshow extends Component
             'mainMarket2',
             'mainMarket3',
             'mainMarket4',
+            'themes',
         ));
     }
 }
