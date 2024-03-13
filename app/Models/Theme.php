@@ -11,12 +11,16 @@ class Theme extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    public function firstMedia(): MorphOne
+    public function themeuser()
     {
-        return $this->morphOne(Media::class, 'mediable')->orderBy('file_sort', 'asc');
+        return $this->hasOne(ThemeUser::class);
     }
-    public function media(): MorphMany
-    {
-        return $this->MorphMany(Media::class, 'mediable');
-    }
+    // public function firstMedia(): MorphOne
+    // {
+    //     return $this->morphOne(Media::class, 'mediable')->orderBy('file_sort', 'asc');
+    // }
+    // public function media(): MorphMany
+    // {
+    //     return $this->MorphMany(Media::class, 'mediable');
+    // }
 }

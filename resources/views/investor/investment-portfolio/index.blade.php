@@ -105,10 +105,10 @@
 {{--                                            </form>--}}
 {{--                                        @endif--}}
 {{--                                            <a class="btn btn-info" href="{{route('admin.subscriptions.details', $workspace->id)}}">عرض التفاصيل</a>--}}
-                                            <div class="d-flex">
-                                                <a class="btn btn-warning btn-sm {{in_array($workspace->id, $investment_portfolios)? 'btn-warning':'btn-light'}} m-2 p-2" onclick="MyInvestmentPortofolio({{$workspace->id}})" id="investment_portfolio_{{$workspace->id}}" href="javascript:void(0)"><i class="fa-solid fa-business-time" style="font-size: 25px" title="إضافة لمحفظتي الاستثمارية" aria-hidden="true"></i></a>
-                                                <a class="btn btn-info btn-sm m-2 p-2" href="{{route('investor.chat')}}"><i class="fa fa-comments-o" style="font-size: 25px" title="إضغط للمراسلة الان" aria-hidden="true"></i></a>    
-                                                <a class="btn btn-danger btn-sm m-2 p-2" href="{{route('investor.chat')}}"><i class="fa fa-file-pdf-o" style="font-size: 25px" title="عرض تفاصيل خطة رائد الأعمال" aria-hidden="true"></i></a>    
+                                            <div class="d-flex align-items-center gap-3">
+                                                <a class="fs-5 {{in_array($workspace->id, $investment_portfolios)? 'text-green':'text-grey'}}" onclick="MyInvestmentPortofolio({{$workspace->id}})" id="investment_portfolio_{{$workspace->id}}" href="javascript:void(0)"><i class="fa-solid fa-business-time"  title="إضافة لمحفظتي الاستثمارية" aria-hidden="true"></i></a>
+                                                <a class="fs-5 text-info" href="{{route('investor.chat')}}"><i class="fa fa-comments-o"  title="إضغط للمراسلة الان" aria-hidden="true"></i></a>    
+                                                <a class="fs-5 text-red" href="{{route('investor.chat')}}"><i class="fa fa-file-pdf-o"  title="عرض تفاصيل خطة رائد الأعمال" aria-hidden="true"></i></a>    
                                             </div>
                                     </td>
 
@@ -164,15 +164,15 @@
                 dataType: "json",
                 success: function (response) {
                     if (response.value === 2) {
-                        $('#investment_portfolio_'+round_id).removeClass('btn-warning');
-                        $('#investment_portfolio_'+round_id).addClass('btn-light');
+                        $('#investment_portfolio_'+round_id).removeClass('text-green');
+                        $('#investment_portfolio_'+round_id).addClass('text-grey');
                         Toast.fire({
                             icon: 'success',
                             title: response.message
                         });
                     } else {
-                        $('#investment_portfolio_'+round_id).removeClass('btn-light');
-                        $('#investment_portfolio_'+round_id).addClass('btn-warning');
+                        $('#investment_portfolio_'+round_id).removeClass('text-grey');
+                        $('#investment_portfolio_'+round_id).addClass('text-green');
                         Toast.fire({
                             icon: 'success',
                             title: response.message

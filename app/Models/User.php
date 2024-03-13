@@ -65,5 +65,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Company::class, 'business_pioneer_id');
     }
+    public function themeuser()
+    {
+        return $this->hasOne(ThemeUser::class);
+    }
 
 }
