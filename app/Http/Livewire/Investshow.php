@@ -665,7 +665,7 @@ class Investshow extends Component
             );
             $this->alert('success', 'تم التحديث بنجاح');
         }else{
-            $this->alert('warning', 'من فضلك اختر ثيم.');
+            $this->alert('warning', 'من فضلك اختر ثيم');
         }
     }
     //tap1
@@ -1019,7 +1019,15 @@ class Investshow extends Component
         }
 
         $themes = Theme::all();
-        $themex=Theme::find($this->theme_id)??'';
+        if($this->theme_id){
+           $t = Theme::whereId($this->theme_id)->first();
+           $image1 = $t->image1;
+           $image2 = $t->image2;
+           $image3 = $t->image3;
+           $image4 = $t->image4;
+           $image5 = $t->image5;
+        }
+        // $themex=Theme::find($this->theme_id)??'';
         return view('livewire.investshow',compact(
             'TAM',
             'SAM',
@@ -1034,7 +1042,12 @@ class Investshow extends Component
             'mainMarket3',
             'mainMarket4',
             'themes',
-            'themex',
+            'image1',
+            'image2',
+            'image3',
+            'image4',
+            'image5',
+            
         ));
     }
 }

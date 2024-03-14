@@ -12,7 +12,7 @@
             </div> 
         </div>
     </div>
-            <div class=" card min-height-250" style="background-image: url('{{PUBLIC_DIR}}/img/back.jpeg');" >
+            <div class=" card min-height-250" style="background-image: url('{{ display_file($image5)}}');" >
                 <div class="container">
                     {{-- @include('livewire.logo') --}}
                     <div class="row">
