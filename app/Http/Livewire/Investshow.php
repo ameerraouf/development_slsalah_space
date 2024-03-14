@@ -456,6 +456,7 @@ class Investshow extends Component
         ]);
         foreach ($this->selectedco as $index=>$co) {
             $co->update([
+                'user_id' => Auth::user()->id,
                 'companyname' => $this->coname[$index],
                 'price'       => $this->coprice[$index],
                 'quality'     => $this->coquality[$index],

@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Company;
 use App\Models\Compat;
+use App\Models\Compator;
 use App\Models\FinancialEvaluation;
 use App\Models\Market;
 use App\Models\PlanningCostAssumption;
@@ -63,6 +64,7 @@ class ShowInvestShow extends Component
 
             $selectedCompat = Compat::where('user_id',$user->id)->take(6)->get(); // Fetch 6 compats
             $selectedteam = Team::where('user_id',$user->id)->take(4)->get(); // Fetch 4 team
+            $selectedco = Compator::where('user_id',$user->id)->take(3)->get(); // Fetch 3 compator
 
         return view('livewire.show-invest-show',compact( 
         'image1',
@@ -85,6 +87,7 @@ class ShowInvestShow extends Component
         'all_revenues_forecasting',
         'selectedCompat',
         'selectedteam',
+        'selectedco',
        ));
     }
 }

@@ -1,5 +1,9 @@
 <div>
     <style>
+        .card{
+            width: 960px; 
+            height: 540px;
+        }
          #printButton {
         background: linear-gradient(to right, #ff6b6b, #ffa8a8);
         border-radius: 8px;
@@ -7,11 +11,10 @@
         .container {
             flex-wrap: nowrap;
         }
-          @media print {
-            /* Add any additional CSS rules for print styles */
-            * {
-                -webkit-print-color-adjust: exact !important;
-                color-adjust: exact !important;
+        @media print {
+            .bg-primary th {
+                background-color: transparent !important;
+                box-shadow: 0 0 0 1000px #095075 inset !important;
             }
         }
         .circled {
@@ -50,8 +53,15 @@
         <div class="row">
             <div class="col-md-12" >
                 {{-- about company --}}
-                <div class=" card min-height-250" style="background-image: url('{{ display_file($image5)}}');">
-                    <h4 style="text-align: center; font-weight: bold;">{{ __('investshow') }}</h4>
+                <h4 style="text-align: center; font-weight: bold;">{{ __('investshow') }}</h4>
+                <div class="row d-print-none mt-2">
+                    <div class="col-12 text-right">
+                        <a class="btn btn-primary " href="#" target="_blank"  id="printButton">
+                            <i class="fa fa-print"></i> {{ __('Print') }}
+                        </a>
+                    </div>
+                </div>
+                <div class="card" style="background-image: url('{{ display_file($image5)}}'); ">
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0" id="cloudonex_table">
                             <thead>
@@ -81,7 +91,7 @@
                 {{-- problems --}}
                 
                 {{-- solves --}}
-                <div class=" card min-height-250" style="background-image: url('{{ display_file($image2)}}');">
+                <div class=" card " style="background-image: url('{{ display_file($image2)}}');">
                    
                     <div class="container">
                         <div class="row">
@@ -98,81 +108,116 @@
                     </div>
                 </div>
                   <br>
-               {{-- market --}}
-                <div class=" card min-height-250" style="background-image: url('{{ display_file($image5)}}');">
+                {{-- market --}}
+                <div class=" card " style="background-image: url('{{ display_file($image5)}}');">
                     <div class="container">
                         <h4 style="text-align: center; font-weight: bold;">{{ __('market') }}</h4>
                         @include('livewire.marketchart')
                     </div>
                 </div>
                 <br>
-{{-- products --}}
+                {{-- products --}}
 
-            {{-- target --}}
-            <div class=" card min-height-250" style="background-image: url('{{ display_file($image5)}}');">
-                <div class="container">
-                    <h4 style="text-align: center; font-weight: bold;">{{ __('target') }}</h4>
+                {{-- target --}}
+                <div class=" card " style="background-image: url('{{ display_file($image5)}}');">
+                    <div class="container">
+                        <h4 style="text-align: center; font-weight: bold;">{{ __('target') }}</h4>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12 mx-auto text-center">
+                                </div>
+                                <div class="col-md-12 mx-auto text-center">
+                                    <div class="circled pink d-inline-block"><span class="text-center" style="color: white; position: absolute;top: 10%;left: 28%;" > {{ $TAM }} {{ $unitForChart }} SAR </span>
+                                        <div class="circled light-pink text-center"><span style="color: white;position: absolute;top: 9%;left: 19%;" >{{ $SAM }} {{ $unitForChart }} SAR </span>
+                                            <div class="circled pale-pink text-center"><span style="color: white;position: absolute;top: 33%;left: 5%;" >{{ $SOM }} {{ $unitForChart }} SAR </span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                {{-- compatitive --}}
+                <div class=" card " style="background-image: url('{{ display_file($image5)}}');" >
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12 mx-auto text-center">
+                                <h3 class="text-dark">{{ __('compatitive') }}</h3>
                             </div>
+                            @foreach ($selectedCompat as $index => $compat)
+                                <div class="col-md-4  mt-5" >
+                                    <div class="col-md-4 mb-4">
+                                        <h6>{{ $compat->title }}</h6>
+                                        <h6>{!! $compat->description !!}</h6>
+                                    </div>
+                                    <br>
+                                </div>
+                            @endforeach                                                     
+                        </div>
+                    </div>
+                </div>
+                <br>
+                {{-- team --}}
+                <div class=" card " style="background-image: url('{{ display_file($image5)}}');" >
+                    <div class="container">
+                        <div class="row">
                             <div class="col-md-12 mx-auto text-center">
-                                <div class="circled pink d-inline-block"><span class="text-center" style="color: white; position: absolute;top: 10%;left: 28%;" > {{ $TAM }} {{ $unitForChart }} SAR </span>
-                                    <div class="circled light-pink text-center"><span style="color: white;position: absolute;top: 9%;left: 19%;" >{{ $SAM }} {{ $unitForChart }} SAR </span>
-                                        <div class="circled pale-pink text-center"><span style="color: white;position: absolute;top: 33%;left: 5%;" >{{ $SOM }} {{ $unitForChart }} SAR </span></div>
-                                    </div>
-                                </div>
+                                <h3 class="text-dark">{{ __('team') }}</h3>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br>
-            {{-- compatitive --}}
-            <div class=" card min-height-250" style="background-image: url('{{ display_file($image5)}}');" >
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12 mx-auto text-center">
-                            <h3 class="text-dark">{{ __('compatitive') }}</h3>
-                        </div>
-                        @foreach ($selectedCompat as $index => $compat)
-                            <div class="col-md-4  mt-5" >
-                                <div class="col-md-4 mb-4">
-                                    <h6>{{ $compat->title }}</h6>
-                                    <h6>{!! $compat->description !!}</h6>
-                                </div>
-                                <br>
-                            </div>
-                        @endforeach                                                     
-                    </div>
-                </div>
-            </div>
-            <br>
-            {{-- team --}}
-            <div class=" card min-height-250" style="background-image: url('{{ display_file($image5)}}');" >
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12 mx-auto text-center">
-                            <h3 class="text-dark">{{ __('team') }}</h3>
-                        </div>
-                        @foreach ($selectedteam as $index => $team)
-                                <div class="col-md-3 mb-4">
-                                    <h6>{{ $team->name }}</h6>
-                                    <div>
-                                        @if($team->image)
-                                            <img src="{{display_file($team->image)}}" width='150' alt="">
-                                        @else
-                                            <img src="{{asset('no-image.jpg')}}" width='150' alt="">
-                                        @endif
+                            @foreach ($selectedteam as $index => $team)
+                                    <div class="col-md-3 mb-4">
+                                        <h6>{{ $team->name }}</h6>
+                                        <div>
+                                            @if($team->image)
+                                                <img src="{{display_file($team->image)}}" width='150' alt="">
+                                            @else
+                                                <img src="{{asset('no-image.jpg')}}" width='150' alt="">
+                                            @endif
+                                        </div>
                                     </div>
-                                </div>
-                                <br>
-                        @endforeach                                                     
+                                    <br>
+                            @endforeach                                                     
+                        </div>
                     </div>
                 </div>
-            </div>
-            <br>
-{{-- competitors --}}
+                <br>
+                {{-- competitors --}}
+                <div class=" card " style="background-image: url('{{ display_file($image5)}}');" >
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 mx-auto text-center">
+                                <h3 class="text-dark">{{ __('competitors') }}</h3>
+                            </div>
+                            @foreach ($selectedco as $index => $co)
+                                    <div class="col-md-3 mb-4">
+                                        <h6>{{ $co->companyname }}</h6>
+                                        <div>
+                                            <h6 class=" font-weight-bold mb-0">سعر المنتح</h6>
+                                            <span style="color:{{ $co->price?'':'red' }} ">
+                                                <i class="fas fa-{{ $co->price?'check-circle':'times-circle' }}"></i>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <h6 class=" font-weight-bold mb-0">جوده المنتج</h6>
+                                            <span style="color:{{ $co->quality?'':'red' }} ">
+                                                <i class="fas fa-{{ $co->quality?'check-circle':'times-circle' }}"></i>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <h6 class=" font-weight-bold mb-0">التقنيه المستخدمه</h6>
+                                            <span style="color:{{ $co->tech?'':'red' }} ">
+                                                <i class="fas fa-{{ $co->tech?'check-circle':'times-circle' }}"></i>
+                                            </span>
+                                        </div>
+                                    
+                                    </div>
+                                    <br>
+                            @endforeach                                                     
+                        </div>
+                    </div>
+                </div>
+                <br>
 {{-- marketplan --}}
 {{-- developplan --}}
 {{-- finincalplan--}}

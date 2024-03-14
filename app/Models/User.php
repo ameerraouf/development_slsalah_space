@@ -76,6 +76,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Team::class);
     }
+    public function compators()
+    {
+        return $this->hasMany(Compator::class);
+    }
 
     public function company()
     {
