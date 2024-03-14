@@ -28,6 +28,9 @@ use App\Models\PlanningRevenueOperatingAssumption;
 use App\Models\Theme;
 use App\Models\ThemeUser;
 use Illuminate\Http\UploadedFile;
+use Dompdf\Dompdf;
+use Illuminate\Support\Facades\View;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class Investshow extends Component
 {
@@ -75,6 +78,7 @@ class Investshow extends Component
       // last tap thank u
     public $website_url,$phone,$email;
 
+  
     // protected $listeners = ['refreshComponent'=>'$refresh'];
     public function ValidationAttributes(){
         return [
@@ -196,6 +200,7 @@ class Investshow extends Component
         ]);
         foreach ($this->markets as $index => $market) {
             $market->update([
+                'user_id' => auth()->user()->id,
                 'year' => $this->myear[$index],
                 'size' => $this->msize[$index],
                 'unit' => $this->munit[$index],
@@ -252,34 +257,9 @@ class Investshow extends Component
       $this->solve9   = Solve::latest()->skip(8)->first()->title??'';
       $this->solveid9 = Solve::latest()->skip(8)->first()->id??'';
       //tap4
-    //   $now = Carbon::now();
-    //   $this->year = $now->year;
-    //   $this->year2 = $now->addYear()->year;
-    //   $this->year3 = $now->year+1;
-    //   $this->year4 = $now->year+2;
-    //   $this->year5 = $now->year+3;
-    //   $this->size = Market::latest()->first()->size??'';
-    //   $this->unit = Market::latest()->first()->unit??'';
-    //   $this->size2 = Market::latest()->skip(1)->first()->size??'';
-    //   $this->unit2 = Market::latest()->skip(1)->first()->unit??'';
-    //   $this->size3 = Market::latest()->skip(2)->first()->size??'';
-    //   $this->unit3 = Market::latest()->skip(2)->first()->unit??'';
-    //   $this->size4 = Market::latest()->skip(3)->first()->size??'';
-    //   $this->unit4 = Market::latest()->skip(3)->first()->unit??'';
-    //   $this->size5 = Market::latest()->skip(4)->first()->size??'';
+
       $this->unit5 = Market::latest()->skip(4)->first()->unit??'';
 
-    //   $this->marketid  = Market::latest()->first()->id??'';
-    //   $this->marketid2 = Market::latest()->skip(1)->first()->id??'';
-    //   $this->marketid3 = Market::latest()->skip(2)->first()->id??'';
-    //   $this->marketid4 = Market::latest()->skip(3)->first()->id??'';
-    //   $this->marketid5 = Market::latest()->skip(4)->first()->id??'';
-
-    //   $this->theyear = $this->year??'';
-    //   $this->theyear2 = $this->year2??'';
-    //   $this->theyear3 = $this->year3??'';
-    //   $this->theyear4 = $this->year4??'';
-    //   $this->theyear5 = $this->year5??'';
 
         //   tap5
         $this->selectedProducts = Projects::take(6)->get(); // Fetch 6 products
@@ -507,6 +487,7 @@ class Investshow extends Component
         $this->validate($rules);
         foreach ($this->selectedteam as $index => $team) {
             $team->name  = $this->teamname[$index];
+            $team->user_id = Auth::user()->id;
             $image  = $this->teamimage[$index];
             $oldImage = $this->getTeamImage($index);
             if ($oldImage) {
@@ -546,6 +527,7 @@ class Investshow extends Component
         ]);
         foreach ($this->selectedCompat as $index => $compat) {
             $compat->update([
+                'user_id' => auth()->user()->id,
                 'title' => $this->titlecompat[$index],
                 'description' => $this->descriptioncompat[$index],
             ]);
@@ -720,11 +702,12 @@ class Investshow extends Component
         ]);
         if ($this->solveid1){
             $solve = Solve::find($this->solveid1);
-            $solve->update(['title' => $this->solve1]);
+            $solve->update(['title' => $this->solve1,'user_id' => Auth::user()->id]);
             $this->alert('success', 'تم التحديث بنجاح');
         }else{
             $solve = new Solve();
             $solve->title = $this->solve1;
+            $solve->user_id = Auth::user()->id;
             $solve->save();
             $this->alert('success', 'تم الاضافه بنجاح');
             $this->solveid1 = $solve->id;
@@ -737,11 +720,12 @@ class Investshow extends Component
         ]);
         if ($this->solveid2){
             $solve = Solve::find($this->solveid2);
-            $solve->update(['title' => $this->solve2]);
+            $solve->update(['title' => $this->solve2,'user_id' => Auth::user()->id,'user_id' => Auth::user()->id]);
             $this->alert('success', 'تم التحديث بنجاح');
         }else{
             $solve = new Solve();
             $solve->title = $this->solve2;
+            $solve->user_id = Auth::user()->id;
             $solve->save();
             $this->alert('success', 'تم الاضافه بنجاح');
             $this->solveid2 = $solve->id;
@@ -754,11 +738,12 @@ class Investshow extends Component
         ]);
         if ($this->solveid3){
             $solve = Solve::find($this->solveid3);
-            $solve->update(['title' => $this->solve3]);
+            $solve->update(['title' => $this->solve3,'user_id' => Auth::user()->id]);
             $this->alert('success', 'تم التحديث بنجاح');
         }else{
             $solve = new Solve();
             $solve->title = $this->solve3;
+            $solve->user_id = Auth::user()->id;
             $solve->save();
             $this->alert('success', 'تم الاضافه بنجاح');
             $this->solveid3 = $solve->id;
@@ -771,11 +756,12 @@ class Investshow extends Component
         ]);
         if ($this->solveid4){
             $solve = Solve::find($this->solveid4);
-            $solve->update(['title' => $this->solve4]);
+            $solve->update(['title' => $this->solve4,'user_id' => Auth::user()->id]);
             $this->alert('success', 'تم التحديث بنجاح');
         }else{
             $solve = new Solve();
             $solve->title = $this->solve4;
+            $solve->user_id = Auth::user()->id;
             $solve->save();
             $this->alert('success', 'تم الاضافه بنجاح');
             $this->solveid4 = $solve->id;
@@ -788,11 +774,12 @@ class Investshow extends Component
         ]);
         if ($this->solveid5){
             $solve = Solve::find($this->solveid5);
-            $solve->update(['title' => $this->solve5]);
+            $solve->update(['title' => $this->solve5,'user_id' => Auth::user()->id]);
             $this->alert('success', 'تم التحديث بنجاح');
         }else{
             $solve = new Solve();
             $solve->title = $this->solve5;
+            $solve->user_id = Auth::user()->id;
             $solve->save();
             $this->alert('success', 'تم الاضافه بنجاح');
             $this->solveid5 = $solve->id;
@@ -805,11 +792,12 @@ class Investshow extends Component
         ]);
         if ($this->solveid6){
             $solve = Solve::find($this->solveid6);
-            $solve->update(['title' => $this->solve6]);
+            $solve->update(['title' => $this->solve6,'user_id' => Auth::user()->id]);
             $this->alert('success', 'تم التحديث بنجاح');
         }else{
             $solve = new Solve();
             $solve->title = $this->solve6;
+            $solve->user_id = Auth::user()->id;
             $solve->save();
             $this->alert('success', 'تم الاضافه بنجاح');
             $this->solveid6 = $solve->id;
@@ -822,11 +810,12 @@ class Investshow extends Component
         ]);
         if ($this->solveid7){
             $solve = Solve::find($this->solveid7);
-            $solve->update(['title' => $this->solve7]);
+            $solve->update(['title' => $this->solve7,'user_id' => Auth::user()->id]);
             $this->alert('success', 'تم التحديث بنجاح');
         }else{
             $solve = new Solve();
             $solve->title = $this->solve7;
+            $solve->user_id = Auth::user()->id;
             $solve->save();
             $this->alert('success', 'تم الاضافه بنجاح');
             $this->solveid7 = $solve->id;
@@ -839,11 +828,12 @@ class Investshow extends Component
         ]);
         if ($this->solveid8){
             $solve = Solve::find($this->solveid8);
-            $solve->update(['title' => $this->solve8]);
+            $solve->update(['title' => $this->solve8,'user_id' => Auth::user()->id]);
             $this->alert('success', 'تم التحديث بنجاح');
         }else{
             $solve = new Solve();
             $solve->title = $this->solve8;
+            $solve->user_id = Auth::user()->id;
             $solve->save();
             $this->alert('success', 'تم الاضافه بنجاح');
             $this->solveid8 = $solve->id;
@@ -856,11 +846,12 @@ class Investshow extends Component
         ]);
         if ($this->solveid9){
             $solve = Solve::find($this->solveid9);
-            $solve->update(['title' => $this->solve9]);
+            $solve->update(['title' => $this->solve9,'user_id' => Auth::user()->id]);
             $this->alert('success', 'تم التحديث بنجاح');
         }else{
             $solve = new Solve();
             $solve->title = $this->solve9;
+            $solve->user_id = Auth::user()->id;
             $solve->save();
             $this->alert('success', 'تم الاضافه بنجاح');
             $this->solveid9 = $solve->id;
@@ -1054,4 +1045,6 @@ class Investshow extends Component
             
         ));
     }
+
+    
 }

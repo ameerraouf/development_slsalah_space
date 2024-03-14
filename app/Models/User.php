@@ -60,6 +60,22 @@ class User extends Authenticatable
     {
         return $this->hasMany(FoundRound::class, 'business_pioneer_id')->orderBy('created_at', 'desc');
     }
+    public function solves()
+    {
+        return $this->hasMany(Solve::class);
+    }
+    public function markets()
+    {
+        return $this->hasMany(Market::class);
+    }
+    public function compats()
+    {
+        return $this->hasMany(Compat::class);
+    }
+    public function teams()
+    {
+        return $this->hasMany(Team::class);
+    }
 
     public function company()
     {

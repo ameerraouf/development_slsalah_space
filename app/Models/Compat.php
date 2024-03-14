@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Compat extends Model
 {
     use HasFactory;
-    protected $fillable = ['title','description'];
+    protected $fillable = ['title','description','user_id'];
 }

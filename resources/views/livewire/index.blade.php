@@ -44,13 +44,18 @@
                                                     </td>
                                                     
                                                     <td class="align-middle">
-                                                        <a href="" class="btn btn-success " title="@lang('edit')">
+                                                        
+                                                        <button type="button" class="btn btn-success" wire:click="firstStepSubmit"  title="@lang('edit')">
                                                             <i class="fa fa-edit"></i> 
-                                                        </a>
-                                                        <a href="" class="btn btn-danger " title="@lang('download')">
+                                                        </button>
+                                                        {{-- <button type="button"  class="btn btn-danger " title="@lang('download')" wire:click="downloadPdf">
                                                             <i class="fa fa-print"></i> 
-                                                        </a>
-                                                        <a href="" class="btn btn-warning " title="@lang('show')">
+                                                        </button> --}}
+                                                        {{--   --}}
+                                                        {{-- <a href="{{ route('myPlan.investshow.download') }}" class="btn btn-warning " title="@lang('show')">
+                                                            <i class="fa fa-print"></i> 
+                                                        </a> --}}
+                                                        <a href="{{ route('myPlan.investshow.show') }}" class="btn btn-warning " title="@lang('show')">
                                                             <i class="fa fa-eye"></i> 
                                                         </a>
                                                     </td>

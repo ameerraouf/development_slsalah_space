@@ -448,6 +448,8 @@ Route::get("/textReport", [\App\Http\Controllers\FinncialReportController::class
 
 Route::get('/myPlan', [\App\Http\Controllers\MyPlanController::class, 'index'])->name('myPlan.index');
 Route::get('/investshow', [\App\Http\Controllers\MyPlanController::class, 'investshow'])->name('myPlan.investshow');
+Route::get('/investshow/show', [\App\Http\Controllers\MyPlanController::class, 'showinvestshow'])->name('myPlan.investshow.show');
+Route::get('/investshow/download', [\App\Http\Controllers\MyPlanController::class, 'showinvestdownload'])->name('myPlan.investshow.download');
 Route::put('/investshow/update', [\App\Http\Controllers\MyPlanController::class,'update'])->name('investshow.update');
 Route::put('/investshow/updateproject/{id}', [\App\Http\Controllers\MyPlanController::class,'updateproject'])->name('investshow.updateproject');
 
