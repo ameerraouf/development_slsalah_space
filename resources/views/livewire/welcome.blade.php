@@ -1,5 +1,5 @@
 <div>
-    @if ($currentStep != 2)
+    @if ($currentStep != 3)
         <div style="display: none" class="row setup-content" id="step-1">
     @endif
             <div class="card min-height-250 " >
@@ -15,10 +15,10 @@
             <div class="row">
                 <div class="col-md-4">
                     
-                    <button class="btn btn-warning mt-3" type="button" wire:click="back(1)">
+                    <button class="btn btn-warning mt-3" type="button" wire:click="back(2)">
                         {{ trans('Back') }}
                     </button>
-                    <button type="button" class="btn btn-info  mt-3 " wire:click="secondStepSubmit">
+                    <button type="button" class="btn btn-info  mt-3 " wire:click="thirdStepSubmit">
                         {{ trans('next') }}
                     </button>
                 </div>

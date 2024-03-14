@@ -216,9 +216,9 @@ class Investshow extends Component
             $this->munit[] = $market->unit;
         }
         $t=Thankyou::first();
-        $this->website_url = $t->website_url;
-        $this->phone = $t->phone;
-        $this->email = $t->email;
+        $this->website_url = $t->website_url??'';
+        $this->phone = $t->phone??'';
+        $this->email = $t->email??'';
 
       $this->userphoto = auth()->user()->photo;
       //tap1
@@ -348,7 +348,7 @@ class Investshow extends Component
         $this->validate([
             'email' => 'required|email',
             'phone' => 'required',
-            'website_url' => 'nullable|url',
+            'website_url' => 'required|url',
         ]);
         $customerData = [
             'email' => $this->email,
@@ -364,6 +364,7 @@ class Investshow extends Component
             ]
         );
         $this->alert('success', 'تم التحديث بنجاح');
+        return redirect()->route('myPlan.investshow');
     }
     // tap 15
     public function requiredInvestmentSubmit(){

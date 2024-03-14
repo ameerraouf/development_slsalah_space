@@ -1,5 +1,5 @@
 <div>
-    @if ($currentStep != 7)
+    @if ($currentStep != 8)
         <div style="display: none" class="row setup-content" id="step-5">
     @endif
         <div class="card min-height-250 " >
@@ -37,10 +37,10 @@
                 <div class="col-md-4  mt-5">
                     <button class="btn btn-primary btn-sm mt-3" type="button" wire:click="updateProducts">Update</button>
                 </div>
-                <button class="btn btn-warning mt-3" type="button" wire:click="back(6)">
+                <button class="btn btn-warning mt-3" type="button" wire:click="back(7)">
                     {{ trans('Back') }}
                 </button>
-                <button class="btn btn-success mt-3" type="button" wire:click="seventhStepSubmit">
+                <button class="btn btn-success mt-3" type="button" wire:click="eighthStepSubmit">
                     {{ trans('next') }}
                 </button>
             </div>

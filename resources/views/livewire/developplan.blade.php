@@ -1,4 +1,4 @@
-@if ($currentStep != 13)
+@if ($currentStep != 14)
     <div style="display: none" class="row setup-content" id="step-5">
 @endif
 <div class="card min-height-250 " >
@@ -25,10 +25,10 @@
                         <button class="btn btn-primary btn-sm mt-3" type="button" wire:click="developplan">Update</button>
                     </div>
                 </div>
-                <button class="btn btn-warning mt-3" type="button" wire:click="back(12)">
+                <button class="btn btn-warning mt-3" type="button" wire:click="back(13)">
                     {{ trans('Back') }}
                 </button>
-                <button class="btn btn-success mt-3" type="button" wire:click="thirteenStepSubmit">
+                <button class="btn btn-success mt-3" type="button" wire:click="fourteenStepSubmit">
                     {{ trans('next') }}
                 </button>
             </div>

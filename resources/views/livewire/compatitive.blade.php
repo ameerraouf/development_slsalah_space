@@ -1,4 +1,4 @@
-@if ($currentStep != 9)
+@if ($currentStep != 10)
     <div style="display: none" class="row setup-content" id="step-5">
 @endif
         
@@ -28,10 +28,10 @@
                 <div class="col-md-4  mt-5">
                     <button class="btn btn-primary btn-sm mt-3" type="button" wire:click="updatecompats">Update</button>
                 </div> 
-                <button class="btn btn-warning mt-3" type="button" wire:click="back(8)">
+                <button class="btn btn-warning mt-3" type="button" wire:click="back(9)">
                     {{ trans('Back') }}
                 </button>
-                <button class="btn btn-success mt-3" type="button" wire:click="ninthStepSubmit">
+                <button class="btn btn-success mt-3" type="button" wire:click="tenthStepSubmit">
                     {{ trans('next') }}
                 </button>
             </div>

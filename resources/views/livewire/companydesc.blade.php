@@ -1,5 +1,5 @@
 <div>
-    @if ($currentStep != 3)
+    @if ($currentStep != 4)
         <div style="display: none" class="row setup-content" id="step-1">
     @endif
             <div class="card min-height-250 " >
@@ -19,10 +19,10 @@
                         <textarea  cols="10" rows="10" class="form-control " wire:model='company_desc' wire:change='companySubmit' style="border: 2px solid  !important;"></textarea>                            
                         @error('company_desc')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
-                    <button class="btn btn-warning mt-3" type="button" wire:click="back(2)">
+                    <button class="btn btn-warning mt-3" type="button" wire:click="back(3)">
                         {{ trans('Back') }}
                     </button>
-                    <button type="button" class="btn btn-info  mt-3 " wire:click="thirdStepSubmit">
+                    <button type="button" class="btn btn-info  mt-3 " wire:click="forthStepSubmit">
                         {{ trans('next') }}
                     </button>
                 </div>

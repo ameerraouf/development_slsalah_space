@@ -69,5 +69,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(ThemeUser::class);
     }
+    public function investshow()
+    {
+        return $this->hasOne(Thankyou::class,'customer_id');
+    }
 
 }

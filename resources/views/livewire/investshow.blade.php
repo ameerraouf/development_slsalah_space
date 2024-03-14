@@ -49,6 +49,7 @@
         </div>
     </div> --}}
 
+    @include('livewire.index')
     @include('livewire.theme')
     @include('livewire.welcome')
     @include('livewire.companydesc')

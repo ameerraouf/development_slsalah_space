@@ -1,5 +1,5 @@
 <div>
-    @if ($currentStep != 14)
+    @if ($currentStep != 15)
         <div style="display: none" class="row setup-content" id="step-5">
     @endif
     <div class="card min-height-250 " >
@@ -42,10 +42,10 @@
                             <div class="w-full" style="height: 50%;" id="chart2"></div>
                         </div>
                     </div>
-                    <button class="btn btn-warning mt-3" type="button" wire:click="back(13)">
+                    <button class="btn btn-warning mt-3" type="button" wire:click="back(14)">
                         {{ trans('Back') }}
                     </button>
-                    <button class="btn btn-success mt-3" type="button" wire:click="fourteenStepSubmit">
+                    <button class="btn btn-success mt-3" type="button" wire:click="fifteenStepSubmit">
                         {{ trans('next') }}
                     </button>
                 </div>
