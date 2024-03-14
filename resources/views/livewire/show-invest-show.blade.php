@@ -91,15 +91,13 @@
                 {{-- problems --}}
                 
                 {{-- solves --}}
-                <div class=" card " style="background-image: url('{{ display_file($image2)}}');">
-                   
+                <div class=" card " style="background-image: url('{{ display_file($image2)}}');position:relative;">
                     <div class="container">
-                        <div class="row">
+                        <div class="row" style="position:absolute; top: 150px">
                             <h4 style="text-align: center; font-weight: bold;">{{ __('solves') }}</h4>
                             @foreach($solves as $key => $solve)
-        
                                 <div class="col-md-4 mb-4">
-                                    <h5>{{ __('solve'.$key+1) }}</h5>
+                                    <h6>{{ __('solve'.$key+1) }}</h6>
                                     <h6>{{ $solve->title }}</h6>
                                 </div>
                             @endforeach
