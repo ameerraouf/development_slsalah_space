@@ -215,7 +215,10 @@ class Investshow extends Component
             $this->msize[] = $market->size;
             $this->munit[] = $market->unit;
         }
-
+        $t=Thankyou::first();
+        $this->website_url = $t->website_url;
+        $this->phone = $t->phone;
+        $this->email = $t->email;
 
       $this->userphoto = auth()->user()->photo;
       //tap1
