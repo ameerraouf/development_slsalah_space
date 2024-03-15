@@ -15,7 +15,6 @@
         "ext-mysqli": "*",
         "akaunting/laravel-money": "^1.2",
         "barryvdh/laravel-debugbar": "*",
-        "caouecs/laravel-lang": "*",
         "doctrine/dbal": "^4.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",

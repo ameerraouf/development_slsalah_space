@@ -54,7 +54,7 @@
                                 <i class="fa-solid fa-paperclip"></i>
                             </div>
                         </div>
-                        <button onclick='send({{ $user->id }})' class='btn btn-primary m-0  px-3'
+                        <button onclick='send({{ $admin->id }})' class='btn btn-primary m-0  px-3'
                             style="    margin-inline-start: 5px !important;" id='sendMessage'>
                             <i class="fa-solid fa-paper-plane" style="font-size:14px !important;"></i>
                         </button>

@@ -18,7 +18,7 @@ class ChatSent implements ShouldBroadcast
 
     public $reciver;
     public $reciver_id;
-
+    public $type;
     public $message;
 
     /**
@@ -29,6 +29,7 @@ class ChatSent implements ShouldBroadcast
     public function __construct($reciver, $type, $message, $reciver_id = null)
     {
         $this->reciver      = $reciver;
+        $this->type         = $type;
         $this->message      = $message;
         $this->reciver_id   = $reciver_id;
     }
