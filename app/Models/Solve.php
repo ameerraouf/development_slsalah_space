@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Solve extends Model
 {
     use HasFactory;
-    protected $fillable = ['title'];
+    protected $fillable = ['title','user_id'];
 }

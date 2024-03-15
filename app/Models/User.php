@@ -60,10 +60,38 @@ class User extends Authenticatable
     {
         return $this->hasMany(FoundRound::class, 'business_pioneer_id')->orderBy('created_at', 'desc');
     }
+    public function solves()
+    {
+        return $this->hasMany(Solve::class);
+    }
+    public function markets()
+    {
+        return $this->hasMany(Market::class);
+    }
+    public function compats()
+    {
+        return $this->hasMany(Compat::class);
+    }
+    public function teams()
+    {
+        return $this->hasMany(Team::class);
+    }
+    public function compators()
+    {
+        return $this->hasMany(Compator::class);
+    }
 
     public function company()
     {
         return $this->hasOne(Company::class, 'business_pioneer_id');
+    }
+    public function themeuser()
+    {
+        return $this->hasOne(ThemeUser::class);
+    }
+    public function investshow()
+    {
+        return $this->hasOne(Thankyou::class,'customer_id');
     }
 
 }

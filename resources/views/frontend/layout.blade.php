@@ -2809,7 +2809,7 @@
                         <div class="clr align-items-center">
                             <div class="elms_right">
                                 <div class="cz_elm logo_header_2_left_0 inner_logo_header_2_left_0"
-                                    style="margin-top:-12px;margin-right:15px;margin-bottom:5px;margin-left:17px;">
+                                    style="margin-block:9px;">
                                     <div class="logo_is_img logo">
                                         <a href="{{ url('/') }}" title="منصة سلسلة لريادة الأعمال">
                                             <img src="data:image/svg+xml,%3Csvg%20xmlns%3D&#39;http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg&#39;%20width=&#39;106&#39;%20height=&#39;60&#39;%20viewBox%3D&#39;0%200%20106%2060&#39;%2F%3E"
@@ -2839,13 +2839,13 @@
                                         </div>
                                     @elseif(auth('investor')->user())
                                         <div class="cz_elm button_header_2_center_1 inner_button_header_2_center_0"
-                                            style="margin-top:-7px;margin-bottom:20px;">
+                                             style="height:47.59px;">
                                         <a href="{{ route('investor.index') }}" class="cz_header_button cz_btn_53789"
                                             style="font-size:12px;font-weight:700;background-color:#137fc0;border-style:solid;border-radius:0px;">{{ __('Dashboard') }}</a>
                                         </div>
                                     @elseif(auth('web')->user())
                                         <div class="cz_elm button_header_2_center_1 inner_button_header_2_center_0"
-                                            style="margin-top:-7px;margin-bottom:20px;">
+                                             style="height:47.59px;">
                                         <a href="{{ route('dashboard') }}" class="cz_header_button cz_btn_53789"
                                             style="font-size:12px;font-weight:700;background-color:#137fc0;border-style:solid;border-radius:0px;">{{ __('Dashboard') }}</a>
                                         </div>

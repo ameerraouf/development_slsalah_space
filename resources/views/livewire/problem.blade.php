@@ -1,6 +1,16 @@
-@if ($currentStep != 2)
+@if ($currentStep != 5)
     <div style="display: none" class="row setup-content" id="step-2">
 @endif
+        <div class="card min-height-250 " >
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-7 mx-auto " style="position:relative ;">
+                        
+                        <h3 class="text-dark">{{ __('problem') }}</h3>
+                    </div>
+                </div> 
+            </div>
+        </div>
         <div class="row">     
             <div class="col-md-4">
                 <div >
@@ -18,20 +28,20 @@
                     <textarea class="form-control" cols="10" rows="5"  wire:model='summary3' wire:change='projectSubmit3' style="border: 2px solid  !important;"></textarea>
                     @error('summary3')<div class="alert alert-danger">{{ $message }}</div> @enderror
                 </div>
-                <button class="btn btn-warning mt-3" type="button" wire:click="back(1)">
+                <button class="btn btn-warning mt-3" type="button" wire:click="back(4)">
                     {{ trans('Back') }}
                 </button>
-                <button class="btn btn-success mt-3" type="button" wire:click="secondStepSubmit">
+                <button class="btn btn-success mt-3" type="button" wire:click="fifthStepSubmit">
                     {{ trans('next') }}
                 </button>
             </div>
             <div class="col-md-8">
-                <div class=" card min-height-250" style="background-image: url('{{PUBLIC_DIR}}/img/back.jpeg');">
+                <div class=" card min-height-250" style="background-image: url('{{ display_file($image5)}}');">
                     <div class="container">
                         <div class="row">
                             @include('livewire.logo')
                             <div class="col-md-12 mx-auto text-center">
-                                <h3 class="text-dark">المشكله</h3>
+                                <h3 class="text-dark">{{ __('problem') }}</h3>
                             </div>
                             <div class="col-md-4  mt-5">
                                 <label for="company_desc" class="form-label mt-3">{{ __('problem1') }}</label>

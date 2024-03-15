@@ -1,12 +1,22 @@
-@if ($currentStep != 4)
+@if ($currentStep != 7)
     <div style="display: none" class="row setup-content" id="step-4">
 @endif
+        <div class="card min-height-250 " >
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-7 mx-auto " style="position:relative ;">
+                        
+                        <h3 class="text-dark">{{ __('market') }}</h3>
+                    </div>
+                </div> 
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-4">
                 <div class="row">
                     <div class="">
                         @foreach ($markets as $index => $market)
-                            <h6>Market #{{ $index + 1 }}</h6>
+                            <h6>{{ __('market') }} #{{ $index + 1 }}</h6>
                             <div class="">
                                 <label for="" > السنه </label>
                                 <select wire:model="myear.{{ $index }}"  class="form-control">
@@ -198,15 +208,15 @@
                         </button>
                     </div>
                 </div> --}}
-                <button class="btn btn-warning mt-3" type="button" wire:click="back(3)">
+                <button class="btn btn-warning mt-3" type="button" wire:click="back(6)">
                     {{ trans('Back') }}
                 </button>
-                <button class="btn btn-success mt-3" type="button" wire:click="forthStepSubmit">
+                <button class="btn btn-success mt-3" type="button" wire:click="seventhStepSubmit">
                     {{ trans('next') }}
                 </button>
             </div>
             <div class="col-md-8">
-                <div class=" card min-height-250" style="background-image: url('{{PUBLIC_DIR}}/img/back.jpeg');">
+                <div class=" card min-height-250" style="background-image: url('{{ display_file($image5)}}');">
                     <div class="container">
                         @include('livewire.logo')
                         {{-- <div class="row">
@@ -271,8 +281,6 @@
                 </div>
             </div>
         </div>
-        
-        
     </div>
 @push('js')
 

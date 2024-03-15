@@ -41,6 +41,7 @@ use App\Http\Controllers\FavoriteCompaniesController;
 use App\Http\Controllers\InvestorAdminChatController;
 use App\Http\Controllers\FinancialEvaluationController;
 use App\Http\Controllers\MyInvestmentPortfolioController;
+use App\Http\Controllers\SuperAdminThemeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -121,6 +122,8 @@ Route::get("/super-admin-setting", [
     SuperAdminController::class,
     "adminSetting",
 ]);
+Route::resource('super-admin-themes',SuperAdminThemeController::class);
+
 Route::get("/workspaces", [SuperAdminController::class, "workspaces"]);
 Route::get("/add-user", [SuperAdminController::class, "addUser"]);
 Route::get("/delete-workspace/{id}", [
@@ -446,6 +449,8 @@ Route::get("/textReport", [\App\Http\Controllers\FinncialReportController::class
 
 Route::get('/myPlan', [\App\Http\Controllers\MyPlanController::class, 'index'])->name('myPlan.index');
 Route::get('/investshow', [\App\Http\Controllers\MyPlanController::class, 'investshow'])->name('myPlan.investshow');
+Route::get('/investshow/show', [\App\Http\Controllers\MyPlanController::class, 'showinvestshow'])->name('myPlan.investshow.show');
+Route::get('/investshow/download', [\App\Http\Controllers\MyPlanController::class, 'showinvestdownload'])->name('myPlan.investshow.download');
 Route::put('/investshow/update', [\App\Http\Controllers\MyPlanController::class,'update'])->name('investshow.update');
 Route::put('/investshow/updateproject/{id}', [\App\Http\Controllers\MyPlanController::class,'updateproject'])->name('investshow.updateproject');
 

@@ -11,7 +11,9 @@ use App\Models\Projects;
 use App\Models\TaskGoal;
 
 use Illuminate\Http\Request;
-use mikehaertl\wkhtmlto\Pdf;
+use Meneses\LaravelMpdf\Facades\LaravelMpdf as PDF;
+use Mpdf\Mpdf;
+
 use Illuminate\Support\Facades\DB;
 use App\Models\FinancialEvaluation;
 use App\Models\FixedInvestedCapital;
@@ -22,11 +24,12 @@ use App\Models\PlanningCostAssumption;
 
 use App\Models\ProjectRevenuePlanning;
 
-
+use Dompdf\Dompdf;
 
 use App\Models\WorkingInvestedCapital;
 use App\Models\PlanningRevenueOperatingAssumption;
-
+use App\Models\Solve;
+use App\Models\Theme;
 
 class MyPlanController extends BaseController
 {
@@ -153,6 +156,50 @@ class MyPlanController extends BaseController
 
 
 
+    public function showinvestdownload()
+    {
+        $user = Auth::user();
+        $themeuserid = auth()->user()->themeuser->first()->value('id');
+        $themeuser = Theme::whereId($themeuserid)->first();
+        $image1 = $themeuser->image1;
+        $image2 = $themeuser->image2;
+        $image3 = $themeuser->image3;
+        $image4 = $themeuser->image4;
+        $image5 = $themeuser->image5;
+
+        $companydesc = Company::where('business_pioneer_id',$user->id)->value('company_description');
+        $solves = Solve::where('user_id',$user->id)->get();
+
+        // Pass the data to the view
+          
+        $data = [
+            'companydesc' => $companydesc,
+            'solves' => $solves,
+            'image1' => $image1,
+            'image2' => $image2,
+            'image3' => $image3,
+            'image4' => $image4,
+            'image5' => $image5,
+        ];
+
+        // $pdf = new Dompdf();
+        // $pdf->loadHtml(View::make('livewire.show-invest-show', $data)->render());
+        // $pdf->setPaper('A4', 'landscape');
+        // $pdf->render();
+        // $filename = 'investshow.pdf';
+        // return $pdf->stream($filename);
+
+        // $pdf = PDF::loadView('livewire.show-invest-show', $data);
+        // return $pdf->stream('document.pdf');
+
+
+    
+        
+    }
+
+    public function showinvestshow(){
+        return view('myPlane.showinvestshow');
+    }
     public function investshow(){
         // $projects = Projects::latest()->get()->take(3);
         // return view('myPlane.investshow',compact('projects'));
