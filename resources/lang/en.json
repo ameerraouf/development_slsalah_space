@@ -879,13 +879,18 @@
     "munit": "الوحده",
     "website_url": "رابط الموقع",
     
+    "solves": "الحلول",
     "Themes": "الثيمات",
     "ThemeSettings": "اعدادت الثيم",
     "themename": "اسم الثيم",
     "themeimage": "صور الثيم",
     "create": "اضف",
     "save": "حفظ",
+    "edit": "تعديل",
+    "download": "تحميل",
+    "show": "عرض",
 
+    "investshow": "العرض الاستثمارى",
     "theme_id": "الثيم",
     "welcome": "اهلا بكم",
     "company_desc": "عن الشركه",

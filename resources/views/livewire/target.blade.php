@@ -1,4 +1,4 @@
-@if ($currentStep != 8)
+@if ($currentStep != 9)
     <div style="display: none" class="row setup-content" id="step-5">
 @endif
         <style>
@@ -47,15 +47,15 @@
         <div class="row">
             <div class="col-md-4">
                 
-                <button class="btn btn-warning mt-3" type="button" wire:click="back(7)">
+                <button class="btn btn-warning mt-3" type="button" wire:click="back(8)">
                     {{ trans('Back') }}
                 </button>
-                <button class="btn btn-success mt-3" type="button" wire:click="eighthStepSubmit">
+                <button class="btn btn-success mt-3" type="button" wire:click="ninthStepSubmit">
                     {{ trans('next') }}
                 </button>
             </div>
             <div class="col-md-8">
-                <div class=" card min-height-250" style="background-image: url('{{PUBLIC_DIR}}/img/back.jpeg');" >
+                <div class=" card min-height-250" style="background-image: url('{{ display_file($image5)}}');" >
                     <div class="container">
                         <div class="row">
                             @include('livewire.logo')

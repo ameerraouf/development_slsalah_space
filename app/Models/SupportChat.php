@@ -5,8 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Solve extends Model
+class SupportChat extends Model
 {
+
+    protected $table = 'support_chat';
+
+    protected $guarded = [];
+
     use HasFactory;
-    protected $fillable = ['title','user_id'];
 }

@@ -1,4 +1,4 @@
-@if ($currentStep != 5)
+@if ($currentStep != 6)
     <div style="display: none" class="row setup-content" id="step-3">
 @endif
         <div class="card min-height-250 " >
@@ -58,15 +58,15 @@
                     <input type="text" class="form-control" wire:model='solve9' wire:change="solveSubmit9" style="border: 2px solid  !important;">
                     @error('solve9')<div class="alert alert-danger">{{ $message }}</div>@enderror
                 </div>
-                <button class="btn btn-warning mt-3" type="button" wire:click="back(4)">
+                <button class="btn btn-warning mt-3" type="button" wire:click="back(5)">
                     {{ trans('Back') }}
                 </button>
-                <button class="btn btn-success mt-3" type="button" wire:click="fifthStepSubmit">
+                <button class="btn btn-success mt-3" type="button" wire:click="sixthStepSubmit">
                     {{ trans('next') }}
                 </button>
              </div>
              <div class="col-md-8">
-                <div class=" card min-height-250" style="background-image: url('{{PUBLIC_DIR}}/img/back.jpeg');">
+                <div class=" card min-height-250" style="background-image: url('{{ display_file($image2)}}');">
                     <div class="container">
                         <div class="row">
                             @include('livewire.logo')

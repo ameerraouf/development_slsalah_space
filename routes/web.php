@@ -16,6 +16,7 @@ use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\PestelController;
 use App\Http\Controllers\PorterController;
 use App\Http\Controllers\ActionsController;
+use App\Http\Controllers\AdminChatController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\GptChatController;
 use App\Http\Controllers\ProfileController;
@@ -448,6 +449,8 @@ Route::get("/textReport", [\App\Http\Controllers\FinncialReportController::class
 
 Route::get('/myPlan', [\App\Http\Controllers\MyPlanController::class, 'index'])->name('myPlan.index');
 Route::get('/investshow', [\App\Http\Controllers\MyPlanController::class, 'investshow'])->name('myPlan.investshow');
+Route::get('/investshow/show', [\App\Http\Controllers\MyPlanController::class, 'showinvestshow'])->name('myPlan.investshow.show');
+Route::get('/investshow/download', [\App\Http\Controllers\MyPlanController::class, 'showinvestdownload'])->name('myPlan.investshow.download');
 Route::put('/investshow/update', [\App\Http\Controllers\MyPlanController::class,'update'])->name('investshow.update');
 Route::put('/investshow/updateproject/{id}', [\App\Http\Controllers\MyPlanController::class,'updateproject'])->name('investshow.updateproject');
 
@@ -539,6 +542,8 @@ Route::prefix('investor')->middleware('auth:investor')->as('investor.')->group(f
     Route::get('/chatAdmin', [InvestorAdminChatController::class, 'index'])->name('chatAdmin');
     Route::post('/chat/broadcast', [InvestorChatController::class, 'broadcast'])->name('chat.broadcast');
     Route::post('/chat/recive', [InvestorChatController::class, 'recive'])->name('chat.recive');
+    Route::post('/chat/broadcastAdmin', [AdminChatController::class, 'broadcast'])->name('chat.broadcastAdmin');
+    Route::post('/chat/reciveAdmin', [AdminChatController::class, 'recive'])->name('chat.reciveAdmin');
     Route::post('/chat/getCount', [InvestorChatController::class, 'getCount'])->name('chat.getCount');
     Route::get("/profile", [InvestorController::class, "profile"])->name('investor.profile');
     Route::post("/profile/update/{id}", [InvestorController::class, "profileUpdate"]);

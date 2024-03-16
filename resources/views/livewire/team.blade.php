@@ -1,4 +1,4 @@
-@if ($currentStep != 10)
+@if ($currentStep != 11)
     <div style="display: none" class="row setup-content" id="step-5">
 @endif
     <div class="card min-height-250 " >
@@ -29,20 +29,20 @@
             <div class="col-md-4  mt-5">
                 <button class="btn btn-primary btn-sm mt-3" type="button" wire:click="updateteams">Update</button>
             </div>
-            <button class="btn btn-warning mt-3" type="button" wire:click="back(9)">
+            <button class="btn btn-warning mt-3" type="button" wire:click="back(10)">
                 {{ trans('Back') }}
             </button>
-            <button class="btn btn-success mt-3" type="button" wire:click="tenthStepSubmit">
+            <button class="btn btn-success mt-3" type="button" wire:click="elevenStepSubmit">
                 {{ trans('next') }}
             </button>
         </div>
         <div class="col-md-8">
-            <div class=" card min-height-250" style="background-image: url('{{PUBLIC_DIR}}/img/back.jpeg');" >
+            <div class=" card min-height-250" style="background-image: url('{{ display_file($image5)}}');" >
                 <div class="container">
                     <div class="row">
                         @include('livewire.logo')
                         <div class="col-md-12 mx-auto text-center">
-                            <h3 class="text-dark">فريق العمل</h3>
+                            <h3 class="text-dark">{{ __('team') }}</h3>
                         </div>
                             @foreach ($selectedteam as $index => $team)
                                 <div class="col-md-3  mt-5" >

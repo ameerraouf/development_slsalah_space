@@ -1,6 +1,6 @@
 <div>
     
-    @if ($currentStep != 1)
+    @if ($currentStep != 2)
         <div style="display: none" class="row setup-content" id="step-1">
     @endif
             <div class="card min-height-100 " >
@@ -126,7 +126,10 @@
                         <div class="col-md-4  mt-5">
                             <button class="btn btn-warning mt-3" type="button" wire:click="themeSubmit">{{ __('save') }}</button>
                         </div>
-                        <button type="button" class="btn btn-info  mt-3 " wire:click="firstStepSubmit">
+                        <button class="btn btn-warning mt-3" type="button" wire:click="back(1)">
+                            {{ trans('Back') }}
+                        </button>
+                        <button type="button" class="btn btn-info  mt-3 " wire:click="secondStepSubmit">
                             {{ trans('next') }}
                         </button>
                     </div>

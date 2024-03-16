@@ -1,4 +1,4 @@
-@if ($currentStep != 16)
+@if ($currentStep != 17)
     <div style="display: none" class="row setup-content" id="step-5">
 @endif
 <div class="card min-height-250 " >
@@ -33,15 +33,15 @@
                     @enderror
                     <br>
                     <div class="col-md-4  mt-5">
-                        <button class="btn btn-primary btn-sm mt-3" type="button" wire:click="thankuSubmit">Save</button>
+                        <button class="btn btn-primary btn-sm mt-3" type="button" wire:click="thankuSubmit">{{ __('save') }}</button>
                     </div>
                 </div>
-                <button class="btn btn-warning mt-3" type="button" wire:click="back(15)">
+                <button class="btn btn-warning mt-3" type="button" wire:click="back(16)">
                     {{ trans('Back') }}
                 </button>
             </div>
             <div class="col-md-8">
-                <div class=" card min-height-250" style="background-image: url('{{PUBLIC_DIR}}/img/back.jpeg');" >
+                <div class=" card min-height-250" style="background-image: url('{{ display_file($image5)}}');" >
                     <div class="container">
                         <div class="row">
                             @include('livewire.logo')
