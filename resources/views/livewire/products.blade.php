@@ -50,7 +50,7 @@
                         <div class="row">
                             @include('livewire.logo')
                             <div class="col-md-12 mx-auto text-center">
-                                <h3 class="text-dark">منتجاتنا/خدماتنا</h3>
+                                <h3 class="text-dark">{{ __('products') }}</h3>
                             </div>
                             @foreach ($selectedProducts as $index => $product)
                                 <div class="col-md-4  mt-5">

@@ -262,7 +262,7 @@ class Investshow extends Component
 
 
         //   tap5
-        $this->selectedProducts = Projects::take(6)->get(); // Fetch 6 products
+        $this->selectedProducts = Projects::latest()->take(6)->get(); // Fetch 6 products
         foreach ($this->selectedProducts as $product) {
             $this->title[] = $product->title;
             $this->description[] = $product->description;
@@ -396,6 +396,7 @@ class Investshow extends Component
         ]);
         foreach ($this->developplan as $index=>$p) {
             $p->update([
+                'user_id' => Auth::user()->id,
                 'name' => $this->developplanname[$index],
             ]);
         }
@@ -422,24 +423,28 @@ class Investshow extends Component
             $p->update([
                 'name' => $this->submarketname1[$index],
                 'main_market_plan_id'       => 1,
+                'user_id' => Auth::user()->id,
             ]);
         }
         foreach ($this->submarketplan2 as $index=>$p) {
             $p->update([
                 'name' => $this->submarketname2[$index],
                 'main_market_plan_id'       => 2,
+                'user_id' => Auth::user()->id,
             ]);
         }
         foreach ($this->submarketplan3 as $index=>$p) {
             $p->update([
                 'name' => $this->submarketname3[$index],
                 'main_market_plan_id'       => 3,
+                'user_id' => Auth::user()->id,
             ]);
         }
         foreach ($this->submarketplan4 as $index=>$p) {
             $p->update([
                 'name' => $this->submarketname4[$index],
                 'main_market_plan_id'       => 4,
+                'user_id' => Auth::user()->id,
             ]);
         }
         $this->alert('success', 'تم التحديث بنجاح');
@@ -567,6 +572,7 @@ class Investshow extends Component
             $product->update([
                 'title' => $this->title[$index],
                 'description' => $this->description[$index],
+                'user_id' => Auth::user()->id,
             ]);
         }
         $this->alert('success', 'تم التحديث بنجاح');
@@ -675,6 +681,7 @@ class Investshow extends Component
         ]);
         $project = Projects::where('id',$this->id1)->first();
         $project->summary = $this->summary1;
+        $project->user_id = Auth::user()->id;
         $project->update();
         $this->alert('success', 'تم التحديث بنجاح');
     }
@@ -684,6 +691,7 @@ class Investshow extends Component
         ]);
         $project = Projects::where('id',$this->id2)->first();
         $project->summary = $this->summary2;
+        $project->user_id = Auth::user()->id;
         $project->update();
         $this->alert('success', 'تم التحديث بنجاح');
     }
@@ -693,6 +701,7 @@ class Investshow extends Component
         ]);
         $project = Projects::where('id',$this->id3)->first();
         $project->summary = $this->summary3;
+        $project->user_id = Auth::user()->id;
         $project->update();
         $this->alert('success', 'تم التحديث بنجاح');
     }
