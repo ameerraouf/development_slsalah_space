@@ -186,6 +186,12 @@
                         </div>
                         <div class="align-self-center">
                             <div>
+                                <label for="company_brief" class="form-label mt-3">الشعار اللفظي - السلوجان</label>
+                                <input class="form-control" name="company_brief" type="text" value="{{$user->company?->company_brief}}" id="company_brief">
+                            </div>
+                        </div>
+                        <div class="align-self-center">
+                            <div>
                                 <label for="company_department" class="form-label mt-3">{{__('Company Department')}}</label>
                                 <input class="form-control" name="company_department" type="text" value="{{$user->company?->business_department}}" id="company_department">
                             </div>
@@ -194,12 +200,6 @@
                             <div>
                                 <label for="company_desc" class="form-label mt-3">{{__('Company Desc')}}</label>
                                 <input class="form-control" name="company_desc" type="text" value="{{$user->company?->company_description}}" id="company_desc">
-                            </div>
-                        </div>
-                        <div class="align-self-center">
-                            <div>
-                                <label for="company_brief" class="form-label mt-3">الشعار اللفظي - السلوجان</label>
-                                <input class="form-control" name="company_brief" type="text" value="{{$user->company?->company_brief}}" id="company_brief">
                             </div>
                         </div>
                         @csrf
