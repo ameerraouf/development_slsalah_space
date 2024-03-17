@@ -37,7 +37,7 @@
             </div>
             <div class="col-md-8">
                 <div class=" card min-height-250" style="background-image: url('{{ display_file($image5)}}');" >
-                    <div class="container">
+                    <div class="container p-4">
                         
                         
                         <div class="row">
