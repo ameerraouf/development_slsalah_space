@@ -219,7 +219,6 @@ class AuthController extends Controller
         if (!empty($super_settings['config_recaptcha_in_user_login'])) {
             $recaptcha = $request->get('g-recaptcha-response');
             $secret = $this->super_settings['recaptcha_secret_key'] ?? '';
-
             $verify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secret}&response={$recaptcha}");
             $captcha_success = json_decode($verify);
             if ($captcha_success->success == false) {
@@ -238,8 +237,9 @@ class AuthController extends Controller
         $type = $request->account_type;
 
         if ($type == 'pioneer') {
+
             if (Auth::guard()->attempt($credentials, $remember)) {
-                return redirect()->intended(route('super-admin.dashboard')); // Redirect to the intended page
+                return redirect()->intended(route('dashboard')); // Redirect to the intended page
                 // return redirect()->intended(route('dashboard')); // Redirect to the intended page
             }else {
                 return redirect()->back()->withErrors([
@@ -249,7 +249,7 @@ class AuthController extends Controller
 
         }else {
             if (Auth::guard('investor')->attempt($credentials, $remember)) {
-                return redirect()->intended(route('investor.index')); // Redirect to the intended page
+                return redirect()->intended(route('dashboard')); // Redirect to the intended page
             }else {
                 return redirect()->back()->withErrors([
                     'credentials' => 'البيانات غير صحيحة',
