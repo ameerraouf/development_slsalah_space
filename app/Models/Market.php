@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Market extends Model
 {
     use HasFactory;
-    protected $fillable = ['year','size','unit'];
+    protected $fillable = ['year','size','unit','user_id'];
 }

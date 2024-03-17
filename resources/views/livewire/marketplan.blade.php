@@ -1,6 +1,16 @@
-@if ($currentStep != 9)
+@if ($currentStep != 13)
     <div style="display: none" class="row setup-content" id="step-5">
 @endif
+<div class="card min-height-250 " >
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 mx-auto " style="position:relative ;">
+                
+                <h3 class="text-dark">{{ __('marketplan') }}</h3>
+            </div>
+        </div> 
+    </div>
+</div>
         <div class="row">
             <div class="col-md-4">
                 <div>
@@ -46,20 +56,20 @@
                         <button class="btn btn-primary btn-sm mt-3" type="button" wire:click="updatemarketplan">Update</button>
                     </div>
                 </div>
-                <button class="btn btn-warning mt-3" type="button" wire:click="back(8)">
+                <button class="btn btn-warning mt-3" type="button" wire:click="back(12)">
                     {{ trans('Back') }}
                 </button>
-                <button class="btn btn-success mt-3" type="button" wire:click="ninthStepSubmit">
+                <button class="btn btn-success mt-3" type="button" wire:click="thirteenStepSubmit">
                     {{ trans('next') }}
                 </button>
             </div>
             <div class="col-md-8">
-                <div class=" card min-height-250" style="background-image: url('{{PUBLIC_DIR}}/img/back.jpeg');" >
+                <div class=" card min-height-250" style="background-image: url('{{ display_file($image4)}}');" >
                     <div class="container">
                         <div class="row">
                             @include('livewire.logo')
                             <div class="col-md-12 mx-auto text-center">
-                                <h3 class="text-dark">خطه دخول السوق</h3>
+                                <h3 class="text-dark">{{ __('marketplan') }}</h3>
                             </div>
                             {{-- <div class="col-md-12 ">
                                 <img src="{{ asset('9.png') }}" alt="" style="width: 600px;">

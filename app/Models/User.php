@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
 class User extends Authenticatable
 {
@@ -60,10 +61,50 @@ class User extends Authenticatable
     {
         return $this->hasMany(FoundRound::class, 'business_pioneer_id')->orderBy('created_at', 'desc');
     }
+    public function solves()
+    {
+        return $this->hasMany(Solve::class);
+    }
+    public function markets()
+    {
+        return $this->hasMany(Market::class);
+    }
+    public function compats()
+    {
+        return $this->hasMany(Compat::class);
+    }
+    public function teams()
+    {
+        return $this->hasMany(Team::class);
+    }
+    public function compators()
+    {
+        return $this->hasMany(Compator::class);
+    }
+    public function developplan()
+    {
+        return $this->hasMany(DevelopPlan::class);
+    }
+    public function projects()
+    {
+        return $this->hasMany(Project::class,'user_id');
+    }
+    public function subMarketPlans()
+    {
+        return $this->hasMany(SubMarketPlan::class);
+    }
 
     public function company()
     {
         return $this->hasOne(Company::class, 'business_pioneer_id');
+    }
+    public function themeuser()
+    {
+        return $this->hasOne(ThemeUser::class);
+    }
+    public function investshow()
+    {
+        return $this->hasOne(Thankyou::class,'customer_id');
     }
 
 }

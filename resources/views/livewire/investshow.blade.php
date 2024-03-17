@@ -6,12 +6,12 @@
             {{ $successMessage }}
         </div>
     @endif
-    @if ($catchError)
+    {{-- @if ($catchError)
         <div class="alert alert-danger" id="success-danger">
             <button type="button" class="close" data-dismiss="alert">x</button>
             {{ $catchError }}
         </div>
-    @endif
+    @endif --}}
     {{-- <div class=" card min-height-250" style="background-image: url('{{PUBLIC_DIR}}/img/back.jpeg');"> --}}
     {{-- <div class="card min-height-250 " >
         <div class="container">
@@ -49,15 +49,18 @@
         </div>
     </div> --}}
 
+    @include('livewire.index')
+    @include('livewire.theme')
+    @include('livewire.welcome')
     @include('livewire.companydesc')
     @include('livewire.problem')
     @include('livewire.solve')
     @include('livewire.market')
     @include('livewire.products')
+    @include('livewire.target')
     @include('livewire.compatitive')
     @include('livewire.team')
     @include('livewire.competitors') 
-    
     @include('livewire.marketplan') 
     @include('livewire.developplan') 
     @include('livewire.finincalplan') 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US" dir="rtl">
+<html lang="ar" dir="rtl">
 
 <head>
 
@@ -2804,12 +2804,12 @@
             <div class="cz_overlay" aria-hidden="true"></div>
             <header class="page_header clr cz_sticky_h2">
                 <div
-                    class="header_2 have_center header_is_sticky smart_sticky cz_menu_fx_fade_in cz_submenu_fx_zoomin bg-white">
+                    class="header_2 pt-0 have_center header_is_sticky smart_sticky cz_menu_fx_fade_in cz_submenu_fx_zoomin bg-white">
                     <div class="row elms_row">
-                        <div class="clr">
+                        <div class="clr align-items-center">
                             <div class="elms_right">
                                 <div class="cz_elm logo_header_2_left_0 inner_logo_header_2_left_0"
-                                    style="margin-top:-12px;margin-right:15px;margin-bottom:5px;margin-left:17px;">
+                                    style="margin-block:9px;">
                                     <div class="logo_is_img logo">
                                         <a href="{{ url('/') }}" title="منصة سلسلة لريادة الأعمال">
                                             <img src="data:image/svg+xml,%3Csvg%20xmlns%3D&#39;http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg&#39;%20width=&#39;106&#39;%20height=&#39;60&#39;%20viewBox%3D&#39;0%200%20106%2060&#39;%2F%3E"
@@ -2821,15 +2821,16 @@
                                 </div>
                             </div>
                             <div class="elms_center">
-                                <div class="ms-0">
+                                <div class="ms-0" style="display: flex;
+    align-items: center;
+    flex-direction: row-reverse;">
                                     @if(!auth('investor')->user() && !auth('web')->user())
-                                        <div class="cz_elm button_header_2_center_1 inner_button_header_2_center_0"
-                                            style="margin-top:-7px;margin-bottom:20px;">
+                                        <div class="cz_elm button_header_2_center_1 inner_button_header_2_center_0" style="height:47.59px;">
                                             <a href="/signup" class="cz_header_button cz_btn_53789"
                                                 style="font-size:12px;font-weight:700;background-color:#137fc0;border-style:solid;border-radius:0px;">{{ __('Sign Up for free') }}</a>
                                         </div>
                                         <div class="cz_elm button_header_2_center_2 inner_button_header_2_center_1"
-                                            style="margin-top:-9px;margin-right:29px;margin-bottom:20px;margin-left:17px;">
+                                            style="margin-right:29px;margin-left:17px; height:47.59px;">
                                             <a class="cz_header_button cz_btn_61645"
                                                 style="font-size:12px;color:#137fc0;background-color:#d7ecf9;border-style:solid;border-color:#137fc0;"
                                                 href="/login">
@@ -2838,22 +2839,22 @@
                                         </div>
                                     @elseif(auth('investor')->user())
                                         <div class="cz_elm button_header_2_center_1 inner_button_header_2_center_0"
-                                            style="margin-top:-7px;margin-bottom:20px;">
+                                             style="height:47.59px;">
                                         <a href="{{ route('investor.index') }}" class="cz_header_button cz_btn_53789"
                                             style="font-size:12px;font-weight:700;background-color:#137fc0;border-style:solid;border-radius:0px;">{{ __('Dashboard') }}</a>
                                         </div>
                                     @elseif(auth('web')->user())
                                         <div class="cz_elm button_header_2_center_1 inner_button_header_2_center_0"
-                                            style="margin-top:-7px;margin-bottom:20px;">
+                                             style="height:47.59px;">
                                         <a href="{{ route('dashboard') }}" class="cz_header_button cz_btn_53789"
                                             style="font-size:12px;font-weight:700;background-color:#137fc0;border-style:solid;border-radius:0px;">{{ __('Dashboard') }}</a>
                                         </div>
                                     @endif
-                                    <div class="cz_elm menu_header_2_center_3 inner_menu_header_2_center_2"
-                                        style="margin-top:-3px;margin-right:29px;margin-bottom:-20px;margin-left:100px;">
+                                    <div class="cz_elm menu_header_2_center_3 inner_menu_header_2_center_2 p-0"
+                                        style="margin-right:29px;">
                                         <i class="fa fa-bars hide icon_mobile_cz_menu_default cz_mi_31115"
                                             style=""><span></span></i>
-                                        <ul id="menu_header_2" class="sf-menu clr cz_menu_default" data-indicator=""
+                                        <ul id="menu_header_2" class="sf-menu clr cz_menu_default m-0" data-indicator=""
                                             data-indicator2="fa fa-angle-right">
                                             <li id="menu-header_2-1295"
                                                 class="menu-item menu-item-type-custom menu-item-object-custom cz"
@@ -2865,7 +2866,7 @@
                                                 </a>
                                             </li>
                                             <li id="menu-header_2-1296"
-                                                class="menu-item menu-item-type-custom menu-item-object-custom cz"
+                                                class="menu-item menu-item-type-custom menu-item-object-custom cz p-0"
                                                 data-sub-menu="">
                                                 <a class="fw-bolder h6 ps-2 d-flex justify-content-between cursor-pointer align-items-center mb-0 me-2"
                                                     href="/pricing" target="_blank">

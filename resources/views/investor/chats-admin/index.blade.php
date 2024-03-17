@@ -1,5 +1,5 @@
 @extends('investor.layouts.index')
-{{--<link rel="stylesheet" href="{{asset('audio/manage-audio.css')}}">--}}
+<audio src="{{ asset('tones/notification.mp3') }}" id = 'notify' allow="autoplay"></audio>
 
 @push('header_scripts')
 <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
@@ -13,29 +13,33 @@
 
     const channel = pusher.subscribe('chat{{auth("investor")->user()->id}}');
     channel.bind('sendMessage', function(data) {
-        $.post("{{ route('investor.chat.recive') }}", {
+        $.post("{{ route('investor.chat.reciveAdmin') }}", {
             _token: '{{ csrf_token() }}',
             message: data.message,
 
         }).done(function (res) {
-            $("#chat_bar").append(res);
+            console.log(res);
+            //$("#chat_bar").append(res);
         });
     });
 
-    function send(user_id) {
-        $.ajax({
-    
-            url: "{{ route('investor.chat.broadcast') }}",
-            method: "POST", 
-            data: {
-                _token: '{{ csrf_token() }}',
-                message: $("#message_text").val(),
-                user_id: user_id
-            }
-        }).done(function (res) {
-            $("#chat_bar").append(res);
-            $("#message_text").val('');
-        });
+    function send(reciver) {
+        if ($("#message_text").val() !== '') {
+
+            $.ajax({
+        
+                url: "{{ route('investor.chat.broadcastAdmin') }}",
+                method: "POST", 
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    message: $("#message_text").val(),
+                    reciver: reciver
+                }
+            }).done(function (res) {
+                $("#chat_bar").append(res);
+                $("#message_text").val('');
+            });
+        }
     }
 
 
@@ -43,9 +47,9 @@
 @endpush
 
 @section('content')
-    {{-- <livewire:investor-admin.chat /> --}}
+    <livewire:admin.chat />
 
-    <div class="box-chat">
+    {{-- <div class="box-chat">
         <div class="row">
             <div class="col-md-12">
                 <div class="preview">
@@ -113,5 +117,5 @@
           
         </div>
       
-    </div>
+    </div> --}}
 @endsection

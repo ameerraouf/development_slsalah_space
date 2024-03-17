@@ -7,7 +7,7 @@
             <p class="text-center mb-5">{{__('We post articles on business news, inspiring stories, best advice and guidelines on successful business planning.')}}</p>
 
             <div class="container ms-0 mb-4">
-                <div class="row mb-4" data-masonry='{"percentPosition": true }'>
+                <div class="row mb-4">
                     @foreach($blogs as $blog)
                         <div class="col-lg-4 mb-3">
                             <div class="card card-plain border">
