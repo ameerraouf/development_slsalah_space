@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
 class User extends Authenticatable
 {
@@ -79,6 +80,18 @@ class User extends Authenticatable
     public function compators()
     {
         return $this->hasMany(Compator::class);
+    }
+    public function developplan()
+    {
+        return $this->hasMany(DevelopPlan::class);
+    }
+    public function projects()
+    {
+        return $this->hasMany(Project::class,'user_id');
+    }
+    public function subMarketPlans()
+    {
+        return $this->hasMany(SubMarketPlan::class);
     }
 
     public function company()

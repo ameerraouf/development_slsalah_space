@@ -267,7 +267,7 @@
                 </div>
             </div>
         @endif
-        <div class="col-lg-5">
+        <div class="col-12 {{!empty($recent_note) ? 'col-lg-5' : ''}}">
             @if (empty($modules) || in_array('to_dos', $modules))
                 <div class="card ">
                     <div class="card-header pb-0 p-3">

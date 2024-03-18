@@ -41,7 +41,7 @@ class DocumentController extends BaseController
         if(!$this->user->super_admin){
             if(!$this->plan)
             {
-                $message = 'You need to choose a plan to upload documents.';
+                $message = __('You need to choose a plan to upload documents.');
                 return response()->json([
                     'message' => $message,
                 ]);
