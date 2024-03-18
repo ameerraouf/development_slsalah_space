@@ -34,7 +34,7 @@
                             </div>
                         </div>
                             @endforeach
-                        <div class="col"><button class="btn btn-success mt-3" type="button" wire:click="updateMarkets">
+                        <div class="col text-center"><button class="btn btn-success mt-3 btn-sm" type="button" wire:click="updateMarkets">
                             {{ trans('submit') }}
                         </button></div>
                 {{-- <div class="row">

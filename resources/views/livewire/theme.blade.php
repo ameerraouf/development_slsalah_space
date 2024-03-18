@@ -115,7 +115,7 @@
                                     {{-- </div> --}}
                                 {{-- </div> --}}
                             {{-- </div> --}}
-                                <button class="btn btn-warning m-0 mt-2" type="button" wire:click="themeSubmit">{{ __('save') }}</button>
+                                <button class="btn btn-success m-0 mt-2 btn-sm" type="button" wire:click="themeSubmit">{{ __('save') }}</button>
                            <div class="d-flex align-items-center gap-3 justify-content-center mt-3">
                            <button class="btn btn-warning m-0" type="button" wire:click="back(1)">
                                 {{ trans('Back') }}
