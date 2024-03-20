@@ -20,7 +20,9 @@
                             <div class="container p-4">
                                 <div class="row">
                                     @include('livewire.logo')
-                                    <label for="company_desc" class="form-label">{{ __('CompanyDesc') }}</label>
+                                    <div class="col-md-12 mx-auto text-center">
+                                        <h3 class="text-dark mb-3">{{ __('CompanyDesc') }}</h3>
+                                    </div>
                                     <div class="col-md-12">
                                         <p class="mb-0"> {{ $company_desc }}</p>
                                     </div>
