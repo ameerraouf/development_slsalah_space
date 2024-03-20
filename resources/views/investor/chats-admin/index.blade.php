@@ -36,6 +36,7 @@
                     reciver: reciver
                 }
             }).done(function (res) {
+                console.log(res);
                 $("#chat_bar").append(res);
                 $("#message_text").val('');
             });

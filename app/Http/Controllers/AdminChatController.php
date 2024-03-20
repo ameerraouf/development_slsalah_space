@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Pusher\Pusher;
 
-class AdminChatController extends SuperAdminController
+class AdminChatController extends Controller
 {
     public function broadcast(Request $request) {
 
@@ -34,6 +34,7 @@ class AdminChatController extends SuperAdminController
 
         broadcast(new ChatSent($request->reciver, 'investor', $run))->toOthers();
 
+        
         return view('investor.chats.components.broadcast', ['message' => $run]);
 
 

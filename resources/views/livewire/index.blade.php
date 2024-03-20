@@ -50,7 +50,7 @@
                         </tr>
                     </tbody>
                 </table>
-                {{-- <label for="company_desc" class="form-label mt-3">{{ __('investshow') }}</label> --}}
+                {{-- <label for="company_desc" class="form-label">{{ __('investshow') }}</label> --}}
                     {{-- <div class="col-md-4  mt-5">
                             <button class="btn btn-warning mt-3" type="button" ">{{ __('save') }}</button>
                 </div> --}}
