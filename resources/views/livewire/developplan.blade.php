@@ -22,7 +22,7 @@
                                 <div class="row">
                                     @include('livewire.logo')
                                     <div class="col-md-12 mx-auto text-center">
-                                        <h3 class="text-dark">خطه التطوير</h3>
+                                        <h3 class="text-dark mb-4">خطه التطوير</h3>
                                     </div>
                                     {{-- <div class="col-md-12">
                                             <img src="{{ asset('10.png') }}" alt="" style="width: 600px;">

@@ -22,7 +22,7 @@
                         <img src="{{ PUBLIC_DIR }}/uploads/{{ $user->company->company_logo }}" 
                         class="w-20 border-radius-lg shadow-sm" style="position: absolute; right: 1045px;">
                     @endif
-                    <h3 class="text-dark">العرض الاستثمارى </h3>
+                    <h3 class="text-dark mb-4">العرض الاستثمارى </h3>
                 </div>
             </div> 
         </div>

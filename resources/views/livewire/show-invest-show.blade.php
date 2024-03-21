@@ -1,15 +1,16 @@
 <div class="app">
     <style>
-
     .cards {
         display: flex;
         flex-direction: column;
         gap: 2rem;
     }
+
     .card {
         min-height: calc(100vh - 2rem);
         height: auto;
     }
+
     #printButton {
         background: linear-gradient(to right, #ff6b6b, #ffa8a8);
         border-radius: 8px;
@@ -53,15 +54,15 @@
         /* transform: translate(-50%, -50%); */
     }
     </style>
-            <h4 style="text-align: center; font-weight: bold;">{{ __('investshow') }}</h4>
-            <div class="row d-print-none mt-2">
-                <div class="col-12 text-right">
-                    <a class="btn btn-primary " href="#" target="_blank" id="printButton">
-                        <i class="fa fa-print"></i> {{ __('Print') }}
-                    </a>
-                </div>
-            </div>
-    <div class="cards" id="prt-content">
+    <h4 style="text-align: center; font-weight: bold;">{{ __('investshow') }}</h4>
+    <div class="row d-print-none mt-2">
+        <div class="col-12 text-right">
+            <a class="btn btn-primary mb-3" href="#" target="_blank" id="printButton">
+                <i class="fa fa-print"></i> {{ __('Print') }}
+            </a>
+        </div>
+    </div>
+    <div class="cards mb-3" id="prt-content">
         {{-- about company --}}
         <div class="card" style="background-image: url('{{ display_file($image5)}}'); ">
             {{--
@@ -98,7 +99,7 @@
             <div class="row">
                 @include('livewire.logo')
                 <div class="col-md-12 mx-auto text-center">
-                    <h3 class="text-dark mb-3">{{ __('CompanyDesc') }}</h3>
+                    <h3 class="text-dark mb-4">{{ __('CompanyDesc') }}</h3>
                 </div>
                 <div class="col-md-12">
                     <p class="mb-0"> {!! $companydesc !!}</p>
@@ -109,47 +110,47 @@
     {{-- problems --}}
     <div class=" card " style="background-image: url('{{ display_file($image5)}}');">
         <div class="container py-4">
-                            <div class="row">
-                                @include('livewire.logo')
-                                <div class="col-md-12 mx-auto text-center mb-3">
-                                    <h3 class="text-dark">{{ __('problem') }}</h3>
-                                </div>
-                                @foreach($problems as $key => $problem)
-                                <div class="col-md-4">
-                                    <label for="company_desc" class="form-label">{{ __('problem'.$key+1) }}</label>
-                                    <p>{{ $problem->summary??'' }}</p>
-                                </div>
-                                @endforeach
-                            </div>
-                        </div>
+            <div class="row">
+                @include('livewire.logo')
+                <div class="col-md-12 mx-auto text-center mb-3">
+                    <h3 class="text-dark mb-4">{{ __('problem') }}</h3>
+                </div>
+                @foreach($problems as $key => $problem)
+                <div class="col-md-4">
+                    <label for="company_desc" class="form-label">{{ __('problem'.$key+1) }}</label>
+                    <p>{{ $problem->summary??'' }}</p>
+                </div>
+                @endforeach
+            </div>
+        </div>
     </div>
     {{-- solves --}}
     <div class=" card " style="background-image: url('{{ display_file($image2)}}');position:relative;">
         <div class="container">
             <div class="row" style="position:absolute; top: 150px">
-               
+
             </div>
         </div>
 
         <div class="container py-4">
-                            <div class="row">
-                                @include('livewire.logo')
-                                <div class="col-md-12 mx-auto text-center">
-                                    <h3 class="text-dark">{{ __('solves') }}</h3>
-                                    <p class="mb-3">اوصف حل الى تعمل الشركه على استخدامه فى حل المشكله</p>
-                                </div>
-                                @foreach($solves as $key => $solve)
-                                <div class="col-md-4">
-                                    <label for="">{{ __('solve'.$key+1) }}</label>
-                                    <p>{{ $solve->title }}</p>
-                                </div>
-                                @endforeach
-                            </div>
-                        </div>
+            <div class="row">
+                @include('livewire.logo')
+                <div class="col-md-12 mx-auto text-center">
+                    <h3 class="text-dark mb-4">{{ __('solves') }}</h3>
+                    <p class="mb-3">اوصف حل الى تعمل الشركه على استخدامه فى حل المشكله</p>
+                </div>
+                @foreach($solves as $key => $solve)
+                <div class="col-md-4">
+                    <label for="">{{ __('solve'.$key+1) }}</label>
+                    <p>{{ $solve->title }}</p>
+                </div>
+                @endforeach
+            </div>
+        </div>
     </div>
     {{-- market --}}
     <div class=" card " style="background-image: url('{{ display_file($image5)}}');">
-    <div class="container py-4">
+        <div class="container py-4">
             @include('livewire.logo')
             <h4 style="text-align: center; font-weight: bold;">{{ __('market') }}</h4>
             @include('livewire.marketchart')
@@ -157,18 +158,20 @@
     </div>
     {{-- products --}}
     <div class=" card " style="background-image: url('{{ display_file($image5)}}');">
-        <div class="container">
+        <div class="container p-4">
             <div class="row">
-                
+                @include('livewire.logo')
                 <div class="col-md-12 mx-auto text-center">
-                    <h3 class="text-dark">{{ __('products') }}</h3>
+                    <h3 class="text-dark mb-4">{{ __('products') }}</h3>
                 </div>
                 @foreach($products as $key => $product)
-                <div class="col-md-4  mt-5">
-                    <label>{{ __('pname'.$key+1) }}</label>
-                    <h6>{{ $product->title??'' }}</h6>
-                    <label>{{ __('pdescription') }}</label>
-                    <h6>{!! $product->description??'' !!}</h6>
+                <div class="col-md-4">
+                    <label for="">{{ __('pname'.$key+1) }} </label>
+                    <p>{{ $product->title??'' }}</p>
+                    <br>
+                    <label for="">{{ __('pdescription') }} </label>
+                    <p>{!! $product->description??'' !!}</p>
+                    <br>
                 </div>
                 @endforeach
             </div>
@@ -176,22 +179,31 @@
     </div>
     {{-- target --}}
     <div class=" card " style="background-image: url('{{ display_file($image5)}}');">
-        <div class="container">
-            <h4 style="text-align: center; font-weight: bold;">{{ __('target') }}</h4>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 mx-auto text-center">
-                    </div>
-                    <div class="col-md-12 mx-auto text-center">
-                        <div class="circled pink d-inline-block"><span class="text-center"
-                                style="color: white; position: absolute;top: 10%;left: 28%;"> {{ $TAM }}
-                                {{ $unitForChart }} SAR </span>
-                            <div class="circled light-pink text-center"><span
-                                    style="color: white;position: absolute;top: 9%;left: 19%;">{{ $SAM }}
-                                    {{ $unitForChart }} SAR </span>
-                                <div class="circled pale-pink text-center"><span
-                                        style="color: white;position: absolute;top: 33%;left: 5%;">{{ $SOM }}
-                                        {{ $unitForChart }} SAR </span></div>
+        <div class="container p-4">
+            <div class="row">
+                @include('livewire.logo')
+                <div class="col-md-12 mx-auto text-center">
+                    <h3 class="text-dark mb-4">{{ __('target') }}</h3>
+                </div>
+                <div class="col-md-12 mx-auto text-center">
+                    <div class="circled pink d-inline-block">
+                        <span class="text-center"
+                            style="color: white; position: absolute;top: 11%;left: 28%; left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 14px;">
+                            {{ $TAM }}
+                            {{ $unitForChart }} SAR
+                        </span>
+                        <div class="circled light-pink text-center">
+                            <span
+                                style="color: white;position: absolute;top: 10%;left: 19%; left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 14px;">
+                                {{ $SAM }}
+                                {{ $unitForChart }} SAR
+                            </span>
+                            <div class="circled pale-pink text-center">
+                                <span
+                                    style="color: white;position: absolute;top: 43%;left: 5%; left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 14px;">
+                                    {{ $SOM }}
+                                    {{ $unitForChart }} SAR
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -201,17 +213,19 @@
     </div>
     {{-- compatitive --}}
     <div class=" card " style="background-image: url('{{ display_file($image5)}}');">
-        <div class="container">
+        <div class="container p-4">
             <div class="row">
+                @include('livewire.logo')
                 <div class="col-md-12 mx-auto text-center">
-                    <h3 class="text-dark">{{ __('compatitive') }}</h3>
+                    <h3 class="text-dark mb-4">{{ __('compatitive') }}</h3>
                 </div>
                 @foreach ($selectedCompat as $index => $compat)
-                <div class="col-md-4  mt-5">
-                    <div class="col-md-4 mb-4">
-                        <h6>{{ $compat->title }}</h6>
-                        <h6>{!! $compat->description !!}</h6>
-                    </div>
+                <div class="col-md-4">
+                    <label for="titlecompat{{ $index }}">الوصف {{ $index +1 }}</label>
+                    <p>{{ $compat->title }}</p>
+                    <br>
+                    <label for="descriptioncompat{{ $index }}">توضيح الوصف {{ $index +1 }}</label>
+                    <p>{!! $compat->description !!}</p>
                     <br>
                 </div>
                 @endforeach
@@ -220,91 +234,126 @@
     </div>
     {{-- team --}}
     <div class=" card " style="background-image: url('{{ display_file($image5)}}');">
-        <div class="container">
-            <div class="row">
+        <div class="container p-4">
+            <div class="row text-center">
+                @include('livewire.logo')
                 <div class="col-md-12 mx-auto text-center">
-                    <h3 class="text-dark">{{ __('team') }}</h3>
+                    <h3 class="text-dark mb-4">{{ __('team') }}</h3>
                 </div>
                 @foreach ($selectedteam as $index => $team)
-                <div class="col-md-3 mb-4">
-                    <h6>{{ $team->name }}</h6>
+                <div class="col-md-3">
                     <div>
                         @if($team->image)
-                        <img src="{{display_file($team->image)}}" width='150' alt="">
+                        <img src="{{display_file($team->image)}}" alt="" width="150">
                         @else
                         <img src="{{asset('no-image.jpg')}}" width='150' alt="">
                         @endif
                     </div>
+
+                    <label for="name{{ $index }}">المسمى الوظيفى {{ $index+1 }}</label>
+                    {{-- <input type="text" wire:model="teamname.{{ $index }}" class="form-control"
+                    readonly> --}}
+                    <p>{{ $team->name }}</p>
+                    <br>
                 </div>
-                <br>
                 @endforeach
             </div>
+
         </div>
     </div>
     {{-- competitors --}}
     <div class=" card " style="background-image: url('{{ display_file($image5)}}');">
-        <div class="container">
+        <div class="container p-4">
             <div class="row">
+                @include('livewire.logo')
                 <div class="col-md-12 mx-auto text-center">
-                    <h3 class="text-dark">{{ __('competitors') }}</h3>
+                    <h3 class="text-dark mb-4">{{ __('competitors') }}</h3>
                 </div>
-                @foreach ($selectedco as $index => $co)
-                <div class="col-md-3 mb-4">
-                    <h6>{{ $co->companyname }}</h6>
-                    <div>
-                        <h6 class=" font-weight-bold mb-0">سعر المنتح</h6>
-                        <span style="color:{{ $co->price?'':'red' }} ">
-                            <i class="fas fa-{{ $co->price?'check-circle':'times-circle' }}"></i>
-                        </span>
+                <div class="col-md-12">
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0" id="cloudonex_table">
+                            <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xs "></th>
+                                    @foreach ($selectedco as $index => $co)
+                                    <th class="text-uppercase text-secondary text-xs ">
+                                        <p>{{ $co->companyname }} </p>
+                                    </th>
+                                    @endforeach
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <p class=" font-weight-bold mb-0">سعر المنتح</p>
+                                        <p class=" font-weight-bold mb-0">جوده المنتج</p>
+                                        <p class=" font-weight-bold mb-0">التقنيه المستخدمه</p>
+                                    </td>
+                                    @foreach ($selectedco as $index => $co)
+                                    <td>
+                                        <div>
+                                            {{-- <input type="checkbox" wire:model="coprice.{{ $index }}"
+                                            readonly> --}}
+                                            <span style="color:{{ $co->price?'':'red' }} ">
+                                                <i class="fas fa-{{ $co->price?'check-circle':'times-circle' }}"></i>
+                                            </span>
+                                            {{-- {{ var_export($coprice[$index] ?? null) }} --}}
+                                        </div>
+                                        <div>
+                                            {{-- <input type="checkbox" wire:model="coquality.{{ $index }}"
+                                            readonly> --}}
+                                            <span style="color:{{ $co->quality?'':'red' }} ">
+                                                <i class="fas fa-{{ $co->quality?'check-circle':'times-circle' }}"></i>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            {{-- <input type="checkbox" wire:model="cotech.{{ $index }}"
+                                            readonly> --}}
+                                            <span style="color:{{ $co->tech?'':'red' }} ">
+                                                <i class="fas fa-{{ $co->tech?'check-circle':'times-circle' }}"></i>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    @endforeach
+                                </tr>
+                                {{-- updatecompators --}}
+                            </tbody>
+                        </table>
+                        {{-- <div class="col-md-4  mt-5">
+                                                            <button class="btn btn-primary btn-sm mt-3" type="button" wire:click="updatecompators">Update</button>
+                                                        </div> --}}
                     </div>
-                    <div>
-                        <h6 class=" font-weight-bold mb-0">جوده المنتج</h6>
-                        <span style="color:{{ $co->quality?'':'red' }} ">
-                            <i class="fas fa-{{ $co->quality?'check-circle':'times-circle' }}"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <h6 class=" font-weight-bold mb-0">التقنيه المستخدمه</h6>
-                        <span style="color:{{ $co->tech?'':'red' }} ">
-                            <i class="fas fa-{{ $co->tech?'check-circle':'times-circle' }}"></i>
-                        </span>
-                    </div>
-
                 </div>
-                <br>
-                @endforeach
             </div>
         </div>
     </div>
     {{-- marketplan --}}
     <div class=" card " style="background-image: url('{{ display_file($image4)}}');">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 mx-auto text-center">
-                    <h3 class="text-dark">{{ __('marketplan') }}</h3>
-                </div>
-                @foreach ($marketplans as $index => $p)
-                <div class="col-md-6 mb-4">
-                    <h6>{{ $p->name }}</h6>
-                    <ul>
-                        @foreach($p->sub_market_planuser as $key => $value)
-                        <li>
-                            <h6>{{ $value->name }}</h6>
-                        </li>
-                        @endforeach
-                    </ul>
-                </div>
-                <br>
-                @endforeach
-            </div>
-        </div>
+        <div class="container p-4">
+                                <div class="row">
+                                    @include('livewire.logo')
+                                    <div class="col-md-12 mx-auto text-center">
+                                        <h3 class="text-dark mb-4">{{ __('marketplan') }}</h3>
+                                    </div>
+                                    @foreach ($marketplans as $index => $p)
+                                    <div class="col-md-6">
+                                        <label>{{ $p->name }}</label>
+                                        @foreach($p->sub_market_planuser as $key => $value)
+                                            <ul>
+                                                <li>{{ $key +1}} - <span>{{ $value->name }}</span> </li>
+                                            </ul>
+                                        @endforeach
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
     </div>
     {{-- developplan --}}
     <div class=" card " style="background-image: url('{{ display_file($image3)}}');">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 mx-auto text-center">
-                    <h3 class="text-dark">{{ __('developplan') }}</h3>
+                    <h3 class="text-dark mb-4">{{ __('developplan') }}</h3>
                 </div>
                 @foreach ($developplans as $index => $developplan)
                 <div class="col-md-4  mt-5">
@@ -322,7 +371,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 mx-auto text-center">
-                    <h3 class="text-dark">{{ __('finincalplan') }}</h3>
+                    <h3 class="text-dark mb-4">{{ __('finincalplan') }}</h3>
                 </div>
                 <div style="height: 50%; width: 50%">
                     <div class="col-md-12 mx-auto text-center">
@@ -344,7 +393,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 mx-auto text-center">
-                    <h3 class="text-dark">{{ __('requireinvestment') }}</h3>
+                    <h3 class="text-dark mb-4">{{ __('requireinvestment') }}</h3>
                 </div>
                 <h4 class="my-4"> تقييم الشركة </h4>
                 <div class="alert alert-success text-white mt-3" id="success-message-existing">
@@ -358,7 +407,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12 mx-auto text-center">
-                    <h3 class="text-dark">الاستثمار المطلوب</h3>
+                    <h3 class="text-dark mb-4">الاستثمار المطلوب</h3>
                 </div>
                 <div class="col-md-3  mt-5">
                     <label for="">حجم الاستثمار المطلوب </label>
@@ -404,7 +453,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 mx-auto text-center">
-                    <h3 class="text-dark">{{ __('thanku') }}</h3>
+                    <h3 class="text-dark mb-4">{{ __('thanku') }}</h3>
                 </div>
                 <div class="col-md-4  mt-5">
                     <label for="email">البريد الالكترونى: </label>

@@ -34,7 +34,7 @@
                                 <div class="row">
                                     @include('livewire.logo')
                                     <div class="col-md-12 mx-auto text-center">
-                                        <h3 class="text-dark">شكرا لكم</h3>
+                                        <h3 class="text-dark mb-4">شكرا لكم</h3>
                                         <h5 class="text-dark">هل عندك اى استفسار؟</h5>
                                     </div>
                                     {{-- <div class="col-md-12">

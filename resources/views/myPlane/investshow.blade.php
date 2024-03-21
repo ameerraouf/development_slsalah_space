@@ -25,7 +25,7 @@
                     @if (!empty($user->photo))
                         <img src="{{ PUBLIC_DIR }}/uploads/{{ $user->photo }}" class="w-20 border-radius-lg shadow-sm">
                     @endif
-                    <h3 class="text-dark">العرض الاستثمارى </h3>
+                    <h3 class="text-dark mb-4">العرض الاستثمارى </h3>
                 </div>
             </div> 
 
@@ -53,11 +53,11 @@
             
             <div class="row">
                 <div class="col-md-12 mx-auto text-center">
-                    <h3 class="text-dark">المشكله</h3>
+                    <h3 class="text-dark mb-4">المشكله</h3>
                 </div>
                 @foreach($projects as $key => $project) 
                     <div class="col-md-4  mt-5">
-                        <h3 class="text-dark">المشكله {{ $key+1 }}</h3>
+                        <h3 class="text-dark mb-4">المشكله {{ $key+1 }}</h3>
                         <form action="{{ route('investshow.updateproject',$project->id) }}" method="post">
                             @csrf
                             @method('put')
