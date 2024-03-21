@@ -490,6 +490,11 @@ Route::prefix('admin/chat')->middleware('auth')->group(function (){
     Route::post('/disable/{chat}', [\App\Http\Controllers\AdminChatController::class, 'disableChat'])->name('admin.chat.disable');
 });
 
+// start support chats
+Route::prefix('admin/support-chats')->middleware('auth')->group(function () {
+    Route::get('/', [AdminChatController::class, 'index'])->name('support-chats.index');
+});
+
 Route::post('set-offer_price_yearly', function (\Illuminate\Http\Request $request){
     $value = $request->input('value');
     session()->put('offer_price_yearly', $value);

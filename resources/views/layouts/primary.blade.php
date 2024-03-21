@@ -632,6 +632,17 @@
                     </strong>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link @if(request()->path() === 'user/support-chats') active @endif " href="{{ route('support-chats.index') }}">
+
+                  <i class="fas fa-question"></i>
+
+                    <span class="nav-link-text ">{{__('رسائل الادارة')}}</span>
+                    <strong class=" text-danger mx-2" id="user_chat_count" >
+                        0
+                    </strong>
+                </a>
+            </li>
 
             <li class="nav-item mt-3 mb-2">
                 <h6 class="ps-4 ms-2 text-uppercase text-muted text-xs opacity-6">{{__('Settings')}}  </h6>

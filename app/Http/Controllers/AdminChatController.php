@@ -46,4 +46,10 @@ class AdminChatController extends Controller
         return view('investor.chats.components.recive', ['message' => $request->get('message')]);
 
     }
+
+    public function index() {
+
+        return view('support-chats.index');
+
+    }
 }

@@ -58,6 +58,7 @@ class InvestorChat extends Model
 
     }
 
+
     public function pioneerUnreadMessages($id) {
 
         return $this->where('sended_by', 'investor')->where('investor_id', $id)->where('is_open', '0')->count();
