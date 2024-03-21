@@ -41,12 +41,10 @@ class Chat extends Component
 
         // Set Messages Property
 
-        if (auth('web')->user()) {
-            $messages = $this->model->where('sender_id', auth()->user()->id)->where('sender_type', 'user')->get();
-        }else {
-            $messages = $this->model->where('sender_id', auth('investor')->user()->id)->where('sender_type', 'investor')->get();
 
-        }
+        $messages = $this->model->where('sender_id', auth('investor')->user()->id)->get();
+
+        
 
         $this->messages = $messages;
 
