@@ -206,7 +206,7 @@
                     @include('livewire.logo')
                     {{-- <div class="row">
                                         <div class="col-md-12 mx-auto text-center">
-                                            <h3 class="text-dark">حجم السوق</h3>
+                                            <h3 class="text-dark mb-4">حجم السوق</h3>
                                         </div>
                                         <div class="col-md-4  mt-5">
                                             <label for="" > السنه {{ $theyear  }}</label>

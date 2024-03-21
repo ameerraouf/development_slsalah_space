@@ -21,7 +21,7 @@
                                 <div class="row">
                                     @include('livewire.logo')
                                     <div class="col-md-12 mx-auto text-center">
-                                        <h3 class="text-dark mb-3">{{ __('CompanyDesc') }}</h3>
+                                        <h3 class="text-dark mb-4">{{ __('CompanyDesc') }}</h3>
                                     </div>
                                     <div class="col-md-12">
                                         <p class="mb-0"> {{ $company_desc }}</p>

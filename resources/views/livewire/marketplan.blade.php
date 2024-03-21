@@ -53,7 +53,7 @@
                                 <div class="row">
                                     @include('livewire.logo')
                                     <div class="col-md-12 mx-auto text-center">
-                                        <h3 class="text-dark">{{ __('marketplan') }}</h3>
+                                        <h3 class="text-dark mb-4">{{ __('marketplan') }}</h3>
                                     </div>
                                     {{-- <div class="col-md-12 ">
                                         <img src="{{ asset('9.png') }}" alt="" style="width: 600px;">

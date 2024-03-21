@@ -30,7 +30,7 @@
                             <div class="row text-center">
                                 @include('livewire.logo')
                                 <div class="col-md-12 mx-auto text-center">
-                                    <h3 class="text-dark">{{ __('team') }}</h3>
+                                    <h3 class="text-dark mb-4">{{ __('team') }}</h3>
                                 </div>
                                 @foreach ($selectedteam as $index => $team)
                                 <div class="col-md-3">

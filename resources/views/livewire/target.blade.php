@@ -43,7 +43,7 @@
                             <div class="row">
                                 @include('livewire.logo')
                                 <div class="col-md-12 mx-auto text-center">
-                                    <h3 class="text-dark">{{ __('target') }}</h3>
+                                    <h3 class="text-dark mb-4">{{ __('target') }}</h3>
                                 </div>
                                 <div class="col-md-12 mx-auto text-center">
                                     <div class="circled pink d-inline-block"><span class="text-center"

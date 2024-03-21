@@ -27,12 +27,10 @@
                 <div class="col-md-12">
                     <div class=" card min-height-250" style="background-image: url('{{ display_file($image5)}}');">
                         <div class="container p-4">
-
-
                             <div class="row">
                                 @include('livewire.logo')
                                 <div class="col-md-12 mx-auto text-center">
-                                    <h3 class="text-dark mb-3">{{ __('compatitive') }}</h3>
+                                    <h3 class="text-dark mb-4">{{ __('compatitive') }}</h3>
                                 </div>
                                 @foreach ($selectedCompat as $index => $compat)
                                 <div class="col-md-4">
