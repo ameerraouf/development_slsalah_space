@@ -18,10 +18,10 @@
                             <div class="container py-4">
                                 <div class="row">
                                     @include('livewire.logo')
-                                    <label for="company_desc" class="form-label">{{ __('welcome') }}</label>
                                     <div class="col-md-12">
                                         <h4 class="mb-0 text-center">العرض الاستثمارى</h4>
                                     </div>
+                                    <p class="mb-0">{{ __('welcome') }}</p>
                                 </div>
                             </div>
                         </div>
