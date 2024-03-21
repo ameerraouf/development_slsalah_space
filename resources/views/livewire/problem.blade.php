@@ -5,7 +5,7 @@
         <div class="container">
             <h5 class="text-dark text-center mb-3">{{ __('problem') }}</h5>
             <div class="row g-3">
-                <div class="col-md-12 row row-cols-1 row-cols-lg-3 g-3">
+                <div class="col-md-12 row row-cols-1 row-cols-lg-3 g-3 justify-content-center">
                     <div class="col">
                         <label for="company_desc" class="form-label">{{ __('problem1') }}</label>
                         <textarea class="form-control" cols="10" rows="5" wire:model='summary1'

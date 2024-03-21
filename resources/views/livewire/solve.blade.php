@@ -5,7 +5,7 @@
         <div class="container">
             <h5 class="text-dark text-center mb-3">{{ __('solve') }}</h5>
             <div class="row g-3">
-                <div class="col-md-12 row row-cols-1 row-cols-lg-3 g-3">
+                <div class="col-md-12 row row-cols-1 row-cols-lg-3 g-3 justify-content-center">
                     <div class="col">
                         <div>
                             <label for="">{{ __('solve1') }}</label>

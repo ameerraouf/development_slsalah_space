@@ -58,7 +58,7 @@
                             </tbody>
                         </table>
                         <div class="text-center">
-                            <button class="btn btn-success mt-3 btn-sm" type="button"
+                            <button class="btn btn-info m-0 btn-sm" type="button"
                                 wire:click="updatecompators">Update</button>
                         </div>
                     </div>

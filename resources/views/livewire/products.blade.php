@@ -24,8 +24,8 @@
                             @endif
                         </div>
                         @endforeach
-                        <div class="col text-center">
-                            <button class="btn btn-success mt-3 btn-sm" type="button"
+                        <div class="col d-flex align-items-end justify-content-center">
+                            <button class="btn btn-info m-0 btn-sm" type="button"
                                 wire:click="updateProducts">Update</button>
                         </div>
                     </div>
