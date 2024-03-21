@@ -52,4 +52,33 @@ class AdminChatController extends Controller
         return view('support-chats.index');
 
     }
+
+    public function broadcastInAdmin(Request $request) {
+
+        $chatId     = Str::uuid();
+
+        $sender_id  = $request->sender;
+
+        $reciver = User::where('super_admin', 1)->first();
+
+
+        $run = SupportChat::create([
+            'chat_id'       => $chatId,
+            'sender_id'     => $sender_id, // investor id 
+            'reciver_id'    => $reciver->id, // admin id done
+            'message'       => $request->message,
+            'sender_type'   => 'user'
+        ]);
+
+
+        broadcast(new ChatSent($request->reciver, 'investor', $run))->toOthers();
+
+        
+        return view('investor.chats.components.broadcast', ['message' => $run]);
+
+    }
+
+    public function reciveInAdmin(Request $request) {
+        return view('investor.chats.components.recive', ['message' => $request->get('message')]);
+    }
 }

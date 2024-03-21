@@ -10,7 +10,7 @@ class SupportChat extends Model
 
     protected $table = 'support_chat';
 
-    protected $guarded = ['id'];
+    protected $guarded = [];
 
     use HasFactory;
 

@@ -493,6 +493,8 @@ Route::prefix('admin/chat')->middleware('auth')->group(function (){
 // start support chats
 Route::prefix('admin/support-chats')->middleware('auth')->group(function () {
     Route::get('/', [AdminChatController::class, 'index'])->name('support-chats.index');
+    Route::post('/broadcastInAdmin', [AdminChatController::class, 'broadcastInAdmin'])->name('support-chats.broadcastInAdmin');
+    Route::post('/reciveInAdmin', [AdminChatController::class, 'reciveInAdmin'])->name('support-chats.reciveInAdmin');
 });
 
 Route::post('set-offer_price_yearly', function (\Illuminate\Http\Request $request){
