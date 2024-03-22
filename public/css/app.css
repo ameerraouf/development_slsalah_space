@@ -19712,7 +19712,13 @@ fieldset:disabled .btn {
 .text-green{
     color: #29A600 !important;
 }
-
+.card-slide {
+    min-height: calc(100vh - 2rem);
+    position: relative;
+    background-position:top right;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 .text-grey{
     color: #bbbb !important;
 }

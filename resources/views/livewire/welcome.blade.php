@@ -8,13 +8,13 @@
                 <div class="row">
                     <div class="col-md-12">
                         {{-- <img src="{{display_file($image1)}}" alt=""> --}}
-                        {{-- <div class=" card min-height-250" style="background-image: url('{{PUBLIC_DIR}}/img/back.jpeg');">
+                        {{-- <div class=" card card-slide" style="background-image: url('{{PUBLIC_DIR}}/img/back.jpeg');">
                         --}}
                         {{-- {{ auth()->user()->themeuser?->theme_id }} --}}
                         {{-- <img src="{{display_file($theme->image1)}}" alt="" width="400px" height="250px"> --}}
-                        {{-- <div class=" card min-height-250" style="background-image: url('{{PUBLIC_DIR}}/uploads/{{ auth()->user()->themeuser?->image1 }}');">
+                        {{-- <div class=" card card-slide" style="background-image: url('{{PUBLIC_DIR}}/uploads/{{ auth()->user()->themeuser?->image1 }}');">
                         --}}
-                        <div class="card min-height-250" style="background-image: url('{{  display_file($image5)}}');">
+                        <div class="card card-slide" style="background-image: url('{{  display_file($image5)}}');">
                             <div class="container py-4">
                                 <div class="row">
                                     @include('livewire.logo')
