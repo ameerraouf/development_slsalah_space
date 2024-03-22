@@ -330,145 +330,134 @@
     {{-- marketplan --}}
     <div class=" card " style="background-image: url('{{ display_file($image4)}}');">
         <div class="container p-4">
-                                <div class="row">
-                                    @include('livewire.logo')
-                                    <div class="col-md-12 mx-auto text-center">
-                                        <h3 class="text-dark mb-4">{{ __('marketplan') }}</h3>
-                                    </div>
-                                    @foreach ($marketplans as $index => $p)
-                                    <div class="col-md-6">
-                                        <label>{{ $p->name }}</label>
-                                        @foreach($p->sub_market_planuser as $key => $value)
-                                            <ul>
-                                                <li>{{ $key +1}} - <span>{{ $value->name }}</span> </li>
-                                            </ul>
-                                        @endforeach
-                                    </div>
-                                    @endforeach
-                                </div>
-                            </div>
-    </div>
-    {{-- developplan --}}
-    <div class=" card " style="background-image: url('{{ display_file($image3)}}');">
-        <div class="container">
             <div class="row">
+                @include('livewire.logo')
                 <div class="col-md-12 mx-auto text-center">
-                    <h3 class="text-dark mb-4">{{ __('developplan') }}</h3>
+                    <h3 class="text-dark mb-4">{{ __('marketplan') }}</h3>
                 </div>
-                @foreach ($developplans as $index => $developplan)
-                <div class="col-md-4  mt-5">
-                    <div class="col-md-4 mb-4">
-                        <h6>{{ $developplan->name }}</h6>
-                    </div>
-                    <br>
+                @foreach ($marketplans as $index => $p)
+                <div class="col-md-6">
+                    <label>{{ $p->name }}</label>
+                    @foreach($p->sub_market_planuser as $key => $value)
+                    <ul>
+                        <li>{{ $key +1}} - <span>{{ $value->name }}</span> </li>
+                    </ul>
+                    @endforeach
                 </div>
                 @endforeach
             </div>
         </div>
     </div>
-    {{-- finincalplan--}}
-    <div class=" card " style="background-image: url('{{ display_file($image5)}}');">
-        <div class="container">
+    {{-- developplan --}}
+    <div class=" card " style="background-image: url('{{ display_file($image3)}}');">
+        <div class="container p-4">
             <div class="row">
+                @include('livewire.logo')
                 <div class="col-md-12 mx-auto text-center">
-                    <h3 class="text-dark mb-4">{{ __('finincalplan') }}</h3>
+                    <h3 class="text-dark mb-4">{{ __('developplan') }}</h3>
                 </div>
-                <div style="height: 50%; width: 50%">
-                    <div class="col-md-12 mx-auto text-center">
-                        <h5 class="text-dark">تطور الإيرادات السنوية</h5>
-                    </div>
-                    <div class="w-full" style="height: 50%;" id="chart1"></div>
-                </div>
-                <div style="height: 50%; width: 50%">
-                    <div class="col-md-12 mx-auto text-center">
-                        <h5 class="text-dark">تطور صافي الأرباح</h5>
-                    </div>
-                    <div class="w-full" style="height: 50%;" id="chart2"></div>
+                {{-- <div class="col-md-12">
+                                            <img src="{{ asset('10.png') }}" alt="" style="width: 600px;">
+            </div> --}}
+            @foreach ($developplans as $index => $developplan)
+            <div class="col-md-4">
+                {{-- <div><input type="text" class="form-control" wire:model="developplanname.{{ $index }}"></div> --}}
+            <p>{{ $developplan->name }}</p>
+        </div>
+        @endforeach
+    </div>
+</div>
+</div>
+{{-- finincalplan--}}
+<div class=" card " style="background-image: url('{{ display_file($image5)}}');">
+    <div class="container p-4">
+        {{-- @include('livewire.logo') --}}
+        <div class="row">
+            <div class="col-md-12 text-center mb-3">
+                @php $user = Auth::user(); @endphp
+                @if ($user->company && $user->company->company_logo)
+                <img src="{{ PUBLIC_DIR }}/uploads/{{ $user->company->company_logo }}"
+                    class="w-20 border-radius-lg shadow-sm " style="width: 100px !important;">
+                @endif
+            </div>
+            <div class="col-md-12 mx-auto text-center">
+                <h3 class="text-dark mb-4">{{ __('finincalplan') }}</h3>
+            </div>
+            {{-- <div class="col-md-12">
+                                        <img src="{{ asset('11.png') }}" alt="" style="width: 600px;">
+        </div> --}}
+        <div style="height: 50%; width: 50%">
+            <div class="col-md-12 mx-auto text-center">
+                <h5 class="text-dark">تطور الإيرادات السنوية</h5>
+            </div>
+            <div class="w-full" style="height: 50%;" id="chart1"></div>
+        </div>
+        <div style="height: 50%; width: 50%">
+            <div class="col-md-12 mx-auto text-center">
+                <h5 class="text-dark">تطور صافي الأرباح</h5>
+            </div>
+            <div class="w-full" style="height: 50%;" id="chart2"></div>
+        </div>
+    </div>
+</div>
+</div>
+{{-- requireinvestment--}}
+<div class=" card " style="background-image: url('{{ display_file($image1)}}');">
+    <div class="container p-4">
+        <div class="row">
+            @include('livewire.logo')
+            <div class="col-md-12 mx-auto text-center">
+                <h3 class="text-dark mb-">{{ __('requireinvestment') }}</h3>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <h5 class=""> تقييم الشركة </h5>
+            <div class="alert alert-success text-white" id="success-message-existing">
+                <div>{{ $financial_evaluation ?? 0 }} SAR </div>
+            </div>
+            <h5 class=""> حجم الاستثمار المطلوب </h5>
+            <div class="alert alert-danger text-white" id="success-message-existing">
+                <div>
+                    {{ $requiredInvestmentForChart->required_investment_size ?? 0 }}
+                    {{ $requiredInvestmentForChart->required_investment_unit ?? '' }} SAR
                 </div>
             </div>
         </div>
-    </div>
-    {{-- requireinvestment--}}
-    <div class=" card " style="background-image: url('{{ display_file($image1)}}');">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 mx-auto text-center">
-                    <h3 class="text-dark mb-4">{{ __('requireinvestment') }}</h3>
-                </div>
-                <h4 class="my-4"> تقييم الشركة </h4>
-                <div class="alert alert-success text-white mt-3" id="success-message-existing">
-                    <div>{{ $financial_evaluation ?? 0 }} SAR </div>
-                </div>
-                <h4 class="my-4"> حجم الاستثمار المطلوب </h4>
-                <div class="alert alert-danger text-white mt-3" id="success-message-existing">
-                    <div> {{ $requiredInvestmentForChart->required_investment_size ?? 0 }}
-                        {{ $requiredInvestmentForChart->required_investment_unit ?? '' }} SAR </div>
-                </div>
+        <div class="row">
+            <div class="d-inline-block" style="height: 50%;width: 50%;">
+                <div style="width: full;height: 50%;" id="chart3"></div>
             </div>
-            <div class="row">
-                <div class="col-md-12 mx-auto text-center">
-                    <h3 class="text-dark mb-4">الاستثمار المطلوب</h3>
-                </div>
-                <div class="col-md-3  mt-5">
-                    <label for="">حجم الاستثمار المطلوب </label>
-                    {{-- <input type="text" class="form-control" wire:model='required_investment_size' > --}}
-                    <p>{{ $required_investment_size??'' }}</p>
-                </div>
-                <div class="col-md-3  mt-5">
-                    <label for=""> التقنيات </label>
-                    {{-- <input type="text" class="form-control" wire:model='investment_technology' > --}}
-                    <p>{{ $investment_technology??'' }}</p>
-                </div>
-                <div class="col-md-3  mt-5">
-                    <label for=""> فريق العمل </label>
-                    {{-- <input type="text" class="form-control" wire:model='investment_team' > --}}
-                    <p>{{ $investment_team??'' }}</p>
-                </div>
-                <div class="col-md-3  mt-5">
-                    <label for=""> البحث والتطوير </label>
-                    {{-- <input type="text" class="form-control" wire:model='resarch_and_development' > --}}
-                    <p>{{ $resarch_and_development??'' }}</p>
-                </div>
-                <div class="col-md-3  mt-5">
-                    <label for=""> التسويق </label>
-                    {{-- <input type="text" class="form-control" wire:model='investment_marketing' > --}}
-                    <p>{{ $investment_marketing??'' }}</p>
-                </div>
-                <div class="col-md-3  mt-5">
-                    <label for="">الوحده </label>
-                    <p>{{ __($required_investment_unit??'')}}</p>
-                </div>
+        </div>
+    </div>
+</div>
+{{-- thanku--}}
+<div class=" card " style="background-image: url('{{ display_file($image5)}}');">
 
+    <div class="container p-4">
+        <div class="row">
+            @include('livewire.logo')
+            <div class="col-md-12 mx-auto text-center">
+                <h3 class="text-dark mb-4">{{ __('thanku') }}</h3>
+                <h5 class="text-dark">هل عندك اى استفسار؟</h5>
+            </div>
+            {{-- <div class="col-md-12">
+                                            <img src="{{ asset('13.png') }}" alt="" style="width: 600px;">
+        </div> --}}
+        <div class="col-md-">
+            <label for="email">البريد الالكترونى: </label>
+            <p>{{ $thanku->email }}</p>
+            <br>
+            <label for="email">الهاتف</label>
+            <p>{{ $thanku->phone }}</p>
+            <br>
+            <label for="website_url">رابط الموقع </label>
+            <p>{{ $thanku->website_url }}</p>
+            <br>
 
-            </div>
-            <div class="row">
-                <div class="d-inline-block" style="height: 50%;width: 50%;">
-                    <div style="width: full;height: 50%;" id="chart3"></div>
-                </div>
-            </div>
         </div>
     </div>
-    {{-- thanku--}}
-    <div class=" card " style="background-image: url('{{ display_file($image5)}}');">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 mx-auto text-center">
-                    <h3 class="text-dark mb-4">{{ __('thanku') }}</h3>
-                </div>
-                <div class="col-md-4  mt-5">
-                    <label for="email">البريد الالكترونى: </label>
-                    <h6>{{ $thanku->email }}</h6>
-                    <br>
-                    <label for="email">الهاتف</label>
-                    <h6>{{ $thanku->phone }}</h6>
-                    <br>
-                    <label for="website_url">رابط الموقع </label>
-                    <h6>{{ $thanku->website_url }}</h6>
-                    <br>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
+</div>
 </div>
 <script>
 if (document.getElementById("prt-content")) {
