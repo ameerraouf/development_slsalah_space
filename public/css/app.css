@@ -19715,7 +19715,7 @@ fieldset:disabled .btn {
 .card-slide {
     min-height: calc(100vh - 2rem);
     position: relative;
-    background-position:top right;
+    background-position:center;
     background-repeat: no-repeat;
     background-size: cover;
 }
