@@ -7,8 +7,12 @@
     }
 
     .card {
-        min-height: calc(100vh - 2rem);
         height: auto;
+        min-height: calc(100vh - 2rem);
+    position: relative;
+    background-position:center;
+    background-repeat: no-repeat;
+    background-size: cover;
     }
 
     #printButton {

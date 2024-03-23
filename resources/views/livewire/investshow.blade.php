@@ -12,7 +12,7 @@
             {{ $catchError }}
         </div>
     @endif --}}
-    {{-- <div class=" card min-height-250" style="background-image: url('{{PUBLIC_DIR}}/img/back.jpeg');"> --}}
+    {{-- <div class=" card card-slide" style="background-image: url('{{PUBLIC_DIR}}/img/back.jpeg');"> --}}
     {{-- <div class="card min-height-250 " >
         <div class="container">
             <div class="row">

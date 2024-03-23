@@ -48,7 +48,7 @@
                             </div>
                     </div>
                     <div class="col-md-12">
-                        <div class=" card min-height-250" style="background-image: url('{{ display_file($image4)}}');" >
+                        <div class=" card card-slide" style="background-image: url('{{ display_file($image4)}}');" >
                             <div class="container p-4">
                                 <div class="row">
                                     @include('livewire.logo')
@@ -58,7 +58,9 @@
                                     {{-- <div class="col-md-12 ">
                                         <img src="{{ asset('9.png') }}" alt="" style="width: 600px;">
                                     </div> --}}
-                                    <div class="col-md-6">
+                                    <div class="col-md-3" style="    position: absolute;
+    top: 18%;
+    right: 22%;">
                                         <label>{{ $mainMarket1->name ?? '' }}</label>
                                         @foreach ($submarketplan1 as $index => $p)
                                             <ul>
@@ -66,7 +68,11 @@
                                             </ul>
                                         @endforeach
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-3" style="
+    position: absolute;
+    top: 32%;
+    right: 81%;
+">
                                         <label>{{ $mainMarket2->name ?? '' }}</label>
                                         @foreach ($submarketplan2 as $index => $p)
                                             <ul>
@@ -74,7 +80,11 @@
                                             </ul>
                                         @endforeach
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-3" style="
+    position: absolute;
+    top: 46%;
+    right: 16%;
+">
                                         <label>{{ $mainMarket3->name ?? '' }}</label>
                                         @foreach ($submarketplan3 as $index => $p)
                                             <ul>
@@ -82,7 +92,11 @@
                                             </ul>
                                         @endforeach
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-3" style="
+    position: absolute;
+    top: 61%;
+    right: 81%;
+">
                                         <label>{{ $mainMarket4->name ?? '' }}</label>
                                         @foreach ($submarketplan4 as $index => $p)
                                             <ul>
