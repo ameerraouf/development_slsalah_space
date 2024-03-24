@@ -48,7 +48,6 @@
 </head>
 
 <body class="g-sidenav-show  bg-gray-100" id="clx_body">
-   
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0  fixed-left " id="sidenav-main">
     <div class="sidenav-header h-auto">
         <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute right-0 top-0 d-none d-xl-none"
@@ -632,6 +631,7 @@
                     </strong>
                 </a>
             </li>
+            @if(auth('web')->user()->super_admin ==  '1')
             <li class="nav-item">
                 <a class="nav-link @if(request()->path() === 'user/support-chats') active @endif " href="{{ route('support-chats.index') }}">
 
@@ -643,6 +643,7 @@
                     </strong>
                 </a>
             </li>
+            @endif
 
             <li class="nav-item mt-3 mb-2">
                 <h6 class="ps-4 ms-2 text-uppercase text-muted text-xs opacity-6">{{__('Settings')}}  </h6>

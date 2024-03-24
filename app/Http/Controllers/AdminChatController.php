@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\ChatSent;
 use App\Models\Chat;
+use App\Models\Setting;
 use App\Models\SupportChat;
 use App\Models\User;
 use Carbon\Carbon;
@@ -49,7 +50,10 @@ class AdminChatController extends Controller
 
     public function index() {
 
-        return view('support-chats.index');
+        $super_settings = Setting::all();
+
+
+        return view('support-chats.index', compact('super_settings'));
 
     }
 
