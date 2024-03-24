@@ -14,7 +14,7 @@
 
             <div class="col-md-7 mx-auto text-center">
                 
-                <h3 class="text-dark">{{__('خطتي : التقرير النهائي')}}</h3>
+                <h3 class="text-dark mb-4">{{__('خطتي : التقرير النهائي')}}</h3>
                 <button type="button" class="btn btn-success" id="print"><i class="fa fa-print ms-2"></i>طباعة</button>
                 <button type="button" class="btn btn-success" id=""><i class="fas fa-file-pdf ms-2"></i>تصدير PDF</button>
             </div>

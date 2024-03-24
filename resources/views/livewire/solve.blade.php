@@ -68,49 +68,76 @@
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div class=" card min-height-250" style="background-image: url('{{ display_file($image2)}}');">
+                    <div class=" card card-slide" style="background-image: url('{{ display_file($image2)}}');">
                         <div class="container py-4">
-                            <div class="row">
+                            <div class="row g-3">
                                 @include('livewire.logo')
                                 <div class="col-md-12 mx-auto text-center">
-                                    <h3 class="text-dark">الحل</h3>
+                                    <h3 class="text-dark mb-4">الحل</h3>
                                     <p class="mb-3">اوصف حل الى تعمل الشركه على استخدامه فى حل المشكله</p>
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="">{{ __('solve1') }}</label>
+                                <div class="col-md-4 d-flex gap-2">
+                                    <i class="fa-solid fa-headset fs-2 text-center" style="width:45px;"></i>
+                                    <div class="flex-fill">
+                                        <label for="">{{ __('solve1') }}</label>
                                     <p>{{ $solve1 }}</p>
+                                    </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="">{{ __('solve2') }}</label>
+                                <div class="col-md-4 d-flex gap-2">
+                                <i class="fa-solid fa-circle-nodes fs-2 text-center" style="width:45px;"></i>
+                                    <div class="flex-fill">
+                                        <label for="">{{ __('solve2') }}</label>
                                     <p>{{ $solve2 }}</p>
+                                    </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="">{{ __('solve3') }}</label>
+                                <div class="col-md-4 d-flex gap-2">
+                                <i class="fa-solid fa-file-invoice-dollar fs-2 text-center" style="width:45px;"></i>
+                                    <div class="flex-fill">
+                                        <label for="">{{ __('solve3') }}</label>
                                     <p>{{ $solve3 }}</p>
+                                    </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-4 d-flex gap-2">
+                                <i class="fa-solid fa-lightbulb fs-2 text-center" style="width:45px;"></i>
+                                    <div class="flex-fill">
                                     <label for="">{{ __('solve4') }}</label>
                                     <p>{{ $solve4 }}</p>
+                                    </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="">{{ __('solve5') }}</label>
+                                <div class="col-md-4 d-flex gap-2">
+                                <i class="fa-solid fa-network-wired fs-2 text-center" style="width:45px;"></i>
+                                    <div class="flex-fill">
+                                        <label for="">{{ __('solve5') }}</label>
                                     <p>{{ $solve5 }}</p>
+                                    </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="">{{ __('solve6') }}</label>
+                                <div class="col-md-4 d-flex gap-2">
+                                <i class="fa-solid fa-users-rays fs-2 text-center" style="width:45px;"></i>
+                                    <div class="flex-fill">
+                                        <label for="">{{ __('solve6') }}</label>
                                     <p>{{ $solve6 }}</p>
+                                    </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="">{{ __('solve7') }}</label>
+                                <div class="col-md-4 d-flex gap-2">
+                                <i class="fa-solid fa-umbrella fs-2 text-center" style="width:45px;"></i>
+                                    <div class="flex-fill">
+                                        <label for="">{{ __('solve7') }}</label>
                                     <p>{{ $solve7 }}</p>
+                                    </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="">{{ __('solve8') }}</label>
+                                <div class="col-md-4 d-flex gap-2">
+                                <i class="fa-solid fa-magnifying-glass fs-2 text-center" style="width:45px;"></i>
+                                    <div class="flex-fill">
+                                        <label for="">{{ __('solve8') }}</label>
                                     <p>{{ $solve8 }}</p>
+                                    </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="">{{ __('solve9') }}</label>
+                                <div class="col-md-4 d-flex gap-2">
+                                <i class="fa-solid fa-computer fs-2 text-center" style="width:45px;"></i>
+                                    <div class="flex-fill">
+                                        <label for="">{{ __('solve9') }}</label>
                                     <p>{{ $solve9 }}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

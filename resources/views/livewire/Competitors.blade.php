@@ -64,12 +64,12 @@
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div class=" card min-height-250" style="background-image: url('{{ display_file($image5)}}');">
+                    <div class=" card card-slide" style="background-image: url('{{ display_file($image5)}}');">
                         <div class="container p-4">
                             <div class="row">
                                 @include('livewire.logo')
                                 <div class="col-md-12 mx-auto text-center">
-                                    <h3 class="text-dark">{{ __('competitors') }}</h3>
+                                    <h3 class="text-dark mb-4">{{ __('competitors') }}</h3>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="table-responsive p-0">

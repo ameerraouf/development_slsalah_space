@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-7 mx-auto text-center">
                 <span class="badge bg-purple-light mb-3">{{__('Pricing and Plans')}}</span>
-                <h3 class="text-dark">{{__('Ready to get started with StartupKit?Awesome!')}}</h3>
+                <h3 class="text-dark mb-4">{{__('Ready to get started with StartupKit?Awesome!')}}</h3>
                 <p class="text-secondary">{{__('Choose the plan that best fit for you.')}}</p>
             </div>
         </div>

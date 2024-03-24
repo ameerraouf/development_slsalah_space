@@ -26,12 +26,12 @@
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div class=" card min-height-250" style="background-image: url('{{ display_file($image5)}}');">
+                    <div class=" card card-slide" style="background-image: url('{{ display_file($image5)}}');">
                         <div class="container py-4">
                             <div class="row">
                                 @include('livewire.logo')
                                 <div class="col-md-12 mx-auto text-center mb-3">
-                                    <h3 class="text-dark">{{ __('problem') }}</h3>
+                                    <h3 class="text-dark mb-4">{{ __('problem') }}</h3>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="company_desc" class="form-label">{{ __('problem1') }}</label>
