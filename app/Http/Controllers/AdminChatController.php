@@ -50,10 +50,7 @@ class AdminChatController extends Controller
 
     public function index() {
 
-        $super_settings = Setting::all();
-
-
-        return view('support-chats.index', compact('super_settings'));
+        return view('support-chats.index');
 
     }
 

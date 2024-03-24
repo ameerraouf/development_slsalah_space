@@ -45,7 +45,7 @@ class InvestorChat extends Model
 
         $superAdminId = User::where('super_admin', 1)->first();
 
-        $data = $this->select('*')->with('user')->where('investor_id', auth('investor')->user()->id)->where('user_id','!=', $superAdminId->id)->orderBy('id', 'DESC')->get();
+        $data = $this->select('*')->with('user')->where('investor_id', auth('investor')->user()->id)->orderBy('id', 'DESC')->get();
 
         return $data->unique('user_id');
 

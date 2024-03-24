@@ -44,6 +44,7 @@
         }
     </style>
     @livewireStyles
+    @stack('header_scripts')
 
 </head>
 
