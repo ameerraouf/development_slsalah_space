@@ -149,7 +149,7 @@
                 </div>
                 <div class="">
                     {{-- Note: --}}
-                    <input type="radio" name="audience" id="audience-4" value="b2b b2c and Government agencies " style="width: auto;">
+                    <input type="radio" name="audience" id="audience-4" value="المستهلكون والحكومة والمؤسسات والأعمال التجارية الأخرى" style="width: auto;">
                     <label for="audience-4">{{ __('all') }}</label><br>
                 </div>
             </div>
@@ -165,11 +165,11 @@
                     <label for="product_nature-2">{{ __('Digital Products') }}</label><br>
                 </div>
                 <div class="">
-                    <input type="radio" name="product_nature" id="product_nature-3" value="حدمات" style="width: auto;">
+                    <input type="radio" name="product_nature" id="product_nature-3" value="خدمات" style="width: auto;">
                     <label for="product_nature-3">{{ __('Services') }}</label><br>
                 </div>
                 <div class="">
-                    <input type="radio" name="product_nature" id="product_nature-4" value="phyiscal and digital products and services"
+                    <input type="radio" name="product_nature" id="product_nature-4" value="منتجات رقمية ومادية وخدمية"
                         style="width: auto;">
                     <label for="product_nature-4">{{ __('all') }}</label><br>
                 </div>
@@ -211,7 +211,7 @@
                     <label for="market_position-3">{{ __('Special Market') }}</label><br>
                 </div>
                 <div class="">
-                    <input type="radio" name="market_position" id="market_position-4" value="all markets" style="width: auto;">
+                    <input type="radio" name="market_position" id="market_position-4" value="جميع الأسواق" style="width: auto;">
                     <label for="market_position-4">{{ __('all') }}</label><br>
                 </div>
             </div>
