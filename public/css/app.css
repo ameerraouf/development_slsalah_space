@@ -19709,6 +19709,12 @@ fieldset:disabled .btn {
 .text-red{
     color: #D7272A !important;
 }
+.main-color-icon {
+    fill: var(--app-blue-color) !important;
+}
+.main-color-icon *{
+    stroke: var(--app-blue-color) !important;
+}
 .text-green{
     color: #29A600 !important;
 }
