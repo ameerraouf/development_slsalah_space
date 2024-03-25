@@ -86,12 +86,14 @@ class FoundRoundController extends Controller
      */
     public function update(Request $request, FoundRound $round)
     {
+        if($request->round_amount > 9999999999.00){
+            return redirect()->route('pioneer.pioneer-found-rounds')->with('error', 'حجم التمويل المطلوب لا يتجاوز 9999999999');
+        }
         $round->round_amount = $request->round_amount;
         $round->share_round = $request->share_round?1:0;
         $round->share_plan = $request->share_plan?1:0;
         $round->share_profile = $request->share_profile?1:0;
         $round->business_pioneer_id = Auth::user()->id;
-
         $round->save();
         return redirect()->route('pioneer.pioneer-found-rounds')->with('success', 'تم تعديل الجولة بنجاح');
 

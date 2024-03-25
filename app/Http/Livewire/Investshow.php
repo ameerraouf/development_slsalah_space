@@ -1024,6 +1024,11 @@ class Investshow extends Component
         }
 
         $themes = Theme::all();
+        $image1 = '';
+        $image2 = '';
+        $image3 = '';
+        $image4 = '';
+        $image5 = '';
         if($this->theme_id){
            $t = Theme::whereId($this->theme_id)->first();
            $image1 = $t->image1;

@@ -97,7 +97,7 @@
                                                             <input type="radio" class="" id="theme{{$theme->id}}" value="{{ $theme->id }}" wire:model="theme_id" 
                                                               {{ auth()->user()->themeuser?->theme_id == $theme->id ? 'checked':''}} >
                                                               @error("theme_id") <span class="text-danger">{{ $message }}</span> @enderror
-                                                            <label class="mb-0"> {{ $theme->name }}</label>
+                                                            <label class="mb-0" style="font-size: 22px"> {{ $theme->name }}</label>
                                                         </div>
                                                         <div class="">
                                                             @if($theme->image1)
@@ -118,10 +118,10 @@
                                 <button class="btn btn-info m-0 mt-2 btn-sm" type="button" wire:click="themeSubmit">{{ __('save') }}</button>
                            <div class="d-flex align-items-center gap-3 justify-content-center mt-3">
                            <button class="btn btn-warning m-0" type="button" wire:click="back(1)">
-                                {{ trans('Back') }}
+                                {{ __('Back') }}
                             </button>
                             <button type="button" class="btn btn-info  m-0 " wire:click="secondStepSubmit">
-                                {{ trans('next') }}
+                                {{ __('next') }}
                             </button>
                            </div>
                         </div>
