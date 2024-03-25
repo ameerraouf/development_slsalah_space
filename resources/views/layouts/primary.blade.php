@@ -638,7 +638,20 @@
 
                   <i class="fas fa-question"></i>
 
-                    <span class="nav-link-text ">{{__('رسائل الادارة')}}</span>
+                    <span class="nav-link-text ">{{__('رسائل المستثمرين')}}</span>
+                    <strong class=" text-danger mx-2" id="user_chat_count" >
+                        0
+                    </strong>
+                </a>
+            </li>
+            @endif
+            @if(auth('web')->user()->super_admin ==  '1')
+            <li class="nav-item">
+                <a class="nav-link @if(request()->path() === 'user/support-chats') active @endif " href="{{ route('support-chats.index') }}">
+
+                  <i class="fas fa-question"></i>
+
+                    <span class="nav-link-text ">{{__('رسائل رواد الاعمال')}}</span>
                     <strong class=" text-danger mx-2" id="user_chat_count" >
                         0
                     </strong>

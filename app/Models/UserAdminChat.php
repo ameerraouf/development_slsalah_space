@@ -12,4 +12,18 @@ class UserAdminChat extends Model
     protected $table = 'user_admin_chat';
 
     protected $guarded = [];
+
+    
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+
+    public function usersChats() {
+
+        $data = $this->select('*')->with('user')->where('admin_id', auth()->user()->id)->orderBy('id', 'DESC')->get();
+
+        return $data->unique('user_id');
+
+    }
 }

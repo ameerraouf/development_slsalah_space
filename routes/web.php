@@ -488,6 +488,11 @@ Route::prefix('user/chat-admin')->middleware('auth')->group(function (){
     Route::post('/broadcast', [UserAdminController::class, 'broadcastUser'])->name('user-chat-admin.broadcast');
     Route::post('/recive', [UserAdminController::class, 'reciveUser'])->name('user-chat-admin.recive');
 });
+Route::prefix('admin/chat-admin')->middleware('auth')->group(function (){
+    Route::get('/', [UserAdminController::class, 'adminView']);
+    Route::post('/broadcast', [UserAdminController::class, 'broadcastAdmin'])->name('user-chat-admin.broadcastAdmin');
+    Route::post('/recive', [UserAdminController::class, 'reciveAdmin'])->name('user-chat-admin.reciveAdmin');
+});
 
 Route::prefix('admin/chat')->middleware('auth')->group(function (){
     Route::get('/', [\App\Http\Controllers\AdminChatController::class, 'index'])->name('admin.chat.index');
