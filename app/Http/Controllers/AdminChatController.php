@@ -10,6 +10,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use http\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Pusher\Pusher;
@@ -50,7 +51,26 @@ class AdminChatController extends Controller
 
     public function index() {
 
-        return view('support-chats.index');
+        // check Permission
+
+        if (auth()->user()->super_admin != '1') {
+
+            return redirect('/');
+
+        }
+
+        $super_settings = [];
+        $super_settings = [];
+
+        $super_settings_data = Setting::where('workspace_id', 1)->get();
+        foreach ($super_settings_data as $super_setting) {
+            $super_settings[$super_setting->key] = $super_setting->value;
+        }
+
+        $language = $super_settings['language'] ?? 'en';
+
+        App::setLocale($language);
+        return view('support-chats.index', compact('super_settings'));
 
     }
 

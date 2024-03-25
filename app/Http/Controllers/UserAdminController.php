@@ -55,6 +55,14 @@ class UserAdminController extends Controller
 
     public function adminView() {
         
+        // check Permission
+
+        if (auth()->user()->super_admin != '1') {
+
+            return redirect('/');
+
+        }
+
         $super_settings = [];
         $super_settings = [];
 
