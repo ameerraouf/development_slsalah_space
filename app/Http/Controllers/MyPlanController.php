@@ -122,19 +122,19 @@ class MyPlanController extends BaseController
             if($project_cumulative_free_cash_flow_first_year < 0){
                 $project_cumulative_free_cash_flow_second_year = $data['calc_total']['second_year_net_cash_flow_number'] - abs($project_cumulative_free_cash_flow_first_year);
             }else{
-                $project_cumulative_free_cash_flow_second_year = '';
+                $project_cumulative_free_cash_flow_second_year = 0;
             }
             if($project_cumulative_free_cash_flow_second_year < 0){
                 $project_cumulative_free_cash_flow_third_year = $data['calc_total']['third_year_net_cash_flow_number'] - abs($project_cumulative_free_cash_flow_second_year);
             }else{
-                $project_cumulative_free_cash_flow_third_year = '';
+                $project_cumulative_free_cash_flow_third_year = 0;
             }
         }
     
         $data['project_cumulative_free_cash_flow']['first_year'] = formatCurrency($project_cumulative_free_cash_flow_first_year,getWorkspaceCurrency($this->settings));
         $data['project_cumulative_free_cash_flow']['second_year'] = $project_cumulative_free_cash_flow_second_year !== '' ? formatCurrency($project_cumulative_free_cash_flow_second_year,getWorkspaceCurrency($this->settings)) : '';
         $data['project_cumulative_free_cash_flow']['third_year'] = $project_cumulative_free_cash_flow_third_year !== '' ? formatCurrency($project_cumulative_free_cash_flow_third_year,getWorkspaceCurrency($this->settings)) : '';
-
+        $data['capital_recovery_period']['first_year'] = 0;$data['capital_recovery_period']['second_year'] = 0;
         if($project_cumulative_free_cash_flow_first_year < 0){
             $data['capital_recovery_period']['first_year'] = 1;
         }

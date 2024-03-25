@@ -42,6 +42,7 @@ use App\Http\Controllers\InvestorAdminChatController;
 use App\Http\Controllers\FinancialEvaluationController;
 use App\Http\Controllers\MyInvestmentPortfolioController;
 use App\Http\Controllers\SuperAdminThemeController;
+use App\Http\Controllers\UserAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -481,6 +482,16 @@ Route::prefix('user/chat')->middleware('auth')->group(function (){
     Route::get('/', [\App\Http\Controllers\UserChatController::class,'index'])->name('user.chat.index');
     Route::post('/', [\App\Http\Controllers\UserChatController::class, 'send'])->name('user.chat.send');
     Route::post('getCountPioneer', [\App\Http\Controllers\UserChatController::class, 'getCountPioneer'])->name('user.chat.getCountPioneer');
+});
+Route::prefix('user/chat-admin')->middleware('auth')->group(function (){
+    Route::get('/', [UserAdminController::class, 'userView'])->name('user-admin-chat.index');
+    Route::post('/broadcast', [UserAdminController::class, 'broadcastUser'])->name('user-chat-admin.broadcast');
+    Route::post('/recive', [UserAdminController::class, 'reciveUser'])->name('user-chat-admin.recive');
+});
+Route::prefix('admin/chat-admin')->middleware('auth')->group(function (){
+    Route::get('/', [UserAdminController::class, 'adminView'])->name('admin-user-chat.index');
+    Route::post('/broadcast', [UserAdminController::class, 'broadcastAdmin'])->name('user-chat-admin.broadcastAdmin');
+    Route::post('/recive', [UserAdminController::class, 'reciveAdmin'])->name('user-chat-admin.reciveAdmin');
 });
 
 Route::prefix('admin/chat')->middleware('auth')->group(function (){

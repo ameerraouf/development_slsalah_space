@@ -28,16 +28,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $super_settings = [];
-
-        $super_settings_data = Setting::where('workspace_id', 1)->get();
-        foreach ($super_settings_data as $super_setting) {
-            $super_settings[$super_setting->key] = $super_setting->value;
-        }
-
-        $language = $super_settings['language'] ?? 'en';
-        App::setLocale($language);
-        View::share("super_settings", $super_settings);
         date_default_timezone_set(Config::get('app.timezone'));
     }
 }

@@ -19,10 +19,10 @@
                         <div class="card-body" id = "chat_bar">
 
                             @foreach ($messages as $message)
-                                @if(auth('investor')->user())
+                                @if(auth()->user())
                                     <div
-                                        class="d-flex w-100 @if ($message->sender_type == 'investor') justify-content-start  @else justify-content-end @endif">
-                                        <div class="d-flex p-2 mb-3 justify-content-start @if ($message->sender_type == 'investor') bg-primary @else bg-light text-dark @endif"
+                                        class="d-flex w-100 @if ($message->sender_type == 'admin') justify-content-start  @else justify-content-end @endif">
+                                        <div class="d-flex p-2 mb-3 justify-content-start @if ($message->sender_type == 'admin') bg-primary @else bg-light text-dark @endif"
                                             style="max-width:75%; width:fit-content; border-radius: 10px;">
                                             @if (!is_null($message->file))
                                                 <a href="/download-attachment/{{ $message->file }}"
@@ -30,14 +30,14 @@
                                             @else
                                                 <div class="w-100">
             
-                                                    <p class="lead mb-0" style="font-size:15px;@if ($message->sender_type == 'investor') color:#ffffff99;  @else color: #78787899; @endif">
+                                                    <p class="lead mb-0" style="font-size:15px;@if ($message->sender_type == 'admin') color:#ffffff99;  @else color: #78787899; @endif">
             
                                                         {{ $message->message }}
                                                     </p>
                                                     <div class="d-flex align-items-center justify-content-between">
                                                         <div></div>
                                                         <span
-                                                            style=" @if ($message->sender_type == 'investor') color:#ffffff99;  @else color: #78787899; @endif">
+                                                            style=" @if ($message->sender_type == 'admin') color:#ffffff99;  @else color: #78787899; @endif">
                                                             {{ $message->created_at->format('h:m A') }}
                                                         </span>
                                                     </div>
@@ -101,22 +101,22 @@
                             <input wire:model = 'search' type="search" class = 'form-control' name = 'search_chat' placeholder="بحث عن رسالة">
                         </div>
                         @foreach($chats as $chat)
-                        <button onclick = 'scrollToBottomChat()' class="btn btn-defualt w-100 d-block rounded-0" wire:click = "openChat({{ $chat->investor->id }})" id = 'chat_btn'>
+                        <button onclick = 'scrollToBottomChat()' class="btn btn-defualt w-100 d-block rounded-0" wire:click = "openChat({{ $chat->user->id }})" id = 'chat_btn'>
                             <div class="box p-2">
                                 <div class="d-flex align-items-center">
                     
                                     <div class="img">
-                                        @if($chat->investor->photo && file_exists(url('uploads/' .  $chat->investor->photo)))
-                                            <img src="{{ url('uploads/' .  $chat->investor->photo) }}" alt="logo" width="50" height="50">
+                                        @if($chat->user->photo && file_exists(url('uploads/' .  $chat->user->photo)))
+                                            <img src="{{ url('uploads/' .  $chat->user->photo) }}" alt="logo" width="50" height="50">
                                         @else
                                             <img src="{{ url('/'. env('DEFAULT_PHOTO')?? "") }}" alt="logo" width="50" height="50">
                                         @endif
                                     </div>
                                     <div class="name ms-3">
-                                        {{ $chat->investor->first_name . " " . $chat->investor->last_name }}
+                                        {{ $chat->user->first_name . " " . $chat->user->last_name }}
                                     </div>
-                                    <div class="unreaded" {{--@if($chat->investorUnreadMessages($chat->investor->id) <= 0) style = 'display:none' @endif--}} id = 'user_{{ $chat->investor->id }}'>
-                                        <span class="badge bg-success">{{-- $chat->investorUnreadMessages($chat->investor->id) --}}</span>
+                                    <div class="unreaded" {{--@if($chat->userUnreadMessages($chat->user->id) <= 0) style = 'display:none' @endif--}} id = 'user_{{ $chat->user->id }}'>
+                                        <span class="badge bg-success">{{-- $chat->userUnreadMessages($chat->user->id) --}}</span>
                                     </div>                                
                                 </div>
                             </div>

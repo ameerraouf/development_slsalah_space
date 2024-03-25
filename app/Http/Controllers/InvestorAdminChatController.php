@@ -12,11 +12,11 @@ class InvestorAdminChatController extends Controller
 
     public function index() {
 
-        $user = User::where('super_admin',1)->first();
-        $messages = InvestorChat::where('user_id', $user->id)->where('investor_id', auth('investor')->user()->id)->orderBy('id', 'asc')->get();
+        $admin = User::where('super_admin',1)->first();
+        $messages = InvestorChat::where('user_id', $admin->id)->where('investor_id', auth('investor')->user()->id)->orderBy('id', 'asc')->get();
 
 
-        return view('investor.chats-admin.index', compact('user','messages'));
+        return view('investor.chats-admin.index', compact('admin','messages'));
 
     }
 
