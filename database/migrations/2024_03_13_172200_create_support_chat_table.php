@@ -15,9 +15,9 @@ class CreateSupportChatTable extends Migration
     {
         Schema::create('support_chat', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('chat_id')->nullable();
-            $table->foreignId('sender_id')->nullable()->references('id')->on('users');
-            $table->foreignId('reciver_id')->nullable()->references('id')->on('investors');
+            $table->text('chat_id')->nullable();
+            $table->foreignId('sender_id')->nullable()->references('id')->on('investors')->cascadeOnDelete();
+            $table->foreignId('reciver_id')->nullable()->references('id')->on('users')->cascadeOnDelete();
             $table->text('message')->nullable();
             $table->string('file')->nullable();
             $table->string('audio')->nullable();

@@ -23,7 +23,7 @@ class CreateUserAdminChat extends Migration
             $table->enum('sender_type', ['admin', 'user']);
             $table->timestamp('admin_read_at')->nullable();
             $table->timestamp('user_read_at')->nullable();
-            $table->boolean('is_open');
+            $table->boolean('is_open')->default(0);
             $table->timestamps();
         });
     }
