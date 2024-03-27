@@ -47,16 +47,13 @@
                 </div>
                 <div class="card-footer">
                     <div class="d-flex align-items-center">
-                        <div class="inp-file flex-fill">
-                            <input wire:model = 'message_text' type="text" id="message_text" class="form-control"
-                                placeholder="{{ __('website.chat.placeholder_message') }}">
-                            <div class="inp">
-                                <input type="file" name="" id="">
+                            <div class="inp-file flex-fill">
+                            <input onkeypress="enterSend()" type="text" id = "message_text" class="form-control" placeholder  = "{{ __('website.chat.placeholder_message') }}" >
+                            <div class="inp" data-bs-toggle="modal" data-bs-target="#uploadsFiles">
                                 <i class="fa-solid fa-paperclip"></i>
                             </div>
                         </div>
-                        <button  onclick='send({{ $admin->id }})' class='btn btn-primary m-0  px-3'
-                            style="margin-inline-start: 5px !important;" id='sendMessage'>
+                        <button id = 'send_btn' onclick = 'send({{ $this->admin->id }})' class = 'btn btn-primary m-0  px-3' style="    margin-inline-start: 5px !important;" id = 'sendMessage'>
                             <i class="fa-solid fa-paper-plane" style="font-size:14px !important;"></i>
                         </button>
                     </div>

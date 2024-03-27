@@ -25,6 +25,8 @@ class AdminChatController extends Controller
 
         $type       = auth('investor')->user()->id ? 'investor' : 'user';
 
+        // Check If Isset File
+
         $run = SupportChat::create([
             'chat_id'       => $chatId,
             'sender_id'     => $sender_id,

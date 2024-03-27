@@ -22,6 +22,8 @@ class Chat extends Component
 
     public $message_text;
 
+    public $file;
+
     protected $preview;
 
     use WithPagination;

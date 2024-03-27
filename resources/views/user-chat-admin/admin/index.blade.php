@@ -1,5 +1,8 @@
 @extends('layouts.primary')
 <audio src="{{ asset('tones/notification.mp3') }}" id = 'notify' allow="autoplay"></audio>
+@section('content')
+    <livewire:admin.admin />
+@endsection
 @push('header_scripts')
 <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -50,10 +53,17 @@
         }
     }
 
+    function enterSend() {
 
+        if (event.key === "Enter") {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            // Trigger the button element with a click
+            document.getElementById("send_btn").click();
+        }
+    }
+
+    // If the user presses the "Enter" key on the keyboard
 </script>
 @endpush
 
-@section('content')
-    <livewire:admin.admin />
-@endsection
