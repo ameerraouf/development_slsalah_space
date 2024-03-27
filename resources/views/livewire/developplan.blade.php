@@ -7,7 +7,7 @@
         display: flex;
         flex-wrap: wrap;
         width: 776px;
-        height: 377;
+        height: 377px;
     }
 
     .box-chart-dev>svg {
