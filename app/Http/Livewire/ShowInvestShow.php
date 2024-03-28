@@ -31,10 +31,10 @@ class ShowInvestShow extends Component
         //    $themeuserid = auth()->user()->themeuser->first()->value('id');
            $themeid = ThemeUser::where('user_id',$user->id)->first()->value('theme_id');
            $themeuser = Theme::whereId($themeid)->first();
-           $image1 = $themeuser->image1;
-           $image2 = $themeuser->image2;
-           $image3 = $themeuser->image3;
-           $image4 = $themeuser->image4;
+        //    $image1 = $themeuser->image1;
+        //    $image2 = $themeuser->image2;
+        //    $image3 = $themeuser->image3;
+        //    $image4 = $themeuser->image4;
            $image5 = $themeuser->image5;
 
            $companydesc = Company::where('business_pioneer_id',$user->id)->value('company_description');
@@ -42,6 +42,7 @@ class ShowInvestShow extends Component
            $solves = Solve::where('user_id',$user->id)->take(9)->get();
            $products = Projects::where('user_id',$user->id)->latest()->take(6)->get(); // Fetch 6 products
            $markets = Market::where('user_id',$user->id)->take(5)->get();
+           $myear = []; $msize = []; $munit = [];
            foreach ($markets  as $market) {
                 $myear[] = $market->year;
                 $msize[] = $market->size;
@@ -76,12 +77,11 @@ class ShowInvestShow extends Component
             $marketplans = MainMarketPlan::take(4)->get(); 
             $developplans = DevelopPlan::where('user_id',$user->id)->take(7)->get(); // Fetch 7
             $thanku=Thankyou::where('customer_id',$user->id)->first();
-
         return view('livewire.show-invest-show',compact( 
-        'image1',
-        'image2',
-        'image3',
-        'image4',
+        // 'image1',
+        // 'image2',
+        // 'image3',
+        // 'image4',
         'image5',
         'companydesc',
         'problems',
@@ -104,6 +104,7 @@ class ShowInvestShow extends Component
         'marketplans',
         'developplans',
         'thanku',
+        'markets',
        ));
     }
 }

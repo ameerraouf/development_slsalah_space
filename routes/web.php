@@ -70,10 +70,7 @@ Route::prefix("super-admin")->group(function () {
 }); 
 Route::resource('video',VideoController::class); 
 Route::get('video/{id}/destroy',[VideoController::class,'destroy'])->name('video.destroy');
-Route::get("/super-admin/dashboard", [
-    SuperAdminController::class,
-    "dashboard",
-])->name('super-admin.dashboard');
+Route::get("/super-admin/dashboard", [SuperAdminController::class,"dashboard",])->name('super-admin.dashboard');
 
 Route::get("/super-admin/update-schema", [
     SuperAdminController::class,

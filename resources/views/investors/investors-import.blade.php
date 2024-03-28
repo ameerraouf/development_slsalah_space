@@ -1,4 +1,4 @@
-@extends('layouts.'.($layout ?? 'primary'))
+@extends('layouts.super-admin-portal')
 @section('content')
     <style>
         .loader {

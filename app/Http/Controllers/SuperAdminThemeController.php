@@ -24,18 +24,18 @@ class SuperAdminThemeController extends Controller
         // dd($request->all());
         try{
             $input['name'] = $request->name;
-            if (request('image1')) {
-                $input['image1'] = store_file(request('image1'), 'themes');
-            }
-            if (request('image2')) {
-                $input['image2'] = store_file(request('image2'), 'themes');
-            }
-            if (request('image3')) {
-                $input['image3'] = store_file(request('image3'), 'themes');
-            }
-            if (request('image4')) {
-                $input['image4'] = store_file(request('image4'), 'themes');
-            }
+            // if (request('image1')) {
+            //     $input['image1'] = store_file(request('image1'), 'themes');
+            // }
+            // if (request('image2')) {
+            //     $input['image2'] = store_file(request('image2'), 'themes');
+            // }
+            // if (request('image3')) {
+            //     $input['image3'] = store_file(request('image3'), 'themes');
+            // }
+            // if (request('image4')) {
+            //     $input['image4'] = store_file(request('image4'), 'themes');
+            // }
             if (request('image5')) {
                 $input['image5'] = store_file(request('image5'), 'themes');
             }
@@ -76,30 +76,30 @@ class SuperAdminThemeController extends Controller
         try{
             $theme = Theme::find($id);
             $input['name'] = $request->name;
-            if ($request->file('image1')) {
-                if ($theme->image1 != 'themes/LOGO.png') {
-                    delete_file($theme->getRawOriginal('image1'));
-                }
-                $input['image1'] = store_file($request->file('image1'), 'themes');
-            }
-            if ($request->file('image2')) {
-                if ($theme->image2 != 'themes/LOGO.png') {
-                    delete_file($theme->getRawOriginal('image2'));
-                }
-                $input['image2'] = store_file($request->file('image2'), 'themes');
-            }
-            if ($request->file('image3')) {
-                if ($theme->image3 != 'themes/LOGO.png') {
-                    delete_file($theme->getRawOriginal('image3'));
-                }
-                $input['image3'] = store_file($request->file('image3'), 'themes');
-            }
-            if ($request->file('image4')) {
-                if ($theme->image4 != 'themes/LOGO.png') {
-                    delete_file($theme->getRawOriginal('image4'));
-                }
-                $input['image4'] = store_file($request->file('image4'), 'themes');
-            }
+            // if ($request->file('image1')) {
+            //     if ($theme->image1 != 'themes/LOGO.png') {
+            //         delete_file($theme->getRawOriginal('image1'));
+            //     }
+            //     $input['image1'] = store_file($request->file('image1'), 'themes');
+            // }
+            // if ($request->file('image2')) {
+            //     if ($theme->image2 != 'themes/LOGO.png') {
+            //         delete_file($theme->getRawOriginal('image2'));
+            //     }
+            //     $input['image2'] = store_file($request->file('image2'), 'themes');
+            // }
+            // if ($request->file('image3')) {
+            //     if ($theme->image3 != 'themes/LOGO.png') {
+            //         delete_file($theme->getRawOriginal('image3'));
+            //     }
+            //     $input['image3'] = store_file($request->file('image3'), 'themes');
+            // }
+            // if ($request->file('image4')) {
+            //     if ($theme->image4 != 'themes/LOGO.png') {
+            //         delete_file($theme->getRawOriginal('image4'));
+            //     }
+            //     $input['image4'] = store_file($request->file('image4'), 'themes');
+            // }
             if ($request->file('image5')) {
                 if ($theme->image5 != 'themes/LOGO.png') {
                     delete_file($theme->getRawOriginal('image5'));

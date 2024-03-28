@@ -11,11 +11,11 @@
             <div class="col"></div>
             <div class="col"></div>
             <div class="col"></div>
-            <div class="col">
+            {{-- <div class="col">
                 @if (auth()->user()->super_admin == 1)
                     <a href="{{ route('investors.import') }}" class="" style="background-color: #1e91bd; color: white; border: 2px solid white; border-radius: 5px; cursor: pointer;">استيراد من excel</a>
                 @endif
-            </div>
+            </div> --}}
         </div>
         <div class="col-12">
             <div class="card card-body mb-4">

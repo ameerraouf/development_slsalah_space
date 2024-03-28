@@ -30,7 +30,7 @@
                             @error('name')<span class="text-danger">{{ $message }}</span>@enderror
                         </div>
                         <div class="row">
-                            <div class="col-md-3">
+                            {{-- <div class="col-md-3">
                                 <label> {{ __('requireinvestment') }}</label>
                                 <div class="">
                                     <input type="file" name="image1"   accept="image/*" class="form-control img1">
@@ -81,9 +81,9 @@
                                     <img src="{{ asset('no-image.jpg') }}" alt="" class="img-thumbnail img-preview4" width="960px" height="540px">
                                 @endif
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-md-3">
-                                <label> {{ __('restpage') }}</label>
+                                <label> {{ __('image') }}</label>
                                 <div class="">
                                     <input type="file" name="image5"   accept="image/*" class="form-control img5">
                                     <h6 class="form-text text-muted">{{ __('hint') }}</h6>

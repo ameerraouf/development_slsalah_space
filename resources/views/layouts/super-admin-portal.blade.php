@@ -166,13 +166,28 @@
                     </span>
                 </a>
             </li>
-
+            
             <li class="nav-item">
                 <a class="nav-link @if(basename(parse_url(url()->current(), PHP_URL_PATH)) =='subscriptions-all' || isset($selected_navigation) && $selected_navigation == 'show_details_of_subscription') active @endif" href="/subscriptions-all">
                     <i class="fas fa-dollar-sign"></i>
                     <span class="nav-link-text ms-3">الاشتراكات</span>
                 </a>
             </li>
+
+        </li>
+        <li class="nav-item">
+            <a class="nav-link  @if(($selected_navigation ?? '') === 'investorImoprt') active @endif" href="{{ route('investors.import') }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="feather feather-credit-card">
+                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                    <line x1="1" y1="10" x2="23" y2="10"></line>
+                </svg>
+                <span class="nav-link-text ms-3">استيراد من ملف EXCEL</span>
+            </a>
+        </li>
+
+           
 
             <li class="nav-item mt-4 mb-2">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs text-muted font-weight-bolder opacity-6">{{__('Settings')}}  </h6>

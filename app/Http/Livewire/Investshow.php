@@ -2,10 +2,11 @@
 
 namespace App\Http\Livewire;
 
-use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use Dompdf\Dompdf;
 use App\Models\Team;
 use App\Models\Solve;
+use App\Models\Theme;
 use App\Models\Compat;
 use App\Models\Market;
 use App\Models\Company;
@@ -13,24 +14,24 @@ use Livewire\Component;
 use App\Models\Compator;
 use App\Models\Projects;
 use App\Models\Thankyou;
+use App\Models\ThemeUser;
 use App\Models\DevelopPlan;
 use App\Models\SubMarketPlan;
 use Livewire\WithFileUploads;
 use App\Models\MainMarketPlan;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Validation\Rule;
+use Illuminate\Http\UploadedFile;
 use App\Models\RequiredInvestment;
 use App\Models\FinancialEvaluation;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 use App\Models\PlanningCostAssumption;
+use Illuminate\Support\Facades\Storage;
 use App\Models\PlanningFinancialAssumption;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use App\Models\PlanningRevenueOperatingAssumption;
-use App\Models\Theme;
-use App\Models\ThemeUser;
-use Illuminate\Http\UploadedFile;
-use Dompdf\Dompdf;
-use Illuminate\Support\Facades\View;
-use Barryvdh\DomPDF\Facade\Pdf;
 
 class Investshow extends Component
 {
@@ -325,26 +326,33 @@ class Investshow extends Component
 
     //tap thank u
     public function thankuSubmit(){
-        $this->validate([
-            'email' => 'required|email',
-            'phone' => 'required',
-            'website_url' => 'required|url',
-        ]);
-        $customerData = [
-            'email' => $this->email,
-            'phone' => $this->phone,
-            'website_url' => $this->website_url,
-        ];
-        Thankyou::updateOrCreate(
-            ['customer_id' => Auth::user()->id],
-            [
+        try {
+            $vaildated = $this->validate([
+                'email' => 'required|email',
+                'phone' => 'required',
+                'website_url' => 'required|url',
+            ]);
+            $customerData = [
                 'email' => $this->email,
                 'phone' => $this->phone,
                 'website_url' => $this->website_url,
-            ]
-        );
-        $this->alert('success', 'تم التحديث بنجاح');
-        return redirect()->route('myPlan.investshow');
+            ];
+            Thankyou::updateOrCreate(
+                ['customer_id' => Auth::user()->id],
+                [
+                    'email' => $this->email,
+                    'phone' => $this->phone,
+                    'website_url' => $this->website_url,
+                ]
+            );
+            $this->alert('success', 'تم التحديث بنجاح');
+            return redirect()->route('myPlan.investshow');
+        } catch (\Exception $e) {
+            if(strpos($e->getMessage(), '1062') !== false){
+                $this->alert('error','تم استخدام هذا البريد الالكتروني من قبل');
+            }
+        }
+        
     }
     // tap 15
     public function requiredInvestmentSubmit(){
@@ -1019,6 +1027,7 @@ class Investshow extends Component
         }
         $unitForChart = $this->unit5 ?? '';
         $requiredInvestmentForChart = RequiredInvestment::latest()->first();
+        // dd($requiredInvestmentForChart);
         if($this->unit5){
             $this->unit5 == 'million' ? $unitForChart = 'مليون' : $unitForChart = 'مليار';
         }
@@ -1056,8 +1065,7 @@ class Investshow extends Component
             'image2',
             'image3',
             'image4',
-            'image5',
-            
+            'image5',            
         ));
     }
 

@@ -46,7 +46,7 @@ class SuperAdminController extends SuperAdminBaseController
             ->all();
 
 
-        return \view("super-admin-dashboard", [
+        return view("super-admin-dashboard", [
             "selected_navigation" => "sdashboard",
             "total_users" => $total_users,
             "total_workspaces" => $total_workspaces,

@@ -180,6 +180,7 @@ class AuthController extends Controller
     }
 
     public function superAdminPostLogin(Request $request){
+        
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
@@ -193,14 +194,9 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials, $remember)) {
             $user = User::where('email', $request->email)->first();
-
             if ($user->super_admin) {
-                return redirect()->route('login')->withErrors([
-                    "email" => __("Invalid user."),
-                ]);
+                return redirect()->route('super-admin.dashboard')->with('success', 'تم تسجيل الدخول بنجاح.');
             }
-
-            return redirect()->route('super-admin.dashboard')->with('success', 'تم تسجيل الدخول بنجاح.');
         }else {
             return redirect()->route('login')->withErrors([
                 "email" => __("Invalid user."),

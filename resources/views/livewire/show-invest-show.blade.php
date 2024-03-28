@@ -296,7 +296,7 @@
         </div>
     </div>
     {{-- solves --}}
-    <div class=" card " style="background-image: url('{{ display_file($image2)}}');position:relative;">
+    <div class=" card " style="background-image: url('{{ display_file($image5)}}');position:relative;">
         <div class="container py-4">
             <div class="row g-3">
                 @include('livewire.logo')
@@ -533,7 +533,7 @@
         </div>
     </div>
     {{-- marketplan --}}
-    <div class=" card " style="background-image: url('{{ display_file($image4)}}');">
+    <div class=" card " style="background-image: url('{{ display_file($image5)}}');">
         <div class="container p-4">
             <div class="row">
                 @include('livewire.logo')
@@ -604,7 +604,7 @@
     </div>
 </div>
 {{-- developplan --}}
-<div class=" card " style="background-image: url('{{ display_file($image3)}}');">
+<div class=" card " style="background-image: url('{{ display_file($image5)}}');">
     <div class="container p-4">
         <div class="row">
             @include('livewire.logo')
@@ -895,7 +895,7 @@
 </div>
 </div>
 {{-- requireinvestment--}}
-<div class=" card " style="background-image: url('{{ display_file($image1)}}');">
+<div class=" card " style="background-image: url('{{ display_file($image5)}}');">
     <div class="container p-4">
         <div class="row">
             @include('livewire.logo')

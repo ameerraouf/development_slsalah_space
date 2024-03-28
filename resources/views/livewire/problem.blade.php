@@ -3,7 +3,7 @@
     @endif
     <div class="card min-height-250 p-3">
         <div class="container">
-            <h5 class="text-dark text-center mb-3">{{ __('problem') }}</h5>
+            <h5 class="text-dark text-center mb-3">{{ __('Problems') }}</h5>
             <div class="row g-3">
                 <div class="col-md-12 row row-cols-1 row-cols-lg-3 g-3 justify-content-center">
                     <div class="col">
@@ -31,7 +31,7 @@
                             <div class="row">
                                 @include('livewire.logo')
                                 <div class="col-md-12 mx-auto text-center mb-3">
-                                    <h3 class="text-dark mb-4">{{ __('problem') }}</h3>
+                                    <h3 class="text-dark mb-4">{{ __('Problems') }}</h3>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="company_desc" class="form-label">{{ __('problem1') }}</label>

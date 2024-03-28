@@ -1,12 +1,20 @@
 <div>
     <div class="row">
-        <div class="w-full" style="height: 50%;">
-            <div class="w-full" style="height: 50%;" id="chart"></div>
+        <div style="text-align: center;">
+            <h4 style="display: inline-block;">حجم السوق</h4>
+        </div>
+        <div class="w-full" style="height: 50%; width:80%; margin-top: 5%; float:right">
+            <div>
+                @foreach ($markets as $index => $market)
+                    <p>حجم السوق في سنة {{ $myear[$index] }}  يبلغ  {{ $msize[$index] }} {{ $munit[$index] == 'million' ? 'مليون' : 'مليار' }} ريال</p>
+                @endforeach
+            </div>
+            <div class="w-full" style="height: 100%;" id="chart"></div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
         {{-- @if ($size && $size2 && $size3 && $size4 && $size5) --}}
-        @if ($msize[0] && $msize[1] && $msize[2] && $msize[3] && $msize[4])
+        @if ($msize)
             <script>
                 var options = {
                     chart: {

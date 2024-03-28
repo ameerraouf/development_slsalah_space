@@ -40,7 +40,6 @@
                         </div>
                         <div class="card-body">
                             <form role="form text-left" method="post" action="/super-admin/auth">
-
                                 @if (session()->has('status'))
                                     <div class="alert alert-success">
                                         {{session('status')}}

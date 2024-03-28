@@ -21,7 +21,7 @@
                     @endforeach
                     <div class="col d-flex align-items-end justify-content-center">
                         <button class="btn btn-info m-0 btn-sm" type="button"
-                            wire:click="updateteams">Update</button>
+                            wire:click="updateteams">{{ __('Update') }}</button>
                     </div>
                 </div>
                 <div class="col-md-12">

@@ -100,8 +100,8 @@
                                                             <label class="mb-0" style="font-size: 22px"> {{ $theme->name }}</label>
                                                         </div>
                                                         <div class="">
-                                                            @if($theme->image1)
-                                                                <img src="{{display_file($theme->image1)}}" alt="" class=" w-100 h-auto" style="border-radius:8px;" >
+                                                            @if($theme->image5)
+                                                                <img src="{{display_file($theme->image5)}}" alt="" class=" w-100 h-auto" style="border-radius:8px;" >
                                                             @else
                                                                 <img src="{{ asset('no-image.jpg') }}" alt="" class="img-thumbnail img-preview1 w-100 h-auto" style="border-radius:8px;">
                                                             @endif

@@ -844,6 +844,7 @@
     "business_pioneer": "رائد أعمال",
     "remove_from_favorite_successfully": "تم الإزالة من المفضلة بنجاح",
     "add_to_favorite_successfully": "تمت الإضافة إلى المفضلة بنجاح",
+    "problem": "المشاكل",
     "problem1": "المشكله الاولى",
     "problem2": "المشكله الثانيه",
     "problem3": "المشكله الثالثه",
@@ -917,6 +918,7 @@
     "finincalplan": "الخطة المالية",
     "requireinvestment": "الاستثمار المطلوب",
     "restpage": "باقى الصفحات",
+    "image": "الصورة",
     "thanku": "شكرا لكم",
     "hinterror": "يجب ان يكون عرض الصوره 960 *الطول 540 بكسل",
     "hint": "   مقاس الصوره عرض 960 * طول 540 بكسل"

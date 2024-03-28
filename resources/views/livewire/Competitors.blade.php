@@ -59,7 +59,7 @@
                         </table>
                         <div class="text-center">
                             <button class="btn btn-info m-0 btn-sm" type="button"
-                                wire:click="updatecompators">Update</button>
+                                wire:click="updatecompators">{{ __('Update') }}</button>
                         </div>
                     </div>
                 </div>

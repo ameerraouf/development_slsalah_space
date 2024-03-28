@@ -68,7 +68,7 @@
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div class=" card card-slide" style="background-image: url('{{ display_file($image2)}}');">
+                    <div class=" card card-slide" style="background-image: url('{{ display_file($image5)}}');">
                         <div class="container py-4">
                             <div class="row g-3">
                                 @include('livewire.logo')

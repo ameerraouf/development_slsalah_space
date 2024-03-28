@@ -111,11 +111,11 @@
                     </div>
                     @endforeach
                     <div class="col-12 d-flex align-items-end justify-content-center">
-                        <button class="btn btn-info btn-sm m-0" type="button" wire:click="developplan">Update</button>
+                        <button class="btn btn-info btn-sm m-0" type="button" wire:click="developplan">{{ __('Update') }}</button>
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div class=" card card-slide" style="background-image: url('{{ display_file($image3)}}');">
+                    <div class=" card card-slide" style="background-image: url('{{ display_file($image5)}}');">
                         <div class="container p-4">
                             <div class="row">
                                 @include('livewire.logo')

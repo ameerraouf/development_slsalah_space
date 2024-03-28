@@ -45,16 +45,27 @@
                                 <div class="col-md-12 mx-auto text-center">
                                     <h3 class="text-dark mb-4">{{ __('target') }}</h3>
                                 </div>
+                                <div>
+                                    <p>
+                                        إجمالي حجم السوق(TAM)
+                                    </p>
+                                    <p>
+                                        إجمالي حجم السوق المستهدف(SAM)
+                                    </p>
+                                    <p>
+                                        الحصة السوقية المستهدفة(SOM)
+                                    </p>
+                                </div>
                                 <div class="col-md-12 mx-auto text-center">
                                     <div class="circled pink d-inline-block"><span class="text-center"
                                             style="color: white; position: absolute;top: 11%;left: 28%; left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 14px;">
-                                            {{ $TAM }} {{ $unitForChart }} SAR </span>
+                                            {{ $TAM }} {{ $unitForChart }} ريال </span>
                                         <div class="circled light-pink text-center"><span
                                                 style="color: white;position: absolute;top: 10%;left: 19%; left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 14px;">{{ $SAM }}
-                                                {{ $unitForChart }} SAR </span>
+                                                {{ $unitForChart }} ريال </span>
                                             <div class="circled pale-pink text-center"><span
                                                     style="color: white;position: absolute;top: 43%;left: 5%; left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 14px;">{{ $SOM }}
-                                                    {{ $unitForChart }} SAR </span></div>
+                                                    {{ $unitForChart }} ريال </span></div>
                                         </div>
                                     </div>
                                 </div>
